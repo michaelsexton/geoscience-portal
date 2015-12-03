@@ -1,8 +1,8 @@
 package org.auscope.portal.mineraloccurrence;
 
-import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
+import org.junit.Assert;
+
 
 import org.auscope.portal.core.test.PortalTestClass;
 import org.auscope.portal.server.domain.ogc.AbstractFilterTestUtilities;
@@ -18,13 +18,14 @@ public class TestMineFilter extends PortalTestClass {
      * Test without mine name. If there is no name specified then all of the mines should be queried.
      */
     @Test
-    public void testWithNoMineName() throws IOException {
+    public void testWithNoMineName() throws Exception {
         MineFilter mineFilter = new MineFilter("");
 
         String filter = mineFilter.getFilterStringAllRecords();
-        assertEquals(
+        Assert.assertTrue(xmlStringEquals(
                 "<ogc:Filter><ogc:PropertyIsLike escapeChar=\"!\" wildCard=\"*\" matchCase=\"false\" singleChar=\"#\" ><ogc:PropertyName>er:specification/er:Mine/er:mineName/er:MineName/er:mineName</ogc:PropertyName><ogc:Literal>*</ogc:Literal></ogc:PropertyIsLike></ogc:Filter>",
-                filter);
+                filter,
+                false));
     }
 
     /**
