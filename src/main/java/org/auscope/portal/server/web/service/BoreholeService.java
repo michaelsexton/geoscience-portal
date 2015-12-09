@@ -27,6 +27,7 @@ import org.auscope.portal.core.services.responses.csw.CSWRecord;
 import org.auscope.portal.core.services.responses.ows.OWSExceptionParser;
 import org.auscope.portal.core.services.responses.wfs.WFSResponse;
 import org.auscope.portal.core.util.DOMUtil;
+import org.auscope.portal.core.xslt.WfsToKmlTransformer;
 import org.auscope.portal.gsml.BoreholeFilter;
 import org.auscope.portal.nvcl.NVCLNamespaceContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,22 +46,25 @@ import org.w3c.dom.NodeList;
 @Service
 public class BoreholeService extends BaseWFSService {
 
-    // -------------------------------------------------------------- Constants
+	// -------------------------------------------------------------- Constants
 
-    private final Log log = LogFactory.getLog(getClass());
+	private final Log log = LogFactory.getLog(getClass());
 
-    
-	/** different styles that apply for the different layers managed by this controller */
+	/**
+	 * different styles that apply for the different layers managed by this
+	 * controller
+	 */
 	public enum Styles {
 		ALL_BOREHOLES("circle", 6, "#ff9c2c", "#000000", 0.15);
-		
+
 		public final String shape;
 		public final int size;
 		public final String fillColour;
 		public final String borderColour;
 		public final double borderWidth;
-		
-		private Styles(final String shape, final int size, final String fillColour, final String borderColour, final double borderWidth) {
+
+		private Styles(final String shape, final int size, final String fillColour, final String borderColour,
+				final double borderWidth) {
 			this.shape = shape;
 			this.size = size;
 			this.fillColour = fillColour;
@@ -69,224 +73,235 @@ public class BoreholeService extends BaseWFSService {
 		}
 	}
 
+	// ----------------------------------------------------- Instance variables
+	private WfsToKmlTransformer wfsToKml;
+	private String gsmlpNameSpace = null;
+	// ----------------------------------------------------------- Constructors
 
-    @Autowired
-    public BoreholeService(HttpServiceCaller serviceCaller, WFSGetFeatureMethodMaker methodMaker) {
-        super(serviceCaller, methodMaker);
-    }
+	@Autowired
+	public BoreholeService(HttpServiceCaller serviceCaller, WFSGetFeatureMethodMaker methodMaker) {
+		super(serviceCaller, methodMaker);
+	}
 
-    // --------------------------------------------------------- Public Methods
+	// --------------------------------------------------------- Public Methods
 
-    /**
-     * Get all boreholes from a given service url and return the response
-     *
-     * @param serviceURL
-     * @param bbox
-     *            Set to the bounding box in which to fetch results, otherwise set it to null
-     * @param restrictToIDList
-     *            [Optional] A list of gml:id values that the resulting filter should restrict its search space to
-     * @return
-     * @throws Exception
-     */
-    public WFSResponse getAllBoreholes(String serviceURL, String boreholeName, String custodian,
-            String dateOfDrilling, int maxFeatures, FilterBoundingBox bbox, List<String> restrictToIDList, String outputFormat)
-            throws Exception {
-        String filterString;
-        BoreholeFilter nvclFilter = new BoreholeFilter(boreholeName, custodian, dateOfDrilling,restrictToIDList);
-        if (bbox == null) {
-            filterString = nvclFilter.getFilterStringAllRecords();
-        } else {
-            filterString = nvclFilter.getFilterStringBoundingBox(bbox);
-        }
+	/**
+	 * Get all boreholes from a given service url and return the response
+	 *
+	 * @param serviceURL
+	 * @param bbox
+	 *            Set to the bounding box in which to fetch results, otherwise
+	 *            set it to null
+	 * @param restrictToIDList
+	 *            [Optional] A list of gml:id values that the resulting filter
+	 *            should restrict its search space to
+	 * @return
+	 * @throws Exception
+	 */
+	public WFSResponse getAllBoreholes(String serviceURL, String boreholeName, String custodian, String dateOfDrilling,
+			int maxFeatures, FilterBoundingBox bbox, List<String> restrictToIDList, String outputFormat)
+					throws Exception {
+		String filterString;
+		BoreholeFilter nvclFilter = new BoreholeFilter(boreholeName, custodian, dateOfDrilling, restrictToIDList);
+		if (bbox == null) {
+			filterString = nvclFilter.getFilterStringAllRecords();
+		} else {
+			filterString = nvclFilter.getFilterStringBoundingBox(bbox);
+		}
 
-        HttpRequestBase method = null;
-        try {
-            // Create a GetFeature request with an empty filter - get all
-            method = this.generateWFSRequest(serviceURL, getTypeName(), null, filterString, maxFeatures, null,
-                    ResultType.Results, outputFormat);
-            String responseData = this.httpServiceCaller.getMethodResponseAsString(method);
+		HttpRequestBase method = null;
+		try {
+			// Create a GetFeature request with an empty filter - get all
+			method = this.generateWFSRequest(serviceURL, getTypeName(), null, filterString, maxFeatures, null,
+					ResultType.Results, outputFormat);
+			String responseData = this.httpServiceCaller.getMethodResponseAsString(method);
 
-            return new WFSResponse(responseData, method);
-        } catch (Exception ex) {
-            throw new PortalServiceException(method, ex);
-        }
-    }
+			return new WFSResponse(responseData, method);
+		} catch (Exception ex) {
+			throw new PortalServiceException(method, ex);
+		}
+	}
 
-    /**
-     * Counts all boreholes from a given service url and return the response
-     *
-     * @param serviceURL
-     * @param bbox
-     *            Set to the bounding box in which to fetch results, otherwise set it to null
-     * @param restrictToIDList
-     *            [Optional] A list of gml:id values that the resulting filter should restrict its search space to
-     * @return
-     * @throws Exception
-     */
-    public int countAllBoreholes(String serviceURL, String boreholeName, String custodian,
-            String dateOfDrilling, int maxFeatures, FilterBoundingBox bbox, List<String> restrictToIDList)
-            throws Exception {
-        String filterString;
-        BoreholeFilter nvclFilter = new BoreholeFilter(boreholeName, custodian, dateOfDrilling,restrictToIDList);
-        if (bbox == null) {
-            filterString = nvclFilter.getFilterStringAllRecords();
-        } else {
-            filterString = nvclFilter.getFilterStringBoundingBox(bbox);
-        }
+	/**
+	 * Counts all boreholes from a given service url and return the response
+	 *
+	 * @param serviceURL
+	 * @param bbox
+	 *            Set to the bounding box in which to fetch results, otherwise
+	 *            set it to null
+	 * @param restrictToIDList
+	 *            [Optional] A list of gml:id values that the resulting filter
+	 *            should restrict its search space to
+	 * @return
+	 * @throws Exception
+	 */
+	public int countAllBoreholes(String serviceURL, String boreholeName, String custodian, String dateOfDrilling,
+			int maxFeatures, FilterBoundingBox bbox, List<String> restrictToIDList) throws Exception {
+		String filterString;
+		BoreholeFilter nvclFilter = new BoreholeFilter(boreholeName, custodian, dateOfDrilling, restrictToIDList);
+		if (bbox == null) {
+			filterString = nvclFilter.getFilterStringAllRecords();
+		} else {
+			filterString = nvclFilter.getFilterStringBoundingBox(bbox);
+		}
 
-        HttpRequestBase method = null;
-        try {
-            // Create a GetFeature request with an empty filter - get all
-            method = this.generateWFSRequest(serviceURL, getTypeName(), null, filterString, maxFeatures, null,
-                    ResultType.Hits, null);
-            String responseGml = this.httpServiceCaller.getMethodResponseAsString(method);
+		HttpRequestBase method = null;
+		try {
+			// Create a GetFeature request with an empty filter - get all
+			method = this.generateWFSRequest(serviceURL, getTypeName(), null, filterString, maxFeatures, null,
+					ResultType.Hits, null);
+			String responseGml = this.httpServiceCaller.getMethodResponseAsString(method);
 
-            Document doc = DOMUtil.buildDomFromString(responseGml, true);
-            String number = (String) DOMUtil.compileXPathExpr("wfs:FeatureCollection/@numberOfFeatures", new WFSNamespaceContext()).evaluate(doc, XPathConstants.STRING);
-            return Integer.parseInt(number);
-        } catch (Exception ex) {
-            throw new PortalServiceException(method, ex);
-        }
-    }
-    
-    private void appendHyloggerBoreholeIDs(String url, String typeName, List<String> idList)
-            throws PortalServiceException, URISyntaxException {
-        //Make request
-        HttpRequestBase method = wfsMethodMaker.makeGetMethod(url, typeName, (Integer) null, null);
-        try {
-            String wfsResponse = httpServiceCaller.getMethodResponseAsString(method);
+			Document doc = DOMUtil.buildDomFromString(responseGml, true);
+			String number = (String) DOMUtil
+					.compileXPathExpr("wfs:FeatureCollection/@numberOfFeatures", new WFSNamespaceContext())
+					.evaluate(doc, XPathConstants.STRING);
+			return Integer.parseInt(number);
+		} catch (Exception ex) {
+			throw new PortalServiceException(method, ex);
+		}
+	}
 
-            //Parse response
-            Document doc = DOMUtil.buildDomFromString(wfsResponse);
+	private void appendHyloggerBoreholeIDs(String url, String typeName, List<String> idList)
+			throws PortalServiceException, URISyntaxException {
+		// Make request
+		HttpRequestBase method = wfsMethodMaker.makeGetMethod(url, typeName, (Integer) null, null);
+		try {
+			String wfsResponse = httpServiceCaller.getMethodResponseAsString(method);
 
-            OWSExceptionParser.checkForExceptionResponse(doc);
+			// Parse response
+			Document doc = DOMUtil.buildDomFromString(wfsResponse);
 
-            XPath xPath = XPathFactory.newInstance().newXPath();
-            xPath.setNamespaceContext(new NVCLNamespaceContext());
+			OWSExceptionParser.checkForExceptionResponse(doc);
 
-            //Get our ID's
-            NodeList publishedDatasets = (NodeList) xPath.evaluate("/wfs:FeatureCollection/gml:featureMembers/"
-                    + NVCLNamespaceContext.PUBLISHED_DATASETS_TYPENAME + "/nvcl:scannedBorehole", doc,
-                    XPathConstants.NODESET);
-            for (int i = 0; i < publishedDatasets.getLength(); i++) {
-                Node holeIdentifier = (Node) xPath.evaluate("@xlink:href", publishedDatasets.item(i),
-                        XPathConstants.NODE);
-                if (holeIdentifier != null) {
-                    String[] urnBlocks = holeIdentifier.getTextContent().split("/");
-                    if (urnBlocks.length > 1) {
-                        // skip invalid URIs
-                        idList.add(urnBlocks[urnBlocks.length - 1].trim());
-                    }
-                }
+			XPath xPath = XPathFactory.newInstance().newXPath();
+			xPath.setNamespaceContext(new NVCLNamespaceContext());
 
-            }
-        } catch (Exception ex) {
-            throw new PortalServiceException(method, ex);
-        }
-    }
+			// Get our ID's
+			NodeList publishedDatasets = (NodeList) xPath
+					.evaluate(
+							"/wfs:FeatureCollection/gml:featureMembers/"
+									+ NVCLNamespaceContext.PUBLISHED_DATASETS_TYPENAME + "/nvcl:scannedBorehole",
+							doc, XPathConstants.NODESET);
+			for (int i = 0; i < publishedDatasets.getLength(); i++) {
+				Node holeIdentifier = (Node) xPath.evaluate("@xlink:href", publishedDatasets.item(i),
+						XPathConstants.NODE);
+				if (holeIdentifier != null) {
+					String[] urnBlocks = holeIdentifier.getTextContent().split("/");
+					if (urnBlocks.length > 1) {
+						// skip invalid URIs
+						idList.add(urnBlocks[urnBlocks.length - 1].trim());
+					}
+				}
 
-    /**
-     * Goes to the CSWService to get all services that support the PUBLISHED_DATASETS_TYPENAME and queries them to generate a list of borehole ID's that
-     * represent every borehole with Hylogger data.
-     *
-     * If any of the services queried fail to return valid responses they will be skipped
-     *
-     * @param cswService
-     *            Will be used to find the appropriate service to query
-     * @param CSWRecordsFilterVisitor
-     *            A filter visitor used to perform filter operation on the online resource. Use null if not required
-     * @throws Exception
-     */
-    public List<String> discoverHyloggerBoreholeIDs(CSWCacheService cswService, CSWRecordsFilterVisitor visitor) {
-        List<String> ids = new ArrayList<String>();
+			}
+		} catch (Exception ex) {
+			throw new PortalServiceException(method, ex);
+		}
+	}
 
-        for (CSWRecord record : cswService.getWFSRecords()) {
-            for (AbstractCSWOnlineResource resource : record.getOnlineResourcesByType(visitor, OnlineResourceType.WFS)) {
-                if (resource.getName().equals(NVCLNamespaceContext.PUBLISHED_DATASETS_TYPENAME)) {
-                    try {
-                        appendHyloggerBoreholeIDs(resource.getLinkage().toString(), resource.getName(), ids);
-                    } catch (Exception ex) {
-                        log.warn(String.format("Discovering boreholes at '%1$s' failed", resource.getLinkage()), ex);
-                    }
-                }
-            }
-        }
+	/**
+	 * Goes to the CSWService to get all services that support the
+	 * PUBLISHED_DATASETS_TYPENAME and queries them to generate a list of
+	 * borehole ID's that represent every borehole with Hylogger data.
+	 *
+	 * If any of the services queried fail to return valid responses they will
+	 * be skipped
+	 *
+	 * @param cswService
+	 *            Will be used to find the appropriate service to query
+	 * @param CSWRecordsFilterVisitor
+	 *            A filter visitor used to perform filter operation on the
+	 *            online resource. Use null if not required
+	 * @throws Exception
+	 */
+	public List<String> discoverHyloggerBoreholeIDs(CSWCacheService cswService, CSWRecordsFilterVisitor visitor) {
+		List<String> ids = new ArrayList<String>();
 
-        return ids;
-    }
+		for (CSWRecord record : cswService.getWFSRecords()) {
+			for (AbstractCSWOnlineResource resource : record.getOnlineResourcesByType(visitor,
+					OnlineResourceType.WFS)) {
+				if (resource.getName().equals(NVCLNamespaceContext.PUBLISHED_DATASETS_TYPENAME)) {
+					try {
+						appendHyloggerBoreholeIDs(resource.getLinkage().toString(), resource.getName(), ids);
+					} catch (Exception ex) {
+						log.warn(String.format("Discovering boreholes at '%1$s' failed", resource.getLinkage()), ex);
+					}
+				}
+			}
+		}
 
-    public String getFilter(String boreholeName, String custodian, String dateOfDrilling,
-            int maxFeatures, FilterBoundingBox bbox, List<String> ids) throws Exception {
-        BoreholeFilter filter = new BoreholeFilter(boreholeName, custodian, dateOfDrilling, ids);
-        return generateFilterString(filter, bbox);
-    }
+		return ids;
+	}
 
-    /**
-     * Utility for turning a filter and optional bounding box into a OGC filter string
-     * 
-     * @param filter
-     *            The filter
-     * @param bbox
-     *            [Optional] the spatial bounds to constrain the result set
-     * @return
-     */
-    public static String generateFilterString(IFilter filter, FilterBoundingBox bbox) {
-        String filterString = null;
-        if (bbox == null) {
-            filterString = filter.getFilterStringAllRecords();
-        } else {
-            filterString = filter.getFilterStringBoundingBox(bbox);
-        }
+	public String getFilter(String boreholeName, String custodian, String dateOfDrilling, int maxFeatures,
+			FilterBoundingBox bbox, List<String> ids) throws Exception {
+		BoreholeFilter filter = new BoreholeFilter(boreholeName, custodian, dateOfDrilling, ids);
+		return generateFilterString(filter, bbox);
+	}
 
-        return filterString;
-    }
+	/**
+	 * Utility for turning a filter and optional bounding box into a OGC filter
+	 * string
+	 * 
+	 * @param filter
+	 *            The filter
+	 * @param bbox
+	 *            [Optional] the spatial bounds to constrain the result set
+	 * @return
+	 */
+	public static String generateFilterString(IFilter filter, FilterBoundingBox bbox) {
+		String filterString = null;
+		if (bbox == null) {
+			filterString = filter.getFilterStringAllRecords();
+		} else {
+			filterString = filter.getFilterStringBoundingBox(bbox);
+		}
 
-    public String getStyle(String filter, String hyloggerFilter, String hyloggerColor, Styles styles) {
+		return filterString;
+	}
 
-        String style = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-                + "<StyledLayerDescriptor version=\"1.0.0\" xmlns:gsmlp=\"http://xmlns.geosciml.org/geosciml-portrayal/2.0\" "
-                + "xsi:schemaLocation=\"http://www.opengis.net/sld StyledLayerDescriptor.xsd\" xmlns:ogc=\"http://www.opengis.net/ogc\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:gml=\"http://www.opengis.net/gml\" xmlns:gsml=\"urn:cgi:xmlns:CGI:GeoSciML:2.0\" xmlns:sld=\"http://www.opengis.net/sld\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
-                + "<NamedLayer>" + "<Name>"
-                + getTypeName()
-                + "</Name>"
-                + "<UserStyle>"
-                + "<Name>portal-style</Name>"
-                + "<Title>portal-style</Title>"
-                + "<Abstract>portal-style</Abstract>"
-                + "<IsDefault>1</IsDefault>"
-                + "<FeatureTypeStyle>"
-                + "<Rule>"
-                + "<Name>Borehole</Name>"
-                + filter
-                + "<PointSymbolizer>"
-                + "<Geometry><ogc:PropertyName>" + getGeometryName() + "</ogc:PropertyName></Geometry>"
-                + "<Graphic>"
-                + "<Mark>"
-                + "<WellKnownName>"+ styles.shape + "</WellKnownName>"
-                + "<Fill>"
-                + "<CssParameter name=\"fill\">" + styles.fillColour
-                + "</CssParameter>"
-                + "</Fill>"
-                + "<Stroke>" 
-                + "<CssParameter name=\"stroke\">" + styles.borderColour + "</CssParameter>" 
-                + "<CssParameter name=\"stroke-width\">" + styles.borderWidth + "</CssParameter>" 
-                + "</Stroke>" 
-                + "</Mark>"
-                + "<Size>" + styles.size + "</Size>"
-                + "</Graphic>"
-                + "</PointSymbolizer>"
-                + "</Rule>"
-                + "</FeatureTypeStyle>"
-                + "</UserStyle>" + "</NamedLayer>" + "</StyledLayerDescriptor>";
+	public String getStyle(String filter, String color, String hyloggerFilter, String hyloggerColor,
+			Styles styles, String gsmlpNameSpace) {
+		setGsmlpNameSpace(gsmlpNameSpace);
+		return getStyle(filter, color, hyloggerFilter, hyloggerColor, styles);
+	}
 
-        return style;
-    }
+	public String getStyle(String filter, String color, String hyloggerFilter, String hyloggerColor, Styles styles) {
 
-    public String getTypeName() {
-        return "gsml:Borehole";
-    }
+		String style = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+				+ "<StyledLayerDescriptor version=\"1.0.0\" xmlns:gsmlp=\"" + getGsmlpNameSpace() + "\" "
+				+ "xsi:schemaLocation=\"http://www.opengis.net/sld StyledLayerDescriptor.xsd\" xmlns:ogc=\"http://www.opengis.net/ogc\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:gml=\"http://www.opengis.net/gml\" xmlns:gsml=\"urn:cgi:xmlns:CGI:GeoSciML:2.0\" xmlns:sld=\"http://www.opengis.net/sld\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">"
+				+ "<NamedLayer>" + "<Name>" + getTypeName() + "</Name>" + "<UserStyle>" + "<Name>portal-style</Name>"
+				+ "<Title>portal-style</Title>" + "<Abstract>portal-style</Abstract>" + "<IsDefault>1</IsDefault>"
+				+ "<FeatureTypeStyle>" + "<Rule>" + "<Name>Borehole</Name>" + filter + "<PointSymbolizer>"
+				+ "<Geometry><ogc:PropertyName>" + getGeometryName() + "</ogc:PropertyName></Geometry>" + "<Graphic>"
+				+ "<Mark>" + "<WellKnownName>" + styles.shape + "</WellKnownName>" + "<Fill>"
+				+ "<CssParameter name=\"fill\">" + styles.fillColour + "</CssParameter>" + "</Fill>" + "<Stroke>"
+				+ "<CssParameter name=\"stroke\">" + styles.borderColour + "</CssParameter>"
+				+ "<CssParameter name=\"stroke-width\">" + styles.borderWidth + "</CssParameter>" + "</Stroke>"
+				+ "</Mark>" + "<Size>" + styles.size + "</Size>" + "</Graphic>" + "</PointSymbolizer>" + "</Rule>"
+				+ "</FeatureTypeStyle>" + "</UserStyle>" + "</NamedLayer>" + "</StyledLayerDescriptor>";
 
-    public String getGeometryName() {
-        return "gsml:collarLocation/gsml:BoreholeCollar/gsml:location";
-    }
+		return style;
+	}
+
+	public String getTypeName() {
+		return "gsml:Borehole";
+	}
+
+	public String getGeometryName() {
+		return "gsml:collarLocation/gsml:BoreholeCollar/gsml:location";
+	}
+
+	public String getGsmlpNameSpace() {
+		if (gsmlpNameSpace == null)
+			return " xmlns:gsmlp=\"http://xmlns.geosciml.org/geosciml-portrayal/2.0\" ";
+		else
+			return gsmlpNameSpace;
+	}
+
+	public void setGsmlpNameSpace(String gsmlpNameSpace) {
+		this.gsmlpNameSpace = gsmlpNameSpace;
+	}
 }
