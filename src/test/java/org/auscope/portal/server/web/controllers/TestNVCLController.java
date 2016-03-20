@@ -15,7 +15,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.auscope.portal.core.services.CSWCacheService;
 import org.auscope.portal.core.services.csw.CSWRecordsFilterVisitor;
 import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
-import org.auscope.portal.core.services.responses.wfs.WFSResponse;
+import org.auscope.portal.core.services.responses.wfs.WFSTransformedResponse;
 import org.auscope.portal.core.test.ByteBufferedServletOutputStream;
 import org.auscope.portal.core.test.PortalTestClass;
 import org.auscope.portal.server.domain.nvcldataservice.CSVDownloadResponse;
@@ -35,11 +35,12 @@ import org.jmock.Expectations;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
  * The Class TestNVCLController.
- *
+ * 
  * @version: $Id$
  */
 @SuppressWarnings("rawtypes")
@@ -88,20 +89,20 @@ public class TestNVCLController extends PortalTestClass {
         final String serviceUrl = "http://fake.com/wfs";
         final String nameFilter = "filterBob";
         final String custodianFilter = "filterCustodian";
-        final String dateOfDrilling = "1986-10-09";
+        final String filterDate = "1986-10-09";
         final int maxFeatures = 10;
         final FilterBoundingBox bbox = new FilterBoundingBox("EPSG:4326", new double[] {1, 2}, new double[] {3, 4});
         final String nvclWfsResponse = "wfsResponse";
-        final String outputFormat = "text/csv";
+        final String nvclKmlResponse = "kmlResponse";
         final boolean onlyHylogger = false;
         final HttpRequestBase mockHttpMethodBase = context.mock(HttpRequestBase.class);
         final URI httpMethodURI = new URI("http://example.com");
 
         context.checking(new Expectations() {
             {
-                oneOf(mockBoreholeService).getAllBoreholes(serviceUrl, nameFilter, custodianFilter,
-                		dateOfDrilling, maxFeatures, bbox, null, outputFormat);
-                will(returnValue(new WFSResponse(nvclWfsResponse, mockHttpMethodBase)));
+                oneOf(mockBoreholeService).getAllBoreholes(serviceUrl, nameFilter, custodianFilter, filterDate,
+                        maxFeatures, bbox, null);
+                will(returnValue(new WFSTransformedResponse(nvclWfsResponse, nvclKmlResponse, mockHttpMethodBase, true)));
 
                 allowing(mockHttpMethodBase).getURI();
                 will(returnValue(httpMethodURI));
@@ -110,12 +111,15 @@ public class TestNVCLController extends PortalTestClass {
         });
 
         ModelAndView response = this.nvclController.doBoreholeFilter(serviceUrl, nameFilter, custodianFilter,
-        		dateOfDrilling, maxFeatures, bbox, onlyHylogger, outputFormat, false);
+                filterDate, maxFeatures, bbox, onlyHylogger);
         Assert.assertTrue((Boolean) response.getModel().get("success"));
 
-        Map data = (Map) response.getModel().get("data");
-        Assert.assertNotNull(data);
-        Assert.assertEquals(nvclWfsResponse, data.get("gml"));
+        Object dataObj = response.getModel().get("data");
+        Assert.assertNotNull(dataObj);
+        if (dataObj instanceof ModelMap) {
+            Assert.assertEquals(nvclWfsResponse, ((ModelMap)dataObj).get("gml"));
+            Assert.assertEquals(nvclKmlResponse, ((ModelMap)dataObj).get("kml"));
+        }
     }
 
     /**
@@ -129,11 +133,11 @@ public class TestNVCLController extends PortalTestClass {
         final String serviceUrl = "http://fake.com/wfs";
         final String nameFilter = "filterBob";
         final String custodianFilter = "filterCustodian";
-        final String dateOfDrilling = "1986-10-09";
+        final String filterDate = "1986-10-09";
         final int maxFeatures = 10;
         final FilterBoundingBox bbox = new FilterBoundingBox("EPSG:4326", new double[] {1, 2}, new double[] {3, 4});
         final String nvclWfsResponse = "wfsResponse";
-        final String outputFormat = "text/csv";
+        final String nvclKmlResponse = "kmlResponse";
         final List<String> restrictedIds = Arrays.asList("ID1", "ID2");
         final boolean onlyHylogger = true;
         final HttpRequestBase mockHttpMethodBase = context.mock(HttpRequestBase.class);
@@ -145,9 +149,9 @@ public class TestNVCLController extends PortalTestClass {
                         with(any(CSWRecordsFilterVisitor.class)));
                 will(returnValue(restrictedIds));
 
-                oneOf(mockBoreholeService).getAllBoreholes(serviceUrl, nameFilter, custodianFilter,
-                		dateOfDrilling, maxFeatures, bbox, restrictedIds, outputFormat);
-                will(returnValue(new WFSResponse(nvclWfsResponse, mockHttpMethodBase)));
+                oneOf(mockBoreholeService).getAllBoreholes(serviceUrl, nameFilter, custodianFilter, filterDate,
+                        maxFeatures, bbox, restrictedIds);
+                will(returnValue(new WFSTransformedResponse(nvclWfsResponse, nvclKmlResponse, mockHttpMethodBase)));
 
                 allowing(mockHttpMethodBase).getURI();
                 will(returnValue(httpMethodURI));
@@ -155,12 +159,15 @@ public class TestNVCLController extends PortalTestClass {
         });
 
         ModelAndView response = this.nvclController.doBoreholeFilter(serviceUrl, nameFilter, custodianFilter,
-        		dateOfDrilling, maxFeatures, bbox, onlyHylogger, outputFormat, false);
+                filterDate, maxFeatures, bbox, onlyHylogger);
         Assert.assertTrue((Boolean) response.getModel().get("success"));
 
-        Map data = (Map) response.getModel().get("data");
-        Assert.assertNotNull(data);
-        Assert.assertEquals(nvclWfsResponse, data.get("gml"));
+        Object dataObj = response.getModel().get("data");
+        Assert.assertNotNull(dataObj);
+        if (dataObj instanceof ModelMap) {
+            Assert.assertEquals(nvclWfsResponse, ((ModelMap)dataObj).get("gml"));
+            Assert.assertEquals(nvclKmlResponse, ((ModelMap)dataObj).get("kml"));
+        }
     }
 
     /**
@@ -174,13 +181,12 @@ public class TestNVCLController extends PortalTestClass {
         final String serviceUrl = "http://fake.com/wfs";
         final String nameFilter = "filterBob";
         final String custodianFilter = "filterCustodian";
-        final String dateOfDrilling = "1986-10-09";
+        final String filterDate = "1986-10-09";
         final int maxFeatures = 10;
         final FilterBoundingBox bbox = new FilterBoundingBox("EPSG:4326", new double[] {1, 2}, new double[] {3, 4});
         final boolean onlyHylogger = true;
         final HttpRequestBase mockHttpMethodBase = context.mock(HttpRequestBase.class);
         final URI httpMethodURI = new URI("http://example.com");
-        final String outputFormat = "text/csv";
 
         context.checking(new Expectations() {
             {
@@ -194,7 +200,7 @@ public class TestNVCLController extends PortalTestClass {
         });
 
         ModelAndView response = this.nvclController.doBoreholeFilter(serviceUrl, nameFilter, custodianFilter,
-        		dateOfDrilling, maxFeatures, bbox, onlyHylogger, outputFormat, false);
+                filterDate, maxFeatures, bbox, onlyHylogger);
         Assert.assertFalse((Boolean) response.getModel().get("success"));
     }
 
@@ -209,13 +215,12 @@ public class TestNVCLController extends PortalTestClass {
         final String serviceUrl = "http://fake.com/wfs";
         final String nameFilter = "filterBob";
         final String custodianFilter = "filterCustodian";
-        final String dateOfDrilling = "1986-10-09";
+        final String filterDate = "1986-10-09";
         final int maxFeatures = 10;
         final FilterBoundingBox bbox = new FilterBoundingBox("EPSG:4326", new double[] {1., 2.}, new double[] {3., 4.});
         final boolean onlyHylogger = true;
         final HttpRequestBase mockHttpMethodBase = context.mock(HttpRequestBase.class);
         final URI httpMethodURI = new URI("http://example.com");
-        final String outputFormat = "text/csv";
 
         context.checking(new Expectations() {
             {
@@ -229,13 +234,13 @@ public class TestNVCLController extends PortalTestClass {
         });
 
         ModelAndView response = this.nvclController.doBoreholeFilter(serviceUrl, nameFilter, custodianFilter,
-        		dateOfDrilling, maxFeatures, bbox, onlyHylogger, outputFormat, false);
+                filterDate, maxFeatures, bbox, onlyHylogger);
         Assert.assertFalse((Boolean) response.getModel().get("success"));
     }
 
     /**
      * Tests getting dataset collection succeeds if underlying service succeeds.
-     *
+     * 
      * @throws Exception
      */
     @Test
@@ -260,7 +265,7 @@ public class TestNVCLController extends PortalTestClass {
 
     /**
      * Tests getting dataset collection fails if underlying service fails.
-     *
+     * 
      * @throws Exception
      */
     @Test
@@ -282,7 +287,7 @@ public class TestNVCLController extends PortalTestClass {
 
     /**
      * Tests getting dataset collection succeeds if underlying service succeeds.
-     *
+     * 
      * @throws Exception
      */
     @Test
@@ -307,7 +312,7 @@ public class TestNVCLController extends PortalTestClass {
 
     /**
      * Tests getting dataset collection fails if underlying service fails.
-     *
+     * 
      * @throws Exception
      */
     @Test
@@ -330,7 +335,7 @@ public class TestNVCLController extends PortalTestClass {
 
     /**
      * Tests getting mosaic.
-     *
+     * 
      * @throws Exception
      */
     @Test
@@ -369,7 +374,7 @@ public class TestNVCLController extends PortalTestClass {
 
     /**
      * Tests getting mosaic fails gracefully when the service fails.
-     *
+     * 
      * @throws Exception
      */
     @Test
@@ -394,7 +399,7 @@ public class TestNVCLController extends PortalTestClass {
 
     /**
      * Tests getting PlotScalar.
-     *
+     * 
      * @throws Exception
      */
     @Test
@@ -439,7 +444,7 @@ public class TestNVCLController extends PortalTestClass {
 
     /**
      * Tests getting PlotScalar fails correctly.
-     *
+     * 
      * @throws Exception
      */
     @Test
@@ -470,7 +475,7 @@ public class TestNVCLController extends PortalTestClass {
 
     /**
      * Tests a CSV download calls the underlying service correctly
-     *
+     * 
      * @throws Exception
      */
     @Test
@@ -508,7 +513,7 @@ public class TestNVCLController extends PortalTestClass {
 
     /**
      * Tests a TSG download calls the underlying service correctly
-     *
+     * 
      * @throws Exception
      */
     @Test
@@ -554,7 +559,7 @@ public class TestNVCLController extends PortalTestClass {
 
     /**
      * Tests a workaround for spring framework combining multiple parameters (of the same name) into a CSV
-     *
+     * 
      * @throws Exception
      */
     @Test
@@ -601,7 +606,7 @@ public class TestNVCLController extends PortalTestClass {
 
     /**
      * Tests a TSG download status calls the underlying service correctly
-     *
+     * 
      * @throws Exception
      */
     @Test
@@ -637,7 +642,7 @@ public class TestNVCLController extends PortalTestClass {
 
     /**
      * Tests a WFS download calls the underlying service correctly
-     *
+     * 
      * @throws Exception
      */
     @Test
@@ -676,7 +681,7 @@ public class TestNVCLController extends PortalTestClass {
 
     /**
      * Tests a WFS download status calls the underlying service correctly
-     *
+     * 
      * @throws Exception
      */
     @Test
@@ -722,19 +727,19 @@ public class TestNVCLController extends PortalTestClass {
         final String serviceFilter = "http://fake.com";
         final String nameFilter = "filterBob";
         final String custodianFilter = "filterCustodian";
-        final String dateOfDrilling = "1986-10-09";
+        final String filterDate = "1986-10-09";
         final int maxFeatures = -1;
         final String nvclWfsResponse = "wfsResponse";
+        final String nvclKmlResponse = "kmlResponse";
         final String onlyHylogger = "off";
         final HttpRequestBase mockHttpMethodBase = context.mock(HttpRequestBase.class);
         final URI httpMethodURI = new URI("http://example.com");
-        final String outputFormat = "text/csv";
 
         context.checking(new Expectations() {
             {
-                oneOf(mockBoreholeService).getAllBoreholes(serviceUrl, nameFilter, custodianFilter,
-                		dateOfDrilling, maxFeatures, null, null, outputFormat);
-                will(returnValue(new WFSResponse(nvclWfsResponse, mockHttpMethodBase)));
+                oneOf(mockBoreholeService).getAllBoreholes(serviceUrl, nameFilter, custodianFilter, filterDate,
+                        maxFeatures, null, null);
+                will(returnValue(new WFSTransformedResponse(nvclWfsResponse, nvclKmlResponse, mockHttpMethodBase)));
 
                 allowing(mockHttpMethodBase).getURI();
                 will(returnValue(httpMethodURI));
@@ -742,12 +747,15 @@ public class TestNVCLController extends PortalTestClass {
         });
 
         ModelAndView response = this.nvclController.doBoreholeFilter(serviceUrl, nameFilter, custodianFilter,
-        		dateOfDrilling, maxFeatures, "", onlyHylogger, serviceFilter, outputFormat);
+                filterDate, maxFeatures, "", onlyHylogger, serviceFilter);
         Assert.assertTrue((Boolean) response.getModel().get("success"));
 
-        Map data = (Map) response.getModel().get("data");
-        Assert.assertNotNull(data);
-        Assert.assertEquals(nvclWfsResponse, data.get("gml"));
+        Object dataObj = response.getModel().get("data");
+        Assert.assertNotNull(dataObj);
+        if (dataObj instanceof ModelMap) {
+            Assert.assertEquals(nvclWfsResponse, ((ModelMap)dataObj).get("gml"));
+            Assert.assertEquals(nvclKmlResponse, ((ModelMap)dataObj).get("kml"));
+        }
     }
 
     @Test
@@ -756,13 +764,12 @@ public class TestNVCLController extends PortalTestClass {
         final String serviceFilter = "http://fakeNOT.com";
         final String nameFilter = "filterBob";
         final String custodianFilter = "filterCustodian";
-        final String dateOfDrilling = "1986-10-09";
+        final String filterDate = "1986-10-09";
         final int maxFeatures = 10;
         final String onlyHylogger = "off";
-        final String outputFormat = "text/csv";
 
         ModelAndView response = this.nvclController.doBoreholeFilter(serviceUrl, nameFilter, custodianFilter,
-        		dateOfDrilling, maxFeatures, "", onlyHylogger, serviceFilter, outputFormat);
+                filterDate, maxFeatures, "", onlyHylogger, serviceFilter);
         Map data = (Map) response.getModel().get("data");
         Assert.assertNull(data);
     }

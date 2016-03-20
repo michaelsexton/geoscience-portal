@@ -62,6 +62,7 @@
         <property name="name" value="Mineral Occurrences"/>
         <property name="description" value="A collection of services that implement the AuScope EarthResourceML v1 Profile for mo:MinOccView"/>
         <property name="group" value="Mineral Occurrences and Resources"/>
+        <!-- We don't need proxyUrl as Mineral tenements are WMS and NOT WFS -->
         <property name="proxyUrl" value=""/>
         <property name="proxyCountUrl" value="doMineralOccurrenceFilterCount.do"/>
         <property name="proxyStyleUrl" value="doMinOccurViewFilterStyle.do"/>
@@ -105,9 +106,9 @@
         <property name="description" value="A collection of services that implement the AuScope EarthResourceML v1 Profile for mt:Mineral Tenement"/>
         <property name="group" value="Tenements"/>
 
-
-        <property name="proxyUrl" value="getAllMineralTenementFeatures.do"/>
-        <property name="proxyCountUrl" value="getMineralTenementCount.do"/>
+        <!-- We don't need proxyUrl as Mineral tenements are WMS and NOT WFS -->
+        <property name="proxyUrl" value=""/>
+        <property name="proxyCountUrl" value=""/>
         <property name="proxyStyleUrl" value="getMineralTenementStyle.do"/>
         <property name="proxyDownloadUrl" value="doMineralTenementDownload.do"/>
         <!-- <property name="iconUrl" value="http://maps.google.com/mapfiles/kml/paddle/grn-blank.png"/>
@@ -126,7 +127,7 @@
         <property name="order" value="40_Tenements_010" />
     </bean>
 
-    <bean id="knownTypeNVCLBoreholes" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
+    <bean id="knownTypeBoreholeNvcl" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="nvcl-borehole"/>
         <constructor-arg name="knownLayerSelector">
             <bean class="org.auscope.portal.core.view.knownlayer.WFSSelector">
@@ -164,9 +165,7 @@
         <property name="group" value="Boreholes"/>
         <property name="description" value="A collection of services implementing the National Virtual Core Library Profile v1 for gsml:Borehole and a collection of observations"/>
         <property name="proxyUrl" value="doNVCLFilter.do"/>
-        <property name="proxyCountUrl" value=""/>
-        <property name="proxyStyleUrl" value=""/>
-        
+        <property name="proxyCountUrl" value="doNVCLFilterHits.do"/>
         <property name="iconUrl" value="http://maps.google.com/mapfiles/kml/paddle/blu-blank.png"/>
         <property name="iconAnchor">
             <bean class="java.awt.Point">
@@ -183,7 +182,7 @@
         <property name="order" value="20_Boreholes_010" />
     </bean>
 
-    <bean id="knownTypeAllBoreholes" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
+    <bean id="knownTypeSF0BoreholeNVCL" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="sf0-borehole-nvcl"/>
         <constructor-arg name="knownLayerSelector">
             <bean class="org.auscope.portal.core.view.knownlayer.WFSSelector">
@@ -214,7 +213,197 @@
         <property name="proxyUrl" value="doBoreholeViewFilter.do"/>
         <property name="proxyCountUrl" value=""/>
         <property name="proxyStyleUrl" value="doBoreholeViewFilterStyle.do"/>
+        <property name="iconAnchor">
+            <bean class="java.awt.Point">
+                <constructor-arg index="0" value="16"/>
+                <constructor-arg index="1" value="32"/>
+            </bean>
+        </property>
+        <property name="iconSize">
+            <bean class="java.awt.Dimension">
+                <constructor-arg index="0" value="32"/>
+                <constructor-arg index="1" value="32"/>
+            </bean>
+        </property>
         <property name="order" value="20_Boreholes_020" />
+    </bean>
+
+    <bean id="knownTypeBoreholeMSCL" class="org.auscope.portal.view.ResearchDataLayer">
+        <constructor-arg name="id" value="mscl-borehole"/>
+        <constructor-arg name="knownLayerSelector">
+            <bean class="org.auscope.portal.core.view.knownlayer.WFSSelector">
+                <constructor-arg name="featureTypeName" value="gsml:Borehole"/>
+                <constructor-arg name="includeEndpoints" value="true"/>
+                <constructor-arg name="serviceEndpoints">
+                    <list>
+                        <value>http://sisstest.arrc.csiro.au:8080/agos/wfs</value>
+                        <value>http://meiproc.earthsci.unimelb.edu.au:80/geoserver/wfs</value>
+                    </list>
+                </constructor-arg>
+                <property name="relatedFeatureTypeNames">
+                    <list>
+                        <value>mscl:scanned_data</value>
+                        <value>sa:SamplingFeatureCollection</value>
+                    </list>
+                </property>
+            </bean>
+        </constructor-arg>
+        <property name="name" value="MSCL Data"/>
+        <property name="description" value="Borehole observations made with a multi-sensor core logger."/>
+        <property name="group" value="University of Melbourne"/>
+        <property name="proxyUrl" value="doBoreholeFilter.do"/>
+        <property name="proxyCountUrl" value="doBoreholeFilterCount.do"/>
+        <property name="iconUrl" value="http://maps.google.com/mapfiles/kml/paddle/ltblu-blank.png"/>
+        <property name="iconAnchor">
+            <bean class="java.awt.Point">
+                <constructor-arg index="0" value="16"/>
+                <constructor-arg index="1" value="32"/>
+            </bean>
+        </property>
+        <property name="iconSize">
+            <bean class="java.awt.Dimension">
+                <constructor-arg index="0" value="32"/>
+                <constructor-arg index="1" value="32"/>
+            </bean>
+        </property>
+        <property name="order" value="200" />
+    </bean>
+
+    <bean id="knownTypeSurfaceAftershock" class="org.auscope.portal.view.ResearchDataLayer">
+        <constructor-arg name="id" value="surface-aftershock"/>
+        <constructor-arg name="knownLayerSelector">
+            <bean class="org.auscope.portal.core.view.knownlayer.WFSSelector">
+                <constructor-arg name="featureTypeName" value="surfaceaftershock:seismometer"/>
+                <constructor-arg name="includeEndpoints" value="true"/>
+                <constructor-arg name="serviceEndpoints">
+                    <list>
+                        <value>http://meiproc.earthsci.unimelb.edu.au:80/geoserver/wfs</value>
+                    </list>
+                </constructor-arg>
+            </bean>
+        </constructor-arg>
+        <property name="name" value="Surface Aftershock Data"/>
+        <property name="description" value="Surface aftershock seismograph continuous data."/>
+        <property name="group" value="University of Melbourne"/>
+        <property name="iconUrl" value="http://maps.google.com/mapfiles/kml/paddle/ltblu-blank.png"/>
+        <property name="iconAnchor">
+            <bean class="java.awt.Point">
+                <constructor-arg index="0" value="16"/>
+                <constructor-arg index="1" value="32"/>
+            </bean>
+        </property>
+        <property name="iconSize">
+            <bean class="java.awt.Dimension">
+                <constructor-arg index="0" value="32"/>
+                <constructor-arg index="1" value="32"/>
+            </bean>
+        </property>
+        <property name="order" value="201" />
+    </bean>
+
+    <bean id="knownTypeSeismologyInSchool" class="org.auscope.portal.view.ResearchDataLayer">
+        <constructor-arg name="id" value="seismology-in-schools-site"/>
+        <constructor-arg name="knownLayerSelector">
+            <bean class="org.auscope.portal.view.knownlayer.IRISSelector">
+                <constructor-arg name="serviceEndpoint" value="http://service.iris.edu"/>
+            </bean>
+        </constructor-arg>
+        <property name="name" value="IRIS Feed"/>
+        <property name="description" value="Seismographs in Schools data feed from Incorporated Research Institutions for Seismology (IRIS). S network code."/>
+        <property name="group" value="Seismographs in Schools Network"/>
+        <property name="iconUrl" value="http://maps.google.com/mapfiles/kml/paddle/ltblu-blank.png"/>
+        <property name="iconAnchor">
+            <bean class="java.awt.Point">
+                <constructor-arg index="0" value="16"/>
+                <constructor-arg index="1" value="32"/>
+            </bean>
+        </property>
+        <property name="iconSize">
+            <bean class="java.awt.Dimension">
+                <constructor-arg index="0" value="32"/>
+                <constructor-arg index="1" value="32"/>
+            </bean>
+        </property>
+        <property name="order" value="300" />
+    </bean>
+
+    <bean id="knownTypeBoreholePressureDB" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
+        <constructor-arg name="id" value="pressuredb-borehole"/>
+        <constructor-arg name="knownLayerSelector">
+            <bean class="org.auscope.portal.core.view.knownlayer.WFSSelector">
+                <constructor-arg name="featureTypeName" value="gsml:Borehole"/>
+                <constructor-arg name="includeEndpoints" value="true"/>
+                <constructor-arg name="serviceEndpoints">
+                    <list>
+                        <value>http://services-test.auscope.org:80/pressuredb/wfs</value>
+                        <value>http://services.auscope.org:80/pressuredb/wfs</value>
+                    </list>
+                </constructor-arg>
+                <property name="relatedFeatureTypeNames">
+                    <list>
+                        <value>sa:SamplingFeatureCollection</value>
+                        <value>om:GETPUBLISHEDSYSTEMTSA</value>
+                        <value>pdb:rft</value>
+                        <value>pdb:nacl</value>
+                        <value>pdb:t</value>
+                        <value>pdb:cl</value>
+                        <value>pdb:tds</value>
+                        <value>pdb:dst</value>
+                        <value>pdb:fitp</value>
+                    </list>
+                </property>
+            </bean>
+        </constructor-arg>
+
+        <property name="name" value="Pressure DB"/>
+        <property name="description" value="A collection of services implementing the Pressure DB Profile for gsml:Borehole and a collection of observations"/>
+        <property name="group" value="Boreholes"/>
+        <property name="proxyUrl" value="doBoreholeFilter.do"/>
+        <property name="proxyCountUrl" value=""/>
+        <property name="proxyStyleUrl" value=""/>
+        <property name="iconUrl" value="http://maps.google.com/mapfiles/kml/paddle/pink-blank.png"/>
+        <property name="iconAnchor">
+            <bean class="java.awt.Point">
+                <constructor-arg index="0" value="16"/>
+                <constructor-arg index="1" value="32"/>
+            </bean>
+        </property>
+        <property name="iconSize">
+            <bean class="java.awt.Dimension">
+                <constructor-arg index="0" value="32"/>
+                <constructor-arg index="1" value="32"/>
+            </bean>
+        </property>
+        <property name="order" value="52"/>
+    </bean>
+    <bean id="knownTypeGSMLBorehole" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
+        <constructor-arg name="id" value="gsml-borehole"/>
+        <constructor-arg name="knownLayerSelector">
+            <bean class="org.auscope.portal.core.view.knownlayer.WFSSelector">
+                <constructor-arg name="featureTypeName" value="gsml:Borehole"/>
+            </bean>
+        </constructor-arg>
+
+        <property name="name" value="All Boreholes"/>
+        <property name="description" value="A collection of services that support the GeoSciML Borehole feature type."/>
+        <property name="group" value="Boreholes"/>
+        <property name="proxyUrl" value="doBoreholeFilter.do"/>
+        <property name="proxyCountUrl" value=""/>
+        <property name="proxyStyleUrl" value="doFilterStyle.do"/>
+        <property name="iconUrl" value="http://maps.google.com/mapfiles/kml/paddle/ylw-blank.png"/>
+        <property name="iconAnchor">
+            <bean class="java.awt.Point">
+                <constructor-arg index="0" value="16"/>
+                <constructor-arg index="1" value="32"/>
+            </bean>
+        </property>
+        <property name="iconSize">
+            <bean class="java.awt.Dimension">
+                <constructor-arg index="0" value="32"/>
+                <constructor-arg index="1" value="32"/>
+            </bean>
+        </property>
+        <property name="order" value="53" />
     </bean>
 
     <bean id="knownTypeGeologicalProvinceContact" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -1401,6 +1590,7 @@
         <property name="description" value="The National Onshore Oil Pipelines Dataset represents the spatial locations of pipelines for the transmission of natural Oil within mainland Australia complimented with feature attribution."/>
         <property name="group" value="Topography and Infrastructure"/>
 
+        <!-- We don't need proxyUrl as Mineral tenements are WMS and NOT WFS -->
         <property name="proxyUrl" value=""/>
         <property name="proxyCountUrl" value=""/>
         <property name="proxyStyleUrl" value="getMineralTenementStyle.do"/> <!-- getMineralTenementStyle.do"/ -->
@@ -1419,6 +1609,7 @@
         <property name="description" value="The National Onshore Gas Pipelines Dataset represents the spatial locations of pipelines for the transmission of natural gas within mainland Australia complimented with feature attribution."/>
         <property name="group" value="Topography and Infrastructure"/>
 
+        <!-- We don't need proxyUrl as Mineral tenements are WMS and NOT WFS -->
         <property name="proxyUrl" value=""/>
         <property name="proxyCountUrl" value=""/>
         <property name="proxyStyleUrl" value="getMineralTenementStyle.do"/> <!-- getMineralTenementStyle.do"/ -->
@@ -1438,6 +1629,7 @@
         <property name="description" value="This point dataset contains major ports in Australian waters that include infrastructure facilities where maritime vessels have the ability to load and unload commodities."/>
         <property name="group" value="Topography and Infrastructure"/>
 
+        <!-- We don't need proxyUrl as Mineral tenements are WMS and NOT WFS -->
         <property name="proxyUrl" value=""/>
         <property name="proxyCountUrl" value=""/>
         <property name="proxyStyleUrl" value="getMineralTenementStyle.do"/> <!-- getMineralTenementStyle.do"/ -->
@@ -1810,150 +2002,4 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="group" value="National Geophysical Datasets"/>
         <property name="order" value="90 National Geophysical Datasets 200" />
     </bean>
-	<!-- GPT-113 Add Rock Properties Layers -->
-	<!-- Add description -->
-	<bean id="knownTypeRockPropertiesBulkDensity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-		<constructor-arg name="id" value="bulk-density" />
-		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-				<constructor-arg name="layerName" value="bulk_density" />
-			</bean>
-		</constructor-arg>
-		<property name="name" value="Bulk Density" />
-		<property name="description" value="" />
-		<property name="group" value="Rock Properties" />
-		<property name="order" value="95 Rock Properties 000" />
-	</bean>
-	<bean id="knownTypeRockPropertiesChargeability" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-		<constructor-arg name="id" value="chargeability" />
-		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-				<constructor-arg name="layerName" value="chargeability" />
-			</bean>
-		</constructor-arg>
-		<property name="name" value="Chargeability" />
-		<property name="description" value="" />
-		<property name="group" value="Rock Properties" />
-		<property name="order" value="95 Rock Properties 010" />
-	</bean>
-	<bean id="knownTypeRockPropertiesElectricalConductivity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-		<constructor-arg name="id" value="electrical-conductivity" />
-		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-				<constructor-arg name="layerName" value="electrical_conductivity" />
-			</bean>
-		</constructor-arg>
-		<property name="name" value="Electrical Conductivity" />
-		<property name="description" value="" />
-		<property name="group" value="Rock Properties" />
-		<property name="order" value="95 Rock Properties 020" />
-	</bean>
-	<bean id="knownTypeRockPropertiesElectricalResistivity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-		<constructor-arg name="id" value="electrical-resistivity" />
-		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-				<constructor-arg name="layerName" value="electrical_resistivity" />
-			</bean>
-		</constructor-arg>
-		<property name="name" value="Electrical Resistivity" />
-		<property name="description" value="" />
-		<property name="group" value="Rock Properties" />
-		<property name="order" value="95 Rock Properties 030" />
-	</bean>
-	<bean id="knownTypeRockPropertiesGammaBulkDensity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-		<constructor-arg name="id" value="gamma-bulk-density" />
-		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-				<constructor-arg name="layerName" value="gamma_bulk_density" />
-			</bean>
-		</constructor-arg>
-		<property name="name" value="Gamma Bulk Density" />
-		<property name="description" value="" />
-		<property name="group" value="Rock Properties" />
-		<property name="order" value="95 Rock Properties 040" />
-	</bean>
-	<bean id="knownTypeRockPropertiesKoenigsbergerRatio" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-		<constructor-arg name="id" value="koenigsberger-ratio" />
-		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-				<constructor-arg name="layerName" value="koenigsberger_ratio" />
-			</bean>
-		</constructor-arg>
-		<property name="name" value="Koenigsberger Ratio" />
-		<property name="description" value="" />
-		<property name="group" value="Rock Properties" />
-		<property name="order" value="95 Rock Properties 050" />
-	</bean>
-	<bean id="knownTypeRockPropertiesMagneticSusceptibility" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-		<constructor-arg name="id" value="magnetic-susceptibility" />
-		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-				<constructor-arg name="layerName" value="magnetic_susceptibility" />
-			</bean>
-		</constructor-arg>
-		<property name="name" value="Magnetic Susceptibility" />
-		<property name="description" value="" />
-		<property name="group" value="Rock Properties" />
-		<property name="order" value="95 Rock Properties 060" />
-	</bean>
-	<bean id="knownTypeRockPropertiesNaturalGamma" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-		<constructor-arg name="id" value="natural-gamma" />
-		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-				<constructor-arg name="layerName" value="natural_gamma" />
-			</bean>
-		</constructor-arg>
-		<property name="name" value="Natural Gamma" />
-		<property name="description" value="" />
-		<property name="group" value="Rock Properties" />
-		<property name="order" value="95 Rock Properties 070" />
-	</bean>
-	<bean id="knownTypeRockPropertiesPorosity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-		<constructor-arg name="id" value="porosity" />
-		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-				<constructor-arg name="layerName" value="porosity" />
-			</bean>
-		</constructor-arg>
-		<property name="name" value="Porosity" />
-		<property name="description" value="" />
-		<property name="group" value="Rock Properties" />
-		<property name="order" value="95 Rock Properties 080" />
-	</bean>
-	<bean id="knownTypeRockPropertiesRemanentMagnetisation" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-		<constructor-arg name="id" value="remanent-magnetisation" />
-		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-				<constructor-arg name="layerName" value="remanent_magnetisation" />
-			</bean>
-		</constructor-arg>
-		<property name="name" value="Remanent Magnetisation" />
-		<property name="description" value="" />
-		<property name="group" value="Rock Properties" />
-		<property name="order" value="95 Rock Properties 090" />
-	</bean>
-	<bean id="knownTypeRockPropertiesSonicVelocity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-		<constructor-arg name="id" value="sonic-velocity" />
-		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-				<constructor-arg name="layerName" value="sonic_velocity" />
-			</bean>
-		</constructor-arg>
-		<property name="name" value="Sonic Velocity" />
-		<property name="description" value="" />
-		<property name="group" value="Rock Properties" />
-		<property name="order" value="95 Rock Properties 100" />
-	</bean>
-	<bean id="knownTypeRockPropertiesTemperature" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-		<constructor-arg name="id" value="temperature" />
-		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-				<constructor-arg name="layerName" value="temperature" />
-			</bean>
-		</constructor-arg>
-		<property name="name" value="Temperature" />
-		<property name="description" value="" />
-		<property name="group" value="Rock Properties" />
-		<property name="order" value="95 Rock Properties 110" />
-	</bean>
 </beans>

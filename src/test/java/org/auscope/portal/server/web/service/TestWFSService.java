@@ -12,10 +12,10 @@ import org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker;
 import org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker.ResultType;
 import org.auscope.portal.core.services.responses.ows.OWSException;
 import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
-import org.auscope.portal.core.services.responses.wfs.WFSResponse;
 import org.auscope.portal.core.services.responses.wfs.WFSTransformedResponse;
 import org.auscope.portal.core.test.PortalTestClass;
 import org.auscope.portal.core.test.ResourceUtil;
+import org.auscope.portal.core.xslt.WfsToKmlTransformer;
 import org.auscope.portal.xslt.GmlToHtml;
 import org.jmock.Expectations;
 import org.junit.Assert;
@@ -24,11 +24,12 @@ import org.junit.Test;
 
 /**
  * Unit tests for WFSService
- *
+ * 
  * @author Josh Vote
  *
  */
 public class TestWFSService extends PortalTestClass {
+    private WfsToKmlTransformer mockGmlToKml = context.mock(WfsToKmlTransformer.class);
     private GmlToHtml mockGmlToHtml = context.mock(GmlToHtml.class);
     private HttpServiceCaller mockServiceCaller = context.mock(HttpServiceCaller.class);
     private WFSGetFeatureMethodMaker mockMethodMaker = context.mock(WFSGetFeatureMethodMaker.class);
@@ -37,7 +38,7 @@ public class TestWFSService extends PortalTestClass {
 
     @Before
     public void setup() {
-        service = new WFSService(mockServiceCaller, mockMethodMaker, mockGmlToHtml);
+        service = new WFSService(mockServiceCaller, mockMethodMaker, mockGmlToKml, mockGmlToHtml);
     }
 
     /**
@@ -47,6 +48,7 @@ public class TestWFSService extends PortalTestClass {
     public void testGetWfsResponseAsKmlSingleFeature() throws Exception {
         final String responseString = ResourceUtil
                 .loadResourceAsString("org/auscope/portal/core/test/responses/wfs/EmptyWFSResponse.xml");
+        final String responseKml = "<kml:response/>"; //we aren't testing the validity of this
         final String serviceUrl = "http://service/wfs";
         final String featureId = "feature-Id-string";
         final String typeName = "type:Name";
@@ -59,12 +61,16 @@ public class TestWFSService extends PortalTestClass {
                 oneOf(mockMethodMaker).makeGetMethod(serviceUrl, typeName, featureId, BaseWFSService.DEFAULT_SRS, null);
                 will(returnValue(mockMethod));
 
+                oneOf(mockGmlToKml).convert(responseString, serviceUrl);
+                will(returnValue(responseKml));
+
             }
         });
 
-        WFSResponse response = service.getWfsResponse(serviceUrl, typeName, featureId);
+        WFSTransformedResponse response = service.getWfsResponseAsKml(serviceUrl, typeName, featureId);
         Assert.assertNotNull(response);
-        Assert.assertEquals(responseString, response.getData());
+        Assert.assertEquals(responseString, response.getGml());
+        Assert.assertEquals(responseKml, response.getTransformed());
     }
 
     /**
@@ -89,7 +95,7 @@ public class TestWFSService extends PortalTestClass {
         });
 
         try {
-            service.getWfsResponse(serviceUrl, typeName, featureId);
+            service.getWfsResponseAsKml(serviceUrl, typeName, featureId);
             Assert.fail("Exception should have been thrown");
         } catch (PortalServiceException ex) {
             Assert.assertSame(exceptionThrown, ex.getCause());
@@ -118,7 +124,7 @@ public class TestWFSService extends PortalTestClass {
         });
 
         try {
-            service.getWfsResponse(serviceUrl, typeName, featureId);
+            service.getWfsResponseAsKml(serviceUrl, typeName, featureId);
             Assert.fail("Exception should have been thrown");
         } catch (PortalServiceException ex) {
             Assert.assertTrue(ex.getCause() instanceof OWSException);
@@ -133,6 +139,7 @@ public class TestWFSService extends PortalTestClass {
     public void testGetWfsResponseAsKmlMultiFeature() throws Exception {
         final String responseString = ResourceUtil
                 .loadResourceAsString("org/auscope/portal/core/test/responses/wfs/EmptyWFSResponse.xml");
+        final String responseKml = "<kml:response/>"; //we aren't testing the validity of this
         final String filterString = "<ogc:filter/>"; //we aren't testing the validity of this
         final String serviceUrl = "http://service/wfs";
         final String srsName = "srsName";
@@ -148,12 +155,17 @@ public class TestWFSService extends PortalTestClass {
                         ResultType.Results, null, null);
                 will(returnValue(mockMethod));
 
+                oneOf(mockGmlToKml).convert(responseString, serviceUrl);
+                will(returnValue(responseKml));
+
             }
         });
 
-        WFSResponse response = service.getWfsResponse(serviceUrl, typeName, filterString, maxFeatures, srsName);
+        WFSTransformedResponse response = service.getWfsResponseAsKml(serviceUrl, typeName, filterString, maxFeatures,
+                srsName);
         Assert.assertNotNull(response);
-        Assert.assertEquals(responseString, response.getData());
+        Assert.assertEquals(responseString, response.getGml());
+        Assert.assertEquals(responseKml, response.getTransformed());
     }
 
     /**
@@ -163,6 +175,7 @@ public class TestWFSService extends PortalTestClass {
     public void testGetWfsResponseAsKmlDefaultSRS() throws Exception {
         final String responseString = ResourceUtil
                 .loadResourceAsString("org/auscope/portal/core/test/responses/wfs/EmptyWFSResponse.xml");
+        final String responseKml = "<kml:response/>"; //we aren't testing the validity of this
         final String filterString = "<ogc:filter/>"; //we aren't testing the validity of this
         final String serviceUrl = "http://service/wfs";
         final int maxFeatures = 12321;
@@ -176,12 +189,15 @@ public class TestWFSService extends PortalTestClass {
                 allowing(mockMethodMaker).makePostMethod(serviceUrl, typeName, filterString, maxFeatures,
                         BaseWFSService.DEFAULT_SRS, ResultType.Results, null, null);
                 will(returnValue(mockMethod));
+
+                allowing(mockGmlToKml).convert(responseString, serviceUrl);
+                will(returnValue(responseKml));
             }
         });
 
         //Our test is ensuring that only the DEFAULT_SRS is passed to the mock method maker
-        service.getWfsResponse(serviceUrl, typeName, filterString, maxFeatures, null);
-        service.getWfsResponse(serviceUrl, typeName, filterString, maxFeatures, "");
+        service.getWfsResponseAsKml(serviceUrl, typeName, filterString, maxFeatures, null);
+        service.getWfsResponseAsKml(serviceUrl, typeName, filterString, maxFeatures, "");
 
     }
 
@@ -209,7 +225,7 @@ public class TestWFSService extends PortalTestClass {
         });
 
         try {
-            service.getWfsResponse(serviceUrl, typeName, filterString, maxFeatures, srsName);
+            service.getWfsResponseAsKml(serviceUrl, typeName, filterString, maxFeatures, srsName);
             Assert.fail("Exception should have been thrown");
         } catch (PortalServiceException ex) {
             Assert.assertSame(exceptionThrown, ex.getCause());
@@ -243,7 +259,7 @@ public class TestWFSService extends PortalTestClass {
         });
 
         try {
-            service.getWfsResponse(serviceUrl, typeName, filterString, maxFeatures, srsName);
+            service.getWfsResponseAsKml(serviceUrl, typeName, filterString, maxFeatures, srsName);
             Assert.fail("Exception should have been thrown");
         } catch (PortalServiceException ex) {
             Assert.assertTrue(ex.getCause() instanceof OWSException);
