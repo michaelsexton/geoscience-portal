@@ -16,8 +16,10 @@
                 <ref bean="knownTypeMiningActivity" />
                 <ref bean="knownTypeMineralTenements" />
                 <ref bean="knownTypeMineralOccurrenceView" />
-                <ref bean="knownTypeNVCLBoreholes" />
-                <ref bean="knownTypeAllBoreholes" />
+                <ref bean="knownTypeBoreholeNvcl" />
+                <ref bean="knownTypeSF0BoreholeNVCL" />
+                <!-- <ref bean="knownTypeBoreholePressureDB" /> -->
+                <!-- <ref bean="knownTypeGSMLBorehole" /> -->
                 <ref bean="knownTypeSamplingPoint"/>
                 <ref bean="knownTypeFeatureCollection"/>
                 <ref bean="knownTypeLateriteYilgarnGeoChem"/>
@@ -67,7 +69,10 @@
                 <ref bean="knownTypeRegolithRatios" />
                 <ref bean="knownTypeAlohGroupContent" />
                 <ref bean="knownTypeGypsumContent" />
-                <ref bean="knownTypeSilicaContent" />     
+                <ref bean="knownTypeSilicaContent" />
+                <ref bean="knownTypeBoreholeMSCL" />
+                <ref bean="knownTypeSeismologyInSchool" />
+                <!-- <ref bean="knownTypeSF0BoreholeNVCL" />              -->
 <!--                 <ref bean="knownTypeSurfaceAftershock" /> -->
 
                 <!-- Analytics -->
@@ -133,19 +138,6 @@
                 <ref bean="knownTypeRadiometrics2015FilteredUKRatio" />
                 <ref bean="knownTypeRadiometrics2015FilteredUThRatio" />
                 <ref bean="knownTypeRadiometrics2015FilteredU2ThRatio" />
-	<!-- Rock Properties -->
-	<ref bean="knownTypeRockPropertiesBulkDensity" />
-	<ref bean="knownTypeRockPropertiesChargeability" />
-	<ref bean="knownTypeRockPropertiesElectricalConductivity" />
-	<ref bean="knownTypeRockPropertiesElectricalResistivity" />
-	<ref bean="knownTypeRockPropertiesGammaBulkDensity" />
-	<ref bean="knownTypeRockPropertiesKoenigsbergerRatio" />
-	<ref bean="knownTypeRockPropertiesMagneticSusceptibility" />
-	<ref bean="knownTypeRockPropertiesNaturalGamma" />
-	<ref bean="knownTypeRockPropertiesPorosity" />
-	<ref bean="knownTypeRockPropertiesRemanentMagnetisation" />
-	<ref bean="knownTypeRockPropertiesSonicVelocity" />
-	<ref bean="knownTypeRockPropertiesTemperature" />
             </list>
         </constructor-arg>
     </bean>
