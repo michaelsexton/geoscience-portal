@@ -144,9 +144,9 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
                 renderer: function (value, metadata, layer) {
                     var newSrc="src=\"";
                     if(layer.visible){
-                    	newSrc+=me.visibleIcon+'"';
+                        newSrc+=me.visibleIcon+'"';
                     }else{
-                    	newSrc+=me.notVisibleIcon+'"';
+                        newSrc+=me.notVisibleIcon+'"';
                     }
                     var img = metadata.value;
                     // Change the src="..." image using this regular expression - toggle between eye.png and eye-off.png
@@ -208,7 +208,7 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
         this.callParent(arguments);
     },
     
-	// Column Function
+    // Column Function
     _getLegendAction : function(layer){                       
         var legend = layer.get('renderer').getLegend();
         var text = 'Get Legend';
@@ -229,10 +229,18 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
                         var popupWindow = Ext.get(popupId);
                         if (!popupWindow) {
                             popupWindow = Ext.create('Ext.window.Window', {                        
-                                id          : 'legendPopup_' + layer.get('id'),
+                                id          : 'legendPopup',
                                 title       : 'Legend: '+ layer.get('name'),
-                                layout      : 'fit',
-                                items: form
+                                layout      : 'vbox',
+                                maxHeight   : Ext.get('center_region-map').getHeight(),
+                                autoScroll  : true,
+                                items: form,
+                                listeners: {
+                                    show: function() {
+                                        var container = Ext.get('center_region-map');
+                                        this.setPosition(container.getX()-1, container.getY()-1);
+                                    }
+                                },
                             }); 
                             popupWindow.show();
                         } 
@@ -260,11 +268,11 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
                         },
                         failure: function(response, opts) {
                             legend.getLegendComponent(onlineResources, filterer,"", true, Ext.bind(legendCallback, this, [layer], true));
-                        }                        
+                        }
                     });
                 
                 }else{
-                    legend.getLegendComponent(onlineResources, filterer,"", true, Ext.bind(legendCallback, this, [layer], true));
+                    legend.getLegendComponent(onlineResources, filterer,"", true, Ext.bind(legendCallback, this, [layer], true), layer.get('source').get('staticLegendUrl'), true);
                 }
                 
             }
@@ -273,7 +281,7 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
         return getLegendAction;
     },
     
-	// Column Function
+    // Column Function
     _setVisibilityAction : function(layer){
 //        var me = this;
         var visibleLayerAction = new Ext.Action({
