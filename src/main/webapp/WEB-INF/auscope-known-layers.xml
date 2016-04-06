@@ -1434,7 +1434,6 @@
         <property name="proxyCountUrl" value=""/>
         <property name="proxyStyleUrl" value=""/> 
         <property name="proxyDownloadUrl" value=""/> 
-        <property name="staticLegendUrl" value="http://www.ga.gov.au/interactive-maps/content/legends/AustralianTopogaphyLegend.png"/>
         <property name="order" value="70_Topography and Infrastructure_060" />
     </bean>
     <bean id="knownTypeGas" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -1451,7 +1450,6 @@
         <property name="proxyCountUrl" value=""/>
         <property name="proxyStyleUrl" value=""/>
         <property name="proxyDownloadUrl" value=""/>
-        <property name="staticLegendUrl" value="http://www.ga.gov.au/interactive-maps/content/legends/AustralianTopogaphyLegend.png"/>
         <property name="order" value="70_Topography and Infrastructure_070" />
     </bean>
 
@@ -1469,7 +1467,6 @@
         <property name="proxyCountUrl" value=""/>
         <property name="proxyStyleUrl" value=""/> 
         <property name="proxyDownloadUrl" value=""/> 
-        <property name="staticLegendUrl" value="http://www.ga.gov.au/interactive-maps/content/legends/AustralianTopogaphyLegend.png"/>
         <property name="order" value="70_Topography and Infrastructure_080" />
     </bean>
 
