@@ -527,3 +527,12 @@
     .noTextOverflow .x-grid-cell-inner  {
         text-overflow: clip !important;
     }
+    
+    .x-btn-inner-default-small, 
+    .x-btn-inner-default-toolbar-small {
+        max-width: calc(100%) !important;
+    }
+    
+    .noTextOverflow .x-grid-cell-inner  {
+        text-overflow: clip !important;
+    }
