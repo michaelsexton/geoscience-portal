@@ -110,7 +110,7 @@
         <property name="proxyCountUrl" value="getMineralTenementCount.do"/>
         <property name="proxyStyleUrl" value="getMineralTenementStyle.do"/>
         <property name="proxyDownloadUrl" value="doMineralTenementDownload.do"/>
-		<property name="forceWMSGet" value="true" />       
+	<property name="forceWMSGet" value="true" />       
         <property name="order" value="40_Tenements_010" />
     </bean>
 
