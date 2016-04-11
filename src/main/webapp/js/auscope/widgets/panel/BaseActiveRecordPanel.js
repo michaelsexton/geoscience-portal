@@ -264,7 +264,7 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
                         timeout : 180000,
                         scope : this,
                         success:function(response,opts){
-                            legend.getLegendComponent(onlineResources, filterer,response.responseText, true, Ext.bind(legendCallback, this, [layer], true));
+                            legend.getLegendComponent(onlineResources, filterer,response.responseText, true, Ext.bind(legendCallback, this, [layer], true), null, true);
                         },
                         failure: function(response, opts) {
                             legend.getLegendComponent(onlineResources, filterer,"", true, Ext.bind(legendCallback, this, [layer], true));
