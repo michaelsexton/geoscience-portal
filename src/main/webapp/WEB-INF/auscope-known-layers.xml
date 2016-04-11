@@ -110,19 +110,7 @@
         <property name="proxyCountUrl" value="getMineralTenementCount.do"/>
         <property name="proxyStyleUrl" value="getMineralTenementStyle.do"/>
         <property name="proxyDownloadUrl" value="doMineralTenementDownload.do"/>
-        <!-- <property name="iconUrl" value="http://maps.google.com/mapfiles/kml/paddle/grn-blank.png"/>
-        <property name="iconAnchor">
-            <bean class="java.awt.Point">
-                <constructor-arg index="0" value="16"/>
-                <constructor-arg index="1" value="32"/>
-            </bean>
-        </property>
-        <property name="iconSize">
-            <bean class="java.awt.Dimension">
-                <constructor-arg index="0" value="32"/>
-                <constructor-arg index="1" value="32"/>
-            </bean>
-        </property>-->
+        <property name="forceWMSGet" value="true" />       
         <property name="order" value="40_Tenements_010" />
     </bean>
 
