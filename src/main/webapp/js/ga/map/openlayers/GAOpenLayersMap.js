@@ -107,7 +107,7 @@ Ext.define('ga.map.openlayers.GAOpenLayersMap', {
                     {type: google.maps.MapTypeId.HYBRID, numZoomLevels: 20}
                 ),
                 new OpenLayers.Layer.WMS (
-                    "World Political Boundaries",
+                    "World Political Boundaries (white background)",
                     "http://www.ga.gov.au/gis/services/topography/World_Political_Boundaries_WM/MapServer/WMSServer",
                     {layers: 'Countries'}
                 )],
