@@ -4,7 +4,9 @@ Ext.define('auscope.layer.querier.wfs.factories.RockPropertyFactory', {
 
 	XMLNS_RP : 'http://www.ga.gov.au/geophysics-rockpropertypub-gws/ga_rock_properties_wms/',
 	
-	ROCKPROPS : ['chargeability','bulk_density'],
+	ROCKPROPS : ['chargeability','bulk_density','electrical_conductivity','electrical_resistivity',
+	             'gamma_bulk_density','koenigsberger_ratio','magnetic_susceptibility','natural_gamma',
+	             'porosity','remanent_magnetisation','sonic_velocity','temperature'],
 	
 	constructor : function(cfg) {
 		this.callParent(arguments);
