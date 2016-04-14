@@ -1,7 +1,5 @@
 package org.auscope.portal.server.web.service;
 
-import java.net.URISyntaxException;
-
 import org.apache.http.client.methods.HttpRequestBase;
 import org.auscope.portal.core.server.http.HttpServiceCaller;
 import org.auscope.portal.core.services.BaseWFSService;
@@ -51,5 +49,12 @@ public class RockPropertiesService extends BaseWFSService {
 
 
 	}
+
+	public String getRockPropertyFilter(String rockProperty, FilterBoundingBox bbox) {
+		RockPropertiesFilter filter = new RockPropertiesFilter(rockProperty);
+		return filter.getFilterStringBoundingBox(bbox);
+	}
+
+	
 
 }
