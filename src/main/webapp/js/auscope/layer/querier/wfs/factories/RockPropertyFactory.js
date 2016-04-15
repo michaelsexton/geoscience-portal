@@ -88,6 +88,14 @@ Ext.define('auscope.layer.querier.wfs.factories.RockPropertyFactory', {
                     value : sampleName
                 },{
                     xtype : 'displayfield',
+                    fieldLabel : 'Sample Type',
+                    value : sampleType
+                },{
+                    xtype : 'displayfield',
+                    fieldLabel : 'Property',
+                    value : property
+                },{
+                    xtype : 'displayfield',
                     fieldLabel : 'Instrument',
                     value : instrument
                 }]
