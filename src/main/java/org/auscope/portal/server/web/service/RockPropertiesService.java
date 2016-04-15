@@ -1,5 +1,7 @@
 package org.auscope.portal.server.web.service;
 
+import java.io.InputStream;
+
 import org.apache.http.client.methods.HttpRequestBase;
 import org.auscope.portal.core.server.http.HttpServiceCaller;
 import org.auscope.portal.core.services.BaseWFSService;
@@ -13,6 +15,10 @@ import org.auscope.portal.mineraloccurrence.RockPropertiesFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author u10301
+ *
+ */
 @Service
 public class RockPropertiesService extends BaseWFSService {
 
@@ -56,5 +62,25 @@ public class RockPropertiesService extends BaseWFSService {
 	}
 
 	
+	/**
+	 * @param serviceUrl
+	 * @param type
+	 * @param filterString
+	 * @param outputFormat
+	 * @return
+	 * @throws Exception
+	 */
+	public InputStream downloadRockProperties(String serviceUrl, String type, String filterString, String outputFormat) throws Exception {
+		  HttpRequestBase method = null;
+	        try {
+
+	            method = generateWFSRequest(serviceUrl, type, null, filterString, null, null, ResultType.Results, outputFormat);
+	            return httpServiceCaller.getMethodResponseAsStream(method);
+
+	        } catch (Exception ex) {
+	            throw new PortalServiceException(method, "Error when attempting to download from:" + serviceUrl, ex);
+	        }
+		
+	}
 
 }
