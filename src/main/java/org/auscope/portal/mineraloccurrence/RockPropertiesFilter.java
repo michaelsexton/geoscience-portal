@@ -35,7 +35,7 @@ public class RockPropertiesFilter extends AbstractFilter {
 					new String[] { "sonic velocity", "axial P-wave velocity", "strike-parallel radial P-wave velocity",
 							"strike-perpendicular radial P-wave velocity", "axial S-wave velocity",
 							"strike-parallel radial S-wave velocity", "strike-perpendicular radial S-wave velocity" });
-			put("sonic velocity", new String[] { "temperature", "thermal conductivity", "heat flow",
+			put("temperature", new String[] { "temperature", "thermal conductivity", "heat flow",
 					"thermal anisotropy", "heat production" });
 		}
 	};
