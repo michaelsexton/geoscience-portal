@@ -1555,61 +1555,59 @@ CAPAD provides a snapshot of protected areas that meet the IUCN definition of a 
 The Great Barrier Reef, the Tasmanian Wilderness, the Wet Tropics of Queensland and Shark Bay meet all four World Heritage criteria for natural heritage, with Kakadu National Park, Uluru-Kata Tjuta National Park, Willandra Lakes Region and the Tasmanian Wilderness being listed for both natural and cultural criteria.
 The Australian Fossil Mammal Sites (Naracoorte/Riversleigh), Lord Howe Island Group, Central Eastern Rainforest Reserves of Australia, Fraser Island, Macquarie Island, Heard and McDonald Islands, the Greater Blue Mountains Area and Purnululu National Park are listed under the World Heritage criteria for natural heritage.
 A single Australian World Heritage Areas database has been created by combining data which was historically stored as a separate set of data for each property. All data are GDA compliant and use the WGS84 spheroid and datum.
-The coastal boundary for the Great Barrier Reef World Heritage Area is interim. This line is only INDICATIVE of 'mean low tide', as stated in the World Heritage inscription. An appropriate caveat must accompany this data when used for analysis or map production." />
-		<property name="group" value="Restricted Areas" />
-		<property name="order" value="80_Restricted Areas_030" />
-	</bean>
-	<bean id="knownTypeDefence_Prohibited_Areas" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-		<constructor-arg name="id" value="Defence_Prohibited_Areas" />
-		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-				<constructor-arg name="layerName" value="Defence_Prohibited_Areas" />
-			</bean>
-		</constructor-arg>
-		<property name="name" value="Defence Prohibited Areas" />
-		<property name="description"
-			value="Defence prohibited areas are defined under the Defence Act 1903 and the Defence Force Regulations 1952 and are Defence premises used for testing of war materiel under the control of the Royal Australian Air Force or Australian Army." />
-		<property name="group" value="Restricted Areas" />
-		<property name="order" value="80_Restricted Areas_040" />
-	</bean>
-	<bean id="knownTypeDefence_Practice_Areas" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-		<constructor-arg name="id" value="Defence_Practice_Areas" />
-		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-				<constructor-arg name="layerName" value="Defence_Practice_Areas" />
-			</bean>
-		</constructor-arg>
-		<property name="name" value="Defence Practice Areas" />
-		<property name="description"
-			value="Defence Practice Areas are public safety exclusion zones located over areas to protect the public. The public safety exclusion zones are enforced to protect the public in the unlikely event of weapon system malfunction. It is very dangerous to be on land at any time, or on the water inside the Defence Practice Area public safety exclusion zones when aircraft are using the range for bombing or air-to-ground gunnery. Data included in this layer is indicative only and should not be used for detailed planning." />
-		<property name="group" value="Restricted Areas" />
-		<property name="order" value="80_Restricted Areas_050" />
-	</bean>
-	<bean id="knownTypeDefence_Training_Areas" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-		<constructor-arg name="id" value="Defence_Training_Areas" />
-		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-				<constructor-arg name="layerName" value="Defence_Training_Areas" />
-			</bean>
-		</constructor-arg>
-		<property name="name" value="Defence Training Areas" />
-		<property name="description"
-			value="Defence Training Areas are used for the maintenance of combat skills through continuous individual and collective capability training." />
-		<property name="group" value="Restricted Areas" />
-		<property name="order" value="80_Restricted Areas_060" />
-	</bean>
-	<!-- END: GPT-106 - Restricted Areas -->
-	<!-- National Geophysical Datasets -->
-	<bean id="knownTypeOnshoreSeismicSurveys" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-		<constructor-arg name="id" value="OnshoreSeismicSurveys" />
-		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-				<constructor-arg name="layerName" value="OnshoreSeismicSurveyLines" />
-			</bean>
-		</constructor-arg>
-		<property name="name" value="Onshore Seismic Surveys" />
-		<property name="description"
-			value="The Onshore Seismic Data of Australia is a collection of all land seismic traverses cross the Australian continent and its margins. The data includes raw and processed data in SEGY format. The metadata includes acquisition reports, processing reports, processed images, logs, and so on. The data acquisition was carried out in Australia from 1949-2012 by Geoscience Australia and various partners. The set of reflection and refraction data comprises over 12,000 km of coverage, and provides an insight into the variations in crustal architecture in the varied geological domains.
+The coastal boundary for the Great Barrier Reef World Heritage Area is interim. This line is only INDICATIVE of 'mean low tide', as stated in the World Heritage inscription. An appropriate caveat must accompany this data when used for analysis or map production."/>
+        <property name="group" value="Restricted Areas"/>
+        <property name="order" value="80_Restricted Areas_030" />
+    </bean>
+    <bean id="knownTypeDefence_Prohibited_Areas" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
+        <constructor-arg name="id" value="Defence_Prohibited_Areas"/>
+        <constructor-arg name="knownLayerSelector">
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+                <constructor-arg name="layerName" value="Defence_Prohibited_Areas"/>
+            </bean>
+        </constructor-arg>
+        <property name="name" value="Defence Prohibited Areas"/>
+        <property name="description" value="Defence prohibited areas are defined under the Defence Act 1903 and the Defence Force Regulations 1952 and are Defence premises used for testing of war materiel under the control of the Royal Australian Air Force or Australian Army."/>
+        <property name="group" value="Restricted Areas"/>
+        <property name="order" value="80_Restricted Areas_040" />
+    </bean>
+
+    <bean id="knownTypeDefence_Practice_Areas" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
+        <constructor-arg name="id" value="Defence_Practice_Areas"/>
+        <constructor-arg name="knownLayerSelector">
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+                <constructor-arg name="layerName" value="Defence_Practice_Areas"/>
+            </bean>
+        </constructor-arg>
+        <property name="name" value="Defence Practice Areas"/>
+        <property name="description" value="Defence Practice Areas are public safety exclusion zones located over areas to protect the public. The public safety exclusion zones are enforced to protect the public in the unlikely event of weapon system malfunction. It is very dangerous to be on land at any time, or on the water inside the Defence Practice Area public safety exclusion zones when aircraft are using the range for bombing or air-to-ground gunnery. Data included in this layer is indicative only and should not be used for detailed planning."/>
+        <property name="group" value="Restricted Areas"/>
+        <property name="order" value="80_Restricted Areas_050" />
+    </bean>
+    <bean id="knownTypeDefence_Training_Areas" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
+        <constructor-arg name="id" value="Defence_Training_Areas"/>
+        <constructor-arg name="knownLayerSelector">
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+                <constructor-arg name="layerName" value="Defence_Training_Areas"/>
+            </bean>
+        </constructor-arg>
+        <property name="name" value="Defence Training Areas"/>
+        <property name="description" value="Defence Training Areas are used for the maintenance of combat skills through continuous individual and collective capability training."/>
+        <property name="group" value="Restricted Areas"/>
+        <property name="order" value="80_Restricted Areas_060" />
+    </bean>
+    <!-- END: GPT-106 - Restricted Areas -->
+
+    <!-- National Geophysical Datasets -->
+    <bean id="knownTypeOnshoreSeismicSurveys" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
+        <constructor-arg name="id" value="OnshoreSeismicSurveys"/>
+        <constructor-arg name="knownLayerSelector">
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+                <constructor-arg name="layerName" value="OnshoreSeismicSurveyLines"/>
+            </bean>
+        </constructor-arg>
+        <property name="name" value="Onshore Seismic Surveys (government-funded)"/>
+        <property name="description" value="The Onshore Seismic Data of Australia is a collection of all land seismic traverses cross the Australian continent and its margins. The data includes raw and processed data in SEGY format. The metadata includes acquisition reports, processing reports, processed images, logs, and so on. The data acquisition was carried out in Australia from 1949-2012 by Geoscience Australia and various partners. The set of reflection and refraction data comprises over 12,000 km of coverage, and provides an insight into the variations in crustal architecture in the varied geological domains.
 
             The complete processed dataset was first available for public access in Oct 2013 (http://www.ga.gov.au/minerals/projects/current-projects/seismic-acquisition-processing.html ). The location of seismic traverses is shown by the Gallery link on the webpage. The new survey data will be updated on the webpage by the official data release date. The attribute structure of the dataset has also been revised to be more compatible with the GeoSciML data standard, published by the IUGS Commission for Geoscience Information.
 
