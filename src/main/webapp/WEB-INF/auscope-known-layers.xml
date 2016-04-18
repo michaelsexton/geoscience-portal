@@ -1913,7 +1913,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 	<bean id="knownTypeRockPropertiesBulkDensity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
 		<constructor-arg name="id" value="bulk-density" />
 		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.OGCSelector">
+			<bean class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
 				<constructor-arg name="featureTypeName" value="ga_rock_properties_wfs:scalar_results" />
 				<constructor-arg name="layerName" value="bulk_density" />
 			</bean>
@@ -1930,7 +1930,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 	<bean id="knownTypeRockPropertiesChargeability" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
 		<constructor-arg name="id" value="chargeability" />
 		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.OGCSelector">
+			<bean class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
 				<constructor-arg name="featureTypeName" value="ga_rock_properties_wfs:scalar_results" />
 				<constructor-arg name="layerName" value="chargeability" />
 			</bean>
@@ -1947,7 +1947,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 	<bean id="knownTypeRockPropertiesElectricalConductivity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
 		<constructor-arg name="id" value="electrical-conductivity" />
 		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.OGCSelector">
+			<bean class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
 				<constructor-arg name="featureTypeName" value="ga_rock_properties_wfs:scalar_results" />
     			<constructor-arg name="layerName" value="electrical_conductivity" />
 			</bean>
@@ -1964,7 +1964,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 	<bean id="knownTypeRockPropertiesElectricalResistivity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
 		<constructor-arg name="id" value="electrical-resistivity" />
 		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.OGCSelector">
+			<bean class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
 			<constructor-arg name="featureTypeName" value="ga_rock_properties_wfs:scalar_results" />
 				<constructor-arg name="layerName" value="electrical_resistivity" />
 			</bean>
@@ -1981,7 +1981,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 	<bean id="knownTypeRockPropertiesGammaBulkDensity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
 		<constructor-arg name="id" value="gamma-bulk-density" />
 		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.OGCSelector">
+			<bean class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
 			<constructor-arg name="featureTypeName" value="ga_rock_properties_wfs:scalar_results" />
 				<constructor-arg name="layerName" value="gamma_bulk_density" />
 			</bean>
@@ -1998,7 +1998,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 	<bean id="knownTypeRockPropertiesKoenigsbergerRatio" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
 		<constructor-arg name="id" value="koenigsberger-ratio" />
 		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.OGCSelector">
+			<bean class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
 			<constructor-arg name="featureTypeName" value="ga_rock_properties_wfs:scalar_results" />
 				<constructor-arg name="layerName" value="koenigsberger_ratio" />
 			</bean>
@@ -2015,7 +2015,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 	<bean id="knownTypeRockPropertiesMagneticSusceptibility" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
 		<constructor-arg name="id" value="magnetic-susceptibility" />
 		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.OGCSelector">
+			<bean class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
 			<constructor-arg name="featureTypeName" value="ga_rock_properties_wfs:scalar_results" />
 				<constructor-arg name="layerName" value="magnetic_susceptibility" />
 			</bean>
@@ -2032,7 +2032,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 	<bean id="knownTypeRockPropertiesNaturalGamma" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
 		<constructor-arg name="id" value="natural-gamma" />
 		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.OGCSelector">
+			<bean class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
 			<constructor-arg name="featureTypeName" value="ga_rock_properties_wfs:scalar_results" />
 				<constructor-arg name="layerName" value="natural_gamma" />
 			</bean>
@@ -2049,7 +2049,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 	<bean id="knownTypeRockPropertiesPorosity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
 		<constructor-arg name="id" value="porosity" />
 		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.OGCSelector">
+			<bean class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
 			<constructor-arg name="featureTypeName" value="ga_rock_properties_wfs:scalar_results" />
 				<constructor-arg name="layerName" value="porosity" />
 			</bean>
@@ -2066,7 +2066,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 	<bean id="knownTypeRockPropertiesRemanentMagnetisation" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
 		<constructor-arg name="id" value="remanent-magnetisation" />
 		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.OGCSelector">
+			<bean class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
 			<constructor-arg name="featureTypeName" value="ga_rock_properties_wfs:remanent_magnetisation" />
 				<constructor-arg name="layerName" value="remanent_magnetisation" />
 			</bean>
@@ -2083,7 +2083,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 	<bean id="knownTypeRockPropertiesSonicVelocity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
 		<constructor-arg name="id" value="sonic-velocity" />
 		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.OGCSelector">
+			<bean class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
 			<constructor-arg name="featureTypeName" value="ga_rock_properties_wfs:scalar_results" />
 				<constructor-arg name="layerName" value="sonic_velocity" />
 			</bean>
@@ -2100,7 +2100,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 	<bean id="knownTypeRockPropertiesTemperature" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
 		<constructor-arg name="id" value="temperature" />
 		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.OGCSelector">
+			<bean class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
 			<constructor-arg name="featureTypeName" value="ga_rock_properties_wfs:scalar_results" />
 				<constructor-arg name="layerName" value="temperature" />
 			</bean>
