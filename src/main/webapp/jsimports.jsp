@@ -72,6 +72,7 @@
 <script src="js/auscope/layer/querier/wfs/factories/LocatedSpecimenFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/querier/wfs/factories/SamplingFeatureCollectionFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/querier/wfs/factories/SurfaceAfterShockFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
+<script src="js/auscope/layer/querier/wfs/factories/RockPropertyFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/querier/wfs/AuScopeParser.js?v=${buildTimestamp}" type="text/javascript"></script>
 
 <script src="js/auscope/layer/querier/wfs/knownlayerfactories/NVCLFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
