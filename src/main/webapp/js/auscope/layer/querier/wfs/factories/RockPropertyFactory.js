@@ -23,82 +23,23 @@ Ext.define('auscope.layer.querier.wfs.factories.RockPropertyFactory', {
 	parseNode : function(domNode, wfsUrl) {
         var bf = this;
 
-        var title = 'Rock Properties - '+ Ext.String.capitalize(portal.util.xml.SimpleDOM.getNodeLocalName(domNode));
+        var layerName = Ext.String.capitalize(portal.util.xml.SimpleDOM.getNodeLocalName(domNode).replace(/_/,' '));
+        var title = 'Rock Properties - '+ layerName;
         
         var gmlId = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, '@gml:id');
         
-        var samplingFeatureNumber = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:SAMPLINGFEATURENO');
-        var samplingFeatureName = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:SAMPLINGFEATURENAME');
-        var samplingFeatureType = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:SAMPLINGFEATURETYPE');
-        var sampleNumber = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:SAMPLENO');
+        var resultNumber = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:RESULTNO');
         
-        var sampleName = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:SAMPLENAME');
-        var sampleType = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:SAMPLETYPE');
-        var property = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:PROPERTY');
-        var value = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:VALUE');
-        
-        var unitOfMeasure = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:UNITOFMEASURE');
-        var resultQualifier = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:RESULTQUALIFIER');
-        var uncertaintyUnitOfMeasure = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:UNCERTAINTYUOM');
-        var uncertaintyType = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:UNCERTAINTYTYPE');
-        
-        var stratigraphicUnitName = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:STRATIGRAPHICUNITNAME');
-        var provinceName = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:PROVINCENAME');
-        var materialClass = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:MATERIALCLASS');
-        var lithologyGroup = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:LITHOLOGYGROUP');
-        
-        var lithology = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:LITHOLOGY');
-        var sampleLongitude = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:SAMPLE_LONGITUDE');
-        var sampleLatitude = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:SAMPLE_LATITUDE');
-        var sampleElevation = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:SAMPLE_ELEVATION');
-        
-        var instrument = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:INSTRUMENT');
-        var sourceType = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:SOURCETYPE');
-        var source = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:SOURCE');
-        var resultId = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, 'ga_rock_properties_wms:RESULTID');
-      
         return Ext.create('portal.layer.querier.BaseComponent', {
             border : false,
-            tabTitle: gmlId,
+            tabTitle: layerName + ' - ' + resultNumber,
             layout : 'fit',
             items : [{
                 xtype : 'fieldset',
                 title : title,
                 labelWidth : 75,
                 autoScroll : true,
-                items : [{
-                    xtype : 'displayfield',
-                    fieldLabel : 'Sampling Feature Number',
-                    value : samplingFeatureNumber
-                },{
-                    xtype : 'displayfield',
-                    fieldLabel : 'Sampling Feature Name',
-                    value : samplingFeatureName
-                },{
-                    xtype : 'displayfield',
-                    fieldLabel : 'Sampling Feature Type',
-                    value : samplingFeatureType
-                },{
-                    xtype : 'displayfield',
-                    fieldLabel : 'Sample Number',
-                    value : sampleNumber
-                },{
-                    xtype : 'displayfield',
-                    fieldLabel : 'Sample Name',
-                    value : sampleName
-                },{
-                    xtype : 'displayfield',
-                    fieldLabel : 'Sample Type',
-                    value : sampleType
-                },{
-                    xtype : 'displayfield',
-                    fieldLabel : 'Property',
-                    value : property
-                },{
-                    xtype : 'displayfield',
-                    fieldLabel : 'Instrument',
-                    value : instrument
-                }]
+                items : this._createDisplayItems(domNode)
             }],
             buttonAlign : 'right',
             buttons : [{
@@ -112,5 +53,72 @@ Ext.define('auscope.layer.querier.wfs.factories.RockPropertyFactory', {
                 }
             }]
         });
+	},
+	
+	_createDisplayItems: function(domNode) {
+		/*
+		 * The following is a key-value pair with the keys taken from the DescribeFeatureType request of the service and the values being the human-readable names for each attribute.
+		 * Excluded are RESULTID, which is used for the tabTitle, and GEOM. 
+		 */
+	    var featureItems = {'SAMPLINGFEATURENO' : 'Sampling Feature Number',
+							'SAMPLINGFEATURENAME' : 'Sampling Feature Name',
+							'SAMPLINGFEATURETYPE' : 'Sampling Feature Type',
+							'SAMPLENO' : 'Sample Number',
+							'SAMPLENAME' : 'Sample Name',
+							'SAMPLETYPE' : 'Sample Type',
+							'PROPERTY' : 'Property',
+							'VALUE' : 'Value',
+							'UNITOFMEASURE' : 'Unit of Measure',
+							'RESULTQUALIFIER' : 'Result Qualifier',
+							'UNCERTAINTY' : 'Uncertainty',
+							'UNCERTAINTYUOM' : 'Uncertainty Unit of Measure',
+							'UNCERTAINTYTYPE' : 'Uncertainty Type',
+							'STRATIGRAPHICUNITNAME' : 'Stratigraphic Unit Name',
+							'PROVINCENAME' : 'Province Name',
+							'MATERIALCLASS' : 'Material Class',
+							'LITHOLOGYGROUP' : 'Lithology Group',
+							'LITHOLOGY' : 'Lithology',
+							'SAMPLE_LONGITUDE' : 'Sample Longitude',
+							'SAMPLE_LATITUDE' : 'Sample Longitude',
+							'SAMPLE_ELEVATION' : 'Sample Elevation',
+							'BOREHOLECOLLARLONGITUDE' : 'Borehole Collar Longitude',
+							'BOREHOLECOLLARLATITUDE' : 'Borehole Collar Latitude',
+							'BOREHOLECOLLARELEVATION' : 'Borehole Collar Elevation',
+							'BOREHOLEINTERVALBEGIN_M' : 'Borehole Interval Begin (m)',
+							'BOREHOLEINTERVALEND_M' : 'Borehole Interval End (m)',
+							'SAMPLINGDATE' : 'Sampling Date',
+							'LOCATIONACCURACY_M' : 'Location Accuracy (m)',
+							'LOCATIONMETHOD' : 'Location Method',
+							'SAMPLEORIGINATOR' : 'Sample Originator',
+							'SAMPLINGLOCATIONREMARK' : 'Sampling Location Remark',
+							'PROCESSTYPE' : 'Process Type',
+							'METHOD' : 'Method',
+							'INSTRUMENT' : 'Instrument',
+							'ANALYSISDATETIME' : 'Analysis Date Time',
+							'ANALYSISREMARK' : 'Analysis Remark',
+							'ANALYSISORIGINATOR' : 'Analysis Originator',
+							'ANALYSISLOCATIONREMARK' : 'Analysis Location Remark',
+							'NUMERICALCONFIDENCE' : 'Numerical Confidence',
+							'METADATAQUALITY' : 'Metadata Quality',
+							'SUMMARYCONFIDENCE' : 'Summary Confidence',
+							'SOURCETYPE' : 'Source Type',
+							'SOURCE' : 'Source',
+							'RESULTID' : 'Result ID'
+						};
+	    var displayItems = [];
+	    for (var key in featureItems) {
+	    	if (featureItems.hasOwnProperty(key)) {
+	    		var xpathString = 'ga_rock_properties_wms:' + key;
+	    		var value = portal.util.xml.SimpleXPath.evaluateXPathString(domNode,xpathString)
+	    		if (value !== "" ) {
+	    		    var item = {xtype : 'displayfield',
+	    			    fieldLabel: featureItems[key],
+	    				value: value
+	    			};
+	    		    displayItems.push(item);
+	    		}
+	    	}
+	    }
+	    return displayItems;
 	}
 })
