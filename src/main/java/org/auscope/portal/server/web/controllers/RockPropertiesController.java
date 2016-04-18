@@ -9,6 +9,7 @@ import org.auscope.portal.core.server.OgcServiceProviderType;
 import org.auscope.portal.core.server.controllers.BasePortalController;
 import org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker.ResultType;
 import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
+import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
 import org.auscope.portal.core.services.responses.wfs.WFSTransformedResponse;
 import org.auscope.portal.core.util.FileIOUtil;
 import org.auscope.portal.server.web.service.RockPropertiesService;
@@ -50,6 +51,26 @@ public class RockPropertiesController extends BasePortalController {
 
 		return generateJSONResponseMAV(response.getSuccess(), response.getGml(), response.getTransformed(),
 				response.getMethod());
+	}
+	
+	@RequestMapping("/getRockPropertiesCount.do")
+	public ModelAndView getRockPropertiesCount(@RequestParam("serviceUrl") String serviceUrl,
+			@RequestParam(required = false, value = "rockProperty") String rockProperty,
+			@RequestParam(required = false, value = "bbox") String bboxJson,
+
+			@RequestParam(required = false, value = "maxFeatures", defaultValue = "0") int maxFeatures) {
+
+		OgcServiceProviderType ogcServiceProviderType = OgcServiceProviderType.parseUrl(serviceUrl);
+		FilterBoundingBox bbox = FilterBoundingBox.attemptParseFromJSON(bboxJson, ogcServiceProviderType);
+		WFSCountResponse response = null;
+
+		try {
+			response = this.rockPropertiesService.getRockPropertiesCount(serviceUrl, rockProperty, maxFeatures, bbox);
+		} catch (Exception e) {
+			return this.generateExceptionResponse(e, serviceUrl);
+		}
+
+		return generateJSONResponseMAV(true, new Integer(response.getNumberOfFeatures()), "");
 	}
 
 	@RequestMapping("/getBulkDensityDownload.do")
