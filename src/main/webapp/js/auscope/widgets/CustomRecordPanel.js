@@ -90,13 +90,13 @@ Ext.define('auscope.widgets.CustomRecordPanel', {
             bodyPadding: 8,
             items: [{
                 xtype: 'textfield',
-                value: 'https://capdf-dev.csiro.au/gs-hydrogeochem/public/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=public:hydrogeochem&maxFeatures=50&outputFormat=application/vnd.google-earth.kml+xml',
                 name: 'url',
                 fieldLabel: 'KML URL',
                 labelWidth: 60,
                 msgTarget: 'side',
                 allowBlank: false,
-                anchor: '100%'
+                anchor: '100%',
+                emptyText: 'http://'
             }],
             buttons: [{
                 text: 'Add KML',
