@@ -24,7 +24,6 @@ Ext.define('auscope.layer.querier.wfs.factories.RockPropertyFactory', {
         var bf = this;
 
         var layerName = Ext.String.capitalize(portal.util.xml.SimpleDOM.getNodeLocalName(domNode).replace(/_/,' '));
-        var title = 'Rock Properties - '+ layerName;
         
         var gmlId = portal.util.xml.SimpleXPath.evaluateXPathString(domNode, '@gml:id');
         
@@ -36,7 +35,6 @@ Ext.define('auscope.layer.querier.wfs.factories.RockPropertyFactory', {
             layout : 'fit',
             items : [{
                 xtype : 'fieldset',
-                title : title,
                 labelWidth : 75,
                 autoScroll : true,
                 items : this._createDisplayItems(domNode)
