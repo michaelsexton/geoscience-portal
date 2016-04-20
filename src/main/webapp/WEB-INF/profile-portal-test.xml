@@ -155,6 +155,7 @@
             <list>
                 <ref bean="cswGaDev" />
                 <ref bean="cswGswaDev" />
+                <ref bean="cswGsq" />
                 <ref bean="cswGsv" />
                 <ref bean="cswMineralResourcesTasmaniaDev" />
                 <ref bean="cswAustralianTopography" />
