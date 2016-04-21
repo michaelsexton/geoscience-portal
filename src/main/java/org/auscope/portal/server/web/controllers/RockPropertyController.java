@@ -7,12 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.auscope.portal.core.server.OgcServiceProviderType;
 import org.auscope.portal.core.server.controllers.BasePortalController;
-import org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker.ResultType;
 import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
 import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
 import org.auscope.portal.core.services.responses.wfs.WFSTransformedResponse;
 import org.auscope.portal.core.util.FileIOUtil;
-import org.auscope.portal.server.web.service.RockPropertiesService;
+import org.auscope.portal.server.web.service.RockPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,20 +19,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class RockPropertiesController extends BasePortalController {
+public class RockPropertyController extends BasePortalController {
 
 	private static String SCALAR_RESULTS = "ga_rock_properties_wfs:scalar_results";
 	private static String REMANENT_MAGNETISATION = "ga_rock_properties_wfs:remanent_magnetisation";
 
-	private RockPropertiesService rockPropertiesService;
+	private RockPropertyService rockPropertiesService;
 
 	@Autowired
-	public RockPropertiesController(RockPropertiesService rockPropertiesService) {
+	public RockPropertyController(RockPropertyService rockPropertiesService) {
 		this.rockPropertiesService = rockPropertiesService;
 	}
 
-	@RequestMapping("/getRockPropertiesFeatures.do")
-	public ModelAndView getRockPropertiesFeatures(@RequestParam("serviceUrl") String serviceUrl,
+	@RequestMapping("/getRockPropertyFeatures.do")
+	public ModelAndView getRockPropertyFeatures(@RequestParam("serviceUrl") String serviceUrl,
 			@RequestParam(required = false, value = "rockProperty") String rockProperty,
 			@RequestParam(required = false, value = "bbox") String bboxJson,
 
@@ -53,8 +52,8 @@ public class RockPropertiesController extends BasePortalController {
 				response.getMethod());
 	}
 	
-	@RequestMapping("/getRockPropertiesCount.do")
-	public ModelAndView getRockPropertiesCount(@RequestParam("serviceUrl") String serviceUrl,
+	@RequestMapping("/getRockPropertyCount.do")
+	public ModelAndView getRockPropertyCount(@RequestParam("serviceUrl") String serviceUrl,
 			@RequestParam(required = false, value = "rockProperty") String rockProperty,
 			@RequestParam(required = false, value = "bbox") String bboxJson,
 
@@ -65,7 +64,7 @@ public class RockPropertiesController extends BasePortalController {
 		WFSCountResponse response = null;
 
 		try {
-			response = this.rockPropertiesService.getRockPropertiesCount(serviceUrl, rockProperty, maxFeatures, bbox);
+			response = this.rockPropertiesService.getRockPropertyCount(serviceUrl, rockProperty, maxFeatures, bbox);
 		} catch (Exception e) {
 			return this.generateExceptionResponse(e, serviceUrl);
 		}

@@ -1918,7 +1918,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 		</constructor-arg>
 		<property name="name" value="Bulk Density" />
 		<property name="description" value="" />
-		<property name="proxyUrl" value="getRockPropertiesFeatures.do" />
+		<property name="proxyUrl" value="getRockPropertyFeatures.do" />
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getBulkDensityDownload.do" />
@@ -1935,7 +1935,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 		</constructor-arg>
 		<property name="name" value="Chargeability" />
 		<property name="description" value="" />
-		<property name="proxyUrl" value="getRockPropertiesFeatures.do" />
+		<property name="proxyUrl" value="getRockPropertyFeatures.do" />
 		<property name="proxyCountUrl" value="" />
 		<property name="proxyStyleUrl" value="" />
 		<property name="proxyDownloadUrl" value="getChargeabilityDownload.do" />
@@ -1952,7 +1952,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 		</constructor-arg>
 		<property name="name" value="Electrical Conductivity" />
 		<property name="description" value="" />
-		<property name="proxyUrl" value="getRockPropertiesFeatures.do" />
+		<property name="proxyUrl" value="getRockPropertyFeatures.do" />
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getElectricalConductivityDownload.do" />
@@ -1969,7 +1969,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 		</constructor-arg>
 		<property name="name" value="Electrical Resistivity" />
 		<property name="description" value="" />
-		<property name="proxyUrl" value="getRockPropertiesFeatures.do" />
+		<property name="proxyUrl" value="getRockPropertyFeatures.do" />
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getElectricalResistivityDownload.do" />
@@ -1986,7 +1986,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 		</constructor-arg>
 		<property name="name" value="Gamma Bulk Density" />
 		<property name="description" value="" />
-		<property name="proxyUrl" value="getRockPropertiesFeatures.do" />
+		<property name="proxyUrl" value="getRockPropertyFeatures.do" />
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getGammaBulkDensityDownload.do" />
@@ -2003,7 +2003,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 		</constructor-arg>
 		<property name="name" value="Koenigsberger Ratio" />
 		<property name="description" value="" />
-		<property name="proxyUrl" value="getRockPropertiesFeatures.do" />
+		<property name="proxyUrl" value="getRockPropertyFeatures.do" />
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getKoenigsbergerRatioDownload.do" />
@@ -2020,7 +2020,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 		</constructor-arg>
 		<property name="name" value="Magnetic Susceptibility" />
 		<property name="description" value="" />
-		<property name="proxyUrl" value="getRockPropertiesFeatures.do" />
+		<property name="proxyUrl" value="getRockPropertyFeatures.do" />
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getMagneticSusceptibilityDownload.do" />
@@ -2037,7 +2037,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 		</constructor-arg>
 		<property name="name" value="Natural Gamma" />
 		<property name="description" value="" />
-		<property name="proxyUrl" value="getRockPropertiesFeatures.do" />
+		<property name="proxyUrl" value="getRockPropertyFeatures.do" />
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getNaturalGammaDownload.do" />
@@ -2054,7 +2054,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 		</constructor-arg>
 		<property name="name" value="Porosity" />
 		<property name="description" value="" />
-		<property name="proxyUrl" value="getRockPropertiesFeatures.do" />
+		<property name="proxyUrl" value="getRockPropertyFeatures.do" />
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getPorosityDownload.do" />
@@ -2071,7 +2071,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 		</constructor-arg>
 		<property name="name" value="Remanent Magnetisation" />
 		<property name="description" value="" />
-		<property name="proxyUrl" value="getRockPropertiesFeatures.do" />
+		<property name="proxyUrl" value="getRockPropertyFeatures.do" />
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getRemanentMagnetisationDownload.do" />
@@ -2088,7 +2088,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 		</constructor-arg>
 		<property name="name" value="Sonic Velocity" />
 		<property name="description" value="" />
-		<property name="proxyUrl" value="getRockPropertiesFeatures.do" />
+		<property name="proxyUrl" value="getRockPropertyFeatures.do" />
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getSonicVelocityDownload.do" />
@@ -2105,7 +2105,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
 		</constructor-arg>
 		<property name="name" value="Temperature" />
 		<property name="description" value="" />
-		<property name="proxyUrl" value="getRockPropertiesFeatures.do" />
+		<property name="proxyUrl" value="getRockPropertyFeatures.do" />
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getTemperatureDownload.do" />

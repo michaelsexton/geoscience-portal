@@ -38,17 +38,6 @@ Ext.define('auscope.layer.querier.wfs.factories.RockPropertyFactory', {
                 labelWidth : 75,
                 autoScroll : true,
                 items : this._createDisplayItems(domNode)
-            }],
-            buttonAlign : 'right',
-            buttons : [{
-                text : 'Download Feature',
-                iconCls : 'download',
-                handler : function() {
-                    var getXmlUrl = bf._makeFeatureRequestUrl(wfsUrl, domNode.nodeName, gmlId);
-                    portal.util.FileDownloader.downloadFile('downloadGMLAsZip.do',{
-                        serviceUrls : getXmlUrl
-                    });
-                }
             }]
         });
 	},

@@ -11,7 +11,7 @@ import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
 import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
 import org.auscope.portal.core.services.responses.wfs.WFSTransformedResponse;
 import org.auscope.portal.core.xslt.WfsToKmlTransformer;
-import org.auscope.portal.mineraloccurrence.RockPropertiesFilter;
+import org.auscope.portal.mineraloccurrence.RockPropertyFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +20,12 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service
-public class RockPropertiesService extends BaseWFSService {
+public class RockPropertyService extends BaseWFSService {
 
 	private WfsToKmlTransformer wfsToKmlTransformer;
 
 	@Autowired
-	public RockPropertiesService(HttpServiceCaller httpServiceCaller, WFSGetFeatureMethodMaker methodMaker,
+	public RockPropertyService(HttpServiceCaller httpServiceCaller, WFSGetFeatureMethodMaker methodMaker,
 			WfsToKmlTransformer wfsToKmlTransformer) {
 		super(httpServiceCaller, methodMaker);
 		this.wfsToKmlTransformer = wfsToKmlTransformer;
@@ -50,7 +50,7 @@ public class RockPropertiesService extends BaseWFSService {
 
 	}
 
-	public WFSCountResponse getRockPropertiesCount(String serviceUrl, String rockProperty, int maxFeatures,
+	public WFSCountResponse getRockPropertyCount(String serviceUrl, String rockProperty, int maxFeatures,
 			FilterBoundingBox bbox) throws Exception {
 		String filterString = this.getRockPropertyFilter(rockProperty, bbox);
 		HttpRequestBase method = null;
@@ -60,7 +60,7 @@ public class RockPropertiesService extends BaseWFSService {
 	}
 
 	public String getRockPropertyFilter(String rockProperty, FilterBoundingBox bbox) {
-		RockPropertiesFilter filter = new RockPropertiesFilter(rockProperty);
+		RockPropertyFilter filter = new RockPropertyFilter(rockProperty);
 		if (bbox == null) {
 			return filter.getFilterStringAllRecords();
 		} else {
