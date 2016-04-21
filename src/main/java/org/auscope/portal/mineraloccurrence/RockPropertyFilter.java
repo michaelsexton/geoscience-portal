@@ -8,7 +8,7 @@ import java.util.Map;
 import org.auscope.portal.core.services.methodmakers.filter.AbstractFilter;
 import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
 
-public class RockPropertiesFilter extends AbstractFilter {
+public class RockPropertyFilter extends AbstractFilter {
 
 	/**
 	 * Hard coded list of lookups for the rock properties service, where a rock
@@ -42,7 +42,7 @@ public class RockPropertiesFilter extends AbstractFilter {
 
 	List<String> fragments;
 
-	public RockPropertiesFilter(String rockProperty) {
+	public RockPropertyFilter(String rockProperty) {
 		fragments = new ArrayList<String>();
 		if (ROCK_PROPERTY_MAP.containsKey(rockProperty)) {
 			String[] rockProperties = ROCK_PROPERTY_MAP.get(rockProperty);
