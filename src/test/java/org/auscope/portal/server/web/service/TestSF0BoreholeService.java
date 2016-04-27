@@ -110,7 +110,7 @@ public class TestSF0BoreholeService extends PortalTestClass {
 
         String filter = service.getFilter(nameFilter, custodianFilter, dateOfDrilling, maxFeatures, bbox, null);
 
-        String style = service.getStyle(filter, null, "#2242c7", Styles.ALL_BOREHOLES);
+        String style = service.getStyle(filter, null, "#2242c7","http://xmlns.geosciml.org/geosciml-portrayal/4.0", Styles.ALL_BOREHOLES);
         Assert.assertNotNull(style);
         Assert.assertThat(style, Matchers.containsString("gsmlp:BoreholeView"));
 
