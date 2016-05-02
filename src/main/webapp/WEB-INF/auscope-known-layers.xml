@@ -1466,8 +1466,9 @@
 		<property name="group" value="Topography and Infrastructure" />
 		<property name="proxyUrl" value="" />
 		<property name="proxyCountUrl" value="" />
-		<property name="proxyStyleUrl" value="" />
+		<property name="proxyStyleUrl" value="getOilStyle.do" />
 		<property name="proxyDownloadUrl" value="" />
+		<property name="forceWMSGet" value="true" />
 		<property name="order" value="70_Topography and Infrastructure_060" />
 	</bean>
 	<bean id="knownTypeGas" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -1484,8 +1485,9 @@
 		<property name="group" value="Topography and Infrastructure" />
 		<property name="proxyUrl" value="" />
 		<property name="proxyCountUrl" value="" />
-		<property name="proxyStyleUrl" value="" />
+		<property name="proxyStyleUrl" value="getGasStyle.do" />
 		<property name="proxyDownloadUrl" value="" />
+		<property name="forceWMSGet" value="true" />
 		<property name="order" value="70_Topography and Infrastructure_070" />
 	</bean>
 	<bean id="knownTypeMajorPorts" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
