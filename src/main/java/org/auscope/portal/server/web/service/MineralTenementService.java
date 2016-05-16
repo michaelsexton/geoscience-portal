@@ -13,8 +13,7 @@ import org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker.Re
 import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
 import org.auscope.portal.core.services.methodmakers.filter.IFilter;
 import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
-import org.auscope.portal.core.services.responses.wfs.WFSTransformedResponse;
-import org.auscope.portal.core.xslt.WfsToKmlTransformer;
+import org.auscope.portal.core.services.responses.wfs.WFSResponse;
 import org.auscope.portal.mineraloccurrence.MineralTenementFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,13 +27,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class MineralTenementService extends BaseWFSService {
 
-	private WfsToKmlTransformer wfsToKml;
 
 	@Autowired
-	public MineralTenementService(HttpServiceCaller httpServiceCaller, WFSGetFeatureMethodMaker methodMaker,
-			WfsToKmlTransformer wfsToKml) {
+	public MineralTenementService(HttpServiceCaller httpServiceCaller, WFSGetFeatureMethodMaker methodMaker) {
 		super(httpServiceCaller, methodMaker);
-		this.wfsToKml = wfsToKml;
+
 	}
 
 	/**
@@ -89,8 +86,8 @@ public class MineralTenementService extends BaseWFSService {
 
 	}
 
-	public WFSTransformedResponse getAllTenements(String serviceURL, String tenementName, int maxFeatures,
-			FilterBoundingBox bbox) throws Exception {
+	public WFSResponse getAllTenements(String serviceURL, String tenementName, int maxFeatures,
+			FilterBoundingBox bbox, String outputFormat) throws Exception {
 		String filterString;
 		MineralTenementFilter mineralTenementFilter = new MineralTenementFilter(tenementName);
 		if (bbox == null) {
@@ -103,10 +100,9 @@ public class MineralTenementService extends BaseWFSService {
 
 		try {
 			method = this.generateWFSRequest(serviceURL, "mt:MineralTenement", null, filterString, maxFeatures, null,
-					ResultType.Results);
+					ResultType.Results,outputFormat);
 			String responseGML = this.httpServiceCaller.getMethodResponseAsString(method);
-			String responseKML = this.wfsToKml.convert(responseGML, serviceURL);
-			return new WFSTransformedResponse(responseGML, responseKML, method);
+			return new WFSResponse(responseGML, method);
 		} catch (Exception e) {
 			throw new PortalServiceException(method, e);
 		}
