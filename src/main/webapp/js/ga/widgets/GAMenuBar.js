@@ -58,9 +58,9 @@ Ext.define('ga.widgets.GAMenuBar', {
             Ext.util.CSS.removeStyleSheet('printCSSLink');    
         };        
     
-        // Create our Clear Map handler
+        //Create our Reset Map handler
         // revert to the default zoom level, map extent and remove all our layers
-        var clearMapHandler = function() {
+        var resetMapHandler = function() {
             me.map.map.zoomTo(4); 
             var center = new OpenLayers.LonLat(133.3, -26).transform('EPSG:4326', 'EPSG:3857');
             me.map.map.setCenter(center);
@@ -80,13 +80,7 @@ Ext.define('ga.widgets.GAMenuBar', {
                 localStorage.removeItem("portalStorageApplicationState");
                 localStorage.removeItem("portalStorageDefaultBaseLayer");
             }
-        };    
-    
-        // Create our Refresh Map handler
-        var refreshMapHandler = function() {
-            // Refresh the whole browser window
-        	window.location.reload();
-        };                  
+        };                    
         
         //Create our permalink generation handler
         var permalinkHandler = function() {
@@ -150,8 +144,7 @@ Ext.define('ga.widgets.GAMenuBar', {
                     html: '<ul>\
                                <li><a href="http://www.geoscience.gov.au"><img src="img/home.png" width="16" height="16"/></a></li>\
                                <li><a id="print-map-link" href="javascript:void(0)">PRINT MAP</a></li>\
-                               <li><a id="clear-map-link" href="javascript:void(0)">CLEAR MAP</a></li>\
-                    		   <li><a id="refresh-map-link" href="javascript:void(0)">REFRESH MAP</a></li>\
+                               <li><a id="reset-map-link" href="javascript:void(0)">RESET MAP</a></li>\
                                <li><a id="permanent-link" href="javascript:void(0)"> PERMANENT LINK </a> </li>\
                                <li><a id="help-link" href="javascript:void(0)"> HELP </a> </li>\
                                <span id="latlng"></span>\
@@ -163,8 +156,7 @@ Ext.define('ga.widgets.GAMenuBar', {
             listeners: {
                 render: function (view) {
                     Ext.get('print-map-link').on('click', printMapHandler);
-                    Ext.get('clear-map-link').on('click', clearMapHandler); 
-                    Ext.get('refresh-map-link').on('click', refreshMapHandler);  
+                    Ext.get('reset-map-link').on('click', resetMapHandler);  
                     Ext.get('permanent-link').on('click', permalinkHandler); 
                     Ext.get('help-link').on('click', helpHandler); 
                 }
