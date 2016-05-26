@@ -227,5 +227,13 @@
         <constructor-arg name="title" value="Virtual Geophysics Laboratory Registry" />
         <constructor-arg name="serviceUrl" value="http://vgl-reg.auscope.org/geonetwork/srv/eng/csw" />
         <constructor-arg name="recordInformationUrl" value="http://vgl-reg.auscope.org/geonetwork/srv/eng/main.home?uuid=%1$s" />     
+    </bean>
+    
+    <bean id="cswEnvironment" class="org.auscope.portal.core.services.csw.CSWServiceItem">
+        <constructor-arg name="id" value="cswEnvironment" />
+        <constructor-arg name="title" value="Australian Department of Environment" />
+        <constructor-arg name="serviceUrl" value="http://www.environment.gov.au/fed/csw" />
+        <constructor-arg name="recordInformationUrl" value="http://www.environment.gov.au/fed/csw?request=GetRecordById&amp;service=CSW&amp;version=2.0.2&amp;outputSchema=http://www.isotc211.org/2005/gmd&amp;elementSetName=full&amp;id=%1$s" />     
     </bean>    
+        
 </beans>

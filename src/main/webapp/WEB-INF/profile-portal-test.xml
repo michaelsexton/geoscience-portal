@@ -169,6 +169,7 @@
                 <ref bean="cswScannedMapsIndex"/>
                 <ref bean="cswNationalGeophysicalDatasets"/>
                 <ref bean="cswBoreholes"/>
+                <ref bean="cswEnvironment"/>
 <!--            <ref bean="cswGeoscienceLocal" /> -->
 <!--            <ref bean="darwinDev" /> -->
 <!--            <ref bean="cswAuscopeTest" /> -->
