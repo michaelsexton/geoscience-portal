@@ -61,7 +61,7 @@ Ext.define('ga.widgets.GASearchResultsPanel', {
                 },
                 
                 // when the view is fully loaded we need to check for availability of some features and update the DOM                    
-                viewready: function(view) {
+                afterlayout: function(view) {
 
                     me.cswRecordStore.each(function(record,id){
                         var hasWMSResource = false;
