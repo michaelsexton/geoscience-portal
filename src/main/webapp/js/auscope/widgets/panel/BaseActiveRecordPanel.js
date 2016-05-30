@@ -62,20 +62,26 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
             },          
             columns : [{
                 text : 'Drag',
-                xtype : 'actioncolumn',
+                xtype : 'clickcolumn',
                 width: 32,
                 align: 'center',
-                icon : 'img/play_blue.png',
+                renderer: me._playRenderer,
                 sortable: false,
                 menuDisabled: true,
-                tooltip: 'Drag to re-order layers'
+                hasTip : true,
+                tipRenderer : function() {
+                  return 'Click to adjust transparency and/or query filters';
+                }
              },{
                 text : 'Name',
                 xtype : 'gridcolumn',
                 dataIndex : 'name',
                 flex : 1,
                 renderer: this._titleRenderer,
-                tooltip: 'Click for more options'
+                hasTip : true,
+                tipRenderer : function() {
+                  return 'Drag to re-order layers';
+                }              
             },{
                 text : 'info',
                 id : 'info',
@@ -175,7 +181,7 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
                   ptype : 'rowexpandercontainer',
                   baseId : 'rowexpandercontainer-activelayers',
                   pluginId : 'maingrid_rowexpandercontainer',
-                  toggleColIndexes: [1],
+                  toggleColIndexes: [0,1],
                   generateContainer : function(layer, parentElId) {
                       //VT:if this is deserialized, we don't need to regenerate the layer
                       if(! layer) {
@@ -316,4 +322,14 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
         
         return panel
     },
+    
+    _playRenderer : function () {
+      return Ext.DomHelper.markup({
+        tag : 'img',
+        width : 16,
+        height : 16,
+        src: 'portal-core/img/play_blue.png'
+    });
+      
+    }
 });
