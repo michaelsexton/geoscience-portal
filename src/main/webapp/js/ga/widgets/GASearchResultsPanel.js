@@ -212,7 +212,6 @@ Ext.define('ga.widgets.GASearchResultsPanel', {
                         },
                         autoEl: {
                           tag: 'a',
-                          target : '_blank',
                           href: '#',
                           cn: 'Show extent'
                         }                      
@@ -229,7 +228,6 @@ Ext.define('ga.widgets.GASearchResultsPanel', {
                         },
                         autoEl: {
                           tag: 'a',
-                          target : '_blank',
                           href: '#',
                           cn: 'Download data'
                         }
