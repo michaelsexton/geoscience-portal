@@ -126,7 +126,7 @@ Ext.define('ga.widgets.GAMenuBar', {
                 title : 'Permanent Link',
                 description : 'Create a link that captures the current state of the user session.'
             }),Ext.create('portal.util.help.Instruction', {
-                highlightEl : 'hh-userGuide',
+                highlightEl : 'help-link',
                 anchor : 'left',
                 title : 'User guide',
                 description : 'For more information, refer to the user guide.'
