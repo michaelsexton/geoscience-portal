@@ -1,7 +1,6 @@
 package org.auscope.portal.server.web.controllers;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 
 import javax.servlet.http.HttpServletResponse;
@@ -11,18 +10,56 @@ import org.auscope.portal.core.util.FileIOUtil;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+/**
+ * Controller to produce StyledLayerDescriptors for ArcGis Server layers.
+ *
+ */
 @Controller
 public class SLDController extends BasePortalController {
+
+	@RequestMapping("/getScannedGeologicalMapsStyle.do")
+	public void getScannedGeologicalMapsStyle(@RequestParam(value = "mapName", required = false) String mapName,
+			HttpServletResponse response) throws Exception {
+
+		String filter = "";
+		String fillColour = "";
+
+		// If mapName is passed to the action, build filter string and make the
+		// map sheet opaque
+		if (mapName != null && !mapName.isEmpty()) {
+			filter = "<ogc:Filter><ogc:PropertyIsLike escapeChar=\"!\" wildCard=\"*\" matchCase=\"false\" singleChar=\"#\">"
+					+ "<ogc:PropertyName>QMAPNAME</ogc:PropertyName>" + "<ogc:Literal>*" + mapName + "*</ogc:Literal>"
+					+ "</ogc:PropertyIsLike>" + "</ogc:Filter>";
+			fillColour = "<Fill><CssParameter name=\"fill\">#ed9c38</CssParameter>"
+					+ "<CssParameter name=\"fill-opacity\">0.6</CssParameter></Fill>";
+		}
+
+		// Don't include "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" in this
+		// style string, the service (on www.ga.gov.au) does not like it!
+		// When the service is upgraded to services.ga.gov.au check whether the
+		// lack of xml declaration is the cause of any failures.
+		String scannedGeologicalMapsStyle = "<StyledLayerDescriptor xmlns=\"http://www.opengis.net/sld\" xmlns:ogc=\"http://www.opengis.net/ogc\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" version=\"1.0.0\" xsi:schemaLocation=\"http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd\">"
+				+ "<NamedLayer> <Name>Scanned_250K_Geological_Map_Index</Name><UserStyle>"
+				+ "<Name>scanned-maps</Name><FeatureTypeStyle><Rule><Name>250K Scanned Geological Maps</Name>" + filter
+				+ "<PolygonSymbolizer>" + fillColour + "<Stroke>"
+				+ "<CssParameter name=\"stroke\">#ed9c38</CssParameter>"
+				+ "<CssParameter name=\"stroke-width\">1</CssParameter></Stroke></PolygonSymbolizer>"
+				+ "</Rule></FeatureTypeStyle></UserStyle></NamedLayer></StyledLayerDescriptor>";
+
+		writeStyleStream(scannedGeologicalMapsStyle, response);
+	}
 
 	@RequestMapping("/getOilStyle.do")
 	public void getOilStyle(HttpServletResponse response) throws Exception {
 
 		String oilStyle = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
 				+ "<StyledLayerDescriptor xmlns=\"http://www.opengis.net/sld\" xmlns:ogc=\"http://www.opengis.net/ogc\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" version=\"1.0.0\" xsi:schemaLocation=\"http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd\">"
-				+ "<NamedLayer> <Name>National_Onshore_Oil_Pipelines</Name><UserStyle>"
+				+ "<NamedLayer><Name>National_Onshore_Oil_Pipelines</Name><UserStyle>"
 				+ "<Name>oil-pipelines-portal</Name><FeatureTypeStyle>"
-				// MS - Rule/Name needs a human readable value because ArcGIS server uses it for GetLegendGraphic
+				// MS - Rule/Name needs a human readable value because ArcGIS
+				// server uses it for GetLegendGraphic
 				+ "<Rule><Name>Oil Pipelines</Name><LineSymbolizer><Stroke>"
 				+ "<CssParameter name=\"stroke\">#000000</CssParameter>"
 				+ "<CssParameter name=\"stroke-width\">2.8</CssParameter>"
@@ -45,7 +82,8 @@ public class SLDController extends BasePortalController {
 				+ "<StyledLayerDescriptor xmlns=\"http://www.opengis.net/sld\" xmlns:ogc=\"http://www.opengis.net/ogc\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" version=\"1.0.0\" xsi:schemaLocation=\"http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd\">"
 				+ "<NamedLayer><Name>National_Onshore_Gas_Pipelines</Name><UserStyle>"
 				+ "<Name>gas-pipelines-portal</Name><FeatureTypeStyle>"
-				// MS - Rule/Name needs a human readable value because ArcGIS server uses it for GetLegendGraphic 
+				// MS - Rule/Name needs a human readable value because ArcGIS
+				// server uses it for GetLegendGraphic
 				+ "<Rule><Name>Gas Pipelines</Name><LineSymbolizer><Stroke>"
 				+ "<CssParameter name=\"stroke\">#000000</CssParameter>"
 				+ "<CssParameter name=\"stroke-width\">2.8</CssParameter>"
