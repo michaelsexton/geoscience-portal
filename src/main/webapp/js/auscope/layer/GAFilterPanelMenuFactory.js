@@ -42,7 +42,11 @@ Ext.define('auscope.layer.GAFilterPanelMenuFactory', {
             if (wfsResources.length > 0 || wcsResources.length > 0) {
                 menuItems.push(this._getResetFormAction());
             }
-
+            
+            // Based on comment above, should probably change this based on whether the layer has a filterer
+            // Until then, just check if the id is for Scanned Geological Maps
+            if (layer.id =='250K-scanned-geological-maps' )  menuItems.push(this._getResetFormAction());
+            
             // only provide download option if there are WFS resources to download
             if (wfsResources.length > 0) {
                 menuItems.push(this._getDownloadAction(layer));

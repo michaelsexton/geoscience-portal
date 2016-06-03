@@ -14,6 +14,8 @@
 <script src="js/ga/widgets/GAMenuBar.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/ga/widgets/GAFooter.js?v=${buildTimestamp}" type="text/javascript"></script>
 
+<script src="js/ga/store/AreaMapStore.js?v=${buildTimestamp}" type="text/javascript"></script>
+
 <!-- GA OpenLayers map wrapper -->
 <script src="js/ga/map/openlayers/GAOpenLayersMap.js?v=${buildTimestamp}" type="text/javascript"></script>
 
@@ -57,6 +59,7 @@
 <script src="js/auscope/layer/filterer/forms/CapdfHydroGeoChemFilterForm.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/filterer/forms/TimaGeoSampleFilterForm.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/filterer/forms/DisjunctedLayersForm.js?v=${buildTimestamp}" type="text/javascript"></script>
+<script src="js/auscope/layer/filterer/forms/ScannedGeologicalMapFilterForm.js?v=${buildTimestamp}" type="text/javascript"></script>
 
 <script src="js/auscope/layer/querier/wfs/factories/BoreholeFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/querier/wfs/factories/SF0BoreholeFactory.js?v=${buildTimestamp}" type="text/javascript"></script>

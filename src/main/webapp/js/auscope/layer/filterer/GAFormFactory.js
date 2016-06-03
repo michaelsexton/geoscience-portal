@@ -84,6 +84,9 @@ Ext.define('auscope.layer.filterer.GAFormFactory', {
                 baseFilterForm = Ext.create('auscope.layer.filterer.forms.TimaGeoSampleFilterForm',baseFilterFormCfg);
                 return this._generateResult(baseFilterForm, true);
             
+            case '250K-scanned-geological-maps':
+                baseFilterForm = Ext.create('auscope.layer.filterer.forms.ScannedGeologicalMapFilterForm', baseFilterFormCfg);
+                return this._generateResult(baseFilterForm, true);
             }
         }
         
