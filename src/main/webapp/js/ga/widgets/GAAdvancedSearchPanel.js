@@ -301,14 +301,22 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
                             displayField: 'Name',
                             store: this.areaMapStore,
                             minChars: 0,
-                            forceSelection: true,
+//                            forceSelection: true,
                             queryMode: 'remote',
                             triggerAction: 'all',
                             typeAhead: true,
                             enableKeyEvents: true,
                             width: 300,
                             hideLabel: true,
+                            mode: 'local',
                             listeners: {
+                            	'keyup': function(field, event) {
+                                    var keyCodeEntered = event.getKey();
+                                    if (keyCodeEntered != 40 && keyCodeEntered != 38) {
+                            		    this.store.filter('Name', this.getRawValue(), true, false);
+                                    }
+                            	},
+                            	
                                 // event when a value is selected from the list
                                 select: function(combo, event) {
                                     var boundList = combo.getPicker(),
@@ -319,16 +327,19 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
                                 
                                 // handler for navigation keys - set the field value and populate the bounding box search 
                                 specialkey: function (combo, event) {
-                                    combo.setValue(combo.getRawValue());
-                                    var boundList = combo.getPicker(),
-                                        store = boundList.getStore(),
-                                        record = store.findRecord(combo.displayField, combo.getValue());
-                                    if (record) {
-                                        boundList.highlightItem(boundList.getNode(record));
-                                        me.populateCoordinatesFromAreaMap(combo, record);
-                                    } else {
-                                        combo.setValue('');
-                                    }                                    
+                                    var keyCodeEntered = event.getKey();
+                                    if (keyCodeEntered != 40 && keyCodeEntered != 38) {
+                                        combo.setValue(combo.getRawValue());
+                                        var boundList = combo.getPicker(),
+                                            store = boundList.getStore(),
+                                            record = store.findRecord(combo.displayField, combo.getValue());
+                                        if (record) {
+                                            boundList.highlightItem(boundList.getNode(record));
+                                            me.populateCoordinatesFromAreaMap(combo, record);
+                                        } else {
+                                            combo.setValue('');
+                                        }
+                                    }
                                 }
                            }
                         }, {
