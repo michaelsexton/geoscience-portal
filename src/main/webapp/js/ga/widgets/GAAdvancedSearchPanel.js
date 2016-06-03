@@ -20,22 +20,7 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
         
         this.map = cfg.map;      
         
-        this.areaMapStore = new Ext.data.Store({
-            autoload: true,
-            fields: [
-                {name: 'Name', type: 'string'},
-                {name: 'WestLon', type: 'float'},
-                {name: 'NorthLat', type: 'float'}
-            ],
-            proxy : {
-                type : 'ajax',
-                url: 'getAreaMaps.do',
-                reader : {
-                    type : 'json',
-                    rootProperty : 'data'
-                }
-            }
-        });
+        this.areaMapStore = new ga.store.AreaMapStore({});
  
         var years = [];
 
