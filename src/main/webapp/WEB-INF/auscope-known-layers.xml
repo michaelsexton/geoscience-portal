@@ -1605,7 +1605,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <constructor-arg name="id" value="OnshoreSeismicSurveys"/>
         <constructor-arg name="knownLayerSelector">
             <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-                <constructor-arg name="layerName" value="OnshoreSeismicSurveyLines"/>
+                <constructor-arg name="layerName" value="Onshore_Seismic_Surveys"/>
             </bean>
         </constructor-arg>
         <property name="name" value="Onshore Seismic Surveys (government-funded)"/>
