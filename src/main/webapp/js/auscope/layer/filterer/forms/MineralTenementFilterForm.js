@@ -93,6 +93,13 @@ Ext.define('auscope.layer.filterer.forms.MineralTenementFilterForm', {
                                 '</span>',
                     name: 'name'
                 },{
+                    anchor: '100%',
+                    xtype: 'textfield',
+                    fieldLabel: '<span data-qtip="Wildcards: \'!\' escape character; \'*\' zero or more, \'#\' just one character.">' +
+                                'Owner' +
+                                '</span>', 
+                    name: 'owner'
+                },{
                     xtype: 'combo',
                     anchor: '100%',
                     itemId: 'serviceFilter-field',
