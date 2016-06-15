@@ -32,8 +32,8 @@ public class HtmlController {
     public ModelAndView gmap(@Value("${HOST.googlemap.key}") String googleKey,
             @Value("${HOST.vocabService.url}") String vocabServiceUrl,
             @Value("${HOST.maxFeatures.value}") String maxFeatureValue,
-            @Value("${HOST.google.analytics.key}") String analyticKey,
-            @Value("${HOST.piwik.site.id}") String piwikSiteId,
+            @Value("${HOST.google.analytics.key:}") String analyticKey,
+            @Value("${HOST.piwik.site.id:}") String piwikSiteId,
             @Value("${portal.build.version}") String buildVersion,
             @Value("${portal.build.date.timestamp}") String buildTimestamp) {
 
