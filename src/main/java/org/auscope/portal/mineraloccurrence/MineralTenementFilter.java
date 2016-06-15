@@ -27,6 +27,22 @@ public class MineralTenementFilter extends AbstractFilter {
 		this(tenementName, null, null, null, null);
 	}
 
+	
+	/**
+	 * 
+	 * Utility constructor that takes a given tenement name and tenement owner and builds a filter to wild card
+	 * search for tenement names.
+	 * 
+	 * @param tenementName
+	 *            the name of the tenement
+	 *  @param owner
+	 *  		  the name of the tenemnet holder           
+	 *            
+	 */
+	public MineralTenementFilter(String tenementName, String owner) {
+		this(tenementName, null, owner, null, null);
+	}
+	
 	/**
 	 * Given required parameters, this object will build a filter to wild card
 	 * for these parameters
