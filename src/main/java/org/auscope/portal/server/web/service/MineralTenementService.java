@@ -86,7 +86,7 @@ public class MineralTenementService extends BaseWFSService {
 
 	}
 
-	public WFSResponse getAllTenements(String serviceURL, String tenementName, int maxFeatures,
+	public WFSResponse getAllTenements(String serviceURL, String tenementName, String owner, int maxFeatures,
 			FilterBoundingBox bbox, String outputFormat) throws Exception {
 		String filterString;
 		MineralTenementFilter mineralTenementFilter = new MineralTenementFilter(tenementName);
@@ -109,7 +109,7 @@ public class MineralTenementService extends BaseWFSService {
 
 	}
 
-	public WFSCountResponse getTenementCount(String serviceURL, String tenementName, int maxFeatures,
+	public WFSCountResponse getTenementCount(String serviceURL, String tenementName, String owner, int maxFeatures,
 			FilterBoundingBox bbox) throws PortalServiceException, URISyntaxException {
 		// TODO Auto-generated method stub
 		String filterString;

@@ -35,6 +35,7 @@ public class MineralTenementController extends BasePortalController {
     public ModelAndView getAllMineralTenementFeatures(
             @RequestParam("serviceUrl") String serviceUrl,
             @RequestParam(required = false, value = "tenementName") String tenementName,
+            @RequestParam(required = false, value = "owner") String owner,
             @RequestParam(required = false, value = "bbox") String bboxJson,
             @RequestParam(required = false, value = "maxFeatures", defaultValue = "0") int maxFeatures)
                     throws Exception {
@@ -45,7 +46,7 @@ public class MineralTenementController extends BasePortalController {
         FilterBoundingBox bbox = FilterBoundingBox.attemptParseFromJSON(bboxJson, ogcServiceProviderType);
         WFSResponse response = null;
         try {
-            response = this.mineralTenementService.getAllTenements(serviceUrl, tenementName, 
+            response = this.mineralTenementService.getAllTenements(serviceUrl, tenementName, owner,
                     maxFeatures, bbox, null);
 
             
@@ -65,6 +66,7 @@ public class MineralTenementController extends BasePortalController {
     public ModelAndView getMineralTenementCount(
             @RequestParam("serviceUrl") String serviceUrl,
             @RequestParam(required = false, value = "tenementName") String tenementName,
+            @RequestParam(required = false, value = "owner") String owner,
             @RequestParam(required = false, value = "bbox") String bboxJson,
             @RequestParam(required = false, value = "maxFeatures", defaultValue = "0") int maxFeatures)
                     throws Exception {
@@ -75,7 +77,7 @@ public class MineralTenementController extends BasePortalController {
         FilterBoundingBox bbox = FilterBoundingBox.attemptParseFromJSON(bboxJson, ogcServiceProviderType);
         WFSCountResponse response = null;
         try {
-            response = this.mineralTenementService.getTenementCount(serviceUrl, tenementName, 
+            response = this.mineralTenementService.getTenementCount(serviceUrl, tenementName, owner,
                     maxFeatures, bbox);
 
             
@@ -94,14 +96,14 @@ public class MineralTenementController extends BasePortalController {
     public ModelAndView doMineralTenementDownload(
             @RequestParam("serviceUrl") String serviceUrl,
             @RequestParam(required = false, value = "name") String name,
-            @RequestParam(required = false, value = "tenementType") String tenementType,
+            @RequestParam(required = false, value = "owner") String owner,
             @RequestParam(required = false, value = "bbox") String bboxJson,
             @RequestParam(required = false, value = "maxFeatures") Integer maxFeatures,
             @RequestParam(required = false, value = "outputFormat") String outputFormat) throws Exception {
 
         OgcServiceProviderType ogcServiceProviderType = OgcServiceProviderType.parseUrl(serviceUrl);
         FilterBoundingBox bbox = FilterBoundingBox.attemptParseFromJSON(bboxJson, ogcServiceProviderType);
-        WFSResponse response = this.mineralTenementService.getAllTenements(serviceUrl, name, maxFeatures, bbox, outputFormat);
+        WFSResponse response = this.mineralTenementService.getAllTenements(serviceUrl, name, owner, maxFeatures, bbox, outputFormat);
         
         return generateNamedJSONResponseMAV(true, "gml", response.getData(), response.getMethod());
 
