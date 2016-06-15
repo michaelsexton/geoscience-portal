@@ -148,11 +148,13 @@ Ext.define('ga.widgets.GAMenuBar', {
                 autoEl: {
                     tag: 'div',
                     html: '<ul>\
-                               <li><a href="http://www.geoscience.gov.au"><img src="img/home.png" width="16" height="16"/></a></li>\
-                               <li><a id="print-map-link" href="javascript:void(0)">PRINT MAP</a></li>\
-                               <li><a id="clear-map-link" href="javascript:void(0)">CLEAR MAP</a></li>\
-                    		   <li><a id="refresh-map-link" href="javascript:void(0)">REFRESH MAP</a></li>\
-                               <li><a id="permanent-link" href="javascript:void(0)"> PERMANENT LINK </a> </li>\
+                               <li data-qtip="AusGIN Home"><a href="http://www.geoscience.gov.au"><img src="img/home.png" width="16" height="16"/></a></li>\
+                               <li data-qtip="Print the current map"><a id="print-map-link" href="javascript:void(0)">PRINT MAP</a></li>\
+                               <li data-qtip="Clear all active layers and recentre the map"><a id="clear-map-link" href="javascript:void(0)">CLEAR MAP</a></li>\
+                    		   <li data-qtip="Reload the page. All active Featured Layers (but not Custom Layers) will be reloaded into the map at the last zoom level. Use this to reactivate any buttons or menus that have frozen or disappeared.">\
+                               <a id="refresh-map-link" href="javascript:void(0)">REFRESH MAP</a></li>\
+                               <li data-qtip="Save the current map layers and zoom position as a URL link. Only Featured Layers (not Custom Layers) are saved in this URL."> \
+                               <a id="permanent-link" href="javascript:void(0)"> PERMANENT LINK </a> </li>\
                                <li><a id="help-link" href="javascript:void(0)"> HELP </a> </li>\
                                <span id="latlng"></span>\
                            </ul>'
