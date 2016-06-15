@@ -36,16 +36,6 @@ Ext.define('auscope.layer.GAFilterPanelMenuFactory', {
             var wmsResources = portal.csw.OnlineResource.getFilteredFromArray(allOnlineResources, portal.csw.OnlineResource.WMS);
             var wfsResources = portal.csw.OnlineResource.getFilteredFromArray(allOnlineResources, portal.csw.OnlineResource.WFS);
             var wcsResources = portal.csw.OnlineResource.getFilteredFromArray(allOnlineResources, portal.csw.OnlineResource.WCS);
-
-            // only provide reset option if there are resources other than just WMS resources
-            // otherwise there will be no form fields to reset
-            if (wfsResources.length > 0 || wcsResources.length > 0) {
-                menuItems.push(this._getResetFormAction());
-            }
-            
-            // Based on comment above, should probably change this based on whether the layer has a filterer
-            // Until then, just check if the id is for Scanned Geological Maps
-            if (layer.id =='250K-scanned-geological-maps' )  menuItems.push(this._getResetFormAction());
             
             // only provide download option if there are WFS resources to download
             if (wfsResources.length > 0) {
