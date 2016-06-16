@@ -388,6 +388,11 @@
         position: relative !important;
     }
     
+    .gasearchresult .links span {
+        padding-right: 30px;
+        position: relative !important;
+    }
+    
     .dataregistries-checkboxgroup-label {
         position: absolute;
     }
