@@ -238,7 +238,7 @@ Ext.application({
         
 
         
-        var knownLayersPanel = Ext.create('portal.widgets.panel.KnownLayerPanel', {
+        var knownLayersPanel = Ext.create('auscope.widgets.panel.GAKnownLayerPanel', {
             title : 'Featured',
             id: 'knownLayersPanel',
             store : knownLayerStore,

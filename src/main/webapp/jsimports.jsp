@@ -27,6 +27,9 @@
 <!-- script src="js/auscope/widgets/panel/ActiveLayersDisplayPanel.js?v=${buildTimestamp}" type="text/javascript"></script -->
 <script src="js/auscope/widgets/panel/BaseActiveRecordPanel.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/widgets/panel/ActiveLayerPanel.js?v=${buildTimestamp}" type="text/javascript"></script>
+<script src="js/auscope/widgets/panel/GABaseRecordPanel.js?v=${buildTimestamp}" type="text/javascript"></script>
+<script src="js/auscope/widgets/panel/GAKnownLayerPanel.js?v=${buildTimestamp}" type="text/javascript"></script>
+
 
 <script src="js/auscope/layer/AuScopeDownloaderFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/AuScopeQuerierFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
