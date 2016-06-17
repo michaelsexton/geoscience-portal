@@ -246,7 +246,7 @@ Ext.define('ga.widgets.GAHeader', {
                     html: 
                          '<ul>\
                               <li><a href="mailto:geoscience-portal-aws@ga.gov.au">Contact Us</a></li>\
-                              <li><a href="#auscope-tabs-panel">Skip to Content</a></li>\
+                              <li><a href="http://www.geoscience.gov.au/Geoscience_Portal_User_Guide.pdf" target="_blank">User Guide</a></li>\
                           </ul> '   
                 }       
             }]    
