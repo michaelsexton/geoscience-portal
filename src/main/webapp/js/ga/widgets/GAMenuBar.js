@@ -7,6 +7,8 @@ Ext.define('ga.widgets.GAMenuBar', {
     alias: 'widget.gamenubar',
 
     map: null,
+    knownLayerStore: null,
+    layerFactory: null,
     
     statics : {
         instructionManager : Ext.create('portal.util.help.InstructionManager', {}),
@@ -16,6 +18,8 @@ Ext.define('ga.widgets.GAMenuBar', {
         
         var me = this;
         me.map = config.map;
+        me.knownLayerStore = config.knownLayerStore;
+        me.layerFactory = config.layerFactory;
         
         // Create our Print Map handler         
         var printMapHandler = function() {   
@@ -86,7 +90,24 @@ Ext.define('ga.widgets.GAMenuBar', {
         var refreshMapHandler = function() {
             // Refresh the whole browser window
         	window.location.reload();
-        };                  
+        };
+        
+        var scannedMapsHandler = function() {
+            
+            clearMapHandler();
+            var id = "250K-scanned-geological-maps";
+                    
+            var knownLayer = me.knownLayerStore.getById(id);
+            var scannedMapsLayer = me.layerFactory.generateLayerFromKnownLayer(knownLayer);
+            knownLayer.set('layer', scannedMapsLayer);
+
+            var filterParams = {bbox: {"westBoundLongitude":"102","southBoundLatitude":"…157","northBoundLatitude":"-2","crs":"EPSG:4326"}, opacity: 1}
+            var filterer = scannedMapsLayer.get('filterer');
+            filterer.setParameters(filterParams);
+            var renderer = scannedMapsLayer.get('renderer');
+            renderer.displayData(scannedMapsLayer.getAllOnlineResources(),filterer,Ext.emptyFn);
+            ActiveLayerManager.addLayer(scannedMapsLayer);
+        }
         
         //Create our permalink generation handler
         var permalinkHandler = function() {
@@ -149,6 +170,7 @@ Ext.define('ga.widgets.GAMenuBar', {
                     tag: 'div',
                     html: '<ul>\
                                <li data-qtip="AusGIN Home"><a href="http://www.geoscience.gov.au"><img src="img/home.png" width="16" height="16"/></a></li>\
+                               <li data-qtip="Quick link for Scanned 250K Geological Maps"><a id="scanned-maps-link" href="javascript:void(0)">SCANNED 250K GEOLOGICAL MAPS</a></li>\
                                <li data-qtip="Print the current map"><a id="print-map-link" href="javascript:void(0)">PRINT MAP</a></li>\
                                <li data-qtip="Clear all active layers and recentre the map"><a id="clear-map-link" href="javascript:void(0)">CLEAR MAP</a></li>\
                     		   <li data-qtip="Reload the page. All active Featured Layers (but not Custom Layers) will be reloaded into the map at the last zoom level. Use this to reactivate any buttons or menus that have frozen or disappeared.">\
@@ -165,6 +187,7 @@ Ext.define('ga.widgets.GAMenuBar', {
             listeners: {
                 render: function (view) {
                     Ext.get('print-map-link').on('click', printMapHandler);
+                    Ext.get('scanned-maps-link').on('click', scannedMapsHandler); 
                     Ext.get('clear-map-link').on('click', clearMapHandler); 
                     Ext.get('refresh-map-link').on('click', refreshMapHandler);  
                     Ext.get('permanent-link').on('click', permalinkHandler); 
@@ -176,6 +199,6 @@ Ext.define('ga.widgets.GAMenuBar', {
     
         this.callParent(arguments);
     
-    }
-
+    }    
+    
 });

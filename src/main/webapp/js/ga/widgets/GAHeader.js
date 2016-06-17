@@ -9,6 +9,7 @@ Ext.define('ga.widgets.GAHeader', {
     map: null,
     registryStore: null,
     layerFactory: null,
+    knownLayerStore: null,
 
     constructor : function(config){   
         
@@ -16,6 +17,7 @@ Ext.define('ga.widgets.GAHeader', {
         me.map = config.map;
         me.registryStore = config.registryStore;    
         me.layerFactory = config.layerFactory;
+        me.knownLayerStore = config.knownLayerStore;
         
         //Create our advanced search control handler
         var advancedSearchLinkHandler = function() {
@@ -262,7 +264,9 @@ Ext.define('ga.widgets.GAHeader', {
         // south panel contains the menu bar
         var southPanel = {
             xtype: 'gamenubar',
-            map: me.map
+            map: me.map,
+            knownLayerStore: me.knownLayerStore,
+            layerFactory: me.layerFactory
         };
 
         Ext.apply(config, {
