@@ -286,6 +286,7 @@ Ext.application({
                 xtype: 'gaheader',
                 map: map,
                 registryStore: cswServiceItemStore,
+                knownLayerStore: knownLayerStore,
                 layerFactory: defaultLayerFactory
             }]
         };
