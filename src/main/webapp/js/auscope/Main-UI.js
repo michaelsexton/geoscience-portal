@@ -438,8 +438,8 @@ Ext.application({
         activeLayersPanel.anchorTo(body, 'tr-tr', [0, 100], true);
 
         // deserialise and add the restored layers if necessary
-        if (decodedString) {            
-            deserializationHandler = Ext.create('portal.util.permalink.DeserializationHandler', {
+        if (decodedString) {
+            deserializationHandler = Ext.create('ga.widgets.GADeserializationHandler', {
                 knownLayerStore : knownLayerStore,
                 cswRecordStore : unmappedCSWRecordStore,
                 layerFactory : defaultLayerFactory,
