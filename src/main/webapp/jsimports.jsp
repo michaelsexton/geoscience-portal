@@ -13,6 +13,7 @@
 <script src="js/ga/widgets/GAHeader.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/ga/widgets/GAMenuBar.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/ga/widgets/GAFooter.js?v=${buildTimestamp}" type="text/javascript"></script>
+<script src="js/ga/widgets/GADeserializationHandler.js?v=${buildTimestamp}" type="text/javascript"></script>
 
 <!-- GA OpenLayers map wrapper -->
 <script src="js/ga/map/openlayers/GAOpenLayersMap.js?v=${buildTimestamp}" type="text/javascript"></script>
