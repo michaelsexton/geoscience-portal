@@ -139,10 +139,6 @@ Ext.define('ga.widgets.GAMenuBar', {
                 title : 'Search Layer',
                 description : 'Allow you to filter through the layers via the layer\'s name. Enter a key and click the magnifying glass to filter'
             }),Ext.create('portal.util.help.Instruction', {
-                highlightEl : 'hh-filterDisplayedLayer-Featured',
-                title : 'Filter Display Layer Option',
-                description : 'Provide options to filter the list of displayed layers.'
-            }),Ext.create('portal.util.help.Instruction', {
                 highlightEl : 'latlng',
                 anchor : 'left',
                 title : 'Mouse Coordinate',
