@@ -14,6 +14,7 @@
 <script src="js/ga/widgets/GAMenuBar.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/ga/widgets/GAFooter.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/ga/widgets/GADeserializationHandler.js?v=${buildTimestamp}" type="text/javascript"></script>
+<script src="js/ga/widgets/GAWMSCustomSearchField.js?v=${buildTimestamp}" type="text/javascript"></script>
 
 <script src="js/ga/store/AreaMapStore.js?v=${buildTimestamp}" type="text/javascript"></script>
 

@@ -66,7 +66,7 @@ Ext.define('auscope.widgets.CustomRecordPanel', {
         var panel = Ext.create('Ext.form.Panel', {
             bodyPadding: 8,
             items: [{
-                xtype: 'wmscustomsearchfield',
+                xtype: 'gawmscustomsearchfield',
                 fieldLabel: 'WMS URL',
                 store: this.getStore(),
                 anchor: '100%',
