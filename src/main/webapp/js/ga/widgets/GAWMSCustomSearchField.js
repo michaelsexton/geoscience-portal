@@ -7,6 +7,6 @@ Ext.define('ga.widgets.GAWMSCustomSearchField', {
     },
 
     _clearLayerStore : function(store){
-      store.removeAll();
+        store.removeAll();
   },
 });
