@@ -113,6 +113,10 @@ Ext.define('auscope.layer.filterer.GAFormFactory', {
         if (layer.get('renderer') instanceof portal.layer.renderer.wfs.FeatureWithMapRenderer) {
             baseFilterForm = Ext.create('portal.layer.filterer.forms.WMSLayerFilterForm', baseFilterFormCfg);
 
+            if (!this.showWMSFilter) {
+                baseFilterForm.cls = 'displayNone';
+            }
+
             return this._generateResult(baseFilterForm, false);
         }  
 
