@@ -26,6 +26,8 @@ public class EarthResourcesDownloadController extends BasePortalController {
 
     // ----------------------------------------------------- Instance variables
 
+	public static final String MINERAL_OCCURRENCE_VIEW_FEATURE_TYPE = "mo:MinOccView";
+	
     private MineralOccurrenceDownloadService mineralOccurrenceDownloadService;
     private MineralOccurrenceService mineralOccurrenceService;
 
