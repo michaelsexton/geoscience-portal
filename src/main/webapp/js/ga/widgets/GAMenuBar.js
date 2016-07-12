@@ -88,6 +88,8 @@ Ext.define('ga.widgets.GAMenuBar', {
     
         // Create our Refresh Map handler
         var refreshMapHandler = function() {
+            ActiveLayerManager.saveApplicationState(me.map);
+
             // Refresh the whole browser window
         	window.location.reload();
         };
