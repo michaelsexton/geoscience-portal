@@ -65,9 +65,12 @@ Ext.define('ga.widgets.GAMenuBar', {
         // Create our Clear Map handler
         // revert to the default zoom level, map extent and remove all our layers
         var clearMapHandler = function() {
-            me.map.map.zoomTo(4); 
-            var center = new OpenLayers.LonLat(133.3, -26).transform('EPSG:4326', 'EPSG:3857');
-            me.map.map.setCenter(center);
+            
+            ActiveLayerManager.removeAllLayers(me.map);
+            
+            me.map.setZoom(4); 
+            var center = new portal.map.Point({longitude:133.3, latitude: -26});
+            me.map.setCenter(center);
 
             /* set the Base Layer for the map */ 
             Ext.each(me.map.layerSwitcher.baseLayers, function(baseLayer) {
@@ -77,7 +80,7 @@ Ext.define('ga.widgets.GAMenuBar', {
                 }
             });
             
-            ActiveLayerManager.removeAllLayers(me.map);
+            
             
             // if the browser supports local storage, clear the stored map state
             if(typeof(Storage) !== "undefined") {
