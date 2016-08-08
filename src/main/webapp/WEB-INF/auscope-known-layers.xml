@@ -593,7 +593,8 @@
 		<property name="singleTile" value="true" />
 		<property name="order" value="50_Geological Provinces_210" />
 	</bean>
-	<bean id="knownTypeAster" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
+    <!-- TODO: GPT-274 Return the ASTER layers when they are fixed -->
+<!-- <bean id="knownTypeAster" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
 		<constructor-arg name="id" value="aster-main" />
 		<constructor-arg name="knownLayerSelector">
 			<bean class="org.auscope.portal.core.view.knownlayer.CSWRecordSelector">
@@ -828,7 +829,7 @@
 			value="1. Band ratio: B13/B10Blue is low silica contentRed is high silica content(potentially includes Si-rich minerals, such as quartz, feldspars, Al-clays)" />
 		<property name="group" value="ASTER Maps" />
 		<property name="order" value="30_ASTER Maps_180" />
-	</bean>
+	</bean> -->    
 	<!-- This layer is NOT selectable, it is only used for hiding these features -->
 	<bean id="knownTypeSamplingPoint" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
 		<constructor-arg name="id" value="notused-samplingpoint" />

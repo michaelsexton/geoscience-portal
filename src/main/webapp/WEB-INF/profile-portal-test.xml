@@ -50,7 +50,8 @@
                 <ref bean="knownTypeTectonicProvincesArcheanProterozoic" />
                 <ref bean="knownTypeCrustalElements" />
                 <ref bean="knownTypeAllGeologicalProvinces" />
-                <ref bean="knownTypeAster" />
+                <!-- TODO: GPT-274 Return the ASTER layers when they are fixed -->
+                <!--  <ref bean="knownTypeAster" />
                 <ref bean="knownTypeAsterAloh" />
                 <ref bean="knownTypeAsterFerrous" />
                 <ref bean="knownTypeAsterOpaque" />
@@ -67,7 +68,7 @@
                 <ref bean="knownTypeRegolithRatios" />
                 <ref bean="knownTypeAlohGroupContent" />
                 <ref bean="knownTypeGypsumContent" />
-                <ref bean="knownTypeSilicaContent" />     
+                <ref bean="knownTypeSilicaContent" />     --> 
 <!--                 <ref bean="knownTypeSurfaceAftershock" /> -->
 
                 <!-- Analytics -->
