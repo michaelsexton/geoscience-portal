@@ -40,8 +40,10 @@ public class MineralTenementController extends BasePortalController {
 	private static final int BUFFERSIZE = 1024 * 1024;
     
     @Autowired
-    public MineralTenementController(MineralTenementService mineralTenementService) {
+    public MineralTenementController(MineralTenementService mineralTenementService, WMSService wmsService, ArcGISToMineralTenement arcGISToMineralTenement) {
         this.mineralTenementService = mineralTenementService;
+        this.mineralTenementWMSService = wmsService;
+        this.arcGISToMineralTenementTransformer = arcGISToMineralTenement;
     }
     
     
@@ -92,23 +94,21 @@ public class MineralTenementController extends BasePortalController {
 		double lng2 = Double.parseDouble(bboxParts[2]);
 		double lat1 = Double.parseDouble(bboxParts[1]);
 		double lat2 = Double.parseDouble(bboxParts[3]);
-		String responseString = "";
-		String featureInfoString = mineralTenementWMSService.getFeatureInfo(wmsUrl, infoFormat, queryLayers, "EPSG:3857",
-				Math.min(lng1, lng2), Math.min(lat1, lat2), Math.max(lng1, lng2), Math.max(lat1, lat2),
+		
+		String featureInfoString = this.mineralTenementWMSService.getFeatureInfo(wmsUrl, infoFormat, queryLayers,
+				"EPSG:3857", Math.min(lng1, lng2), Math.min(lat1, lat2), Math.max(lng1, lng2), Math.max(lat1, lat2),
 				Integer.parseInt(width), Integer.parseInt(height), Double.parseDouble(longitude),
 				Double.parseDouble(latitude), (int) (Double.parseDouble(x)), (int) (Double.parseDouble(y)), "", sldBody,
 				postMethod, version, feature_count, true);
 
 		Document xmlDocument = getDocumentFromString(featureInfoString);
 		
-		
+		String responseString = "";
 		if (xmlDocument.getDocumentElement().getLocalName().equals("FeatureInfoResponse")) {
 			responseString = this.arcGISToMineralTenementTransformer.convert(featureInfoString, wmsUrl);
 		} else {
 			responseString = featureInfoString;
 		};
-		
-		// responseString = getModifiedHTMLForFeatureInfoWindow(responseString);
 
 		InputStream responseStream = new ByteArrayInputStream(responseString.getBytes());
 		FileIOUtil.writeInputToOutputStream(responseStream, response.getOutputStream(), BUFFERSIZE, true);
@@ -184,13 +184,21 @@ public class MineralTenementController extends BasePortalController {
 
         // Vt: wms shouldn't need the bbox because it is tiled.
         FilterBoundingBox bbox = null;
+        
+        OgcServiceProviderType ogcServiceProviderType = OgcServiceProviderType.parseUrl(serviceUrl);
+        
+        String mineralTenementFeatureType = MINERAL_TENEMENT_TYPE;
+        
+        if (ogcServiceProviderType == OgcServiceProviderType.ArcGis) {
+        	mineralTenementFeatureType = ARCGIS_MINERAL_TENEMENT_TYPE;
+        }
         String stylefilter = this.mineralTenementService.getMineralTenementWithStyling(name, tenementType, owner, size,
                 endDate); // VT:get filter from service
 
         String filter = this.mineralTenementService.getMineralTenementFilter(name, tenementType, owner, size, endDate,
                 bbox); // VT:get filter from service
 
-        String style = this.getPolygonStyle(stylefilter, filter, MINERAL_TENEMENT_TYPE, "#00FF00", "#00FF00");
+        String style = this.getPolygonStyle(stylefilter, filter, mineralTenementFeatureType, "#00FF00", "#00FF00");
 
         response.setContentType("text/xml");
 
@@ -220,6 +228,7 @@ public class MineralTenementController extends BasePortalController {
                 "<UserStyle>" +
                 "<Title>Default style</Title>" +
                 "<Abstract>A green default style</Abstract>" +
+                "<Name>mineralTenementStyle</Name>" +
                 "<FeatureTypeStyle>" +
                 "<Rule>" +
                 "<Name>Polygon for mineral tenement</Name>" +
