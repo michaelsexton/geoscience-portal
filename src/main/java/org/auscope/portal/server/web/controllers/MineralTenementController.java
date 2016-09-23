@@ -16,6 +16,7 @@ import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
 import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
 import org.auscope.portal.core.services.responses.wfs.WFSResponse;
 import org.auscope.portal.core.util.FileIOUtil;
+import org.auscope.portal.core.xslt.WfsToCsvTransformer;
 import org.auscope.portal.server.web.service.MineralTenementService;
 import org.auscope.portal.xslt.ArcGISToMineralTenement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class MineralTenementController extends BasePortalController {
     private WMSService mineralTenementWMSService;
     
     private ArcGISToMineralTenement arcGISToMineralTenementTransformer;
+    private WfsToCsvTransformer csvTransformer;
 
     public static final String MINERAL_TENEMENT_TYPE = "mt:MineralTenement";
     public static final String ARCGIS_MINERAL_TENEMENT_TYPE = "MineralTenement";
@@ -40,10 +42,11 @@ public class MineralTenementController extends BasePortalController {
 	private static final int BUFFERSIZE = 1024 * 1024;
     
     @Autowired
-    public MineralTenementController(MineralTenementService mineralTenementService, WMSService wmsService, ArcGISToMineralTenement arcGISToMineralTenement) {
+    public MineralTenementController(MineralTenementService mineralTenementService, WMSService wmsService, ArcGISToMineralTenement arcGISToMineralTenement, WfsToCsvTransformer wfsToCsvTransformer) {
         this.mineralTenementService = mineralTenementService;
         this.mineralTenementWMSService = wmsService;
         this.arcGISToMineralTenementTransformer = arcGISToMineralTenement;
+        this.csvTransformer = wfsToCsvTransformer;
     }
     
     
@@ -154,10 +157,20 @@ public class MineralTenementController extends BasePortalController {
             @RequestParam(required = false, value = "outputFormat") String outputFormat) throws Exception {
 
         OgcServiceProviderType ogcServiceProviderType = OgcServiceProviderType.parseUrl(serviceUrl);
-        FilterBoundingBox bbox = FilterBoundingBox.attemptParseFromJSON(bboxJson, ogcServiceProviderType);
-        WFSResponse response = this.mineralTenementService.getAllTenements(serviceUrl, name, owner, maxFeatures, bbox, outputFormat);
+
         
-        return generateNamedJSONResponseMAV(true, "gml", response.getData(), response.getMethod());
+        FilterBoundingBox bbox = FilterBoundingBox.attemptParseFromJSON(bboxJson, ogcServiceProviderType);
+        
+        WFSResponse wfsResponse = this.mineralTenementService.getAllTenements(serviceUrl, name, owner, maxFeatures, bbox, "application/gml+xml; version=3.2");
+        String response ;
+        
+        if (outputFormat.equals("csv")) {
+        	response = this.csvTransformer.convert(wfsResponse.getData(),serviceUrl);
+        } else {
+        	response = wfsResponse.getData();
+        }
+        
+        return generateNamedJSONResponseMAV(true, "gml", response, wfsResponse.getMethod());
 
     }
 
