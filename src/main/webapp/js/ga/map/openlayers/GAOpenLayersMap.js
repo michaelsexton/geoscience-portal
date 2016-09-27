@@ -410,6 +410,14 @@ Ext.define('ga.map.openlayers.GAOpenLayersMap', {
                             }
                         }
 
+                        for (var m = 0; m < this.map.layers.length; m++) {
+                            if (wmsResources[0].data.url == this.map.layers[m].url &&
+                                wmsResources[0].data.name == this.map.layers[m].name) {
+                                layer.data.renderer.sld_body = this.map.layers[m].params.SLD_BODY;
+                                break;
+                            }
+                        }
+
                         queryTargets.push(Ext.create('portal.layer.querier.QueryTarget', {
                             id : '',
                             lat : latitude,
