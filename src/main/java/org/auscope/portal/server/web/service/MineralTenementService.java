@@ -15,6 +15,7 @@ import org.auscope.portal.core.services.methodmakers.filter.IFilter;
 import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
 import org.auscope.portal.core.services.responses.wfs.WFSResponse;
 import org.auscope.portal.mineraloccurrence.MineralTenementFilter;
+import org.auscope.portal.server.MineralTenementServiceProviderType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,14 +57,14 @@ public class MineralTenementService extends BaseWFSService {
 	}
 
 	public String getMineralTenementFilter(String name, String tenementType, String owner, String size, String endDate,
-			FilterBoundingBox bbox) throws Exception {
-		MineralTenementFilter filter = new MineralTenementFilter(name, tenementType, owner, size, endDate);
+			FilterBoundingBox bbox, MineralTenementServiceProviderType mineralTenementServiceProviderType) throws Exception {
+		MineralTenementFilter filter = new MineralTenementFilter(name, tenementType, owner, size, endDate, mineralTenementServiceProviderType);
 		return generateFilterString(filter, bbox);
 	}
 
 	public String getMineralTenementWithStyling(String name, String tenementType, String owner, String size,
 			String endDate) throws Exception {
-		MineralTenementFilter filter = new MineralTenementFilter(name, tenementType, owner, size, endDate);
+		MineralTenementFilter filter = new MineralTenementFilter(name, tenementType, owner, size, endDate, MineralTenementServiceProviderType.GeoServer);
 		return generateAdditionalStyleFilter(filter);
 	}
 

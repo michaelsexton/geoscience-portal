@@ -4,17 +4,21 @@
 Ext.define('auscope.layer.filterer.forms.MineralTenementFilterForm', {
     extend: 'portal.layer.filterer.BaseFilterForm',
 
+    /*
+     * Hardcode opacity to handle the fact that ArcGIS does not handle opacity properly
+    */
+    OPACITY : 0.6,
+    
     /**
      * Accepts a config for portal.layer.filterer.BaseFilterForm
      */
     constructor : function(config) {
-
+        
         var cswRecords = config.layer.get('cswRecords');
 
         var filterer=config.layer.get('filterer');
-        if(!filterer.getParameter('opacity')){
-            filterer.setParameter('opacity',1,true);
-        }
+       
+        filterer.setParameter('opacity',this.OPACITY,true);
 
         //Set up a map of admin areas + URL's that belong to each
         var adminAreasMap = {};

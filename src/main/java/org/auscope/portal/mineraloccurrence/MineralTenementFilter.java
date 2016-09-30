@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.auscope.portal.core.services.methodmakers.filter.AbstractFilter;
 import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
+import org.auscope.portal.server.MineralTenementServiceProviderType;
 
 /**
  * Class that represents ogc:Filter markup for mt:mineralTenement queries
@@ -24,7 +25,7 @@ public class MineralTenementFilter extends AbstractFilter {
 	 *            the name of the tenement
 	 */
 	public MineralTenementFilter(String tenementName) {
-		this(tenementName, null, null, null, null);
+		this(tenementName, null, null, null, null, null);
 	}
 
 	
@@ -40,7 +41,7 @@ public class MineralTenementFilter extends AbstractFilter {
 	 *            
 	 */
 	public MineralTenementFilter(String tenementName, String owner) {
-		this(tenementName, null, owner, null, null);
+		this(tenementName, null, owner, null, null, null);
 	}
 	
 	/**
@@ -60,18 +61,20 @@ public class MineralTenementFilter extends AbstractFilter {
 	 * @param endDate
 	 *            Expiry date of tenement
 	 */
-	public MineralTenementFilter(String tenementName, String tenementType, String owner, String size, String endDate) {
-
+	public MineralTenementFilter(String tenementName, String tenementType, String owner, String size, String endDate, MineralTenementServiceProviderType mineralTenementServiceProviderType) {
+		if (mineralTenementServiceProviderType == null) {
+			mineralTenementServiceProviderType = MineralTenementServiceProviderType.GeoServer;
+		}
 		fragments = new ArrayList<String>();
 		if (tenementName != null && !tenementName.isEmpty()) {
-			fragments.add(this.generatePropertyIsLikeFragment("mt:name", "*" + tenementName + "*"));
+			fragments.add(this.generatePropertyIsLikeFragment(mineralTenementServiceProviderType.tenementName(), "*" + tenementName + "*"));
 		}
 		if (tenementType != null && !tenementType.isEmpty()) {
 			fragments.add(this.generatePropertyIsLikeFragment("mt:tenementType", tenementType));
 		}
 
 		if (owner != null && !owner.isEmpty()) {
-			fragments.add(this.generatePropertyIsLikeFragment("mt:owner", owner));
+			fragments.add(this.generatePropertyIsLikeFragment(mineralTenementServiceProviderType.owner(), owner));
 		}
 
 		if (size != null && !size.isEmpty()) {

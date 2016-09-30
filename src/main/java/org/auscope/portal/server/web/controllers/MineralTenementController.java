@@ -17,6 +17,7 @@ import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
 import org.auscope.portal.core.services.responses.wfs.WFSResponse;
 import org.auscope.portal.core.util.FileIOUtil;
 import org.auscope.portal.core.xslt.WfsToCsvTransformer;
+import org.auscope.portal.server.MineralTenementServiceProviderType;
 import org.auscope.portal.server.web.service.MineralTenementService;
 import org.auscope.portal.xslt.ArcGISToMineralTenement;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -198,20 +199,12 @@ public class MineralTenementController extends BasePortalController {
         // Vt: wms shouldn't need the bbox because it is tiled.
         FilterBoundingBox bbox = null;
         
-        OgcServiceProviderType ogcServiceProviderType = OgcServiceProviderType.parseUrl(serviceUrl);
+        MineralTenementServiceProviderType mineralTenementServiceProviderType = MineralTenementServiceProviderType.parseUrl(serviceUrl);
         
-        String mineralTenementFeatureType = MINERAL_TENEMENT_TYPE;
-        
-        if (ogcServiceProviderType == OgcServiceProviderType.ArcGis) {
-        	mineralTenementFeatureType = ARCGIS_MINERAL_TENEMENT_TYPE;
-        }
-        String stylefilter = this.mineralTenementService.getMineralTenementWithStyling(name, tenementType, owner, size,
-                endDate); // VT:get filter from service
-
         String filter = this.mineralTenementService.getMineralTenementFilter(name, tenementType, owner, size, endDate,
-                bbox); // VT:get filter from service
+                bbox, mineralTenementServiceProviderType); // VT:get filter from service
 
-        String style = this.getPolygonStyle(stylefilter, filter, mineralTenementFeatureType, "#00FF00", "#00FF00");
+        String style = this.getPolygonStyle(filter, mineralTenementServiceProviderType.featureType() , mineralTenementServiceProviderType.colour(), mineralTenementServiceProviderType.colour());
 
         response.setContentType("text/xml");
 
@@ -225,7 +218,7 @@ public class MineralTenementController extends BasePortalController {
         outputStream.close();
     }
 
-    public String getPolygonStyle(String stylefilter, String filter, String name, String color, String borderColor) {
+    public String getPolygonStyle(String filter, String name, String color, String borderColor) {
 
         String style = "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
                 "<StyledLayerDescriptor version=\"1.0.0\" " +
@@ -251,7 +244,7 @@ public class MineralTenementController extends BasePortalController {
                 "<PolygonSymbolizer>" +
                 "<Fill>" +
                 "<CssParameter name=\"fill\">" + color + "</CssParameter>" +
-                "<CssParameter name=\"fill-opacity\">0.6</CssParameter>" +
+                "<CssParameter name=\"fill-opacity\">1</CssParameter>" +
                 "</Fill>" +
                 "<Stroke>" +
                 "<CssParameter name=\"stroke\">" + borderColor + "</CssParameter>" +
