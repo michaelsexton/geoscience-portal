@@ -12,8 +12,10 @@ Ext.define('auscope.layer.querier.wfs.factories.SF0BoreholeFactory', {
     },
 
     supportsNode : function(domNode) {
-        return domNode.namespaceURI === this.XMLNS_GSMLP &&
-               portal.util.xml.SimpleDOM.getNodeLocalName(domNode) === 'BoreholeView';
+        return (domNode.namespaceURI === this.XMLNS_GSMLP ||
+                domNode.namespaceURI === 'http://xmlns.geosciml.org/geosciml-portrayal/4.0') &&
+               (portal.util.xml.SimpleDOM.getNodeLocalName(domNode) === 'BoreholeView' ||
+                portal.util.xml.SimpleDOM.getNodeLocalName(domNode) === 'gsmlp:BoreholeView');
     },
 
     /**
