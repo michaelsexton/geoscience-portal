@@ -54,7 +54,7 @@
     <bean id="wfsToKmlTransformer" class="org.auscope.portal.core.xslt.WfsToKmlTransformer">
     </bean>
     
-    <bean id="wfsToCsvTransformer" class="org.auscope.portal.core.xslt.WfsToCsvTransformer">
+    <bean id="wfsToCsvTransformer" class="org.auscope.portal.xslt.WfsToCsvTransformer">
     </bean>
 
 	<bean id="arcGISToMineralTenementTransformer" class="org.auscope.portal.xslt.ArcGISToMineralTenement">
