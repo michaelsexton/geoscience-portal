@@ -90,24 +90,6 @@
 		<property name="proxyDownloadUrl" value="doMineralOccurrenceFilterDownload.do" />
 		<property name="order" value="1_AuScope Earth Resource Services_020" />
 	</bean>
-	<!-- <bean id="knownTypeMineralTenements" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-		<constructor-arg name="id" value="mineral-tenements" />
-		<constructor-arg name="knownLayerSelector">
-			<bean class="org.auscope.portal.core.view.knownlayer.WFSSelector">
-				<constructor-arg name="featureTypeName" value="mt:MineralTenement" />
-			</bean>
-		</constructor-arg>
-		<property name="name" value="Mineral Tenements" />
-		<property name="description"
-			value="A collection of services that implement the AuScope EarthResourceML v1 Profile for mt:Mineral Tenement" />
-		<property name="group" value="Tenements" />
-		<property name="proxyUrl" value="getAllMineralTenementFeatures.do" />
-		<property name="proxyCountUrl" value="getMineralTenementCount.do" />
-		<property name="proxyStyleUrl" value="getMineralTenementStyle.do" />
-		<property name="proxyDownloadUrl" value="doMineralTenementDownload.do" />
-		<property name="forceWMSGet" value="false" />
-		<property name="order" value="40_Tenements_010" />
-	</bean> -->
     <bean id="knownTypeMineralTenements" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="mineral-tenements" />
         <constructor-arg name="knownLayerSelector">
@@ -125,7 +107,6 @@
         <property name="proxyCountUrl" value="getMineralTenementCount.do" />
         <property name="proxyStyleUrl" value="getMineralTenementStyle.do" />
         <property name="proxyDownloadUrl" value="doMineralTenementDownload.do" />
-        <property name="forceWMSGet" value="false" />
         <property name="order" value="40_Tenements_010" />
     </bean>
 	<bean id="knownTypeNVCLBoreholes" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -1333,7 +1314,6 @@
 			value="This Web Map Service displays the spatial extents of scanned images of all 1:250 000 scale geological maps of Australia. The service contains information on the edition, publication date, and map publisher, and has links to map images available as 75 DPI, 125 DPI or 250 DPI resolution JPG files." />
 		<property name="group" value="Geological Maps" />
         <property name="proxyStyleUrl" value= "getScannedGeologicalMapsStyle.do"/>
-		<property name="forceWMSGet" value="true" />
         <property name="singleTile" value="true" />
 		<property name="order" value="60_Geological Maps_050" />
 	</bean>
@@ -1489,7 +1469,6 @@
 		<property name="proxyCountUrl" value="" />
 		<property name="proxyStyleUrl" value="getOilStyle.do" />
 		<property name="proxyDownloadUrl" value="" />
-		<property name="forceWMSGet" value="true" />
 		<property name="order" value="70_Topography and Infrastructure_060" />
 	</bean>
 	<bean id="knownTypeGas" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -1508,7 +1487,6 @@
 		<property name="proxyCountUrl" value="" />
 		<property name="proxyStyleUrl" value="getGasStyle.do" />
 		<property name="proxyDownloadUrl" value="" />
-		<property name="forceWMSGet" value="true" />
 		<property name="order" value="70_Topography and Infrastructure_070" />
 	</bean>
 	<bean id="knownTypeMajorPorts" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
