@@ -16,10 +16,10 @@ import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
 import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
 import org.auscope.portal.core.services.responses.wfs.WFSResponse;
 import org.auscope.portal.core.util.FileIOUtil;
-import org.auscope.portal.core.xslt.WfsToCsvTransformer;
 import org.auscope.portal.server.MineralTenementServiceProviderType;
 import org.auscope.portal.server.web.service.MineralTenementService;
 import org.auscope.portal.xslt.ArcGISToMineralTenement;
+import org.auscope.portal.xslt.WfsToCsvTransformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -62,6 +62,7 @@ public class MineralTenementController extends BasePortalController {
 
         // The presence of a bounding box causes us to assume we will be using this GML for visualizing on a map
         // This will in turn limit the number of points returned to 200
+
         OgcServiceProviderType ogcServiceProviderType = OgcServiceProviderType.parseUrl(serviceUrl);
         FilterBoundingBox bbox = FilterBoundingBox.attemptParseFromJSON(bboxJson, ogcServiceProviderType);
         WFSResponse response = null;
@@ -158,14 +159,17 @@ public class MineralTenementController extends BasePortalController {
             @RequestParam(required = false, value = "outputFormat") String outputFormat) throws Exception {
 
         OgcServiceProviderType ogcServiceProviderType = OgcServiceProviderType.parseUrl(serviceUrl);
-
-        
+    	
         FilterBoundingBox bbox = FilterBoundingBox.attemptParseFromJSON(bboxJson, ogcServiceProviderType);
         
-        WFSResponse wfsResponse = this.mineralTenementService.getAllTenements(serviceUrl, name, owner, maxFeatures, bbox, "application/gml+xml; version=3.2");
+        if (ogcServiceProviderType == OgcServiceProviderType.ArcGis) {
+        	outputFormat = "text/xml; subtype=gml/3.1.1";
+        }
+        
+        WFSResponse wfsResponse = this.mineralTenementService.getAllTenements(serviceUrl, name, owner, maxFeatures, bbox, outputFormat);
         String response ;
         
-        if (outputFormat.equals("csv")) {
+        if (ogcServiceProviderType == OgcServiceProviderType.ArcGis) {
         	response = this.csvTransformer.convert(wfsResponse.getData(),serviceUrl);
         } else {
         	response = wfsResponse.getData();
@@ -204,7 +208,7 @@ public class MineralTenementController extends BasePortalController {
         String filter = this.mineralTenementService.getMineralTenementFilter(name, tenementType, owner, size, endDate,
                 bbox, mineralTenementServiceProviderType); // VT:get filter from service
 
-        String style = this.getPolygonStyle(filter, mineralTenementServiceProviderType.featureType() , mineralTenementServiceProviderType.colour(), mineralTenementServiceProviderType.colour());
+        String style = this.getPolygonStyle(filter, mineralTenementServiceProviderType.featureType() , mineralTenementServiceProviderType.fillColour(), mineralTenementServiceProviderType.borderColour());
 
         response.setContentType("text/xml");
 
