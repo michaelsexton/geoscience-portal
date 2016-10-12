@@ -24,7 +24,7 @@
     <xsl:template match="/wfs:FeatureCollection/gml:boundedBy"></xsl:template>
 
     <xsl:template match="/wfs:FeatureCollection/gml:featureMember">
-        <xsl:for-each select="*[1]/*">
+        <xsl:for-each select="mt:MineralTenement[1]/*">
             <xsl:value-of select="name()"/>
             <xsl:if test="position() != last()">,</xsl:if>
         </xsl:for-each>
