@@ -108,7 +108,7 @@ Ext.define('ga.map.openlayers.GAOpenLayersMap', {
                 ),
                 new OpenLayers.Layer.WMS (
                     "World Political Boundaries (white background)",
-                    "http://www.ga.gov.au/gis/services/topography/World_Political_Boundaries_WM/MapServer/WMSServer",
+                    "http://services.ga.gov.au/gis/services/World_Political_Boundaries_WM/MapServer/WMSServer",
                     {layers: 'Countries'}
                 )],
                 // Google.v3 uses web mercator as projection, so we have to
