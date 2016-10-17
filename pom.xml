@@ -404,7 +404,7 @@
     </dependencies>
     <distributionManagement>
         <snapshotRepository>
-          <id>snapshots</id>
+          <id>nexus.gadevs</id>
 	  <url>https://nexus.gadevs.ga/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
