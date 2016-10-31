@@ -26,7 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Unit tests for CSWFilterController
- * 
+ *
  * @author Josh Vote
  *
  */
@@ -61,7 +61,8 @@ public class TestCSWFilterController extends PortalTestClass {
 
     
     /**
-     * Tests that requesting filtered records relies correctly on all dependencies  
+     * Tests that requesting filtered records relies correctly on all dependencies
+     *
      * @throws Exception
      */
     @Test
@@ -128,13 +129,13 @@ public class TestCSWFilterController extends PortalTestClass {
 
     /**
      * Tests that requesting filtered records (with no service id) relies correctly on all dependencies VT: I removed this test as it is no long application.
-     * 
+     *
      * @throws Exception
      */
 
     /**
      * Tests that requesting filtered records fails gracefully
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -168,7 +169,7 @@ public class TestCSWFilterController extends PortalTestClass {
 
     /**
      * Tests that requesting filtered records relies correctly on all dependencies when all optional parameters are omitted
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -310,7 +311,7 @@ public class TestCSWFilterController extends PortalTestClass {
 
     /**
      * Tests that requesting filtered count relies correctly on all dependencies
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -350,7 +351,7 @@ public class TestCSWFilterController extends PortalTestClass {
 
     /**
      * Tests that requesting filtered count relies correctly on all dependencies
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -390,7 +391,7 @@ public class TestCSWFilterController extends PortalTestClass {
 
     /**
      * Tests that requesting filtered count relies correctly on all dependencies when all optional parameters are omitted
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -427,7 +428,7 @@ public class TestCSWFilterController extends PortalTestClass {
 
     /**
      * Tests that requesting filtered count relies correctly on all dependencies when all optional parameters are omitted
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -465,7 +466,7 @@ public class TestCSWFilterController extends PortalTestClass {
 
     /**
      * Tests that requests for the internal CSWService list get modelled correctly
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -501,7 +502,7 @@ public class TestCSWFilterController extends PortalTestClass {
 
     /**
      * Test that getFilteredCSWKeywords returns the keywords cache as expected.
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -544,16 +545,21 @@ public class TestCSWFilterController extends PortalTestClass {
         Assert.assertTrue((Boolean) mav.getModel().get("success"));
         List<ModelMap> actual = (List<ModelMap>) mav.getModel().get("data");
         Assert.assertNotNull(actual);
-
-        Assert.assertEquals("kw3", actual.get(0).get("keyword"));
-        Assert.assertEquals(1, actual.get(0).get("count"));
-
-        Assert.assertEquals("kw2", actual.get(1).get("keyword"));
-        Assert.assertEquals(2, actual.get(1).get("count"));
-
-        Assert.assertEquals("kw1", actual.get(2).get("keyword"));
-        Assert.assertEquals(3, actual.get(2).get("count"));
         Assert.assertEquals(3, actual.size());
+
+        //This is so we arent sensitive to return order
+        boolean[] isKwMatched = new boolean[] {false, false, false};
+        String[] kwNames =  new String[] {"kw1", "kw2", "kw3"};
+        int[] kwActualCounts =  new int[] {3, 2, 1};
+        for (ModelMap map : actual) {
+            int index = Arrays.asList(kwNames).indexOf(map.get("keyword"));
+
+            isKwMatched[index] = true;
+            Assert.assertEquals(kwActualCounts[index], map.get("count"));
+        }
+        Assert.assertTrue("kwNames[0] not found", isKwMatched[0]);
+        Assert.assertTrue("kwNames[1] not found", isKwMatched[1]);
+        Assert.assertTrue("kwNames[2] not found", isKwMatched[2]);
 
         //VT: since this is a static variable, we clean this up incase it corrupts other test cases.
         CSWFilterController.catalogueKeywordCache.clear();
@@ -561,7 +567,7 @@ public class TestCSWFilterController extends PortalTestClass {
 
     /**
      * Test that getFilteredCSWKeywords returns the keywords cache as expected.
-     * 
+     *
      * @throws Exception
      */
     @Test

@@ -3,9 +3,10 @@ package org.auscope.portal.mineraloccurrence;
 import java.io.InputStream;
 import java.util.List;
 
-import junit.framework.Assert;
+import org.junit.Assert;
 
 import org.apache.http.client.methods.HttpGet;
+import org.auscope.portal.core.server.http.HttpClientInputStream;
 import org.auscope.portal.core.server.http.HttpServiceCaller;
 import org.auscope.portal.core.services.BaseWFSService;
 import org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker;
@@ -254,7 +255,7 @@ public class TestMineralOccurrenceServiceClient extends PortalTestClass {
                 will(returnValue(mockMethod));
 
                 oneOf(httpServiceCaller).getMethodResponseAsStream(mockMethod);
-                will(returnValue(getCountResponse));
+                will(returnValue(new HttpClientInputStream(getCountResponse, null)));
 
                 oneOf(mockMethod).releaseConnection();
             }
@@ -293,7 +294,7 @@ public class TestMineralOccurrenceServiceClient extends PortalTestClass {
                 will(returnValue(mockMethod));
 
                 oneOf(httpServiceCaller).getMethodResponseAsStream(mockMethod);
-                will(returnValue(getCountResponse));
+                will(returnValue(new HttpClientInputStream(getCountResponse, null)));
 
                 oneOf(mockMethod).releaseConnection();
             }
@@ -334,7 +335,7 @@ public class TestMineralOccurrenceServiceClient extends PortalTestClass {
                 will(returnValue(mockMethod));
 
                 oneOf(httpServiceCaller).getMethodResponseAsStream(mockMethod);
-                will(returnValue(getCountResponse));
+                will(returnValue(new HttpClientInputStream(getCountResponse, null)));
 
                 oneOf(mockMethod).releaseConnection();
             }
