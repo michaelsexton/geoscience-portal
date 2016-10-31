@@ -22,22 +22,6 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
     visibleIcon : 'img/eye.png',
     notVisibleIcon : 'img/eye_off.png',
     
-    listenersHere : {
-        // when the component is ready, we can update its events
-        viewready: function(grid) {
-            var view = grid.getView(),
-                dd = view.findPlugin('gridviewdragdrop'),
-                pos;
-
-            // ignore drag events that didn't originate from the Name column
-            // this will allow default events like click inside the expanded panel to work
-            dd.dragZone.onBeforeDrag = function (data, e) {
-                pos = grid.getView().getPositionByEvent(e);
-                return pos.colIdx === 1;
-            }
-        }
-    },
-
     constructor : function(cfg) {
         var me = this;
        
@@ -46,175 +30,104 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
         
         Ext.apply(cfg, {
             cls : 'auscope-dark-grid',
-            hideHeaders : true,
-            viewConfig : {
-                emptyText : '<p class="centeredlabel">No records match the current filter.</p>',
-                preserveScrollOnRefresh: true,
-                plugins: {
-                    ptype: 'gridviewdragdrop',
-                    dragText: 'Drag and drop to reorganize'
-                },
-                listeners: {
-                    drop: function(node, data, overModel, dropPosition,  dropFunction,  eOpts ){
-                        ActiveLayerManager.updateLayerOrder(me.map, data.records[0])
-                    }
-                },
-            },          
-            columns : [{
-                text : 'Drag',
-                xtype : 'clickcolumn',
-                width: 32,
-                align: 'center',
-                renderer: me._playRenderer,
-                sortable: false,
-                menuDisabled: true,
-                hasTip : true,
-                tipRenderer : function() {
-                  return 'Click to adjust transparency and/or query filters';
-                }
-             },{
-                text : 'Name',
-                xtype : 'gridcolumn',
-                dataIndex : 'name',
-                flex : 1,
-                renderer: this._titleRenderer,
-                hasTip : true,
-                tipRenderer : function() {
-                  return 'Drag to re-order layers';
-                }              
+            header: false,
+            hideSearch: true,
+            emptyText : '<p class="centeredlabel">No records match the current filter.</p>',
+            titleField: 'name',
+            titleIndex: 1,
+            allowReordering: true,
+            tools: [{
+                field: ['loading', 'active'],
+                clickHandler: Ext.bind(me._loadingClickHandler, this),
+                stopEvent: true,
+                tipRenderer: Ext.bind(me._loadingTipRenderer, this),
+                iconRenderer: Ext.bind(me._loadingRenderer, this)
             },{
-                text : 'info',
-                id : 'info',
-                xtype : 'actioncolumn',
-                dataIndex : 'info',
-                width: 32,
-                align: 'center',
-                icon : 'portal-core/img/information.png',
-                tooltip: 'Show layer information',
-                sortable: false,
-                menuDisabled: true,
-                handler : function(view, rowIndex, colIndex, item, event, record, row) {
-                    me._serviceInformationClickHandler(colIndex, record, rowIndex, colIndex);
-                }
-             },{
-                text : 'legend',
-                xtype : 'actioncolumn',
-                dataIndex : 'legend',
-                width: 32,
-                align: 'center',
-                icon : 'portal-core/img/key.png',
-                tooltip: 'Show layer legend',
-                sortable: false,
-                menuDisabled: true,
-                handler : function(view, rowIndex, colIndex, item, event, layer, row) {
-                    me._getLegendAction(layer).execute();
+                field: 'serviceInformation',
+                stopEvent: true,
+                clickHandler: Ext.bind(me._serviceInformationClickHandler, me),
+                tipRenderer: function(layer, tip) {
+                    return 'Click for detailed information about the web services this layer utilises.';
+                },
+                iconRenderer: Ext.bind(me._serviceInformationRenderer, me)
+            },{
+                field: 'legend',
+                stopEvent: true,
+                clickHandler: function (value, record) {
+                    Ext.bind(me._getLegendAction(record).execute(), me);
+                },
+                tipRenderer: function(layer, tip) {
+                    return 'Show layer legend.';
+                },
+                iconRenderer: function(value, record) {
+                    return 'portal-core/img/key.png';
                 }
             },{
-                // This is a dummy column to solve a problem with the Visibility column that follows this
-                // Having the renderer to return the Visibility Img is seeming to cause 2 images to be displayed.
-                // The first is the visibility icon (on or off) and the second is some invisibile image.
-                // The problem this is seeming to cause is that the tooltip is on the 2nd invisible image.  The
-                // tooltip on the actual image is that of the column that proceeds it (to the left).  Thus this
-                // dummy column that outputs the same tooltip.  What a hack!
-                text : '&nbsp;',
-                xtype : 'actioncolumn',
-                width: 2,
-                align: 'center',
-                menuDisabled: true,
-                getTip : function(value, metadata, layer) {
+                field: 'visible',
+                stopEvent: true,
+                tipRenderer: function(value, record, tip) {
                     var tip = 'Toggle layer visibility ';
-                    if(layer.visible){
+                    if(record.visible){
                         tip+='off';
                     }else{
                         tip+='on';
                     }
                     return tip;
                 },
-            },{
-                text : 'Visible',
-                xtype : 'actioncolumn',
-                dataIndex : 'visible',
-                width: 30,
-                align: 'center',
-                menuDisabled: true,
-                getTip : function(value, metadata, layer) {
-                    var tip = 'Toggle layer visibility ';
-                    if(layer.visible){
-                        tip+='off';
+                iconRenderer: function(value, record) {
+                    if(record.visible){
+                        return me.visibleIcon;
                     }else{
-                        tip+='on';
+                        return me.notVisibleIcon;
                     }
-                    return tip;
                 },
-                sortable: false,
-                renderer: function (value, metadata, layer) {
-                    var newSrc="src=\"";
-                    if(layer.visible){
-                        newSrc+=me.visibleIcon+'"';
-                    }else{
-                        newSrc+=me.notVisibleIcon+'"';
-                    }
-                    var img = metadata.value;
-                    // Change the src="..." image using this regular expression - toggle between eye.png and eye-off.png
-                    return img.replace(/src *= *[^ ]*/, newSrc);
-                },
-                handler : function(view, rowIndex, colIndex, item, event, layer, row) {
-                    me._setVisibilityAction(layer).execute();
-                    // Force the renderer to fire
-                    view.refresh();
+                clickHandler: function(value, record) {
+                    me._setVisibilityAction(record).execute();
                 }
             },{
-                text : 'Remove',
-                xtype : 'actioncolumn',
-                dataIndex : 'remove',
-                width: 32,
-                align: 'center',
-                icon : 'portal-core/img/cross.png',
-                tooltip: 'Remove layer from map',
-                sortable: false,
-                menuDisabled: true,
-                handler : function(view, rowIndex, colIndex, item, event, layer, row) {
-                    ActiveLayerManager.removeLayer(layer);
+                field: 'active',
+                iconRenderer: function(value, record) {
+                    return 'portal-core/img/cross.png';
+                },
+                tipRenderer: function(value, record) {
+                    return 'Remove layer';
+                },
+                clickHandler: function(value, record) {
+                    ActiveLayerManager.removeLayer(record);
                 }
-              }],
-              plugins:[{                
-                  ptype : 'rowexpandercontainer',
-                  baseId : 'rowexpandercontainer-activelayers',
-                  pluginId : 'maingrid_rowexpandercontainer',
-                  toggleColIndexes: [0,1],
-                  generateContainer : function(layer, parentElId) {
-                      //VT:if this is deserialized, we don't need to regenerate the layer
-                      if(! layer) {
-                          Ext.Error.raise("Expecting layer to be an actual layer for the ActiveLayersPanel but it is undefined")
-                      }           
-                      var filterForm = cfg.layerFactory.formFactory.getFilterForm(layer).form; //ALWAYS recreate filter form - see https://jira.csiro.au/browse/AUS-2588
-                      filterForm.setLayer(layer);
-                      var filterPanel = me._getInlineLayerPanel(filterForm, parentElId, this);
-                      
-                      //Update the layer panel to use
-                      if (filterForm) {
-                          var filterer = layer.get('filterer');
-                          if (filterer) {
-                              var existingParams = filterer.getParameters();
-                              filterForm.getForm().setValues(existingParams);
-                          }
-                      }
-                      this.grid.updateLayout({
-                          defer:false,
-                          isRoot:false
-                      });                    
-                      return filterPanel;
-                 }
-             },{
-              ptype: 'celltips'
-             }]
-                  
+            }],
+            childPanelGenerator: function(layer) {                  
+                if(! layer) {
+                    Ext.Error.raise("Expecting layer to be an actual layer for the ActiveLayersPanel but it is undefined")
+                }           
+                var filterForm = cfg.layerFactory.formFactory.getFilterForm(layer).form; //ALWAYS recreate filter form - see https://jira.csiro.au/browse/AUS-2588
+                filterForm.setLayer(layer);
+                var filterPanel = me._getInlineLayerPanel(filterForm);
+                
+                //Update the layer panel to use
+                if (filterForm) {
+                    var filterer = layer.get('filterer');
+                    if (filterer) {
+                        var existingParams = filterer.getParameters();
+                        filterForm.getForm().setValues(existingParams);
+                    }
+                }
+                return filterPanel;
+           },
+           listeners: {
+               reorder: function(recordPanel, record) {
+                   ActiveLayerManager.updateLayerOrder(me.map, record);
+               }
+            }
         });
 
         this.callParent(arguments);
     },
     
-    // Column Function
+    
+    
+    
+    
     _getLegendAction : function(layer){                       
         var legend = layer.get('renderer').getLegend();
         var text = 'Get Legend';
@@ -306,21 +219,18 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
      * Column definition function to draw the panel when a row is clicked upon.  Here is a common one to draw the WMS/WFS filter with Opacity, drop-downs etc..
      * Override
      */
-    _getInlineLayerPanel : function(filterForm, parentElId){
-        var me = this;
-        var panel =Ext.create('portal.widgets.panel.FilterPanel', {    
-            wantAddLayerButton : false,
-            wantUpdateLayerButton : true,
-            wantOptionsButton : false,
+    _getInlineLayerPanel : function(filterForm){
+        var me = this;   
+        var panel = Ext.create('portal.widgets.panel.FilterPanel', {    
             menuFactory : this.menuFactory,
             filterForm  : filterForm, 
             detachOnRemove : false,
             map         : this.map,
-            renderTo    : parentElId,
-            layerStore  : me.store
+            menuItems : []
         });   
         
         return panel
+       
     },
     
     _playRenderer : function () {
@@ -331,5 +241,83 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
         src: 'portal-core/img/play_blue.png'
     });
       
+    },
+    
+    _loadingRenderer : function(value, layer) {
+        if (value) {
+            return 'portal-core/img/loading.gif';
+        } else {
+
+            if(layer.get('active')){
+
+                var renderStatus = layer.get('renderer').renderStatus;
+                var listOfStatus=renderStatus.getParameters();
+                var errorCount = this._statusListErrorCount(listOfStatus);
+                var sizeOfList = Ext.Object.getSize(listOfStatus);
+                if(errorCount > 0 && errorCount == sizeOfList){
+                    return 'portal-core/img/exclamation.png';
+                }else if(errorCount > 0 && errorCount < sizeOfList){
+                    return 'portal-core/img/warning.png';
+                }else{
+                    return 'portal-core/img/tick.png';
+                }
+
+            }else{
+                return 'portal-core/img/notloading.gif';
+            }
+        }
+    },
+    
+    _statusListErrorCount : function(listOfStatus){
+        var match =["reached","error","did not complete","AJAX","Unable"];
+        
+        var errorCount = 0;  
+        
+        for(key in listOfStatus){
+            for(var i=0; i< match.length; i++){
+                if(listOfStatus[key].indexOf(match[i]) > -1){
+                    errorCount++;
+                    break;
+                }
+            }
+        }
+        return errorCount;
+    },
+    
+    _loadingTipRenderer : function(value, layer, tip) {
+        var renderer = layer.get('renderer');
+        var update = function(renderStatus, keys) {
+            tip.update(renderStatus.renderHtml());
+        };
+
+        //Update our tooltip as the underlying status changes
+        renderer.renderStatus.on('change', update, this);
+        tip.on('hide', function() {
+            renderer.renderStatus.un('change', update); //ensure we remove the handler when the tip closes
+        });
+
+        return renderer.renderStatus.renderHtml();
+    },
+    
+    _loadingClickHandler : function(value, layer) {
+        var html = '<p>No Service recorded, Click on Add layer to map</p>';
+
+        if(layer){
+            var renderer = layer.get('renderer');
+            html =  renderer.renderStatus.renderHtml();
+        }
+        var win = Ext.create('Ext.window.Window', {
+            title: 'Service Loading Status',
+            height: 200,
+            width: 500,
+            layout: 'fit',
+            items: {  // Let's put an empty grid in just to illustrate fit layout
+                xtype: 'panel',
+                autoScroll : true,
+                html : html
+            }
+        });
+
+        win.show();
     }
 });
