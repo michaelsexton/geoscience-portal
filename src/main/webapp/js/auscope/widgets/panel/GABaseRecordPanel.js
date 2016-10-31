@@ -16,7 +16,7 @@
  */
 Ext.define('auscope.widgets.panel.GABaseRecordPanel', {
     extend : 'portal.widgets.panel.CommonBaseRecordPanel',
-    alias: 'widget.baserecordpanel',
+    alias: 'widget.gabaserecordpanel',
 
     constructor : function(cfg) {
         var me = this;
@@ -225,17 +225,17 @@ Ext.define('auscope.widgets.panel.GABaseRecordPanel', {
     _statusListErrorCount : function(listOfStatus){
         var match =["reached","error","did not complete","AJAX","Unable"];
         
-        var erroCount = 0;  
+        var errorCount = 0;  
         
         for(key in listOfStatus){
             for(var i=0; i< match.length; i++){
                 if(listOfStatus[key].indexOf(match[i]) > -1){
-                    erroCount++;
+                    errorCount++;
                     break;
                 }
             }
         }
-        return erroCount;
+        return errorCount;
     },
     
   
