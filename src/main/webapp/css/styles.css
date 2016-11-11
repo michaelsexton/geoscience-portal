@@ -95,7 +95,7 @@
        position : absolute !important;
        right : 0 !important;
        top : 68px !important;
-       width : 870px !important;
+       width : 100% !important;
     }
     
     div#wrapper-search-and-links a {
@@ -116,7 +116,7 @@
         line-height: 25px;
         height : 25px !important;
         right : 255px;
-        left : auto !important;
+        left : 300px !important;
         position : absolute;
         top : 0 !important;
     }
@@ -255,7 +255,22 @@
     #advanced-search-link {
         margin-left: 10px;
     }
-    
+
+    #powered-by-logo {
+        left: 20px;
+    }
+
+    #powered-by-logo-text {
+        text-decoration: none;
+        color: #000000;
+        height: 50px;
+    }
+
+    #powered-by-logo-image {
+        background: #2B292A url( "../img/logos/auscope-logo.png" ) no-repeat center center;
+        height: 50px;
+    }
+
     /* 'contact us' + 'skip to content' wrapper */
     #header-container-innerCt div#ga-header-south-panel-links {
         left: auto !important;
@@ -375,7 +390,6 @@
     .gasearchresult .x-box-inner {
         position: unset;
     }
-    
     .gasearchresult .links {
         width: 500px;
         height: 30px;
