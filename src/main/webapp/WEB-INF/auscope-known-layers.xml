@@ -1376,16 +1376,16 @@
 				<constructor-arg name="layersMode" value="AND" />
 				<constructor-arg name="layerNames">
 					<list>
-						<value>AusHydro_Rivers_3</value>
-						<value>AusHydro_Rivers_2</value>
-						<value>AusHydro_Rivers_1</value>
-						<value>AusHydro_WatercourseAreas_2</value>
-						<value>AusHydro_WatercourseAreas_1</value>
-						<value>AusHydro_PondageAreas_2</value>
-						<value>AusHydro_PondageAreas_1</value>
-						<value>AusHydro_Lakes_3</value>
-						<value>AusHydro_Lakes_2</value>
-						<value>AusHydro_Lakes_1</value>
+						<value>Waterbody_All_Reservoirs</value>
+						<value>Waterbody_Reservoirs_National_Scale_to_300000</value>
+						<value>Waterbody_All_Lakes </value>
+						<value>Waterbody_Lakes_Scale_5Million_to_300000</value>
+						<value>Waterbody_Lakes_National_Scale_to_5Million </value>
+						<value>Waterbody_Extra_Lakes_and_Reservoirs</value>
+						<value>Watercourses_Major_Rivers_Scale_5Million_to_300000 </value>
+						<value>Watercourses_Major_Rivers_National_Scale_to_5Million</value>
+						<value>Watercourse_Areas </value>
+						<value>Watercourses_All_Rivers_Watercourse_Lines</value>
 					</list>
 				</constructor-arg>
 			</bean>
