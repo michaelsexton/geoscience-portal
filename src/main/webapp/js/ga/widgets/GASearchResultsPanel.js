@@ -68,6 +68,8 @@ Ext.define('ga.widgets.GASearchResultsPanel', {
                         var hasDownloadableData = false;
 
                         var onlineResources = record.data.onlineResources;
+                        if (onlineResources && onlineResources.length > 0 && onlineResources[0]) hasDownloadableData = true;
+                        
                         for (var i = 0; i < onlineResources.length; i++) {
                             var type = onlineResources[i].get('type');
                             if (type == portal.csw.OnlineResource.WMS) {
@@ -253,20 +255,36 @@ Ext.define('ga.widgets.GASearchResultsPanel', {
 
     displayFileDownloadWindow : function(record){
         
-        var html;
+        var links = []; 
         
         var uris = record.get('datasetURIs');
-        if (uris) {
-            html = '<ul>';
-            record.get('datasetURIs').forEach(function(item){
-                html += '<li><a target="_blank" href="' + item + '">' + item + '</a></li>';         
+        if (uris && uris.length > 0) {
+            uris.forEach(function(item){
+               links.push(item);
             });            
-            html += '</ul>';
-            
-        } else {
-            html = 'No files available for download';
+        } 
+        
+        var onlineResources = record.data.onlineResources;
+        if (onlineResources && onlineResources.length > 0) {
+            onlineResources.forEach(function(onlineResource){
+                var type = onlineResource.get('type');
+                // Show only file downloads
+                if (type == portal.csw.OnlineResource.UNSUPPORTED || type == portal.csw.OnlineResource.WWW || type == portal.csw.OnlineResource.FTP) {
+                    links.push(onlineResource.get('url'));
+                }
+            });            
         }
         
+        var html;
+        
+        if (links && links.length > 0) {
+            html = '<ul>';
+            links.forEach(function(link){
+                html += '<li><a target="_blank" href="' + link + '">' + link + '</a></li>';
+            });            
+            html += '</ul>';
+        }
+                
         Ext.create('Ext.window.Window', {
             title: 'File Downloads',           
             maxHeight: 200,
