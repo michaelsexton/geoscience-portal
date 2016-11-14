@@ -255,13 +255,7 @@
     #advanced-search-link {
         margin-left: 10px;
     }
-
-    #powered-by-logo {
-        background: #2B292A url( "../img/logos/auscope-logo.png" ) no-repeat center center;
-        height: 50px;
-        bornder:none;
-    }
-
+    
     /* 'contact us' + 'skip to content' wrapper */
     #header-container-innerCt div#ga-header-south-panel-links {
         left: auto !important;

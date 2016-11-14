@@ -218,18 +218,7 @@ Ext.define('ga.widgets.GAHeader', {
                 height: '59px',
                 autoEl: {tag : 'span'}   
         };
-
-        // search panel contains the search controls
-        var poweredByPanel = {
-                id: 'powered-by-logo',
-                height: '30px',
-                xtype: 'box',
-                autoEl: {
-                    tag: 'span',
-                    html: 'Powered by:'
-                }
-        };
-
+        
         // search panel contains the search controls
         var searchPanel = {
                 id: 'search-controls',
@@ -245,7 +234,7 @@ Ext.define('ga.widgets.GAHeader', {
                 }  
         };
         
-        // south panel contains the 'Contact Us' and 'Skip to content' links
+        // north panel contains the 'Contact Us' and 'Skip to content' links
         var linksPanel = {
             id : "ga-header-south-panel-links",
             height: '40px',
@@ -263,13 +252,13 @@ Ext.define('ga.widgets.GAHeader', {
             }]    
         };
 
-        // center panel contains the "powered by Auscope" logo, search controls and the links
+        // center panel contains the search controls and the links
         var centerPanel = {
                 id: 'wrapper-search-and-links',
                 xtype: 'panel',
                 height: '30px',
                 layout: 'hbox',
-                items: [poweredByPanel, searchPanel, linksPanel]
+                items: [searchPanel, linksPanel]
             };
         
         // south panel contains the menu bar
