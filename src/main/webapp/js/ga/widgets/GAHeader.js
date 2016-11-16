@@ -224,11 +224,11 @@ Ext.define('ga.widgets.GAHeader', {
                 id: 'powered-by-logo',
                 height: '30px',
                 xtype: 'box',
-                items:
+                items:[
                 {
                     autoEl: {
                          tag: 'span',
-                         id: 'powered-by-logo-text'
+                         id: 'powered-by-logo-text',
                          html: 'Powered by:'
                      }
                  },
@@ -237,7 +237,7 @@ Ext.define('ga.widgets.GAHeader', {
                         tag: 'span',
                          id: 'powered-by-logo-image'
                       },
-                 }
+                 }]
         };
 
         // search panel contains the search controls
