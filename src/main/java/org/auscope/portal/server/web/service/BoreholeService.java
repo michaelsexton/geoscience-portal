@@ -4,9 +4,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -174,18 +172,14 @@ public class BoreholeService extends BaseWFSService {
 
 			OWSExceptionParser.checkForExceptionResponse(doc);
 
-			XPath xPath = XPathFactory.newInstance().newXPath();
-			xPath.setNamespaceContext(new NVCLNamespaceContext());
+			NVCLNamespaceContext nc = new NVCLNamespaceContext();
 
+			NodeList publishedDatasets = (NodeList) DOMUtil.compileXPathExpr("/wfs:FeatureCollection/gml:featureMembers/" + NVCLNamespaceContext.PUBLISHED_DATASETS_TYPENAME + "/nvcl:scannedBorehole", nc).evaluate(doc, XPathConstants.NODESET);
 			// Get our ID's
-			NodeList publishedDatasets = (NodeList) xPath
-					.evaluate(
-							"/wfs:FeatureCollection/gml:featureMembers/"
-									+ NVCLNamespaceContext.PUBLISHED_DATASETS_TYPENAME + "/nvcl:scannedBorehole",
-							doc, XPathConstants.NODESET);
+			
 			for (int i = 0; i < publishedDatasets.getLength(); i++) {
-				Node holeIdentifier = (Node) xPath.evaluate("@xlink:href", publishedDatasets.item(i),
-						XPathConstants.NODE);
+				Node holeIdentifier = (Node) DOMUtil.compileXPathExpr("@xlink:href", nc)
+                        .evaluate(publishedDatasets.item(i), XPathConstants.NODE);
 				if (holeIdentifier != null) {
 					String[] urnBlocks = holeIdentifier.getTextContent().split("/");
 					if (urnBlocks.length > 1) {
