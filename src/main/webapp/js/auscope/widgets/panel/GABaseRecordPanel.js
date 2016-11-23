@@ -24,7 +24,7 @@ Ext.define('auscope.widgets.panel.GABaseRecordPanel', {
         me.listeners = Object.extend(me.listenersHere, cfg.listeners);
         
         
-        Ext.apply(cfg, {
+        Ext.applyIf(cfg, {
             cls : 'auscope-dark-grid',
             emptyText : '<p class="centeredlabel">No records match the current filter.</p>',
             dockedItems : [{
@@ -80,6 +80,7 @@ Ext.define('auscope.widgets.panel.GABaseRecordPanel', {
                 },
                 iconRenderer: Ext.bind(me._spatialBoundsRenderer, me)
             }],
+            lazyLoadChildPanel: true,
             childPanelGenerator: function(record) {                  
                 var newLayer = null;
                 
