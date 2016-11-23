@@ -122,7 +122,7 @@ Ext.define('ga.map.openlayers.GAOpenLayersMap', {
             me.map.layers[i].wrapDateLine = false;
         }
         
-        this.highlightPrimitiveManager = this.makePrimitiveManager();
+        this.highlightPrimitiveManager = this.makePrimitiveManager(true);
         this.container = container;
         this.rendered = false;               
         
