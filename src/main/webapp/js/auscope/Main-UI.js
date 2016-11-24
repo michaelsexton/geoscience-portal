@@ -1,3 +1,4 @@
+// modify comment
 Ext.Loader.setConfig({
     enabled: true,
 });
@@ -226,12 +227,20 @@ Ext.application({
             downloaderFactory : Ext.create('auscope.layer.AuScopeDownloaderFactory', {map: map}),
             querierFactory : Ext.create('auscope.layer.AuScopeQuerierFactory', {map: map}),
             rendererFactory : Ext.create('auscope.layer.AuScopeRendererFactory', {map: map})
-        });
+        });  
 
         var activeLayerFactory = Ext.create('portal.layer.LayerFactory', {
             map : map,
             formFactory : Ext.create('auscope.layer.filterer.GAFormFactory', {map : map, showWMSFilter : true}),
             downloaderFactory : Ext.create('auscope.layer.AuScopeDownloaderFactory', {map: map}),
+            querierFactory : Ext.create('auscope.layer.AuScopeQuerierFactory', {map: map}),
+            rendererFactory : Ext.create('auscope.layer.AuScopeRendererFactory', {map: map})
+        });
+
+        var customLayerFactory = Ext.create('portal.layer.LayerFactory', {
+            map : map,
+            formFactory : Ext.create('auscope.layer.filterer.GAFormFactory', {map : map, showWMSFilter : true}),
+            //downloaderFactory : Ext.create('auscope.layer.AuScopeDownloaderFactory', {map: map}),
             querierFactory : Ext.create('auscope.layer.AuScopeQuerierFactory', {map: map}),
             rendererFactory : Ext.create('auscope.layer.AuScopeRendererFactory', {map: map})
         });
@@ -324,7 +333,7 @@ Ext.application({
             region:'west',
             border: false,
             split:true,
-            margin:'130 0 0 3',
+            margin:'140 0 0 3',
             width: 370,
             items:[tabsPanel]
         };
@@ -335,7 +344,7 @@ Ext.application({
         var centerPanel = Ext.create('Ext.panel.Panel', {
             region: 'center',
             id: 'center_region',
-            margin: '100 0 0 0'  ,
+            margin: '140 0 0 0'  ,
             html : "<div style='width:100%; height:100%' id='center_region-map'></div>",
             listeners: {
                 afterrender: function () {
