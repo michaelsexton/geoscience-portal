@@ -14,6 +14,6 @@ env:
     - secure: "KK+m1Ck/Bo7xsLYY+2Qi5pI4vIw9Up6mqz6tXAbRKLP/jzzOJSHCMlHQo26g7M3x6YRIubYdoiEtYw4dX5dcy8rsAYbrhf89CHpNMS4a11TqbYQz/yBsH+1oWR6nvUo+dVvtcaOQa4oIOJMuqmDP6LsCrk89ecWC0UD0l0BcA+k="
 notifications:
         slack:
-                secure: "IpJwQWNNYznx31jnLGM+Yc+yAowdo1R2DulRl2L4ZFM6ucO9PNG2rbk5DK9lVcur2TSB096dB1ygWCYGv8WSRkHX2t8agKApD39XK65ELjzTusLDz0tWAKx5k4md8dEE9Kv6nfmVA9ZgVdf7ZuR0bKK/leAwzmKsVTirJlmdrIw="
-
+                rooms:
+                        secure: "Wp5f5vfCj3s/A1hbffVNi3KRurF1EKSi3epI1VcIJTmVSS/SLMAAsiOGCOKFlrFIdd9HB24qNlv56hX15q/CH8libcqwLCoDEuO54O6rusSz/y2PtCIfJnfM1NEk3Nvq7ZdeBiWmsaLBMm1nMRB/3IqQEwvACRLlZJJI5DIl3qo="
 
