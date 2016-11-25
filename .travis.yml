@@ -1,5 +1,5 @@
 language: java
-script: "[ ${TRAVIS_PULL_REQUEST} = 'false' ] && mvn clean deploy --settings travis/settings.xml || mvn clean verify --settings travis/settings.xml"
+script: travis/setup.sh
 cache:
   directories:
     - $HOME/.m2
