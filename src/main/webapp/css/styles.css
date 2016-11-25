@@ -137,7 +137,7 @@
     }
     
     #activeLayersPanel {
-        top: 132px !important;
+        top: 145px !important;
     }
  
     #header-container-innerCt {
@@ -224,7 +224,7 @@
     
     #center_region {
        border: 1px solid rgb(193, 193, 193) !important;
-        top: 131px !important;
+        //top: 140px !important;
     }
 
     #center_region-body {
@@ -238,7 +238,7 @@
         padding-right:10px;
         text-decoration:none;
         color: #000000;
-        left: 15px;
+        left: 5px;
     }
     
     #basic-search-link {
@@ -545,4 +545,26 @@
 
     .noTextOverflow .x-grid-cell-inner  {
         text-overflow: clip !important;
+    }
+    
+    /* todo: GPT-225 - Remove "Download Layer" button from WMS layers loaded via the "Custom" tab
+       hide for now */
+    #auscope-tabs-panel-body div.x-panel:last-child div.x-panel-body div.x-panel.recordrowpanel a.x-btn:last-child{
+      display:none;
+    }
+    /*GPT-284 - Add "Powered by AuScope" to top banner */
+    #sponsor-link a{
+       text-decoration: none;
+       color:white;
+       font-family: sans-serif;
+    }
+    #sponsor-link a img{
+       vertical-align: middle;
+    }
+    span#ausgin-logo + span{
+       left: 20px !important;
+       top: 50px !important;
+    }
+    #menu-bar{
+       height: 40px !important;
     }
