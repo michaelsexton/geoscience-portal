@@ -224,8 +224,8 @@
     
     #center_region {
        border: 1px solid rgb(193, 193, 193) !important;
-        //top: 140px !important;
-    }
+        /*top: 131px !important;*/
+   }
 
     #center_region-body {
         padding-bottom: 25px !important;
@@ -494,7 +494,6 @@
     .x-menu-header {
         background-color: #FBAD17 !important;
     }
-
     h1.featureInfo {
         font-size: 14pt;
         margin-bottom: -20px;
@@ -546,7 +545,6 @@
     .noTextOverflow .x-grid-cell-inner  {
         text-overflow: clip !important;
     }
-    
     /* todo: GPT-225 - Remove "Download Layer" button from WMS layers loaded via the "Custom" tab
        hide for now */
     #auscope-tabs-panel-body div.x-panel:last-child div.x-panel-body div.x-panel.recordrowpanel a.x-btn:last-child{

@@ -218,29 +218,20 @@ Ext.define('ga.widgets.GAHeader', {
                 height: '59px',
                 autoEl: {tag : 'span'}   
         };
-
-        // powered by panel contains the "Powered by Auscope  text and logo
-        var poweredByPanel = {
-                id: 'powered-by-logo',
-                height: '30px',
+           
+        // sponsor link
+        var attributionPanel = {
+                id: 'sponsor-link',
                 xtype: 'box',
-                items:[
-                {
-                    autoEl: {
-                         tag: 'span',
-                         id: 'powered-by-logo-text',
-                         html: 'Powered by:'
-                     }
-                 },
-                 {
-                     autoEl: {
-                        tag: 'span',
-                         id: 'powered-by-logo-image'
-                      },
-                 }]
+                height: '30px',
+                autoEl: {
+                    tag : 'span', 
+                    id : "auscope_attrib",
+                    html : 'Powered by <a href="//www.auscope.org.au/" target="_blank"><img src="img/logos/AuScope-pic.png" alt="link to Auscope partner"/>AuScope</a>'
+                }   
         };
 
-        // search panel contains the search controls
+// search panel contains the search controls
         var searchPanel = {
                 id: 'search-controls',
                 height: '30px',
@@ -279,7 +270,7 @@ Ext.define('ga.widgets.GAHeader', {
                 xtype: 'panel',
                 height: '30px',
                 layout: 'hbox',
-                items: [poweredByPanel, searchPanel, linksPanel]
+                items: [searchPanel, linksPanel]
             };
         
         // south panel contains the menu bar
@@ -296,7 +287,7 @@ Ext.define('ga.widgets.GAHeader', {
                 xtype: 'panel',
                 height: '140px',
                 layout: 'vbox',
-                items: [northPanel, centerPanel, southPanel]
+                items: [northPanel, attributionPanel, centerPanel, southPanel]
             }],
         
             listeners: {
