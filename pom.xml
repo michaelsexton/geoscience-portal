@@ -4,7 +4,7 @@
     <groupId>au.gov.ga</groupId>
     <artifactId>geoscience-portal</artifactId>
     <packaging>war</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.2.0-SNAPSHOT</version>
     <name>Geoscience Portal</name>
     <description></description>
     <url>http://portal.geoscience.gov.au</url>
@@ -32,7 +32,7 @@
         <spring.version>3.0.5.RELEASE</spring.version>
         <spring.security.version>3.0.5.RELEASE</spring.security.version>
         <geotools.version>2.6.5</geotools.version>
-        <portal.core.version>1.6.0-SNAPSHOT</portal.core.version>
+        <portal.core.version>1.7.0-SNAPSHOT</portal.core.version>
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format> 
     </properties>
