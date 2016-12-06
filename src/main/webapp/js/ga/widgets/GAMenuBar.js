@@ -60,6 +60,7 @@ Ext.define('ga.widgets.GAMenuBar', {
             Ext.util.CSS.createStyleSheet(printCSS, 'printCSSLink');            
             window.print();            
             Ext.util.CSS.removeStyleSheet('printCSSLink');    
+            portal.util.GoogleAnalytic.trackevent('PrintMapHandlerClick', 'Print Map', 'http://portal.geoscience.gov.au');
         };        
     
         // Create our Clear Map handler
@@ -87,6 +88,7 @@ Ext.define('ga.widgets.GAMenuBar', {
                 localStorage.removeItem("portalStorageApplicationState");
                 localStorage.removeItem("portalStorageDefaultBaseLayer");
             }
+            portal.util.GoogleAnalytic.trackevent('ClearMapHandlerClick', 'Clear Map', 'http://portal.geoscience.gov.au');
         };    
     
         // Create our Refresh Map handler
@@ -94,6 +96,8 @@ Ext.define('ga.widgets.GAMenuBar', {
             ActiveLayerManager.saveApplicationState(me.map);
 
             // Refresh the whole browser window
+            portal.util.GoogleAnalytic.trackevent('RefreshMapHandlerClick', 'Refresh Map', 'http://portal.geoscience.gov.au');
+            
         	window.location.reload();
         };
         
@@ -112,6 +116,7 @@ Ext.define('ga.widgets.GAMenuBar', {
             var renderer = scannedMapsLayer.get('renderer');
             renderer.displayData(scannedMapsLayer.getAllOnlineResources(),filterer,Ext.emptyFn);
             ActiveLayerManager.addLayer(scannedMapsLayer);
+            portal.util.GoogleAnalytic.trackevent('ScannedMapsHandlerClick', id, id);
         }
         
         //Create our permalink generation handler
@@ -127,11 +132,12 @@ Ext.define('ga.widgets.GAMenuBar', {
                     version : version,
                     mapStateSerializer: mss
                 });
-    
+                portal.util.GoogleAnalytic.trackevent('PermanentLinkHandlerClick', 'Permanent Link', 'Map state: ' +state + '; version: '+version);
+                
                 popup.show();
+                
             });
-            
-            
+           
         };
         
         var helpHandler = function() {
@@ -170,7 +176,7 @@ Ext.define('ga.widgets.GAMenuBar', {
                 autoEl: {
                     tag: 'div',
                     html: '<ul>\
-                               <li data-qtip="AusGIN Home"><a href="http://www.geoscience.gov.au"><img src="img/home.png" width="16" height="16"/></a></li>\
+                               <li data-qtip="AusGIN Home"><a id="home-link" href="http://www.geoscience.gov.au"><img src="img/home.png" width="16" height="16"/></a></li>\
                                <li data-qtip="Quick link for Scanned 250K Geological Maps"><a id="scanned-maps-link" href="javascript:void(0)">SCANNED 250K GEOLOGICAL MAPS</a></li>\
                                <li data-qtip="Print the current map"><a id="print-map-link" href="javascript:void(0)">PRINT MAP</a></li>\
                                <li data-qtip="Clear all active layers and recentre the map"><a id="clear-map-link" href="javascript:void(0)">CLEAR MAP</a></li>\
@@ -187,6 +193,9 @@ Ext.define('ga.widgets.GAMenuBar', {
                 
             listeners: {
                 render: function (view) {
+                	Ext.get('home-link').on('click', function() {
+                		portal.util.GoogleAnalytic.trackevent('HomeClick',  'home', 'http://www.geoscience.gov.au');
+                		});
                     Ext.get('print-map-link').on('click', printMapHandler);
                     Ext.get('scanned-maps-link').on('click', scannedMapsHandler); 
                     Ext.get('clear-map-link').on('click', clearMapHandler); 

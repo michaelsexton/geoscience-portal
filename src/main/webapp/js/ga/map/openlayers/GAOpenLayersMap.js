@@ -547,7 +547,7 @@ Ext.define('ga.map.openlayers.GAOpenLayersMap', {
                 items : content
             });
           //VT:Tracking
-            portal.util.PiwikAnalytic.trackevent('Query','layer:'+layer.get('name'),'id:' + content[0].tabTitle);
+            portal.util.GoogleAnalytic.trackevent('Query','layer:'+layer.get('name'),'id:' + content[0].tabTitle);
             
         } else {
             var tabPanelItems = [];
@@ -560,7 +560,7 @@ Ext.define('ga.map.openlayers.GAOpenLayersMap', {
                         autoScroll : true,
                         html : content[i]
                     });
-                    portal.util.PiwikAnalytic.trackevent('Query','layer:'+layer.get('name'),'id:Unknown');
+                    portal.util.GoogleAnalytic.trackevent('Query','layer:'+layer.get('name'),'id:Unknown');
                 } else {
                     tabPanelItems.push({
                         title : content[i].tabTitle,
@@ -569,7 +569,7 @@ Ext.define('ga.map.openlayers.GAOpenLayersMap', {
                         autoScroll : true,
                         items : [content[i]]
                     });
-                    portal.util.PiwikAnalytic.trackevent('Query','layer:'+layer.get('name'),'id:' + content[i].tabTitle);
+                    portal.util.GoogleAnalytic.trackevent('Query','layer:'+layer.get('name'),'id:' + content[i].tabTitle);
                 }
             }
 
