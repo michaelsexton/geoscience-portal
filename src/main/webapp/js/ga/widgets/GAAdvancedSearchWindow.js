@@ -73,7 +73,9 @@ Ext.define('ga.widgets.GAAdvancedSearchWindow', {
 
                     } else {
                         performSearch('yes');
-                    }                    
+                    }
+                    portal.util.GoogleAnalytic.trackevent('Advanced Search:', 'Service ids:' + Ext.encode(additionalParams.cswServiceId), 'Search parameters:' + Ext.encode(additionalParams));
+
                 } else {
                     Ext.Msg.alert('Invalid Data', 'Please correct form errors.')
                 }

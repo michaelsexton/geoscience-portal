@@ -108,7 +108,7 @@ Ext.define('ga.widgets.GALayerSelectionWindow', {
                         ActiveLayerManager.addLayer(layer);
                         
                         //VT: Tracking
-                        portal.util.PiwikAnalytic.trackevent('Add:' + layer.get('sourceType'), 'Layer:' + layer.get('name'),'Filter:' + filterer.getParameters());
+                        portal.util.GoogleAnalytic.trackevent('Add:' + layer.get('sourceType'), 'Layer:' + layer.get('name'),'Filter:' + filterer.getParameters());
                     };
                 }                       
                 this.destroy();               

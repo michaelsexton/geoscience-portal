@@ -127,7 +127,7 @@ Ext.define('ga.widgets.GAHeader', {
                     }
                 }
             });
-            
+            portal.util.GoogleAnalytic.trackevent('Basic Search:', 'Service ids:All', 'Search parameters:' + basicSearchInput.dom.value);
             gaSearchResultsWindow.show();                  
         };
     
