@@ -131,6 +131,9 @@ Ext.define('ga.widgets.GAHeader', {
             gaSearchResultsWindow.show();                  
         };
     
+        var userGuideLinkHandler = function () {
+            portal.util.GoogleAnalytic.trackevent('UserGuideClick', 'User Guide', 'http://www.geoscience.gov.au/Geoscience_Portal_User_Guide.pdf');
+        };
         /**
          * Return configuration for the tabpanels in the basic search results
          *
@@ -258,7 +261,7 @@ Ext.define('ga.widgets.GAHeader', {
                     html: 
                          '<ul>\
                               <li><a href="mailto:geoscience-portal-aws@ga.gov.au">Contact Us</a></li>\
-                              <li><a href="http://www.geoscience.gov.au/Geoscience_Portal_User_Guide.pdf" target="_blank">User Guide</a></li>\
+                              <li><a id="user-guide-link" href="http://www.geoscience.gov.au/Geoscience_Portal_User_Guide.pdf" target="_blank">User Guide</a></li>\
                           </ul> '   
                 }       
             }]    
@@ -296,6 +299,7 @@ Ext.define('ga.widgets.GAHeader', {
                     Ext.get('basic-search-input').on('keyup', simpleSearchSubmitHandler);   
                     Ext.get('advanced-search-link').on('click', advancedSearchLinkHandler);
                     Ext.get('clear-search-link').on('click', clearSearchLinkHandler);
+                    Ext.get('user-guide-link').on('click', userGuideLinkHandler);
                 }
             }
         });
