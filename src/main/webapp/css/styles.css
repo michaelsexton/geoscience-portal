@@ -545,11 +545,7 @@
     .noTextOverflow .x-grid-cell-inner  {
         text-overflow: clip !important;
     }
-    /* todo: GPT-225 - Remove "Download Layer" button from WMS layers loaded via the "Custom" tab
-       hide for now */
-    #auscope-tabs-panel-body div.x-panel:last-child div.x-panel-body div.x-panel.recordrowpanel a.x-btn:last-child{
-      display:none;
-    }
+
     /*GPT-284 - Add "Powered by AuScope" to top banner */
     #sponsor-link a{
        text-decoration: none;
