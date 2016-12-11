@@ -213,8 +213,7 @@
     }
 
     #menu-bar li img {
-        margin-top: -2px;
-        position: fixed;
+        vertical-align: bottom;
     }
     
     #menu-bar li {
