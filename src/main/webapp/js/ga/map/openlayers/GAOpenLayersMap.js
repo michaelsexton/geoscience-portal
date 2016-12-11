@@ -178,11 +178,12 @@ Ext.define('ga.map.openlayers.GAOpenLayersMap', {
         // add controls to trhe map
         this.map.addControl(new OpenLayers.Control.Navigation());
         this.map.addControl(new OpenLayers.Control.PanZoomBar({zoomStopHeight:8}));
+        // JIRA GPT-270: Change to coord. style " -27.47° N, 125.50° E "
         this.map.addControl(new OpenLayers.Control.MousePosition({
             "numDigits": 2,
             displayProjection: new OpenLayers.Projection("EPSG:4326"),
             prefix: '<a target="_blank" href="http://spatialreference.org/ref/epsg/4326/">Map coordinates (WGS84 decimal degrees)</a>: ' ,
-            suffix : ' / lat lng',
+           // suffix : ' / lat lng',
             emptyString : '<a target="_blank" href="http://spatialreference.org/ref/epsg/4326/">Map coordinates (WGS84 decimal degrees): </a> Out of bound',
             element : Ext.get('latlng').dom,
             formatOutput: function(lonLat) {
@@ -190,9 +191,9 @@ Ext.define('ga.map.openlayers.GAOpenLayersMap', {
                 var newHtml =
                     this.prefix +
                     lonLat.lat.toFixed(digits) +
-                    this.separator +
+                   ' N, ' +
                     lonLat.lon.toFixed(digits) +
-                    this.suffix;
+                   ' E';
                 return newHtml;
              }
         })); 
