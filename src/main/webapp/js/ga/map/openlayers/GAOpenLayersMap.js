@@ -182,9 +182,9 @@ Ext.define('ga.map.openlayers.GAOpenLayersMap', {
         this.map.addControl(new OpenLayers.Control.MousePosition({
             "numDigits": 2,
             displayProjection: new OpenLayers.Projection("EPSG:4326"),
-            prefix: '<a target="_blank" href="http://spatialreference.org/ref/epsg/4326/">Map coordinates (WGS84 decimal degrees)</a>: ' ,
+            prefix: '<a target="_blank" href="http://spatialreference.org/ref/epsg/4326/">Map coordinates (WGS84)</a>: ' ,
            // suffix : ' / lat lng',
-            emptyString : '<a target="_blank" href="http://spatialreference.org/ref/epsg/4326/">Map coordinates (WGS84 decimal degrees): </a> Out of bound',
+            emptyString : '<a target="_blank" href="http://spatialreference.org/ref/epsg/4326/">Map coordinates (WGS84): </a> Out of bound',
             element : Ext.get('latlng').dom,
             formatOutput: function(lonLat) {
                 var digits = parseInt(this.numDigits);
