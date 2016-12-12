@@ -10,15 +10,15 @@
     <url>http://portal.geoscience.gov.au</url>
     <issueManagement>
         <system>Jira</system>
-        <url>http://intranet.ga.gov.au/jira/browse/GPT</url>
+        <url>https://gaautobots.atlassian.net/projects/GPT</url>
     </issueManagement>
     <ciManagement>
         <system>Jenkins</system>
         <url>http://ci.prod.lan/</url>
     </ciManagement>
     <scm>
-        <connection>scm:git:https://github.com/GeoscienceAustralia/geoscience-portal.git</connection>
-        <developerConnection>scm:git:https://github.com/GeoscienceAustralia/geoscience-portal.git</developerConnection>
+        <connection>scm:git:git@github.com:GeoscienceAustralia/geoscience-portal.git</connection>
+        <developerConnection>scm:git:git@github.com:GeoscienceAustralia/geoscience-portal.git</developerConnection>
     </scm>
     <organization>
         <name>Geoscience Australia</name>
@@ -356,7 +356,7 @@
             <!-- Profile to run selenium tests -->
             <id>selenium</id>
             <build>
-                <finalName>AuScope-Portal</finalName>                
+                <finalName>Geoscience-Portal</finalName>                
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -442,9 +442,14 @@
         </dependency>
     </dependencies>
     <distributionManagement>
+        <repository>
+            <id>nexus.gadevs.releases</id>
+            <name>Internal nexus</name>
+            <url>https://nexus.gadevs.ga/repository/maven-releases</url>
+        </repository>
         <snapshotRepository>
-          <id>nexus.gadevs</id>
-	  <url>https://nexus.gadevs.ga/repository/maven-snapshots/</url>
+            <id>nexus.gadevs.snapshots</id>
+            <url>https://nexus.gadevs.ga/repository/maven-snapshots</url>
         </snapshotRepository>
     </distributionManagement>
 </project>
