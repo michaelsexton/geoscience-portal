@@ -35,6 +35,7 @@
         <portal.core.version>1.7.0-SNAPSHOT</portal.core.version>
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format> 
+        <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
     <build>    
         <extensions>
