@@ -62,6 +62,9 @@
     .x-panel-header-title-navigation > .x-title-text-navigation:after {
         display:none;
     }
+    #querytargethandler-selection-menu_header .x-title-text.x-title-text-default.x-title-item{
+        color: white;
+    }
     
     .olControlPanZoomBar .div {
         position: absolute;
