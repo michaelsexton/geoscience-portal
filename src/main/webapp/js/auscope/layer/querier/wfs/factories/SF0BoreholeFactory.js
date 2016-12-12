@@ -198,7 +198,7 @@ Ext.define('auscope.layer.querier.wfs.factories.SF0BoreholeFactory', {
             layout : 'fit',
             items : [{
                 xtype : 'fieldset',
-                title : 'Portrayal Borehole View',
+                title : 'All Boreholes',
                 labelWidth : 120,
                 autoScroll : true,
                 items   : items
