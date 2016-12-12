@@ -570,10 +570,4 @@
     #sponsor-link a img{
        vertical-align: middle;
     }
-
-    /* todo: GPT-225 - Remove "Download Layer" button from WMS layers loaded via the "Custom" tab
-    hide for now */
-    #auscope-tabs-panel-body div.x-panel:last-child div.x-panel-body div.x-panel.recordrowpanel a.x-btn:last-child{
-      display:none;
-    }
    
