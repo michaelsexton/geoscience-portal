@@ -7,6 +7,7 @@ Ext.define('auscope.layer.GAFilterPanelMenuFactory', {
     map : null,
     panel: null,
     recordPanel: null,
+    downloadable : true,
     
     // whether to add a reset form button on WMS forms. 
     // default to true because that is currently the AuScope portal default
@@ -16,6 +17,7 @@ Ext.define('auscope.layer.GAFilterPanelMenuFactory', {
         this.map = config.map;
         this.recordPanel = config.recordPanel;
         this.callParent(arguments);
+        this.downloadable = config.downloadable;
     },
 
     /**
@@ -36,8 +38,8 @@ Ext.define('auscope.layer.GAFilterPanelMenuFactory', {
             var wmsResources = portal.csw.OnlineResource.getFilteredFromArray(allOnlineResources, portal.csw.OnlineResource.WMS);
             var wfsResources = portal.csw.OnlineResource.getFilteredFromArray(allOnlineResources, portal.csw.OnlineResource.WFS);
             var wcsResources = portal.csw.OnlineResource.getFilteredFromArray(allOnlineResources, portal.csw.OnlineResource.WCS);
-
-            if (wfsResources.length > 0 || wcsResources.length > 0) {
+            
+        if ( !this.downloadable && ( wfsResources.length > 0 || wcsResources.length > 0)) {
                 menuItems.push(this._getDownloadAction(layer));
             }
         }
