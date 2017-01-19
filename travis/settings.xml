@@ -7,7 +7,12 @@
   <pluginGroups/>
   <servers>
     <server>
-      <id>nexus.gadevs</id>
+      <id>nexus.gadevs.releases</id>
+      <username>${env.CI_DEPLOY_USERNAME}</username>
+      <password>${env.CI_DEPLOY_PASSWORD}</password>
+    </server>
+    <server>
+      <id>nexus.gadevs.snapshots</id>
       <username>${env.CI_DEPLOY_USERNAME}</username>
       <password>${env.CI_DEPLOY_PASSWORD}</password>
     </server>
