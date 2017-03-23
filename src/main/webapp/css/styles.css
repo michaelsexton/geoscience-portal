@@ -605,7 +605,7 @@
        color:white;
        font-family: sans-serif;
        line-height: 30px;
-       margin-left: 1em;
+       padding-left: 1em;
     }
      #sponsor-link a {
         text-decoration: none;
