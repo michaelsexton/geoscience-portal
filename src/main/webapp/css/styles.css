@@ -601,18 +601,16 @@
     }
 
     /*GPT-284 - Add "Powered by AuScope" to top banner */
-    #sponsor-link a{
-       text-decoration: none;
+    #sponsor-link {
        color:white;
        font-family: sans-serif;
+       line-height: 30px;
+       margin-left: 1em;
+    }
+     #sponsor-link a {
+        text-decoration: none;
+        color:white;
     }
     #sponsor-link a img{
        vertical-align: middle;
-    }
-    span#ausgin-logo + span{
-       left: 20px !important;
-       top: 50px !important;
-    }
-    #menu-bar{
-       height: 40px !important;
     }
