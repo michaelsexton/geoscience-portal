@@ -121,6 +121,10 @@ Ext.define('auscope.layer.filterer.forms.MineralTenementFilterForm', {
                 	xtype: 'hidden',
                 	name: 'cswBbox',
                 	value: Ext.JSON.encode(bbox)
+                },{
+                    xtype: 'hidden',
+                    name: 'postMethod',
+                    value: 'true'                               
                 }]
             }]
         });
