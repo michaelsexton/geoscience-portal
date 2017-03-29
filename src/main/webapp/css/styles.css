@@ -177,22 +177,22 @@
         height:20px !important;
     }
     #footer-container:before{
-       content: "Partnered By .......";
+       content: "Partnered by ...";
         margin-left: 50%;
-        color: blue;
-        font-weight: 700;
-        font-size: larger;
-        line-height: 2em;
+        color: white;
+        font-weight: 500;
+        font-size: small;
+        line-height: 2.4em;
     }
      #footer-container:hover {
         bottom:  0;
     }
      #footer-container{
-        background-color: lightgray;        
+        background-color: black;
         z-index: 10001;
         position: fixed;
         width: 100%;
-        bottom: -65px;
+        bottom: -66px;
         height: 96px !important;
         -moz-animation: logoFlyout 7s linear;
         -webkit-animation: logoFlyout 7s linear;
