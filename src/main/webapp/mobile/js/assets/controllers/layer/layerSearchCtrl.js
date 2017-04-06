@@ -4,7 +4,7 @@
  * @class layerSearchCtrl
  * 
  */
-allControllers.controller('layerSearchCtrl', ['$scope', 'GetCSWRecordService', function ($scope,GetCSWRecordService) {
+allControllers.controller('layerSearchCtrl', ['$rootScope', '$scope', 'RenderStatusService', 'GetCSWRecordService', function ($rootScope,$scope,RenderStatusService,GetCSWRecordService) {
     
     $scope.showClearGlyph=false;
     /**
@@ -59,8 +59,35 @@ allControllers.controller('layerSearchCtrl', ['$scope', 'GetCSWRecordService', f
         $scope.keywords ="Display Active Layer";
         $scope.showClearGlyph=true;
         GetCSWRecordService.filterActiveRecord();
+
+        var renderStatus = RenderStatusService.getRenderStatus();
+        $rootScope.activeCswRecords=[];
+
+        var tmpCswRecords={};
+        tmpCswRecords = GetCSWRecordService.getSearchedLayers();
+
+        var statusSize = 0;
+        for (var key in renderStatus) {
+            statusSize = statusSize + 1;
+        }
+
+        for (var layerOrder = 1; layerOrder <= statusSize; layerOrder++) {
+            for (var key in renderStatus) {
+                if (renderStatus[key].order == layerOrder) {
+                    for ( var i in tmpCswRecords) {
+                        var layerGroup = tmpCswRecords[i];
+                        for ( var j in layerGroup) {
+                            var layer = layerGroup[j];
+                            if (layer.id === key) {
+                                $rootScope.activeCswRecords.push(layer);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     };
-    
+
     /**
      * This will filter active record
      * @method filterActiveRecord
