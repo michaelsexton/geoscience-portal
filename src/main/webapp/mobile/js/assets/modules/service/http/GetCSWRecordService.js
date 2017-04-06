@@ -10,6 +10,8 @@ allModules.service('GetCSWRecordService',['$http','$q','LayerManagerService','Co
      var allKnownLayers;
 
      var searchedLayers;
+
+     var activeLayerFlag=false;
      /**
       * Retrieve knownlayer csw records async
       * @method getCSWKnownLayers
@@ -78,6 +80,7 @@ allModules.service('GetCSWRecordService',['$http','$q','LayerManagerService','Co
      * @method filterImageRecord
      */
     this.filterImageRecord = function() {       
+        activeLayerFlag=false;
         searchedLayers = {};
         for ( var i in allKnownLayers) {
             var layerGroup = allKnownLayers[i];
@@ -113,7 +116,8 @@ allModules.service('GetCSWRecordService',['$http','$q','LayerManagerService','Co
      * Filter out all WMS layer
      * @method filterDataRecord
      */
-    this.filterDataRecord = function() {        
+    this.filterDataRecord = function() {
+        activeLayerFlag=false;
         searchedLayers = {};
         for ( var i in allKnownLayers) {
             var layerGroup = allKnownLayers[i];
@@ -152,6 +156,7 @@ allModules.service('GetCSWRecordService',['$http','$q','LayerManagerService','Co
      * @method filterActiveRecord
      */
     this.filterActiveRecord = function() {
+        activeLayerFlag=true;
         searchedLayers = {};
         for ( var i in allKnownLayers) {
             var layerGroup = allKnownLayers[i];
@@ -174,6 +179,7 @@ allModules.service('GetCSWRecordService',['$http','$q','LayerManagerService','Co
      * @method filterAnalyticRecord
      */
     this.filterAnalyticRecord = function() {
+        activeLayerFlag=false;
         searchedLayers = {};
         for ( var i in allKnownLayers) {
             var layerGroup = allKnownLayers[i];
@@ -202,6 +208,10 @@ allModules.service('GetCSWRecordService',['$http','$q','LayerManagerService','Co
             return searchedLayers;
         }
         return allKnownLayers;
+    };
+
+    this.getActiveLayerFlag = function() {
+        return activeLayerFlag;
     };
 
 } ]);

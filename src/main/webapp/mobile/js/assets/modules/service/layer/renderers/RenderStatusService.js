@@ -112,8 +112,15 @@ allModules.service('RenderStatusService',['$rootScope','Constants','UtilitiesSer
      * @param layerId - layerId
      */
     this.clearStatus = function(layer){
-        this.renderStatus[layer.id] = {};  
+        this.renderStatus[layer.id] = {};
         this.broadcast(this.renderStatus);
+        this.renderStatus[layer.id].order = 0;
+        maxOrder = 0;
+        for (var key in this.renderStatus) {
+            if (this.renderStatus[key].order > maxOrder)
+                maxOrder = this.renderStatus[key].order;
+        }
+        this.renderStatus[layer.id].order = maxOrder + 1;
     };
      
     /**

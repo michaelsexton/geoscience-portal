@@ -4,8 +4,8 @@
  * @class layerPanelCtrl
  * 
  */
-allControllers.controller('layerPanelCtrl', ['$rootScope','$scope','GetCSWRecordService','RenderStatusService','$timeout','GoogleMapService','Constants',
-                                             function ($rootScope,$scope,GetCSWRecordService,RenderStatusService,$timeout,GoogleMapService,Constants) {
+allControllers.controller('layerPanelCtrl', ['$rootScope','$scope','GoogleMapService','GetCSWRecordService','RenderStatusService','$timeout','GoogleMapService','Constants',
+                                             function ($rootScope,$scope,GoogleMapService,GetCSWRecordService,RenderStatusService,$timeout,GoogleMapService,Constants) {
     $scope.cswRecords={};
     GetCSWRecordService.getCSWKnownLayers().then(function(data){
         $scope.cswRecords=data;      
@@ -99,8 +99,17 @@ allControllers.controller('layerPanelCtrl', ['$rootScope','$scope','GetCSWRecord
         // if there was a search, return search result
         $scope.cswRecords = GetCSWRecordService.getSearchedLayers();
         return $scope.cswRecords;
-    }; 
-       
+    };
+
+    /**
+    * @method reorderLayers
+    */
+    $scope.reorderLayers = function(){
+        for (i=0; i<$rootScope.activeCswRecords.length; i++) {
+            GoogleMapService.moveLayerToFront($rootScope.activeCswRecords[i]);
+        }
+    };
+
     /**
     * @method togglePanels
     * @param panelType type of panel
@@ -197,4 +206,10 @@ allControllers.controller('layerPanelCtrl', ['$rootScope','$scope','GetCSWRecord
         }
     };
 
+    /**
+    * @method testActiveLayerFlag
+    */
+    $scope.testActiveLayerFlag = function() {
+        return GetCSWRecordService.getActiveLayerFlag();
+    };
 }]);
