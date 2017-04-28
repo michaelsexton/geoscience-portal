@@ -377,7 +377,7 @@ public class WMSController extends BaseCSWController {
         outputStream.close();
     }
 
-    public String getStyle(String name, String color) {
+    public String getStyle(String name, String title, String color) {
         //VT : This is a hack to get around using functions in feature chaining
         // https://jira.csiro.au/browse/SISS-1374
         // there are currently no available fix as wms request are made prior to
