@@ -56,9 +56,9 @@ public class WMSController extends BaseCSWController {
 
     private WMSService wmsService;
     private final Log log = LogFactory.getLog(getClass());
-    protected static int BUFFERSIZE = 1024 * 1024;
+    private int BUFFERSIZE = 1024 * 1024;
     HttpServiceCaller serviceCaller;
-
+    
     // ----------------------------------------------------------- Constructors
 
     @Autowired
@@ -262,13 +262,171 @@ public class WMSController extends BaseCSWController {
     }
 
     /**
+     * Gets the LegendURL from the getCapabilities record if it is defined there.
+     * TODO I think this should be the default but at the moment it is not being used at all.
+     * 
+     * @param serviceUrl The WMS URL to query
+     */
+    @RequestMapping("/getLegendURL.do")
+    public ModelAndView getLegendURL(
+            @RequestParam("serviceUrl") String serviceUrl,
+            @RequestParam("wmsVersion") String wmsVersion,
+            @RequestParam("layerName") String layerName) throws Exception {
+
+        try {
+            /* 
+             * It might be preferable to create a nicer way of getting the data for the specific layer
+             * This implementation just loops through the whole capabilities document looking for the layer.
+             */
+            GetCapabilitiesRecord getCapabilitiesRecord = 
+                    wmsService.getWmsCapabilities(serviceUrl, wmsVersion);           
+            
+            String url = null;
+
+            for (GetCapabilitiesWMSLayerRecord layer : getCapabilitiesRecord.getLayers()) {
+                if (layerName.equals(layer.getName())) {
+                    url = layer.getLegendURL();
+                    break;
+                }
+            }
+            return generateJSONResponseMAV(true, url, "");
+
+        } catch (Exception e) {
+            log.warn(String.format("Unable to download WMS legendURL for '%1$s'", serviceUrl));
+            log.debug(e);
+            return generateJSONResponseMAV(false, "", null);
+        }
+    }
+
+    /**
+     * Gets the Layer Abstract  from the getCapabilities record if it is defined there.    
+     * 
+     * @param serviceUrl The WMS URL to query
+     * @param version the WMS version
+     * @param name the layer name
+     */
+    @RequestMapping("/getWMSLayerAbstract.do")
+    public ModelAndView getWMSLayerAbstract(
+            @RequestParam("serviceUrl") String serviceUrl,
+            @RequestParam("version") String wmsVersion,
+            @RequestParam("name") String name) throws Exception {
+
+        try {
+            /* 
+             * It might be preferable to create a nicer way of getting the data for the specific layer
+             * This implementation just loops through the whole capabilities document looking for the layer.
+             */    
+            String decodedServiceURL = URLDecoder.decode(serviceUrl, "UTF-8");
+            
+            GetCapabilitiesRecord getCapabilitiesRecord = 
+                    wmsService.getWmsCapabilities(decodedServiceURL, wmsVersion);           
+            
+            String layerAbstract = null;
+
+            for (GetCapabilitiesWMSLayerRecord layer : getCapabilitiesRecord.getLayers()) {
+                if (name.equals(layer.getName())) {
+                    layerAbstract = layer.getAbstract();
+                    break;
+                }
+            }
+            return generateJSONResponseMAV(true, layerAbstract, "");
+
+        } catch (Exception e) {
+            log.warn(String.format("Unable to download WMS Layer Abstract for '%1$s'", serviceUrl));
+            log.debug(e);
+            return generateJSONResponseMAV(false, "", null);
+        }
+    }     
+
+    /**
+     * Gets the Metadata URL from the getCapabilities record if it is defined there.    
+     * 
+     * @param serviceUrl The WMS URL to query
+     * @param version the WMS version
+     * @param name the layer name
+     */
+    @RequestMapping("/getWMSLayerMetadataURL.do")
+    public ModelAndView getWMSLayerMetadataURL(
+            @RequestParam("serviceUrl") String serviceUrl,
+            @RequestParam("version") String wmsVersion,
+            @RequestParam("name") String name) throws Exception {
+
+        try {
+            /* 
+             * It might be preferable to create a nicer way of getting the data for the specific layer
+             * This implementation just loops through the whole capabilities document looking for the layer.
+             */    
+            String decodedServiceURL = URLDecoder.decode(serviceUrl, "UTF-8");
+            
+            GetCapabilitiesRecord getCapabilitiesRecord = 
+                    wmsService.getWmsCapabilities(decodedServiceURL, wmsVersion);           
+            
+            String metadataURL = null;
+
+            for (GetCapabilitiesWMSLayerRecord layer : getCapabilitiesRecord.getLayers()) {
+                if (name.equals(layer.getTitle())) {
+                    metadataURL = layer.getMetadataURL();
+                    break;
+                }
+            }
+            
+            // if no value was found in a child layer then use the value in the parent record.
+            if (StringUtils.isBlank(metadataURL)) {
+            	metadataURL = getCapabilitiesRecord.getMetadataUrl();
+            }
+            
+            return generateJSONResponseMAV(true, metadataURL, "");
+
+        } catch (Exception e) {
+            log.warn(String.format("Unable to download WMS MetadataURL for '%1$s'", serviceUrl));
+            log.debug(e);
+            return generateJSONResponseMAV(false, "", null);
+        }
+    }
+    
+    /**
+     * Gets all of the WMS layers in a CSW record using the getCapabilities service.   
+     * Excludes the service layer. 
+     * 
+     * @param serviceUrl The WMS URL to query
+     * @param version the WMS version
+     * @param name the layer name
+     */
+    @RequestMapping("/getWMSLayers.do")
+    public ModelAndView getWMSLayers(
+            @RequestParam("serviceUrl") String serviceUrl) throws Exception {
+
+        try {
+            String decodedServiceURL = URLDecoder.decode(serviceUrl, "UTF-8");
+            
+            GetCapabilitiesRecord getCapabilitiesRecord = 
+                    wmsService.getWmsCapabilities(decodedServiceURL, null);           
+            
+            // we don't want to include the service layer itself.
+            // If the layer has no Name, then that layer is only a category title for all the layers nested within
+            List<GetCapabilitiesWMSLayerRecord> layers = new ArrayList<GetCapabilitiesWMSLayerRecord>();
+            for (GetCapabilitiesWMSLayerRecord layer: getCapabilitiesRecord.getLayers()) {
+            	if (StringUtils.isNotEmpty(layer.getName())) {
+            		layers.add(layer);
+            	}
+            }
+            
+            return generateJSONResponseMAV(true, layers, "");
+
+        } catch (Exception e) {
+            log.warn(String.format("Unable to download WMS MetadataURL for '%1$s'", serviceUrl));
+            log.debug(e);
+            return generateJSONResponseMAV(false, "", null);
+        }
+    }
+    
+    /**
      *
      * @param request
      * @param response
      * @param wmsUrl
      * @param latitude
-     * @param longitude
-     * @param queryLayers
+     * @param longitudev
      * @param x
      * @param y
      * @param bbox
