@@ -23,9 +23,10 @@ Ext.define('ga.widgets.GAMenuBar', {
         
         // Create our Print Map handler         
         var printMapHandler = function() {   
-            
+            var pxNumber = Ext.get('center_region').getHeight() - 27;
+
             // create some print-only css rules to apply before printing
-            var printCSS = 'html, body {\
+            var printCSS1 = 'html, body {\
                 margin: 0 0 0 0 !important;\
                 padding: 0 0 0 0 !important;\
                 height: 99% !important;\
@@ -46,7 +47,9 @@ Ext.define('ga.widgets.GAMenuBar', {
                 display: block !important;\
                 top: 0px !important;\
                 left: 0px !important;\
-                height: 100% !important;\
+                height: ';
+
+            var printCSS2 = 'px !important;\
                 width: 100% !important;\
             }\
             #center_region-body {\
@@ -55,7 +58,9 @@ Ext.define('ga.widgets.GAMenuBar', {
             .olButton, .olAlphaImg {\
                 display: none !important;\
             }';
-            
+
+            var printCSS = printCSS1 + pxNumber + printCSS2;
+
             // use the browser print() function with the new styles applied
             Ext.util.CSS.createStyleSheet(printCSS, 'printCSSLink');            
             window.print();            
