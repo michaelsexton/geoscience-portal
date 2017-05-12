@@ -57,6 +57,10 @@ Ext.define('ga.widgets.GAMenuBar', {
             }\
             .olButton, .olAlphaImg {\
                 display: none !important;\
+            }\
+            @media print\
+            {\
+                * {-webkit-print-color-adjust:exact;}\
             }';
 
             var printCSS = printCSS1 + pxNumber + printCSS2;
