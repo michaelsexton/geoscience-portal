@@ -297,6 +297,11 @@
         height: 100% !important;
     }
 
+    #region-west {
+        padding-bottom: 25px !important;
+        height: 100% !important;
+    }
+
     #menu-bar a {
         position:relative;
         padding-left:15px;
