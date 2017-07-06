@@ -358,7 +358,7 @@ Ext.define('auscope.layer.querier.wfs.knownlayerfactories.NVCLFactory', {
                                             html        : sHtml,
                                             id          : 'plWindow',
                                             layout      : 'fit',
-                                            maximizable : true,
+                                            maximizable : false,
                                             modal       : true,
                                             title       : 'Plot: ',
                                             autoHeight  : true,
@@ -368,6 +368,7 @@ Ext.define('auscope.layer.querier.wfs.knownlayerfactories.NVCLFactory', {
                                           });
 
                                         winPlot.show();
+                                        winPlot.toggleMaximize();
                                     } else if (item_count === 0){
                                         Ext.Msg.show({
                                             title:'Hint',
