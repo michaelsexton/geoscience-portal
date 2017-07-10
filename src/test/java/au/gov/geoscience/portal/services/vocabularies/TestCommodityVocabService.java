@@ -59,11 +59,11 @@ public class TestCommodityVocabService extends PortalTestClass {
 			{
 
 				oneOf(mockMethodMaker).getAllConceptsInScheme(baseUrl, CommodityVocabService.REPOSITORY_NAME,
-						VocabularyLookup.COMMODITY_CODE.scheme(), Format.Rdf, View.basic,
+						VocabularyLookup.COMMODITY_CODE.scheme(), Format.Rdf, View.concept,
 						commodityVocabService.getPageSize(), 0);
 				will(returnValue(mockMethod));
 				oneOf(mockMethodMaker).getAllConceptsInScheme(baseUrl, CommodityVocabService.REPOSITORY_NAME,
-						VocabularyLookup.COMMODITY_CODE.scheme(), Format.Rdf, null, commodityVocabService.getPageSize(),
+						VocabularyLookup.COMMODITY_CODE.scheme(), Format.Rdf, View.concept, commodityVocabService.getPageSize(),
 						1);
 				will(returnValue(mockMethod2));
 

@@ -12,7 +12,6 @@
         <skos:prefLabel xml:lang="en">uranium</skos:prefLabel>
       </rdf:Description>
     </api:items>
-    <xhv:next rdf:resource="http://52.63.163.95/cgi/sissvoc/commodity-code/concept.rdf?_pageSize=1&amp;_page=177"/>
     <api:definition rdf:resource="http://52.63.163.95/cgi/sissvoc/meta/commodity-code/concept.rdf"/>
     <api:extendedMetadataVersion rdf:resource="http://52.63.163.95/cgi/sissvoc/commodity-code/concept.rdf?_metadata=all&amp;_pageSize=1&amp;_page=176"/>
     <xhv:prev rdf:resource="http://52.63.163.95/cgi/sissvoc/commodity-code/concept.rdf?_pageSize=1&amp;_page=175"/>
