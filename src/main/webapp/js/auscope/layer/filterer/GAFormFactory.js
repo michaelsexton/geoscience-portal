@@ -51,6 +51,15 @@ Ext.define('auscope.layer.filterer.GAFormFactory', {
             case 'mineral-occ-view':
                 baseFilterForm = Ext.create('auscope.layer.filterer.forms.MineralOccurrenceFilterForm', baseFilterFormCfg);
                 return this._generateResult(baseFilterForm, true);
+            case 'erl-mineral-occurrence-view':
+                baseFilterForm = Ext.create('auscope.layer.filterer.forms.MineralOccurrenceViewFilterForm', baseFilterFormCfg);
+                return this._generateResult(baseFilterForm, true);
+            case 'erl-commodity-resource-view':
+                baseFilterForm = Ext.create('auscope.layer.filterer.forms.CommodityResourceViewFilterForm', baseFilterFormCfg);
+                return this._generateResult(baseFilterForm, true);
+            case 'erl-mine-view':
+                baseFilterForm = Ext.create('auscope.layer.filterer.forms.MineViewFilterForm', baseFilterFormCfg);
+                return this._generateResult(baseFilterForm, true);
             case 'erml-mine':
                 baseFilterForm = Ext.create('auscope.layer.filterer.forms.MineFilterForm', baseFilterFormCfg);
                 return this._generateResult(baseFilterForm, true);
