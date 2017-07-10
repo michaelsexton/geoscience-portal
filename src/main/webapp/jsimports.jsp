@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="css/geoscience-australia-theme/build/resources/geoscience-australia-theme-all.css">
-
+ 
 <!-- Geoscience Australia components -->
 <script src="js/ga/widgets/CTemplate.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/ga/widgets/Component.js?v=${buildTimestamp}" type="text/javascript"></script>
@@ -53,6 +53,9 @@
 <script src="js/auscope/layer/filterer/forms/SF0BoreholeFilterForm.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/filterer/forms/MineFilterForm.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/filterer/forms/MineralOccurrenceFilterForm.js?v=${buildTimestamp}" type="text/javascript"></script>
+<script src="js/auscope/layer/filterer/forms/MineralOccurrenceViewFilterForm.js?v=${buildTimestamp}" type="text/javascript"></script>
+<script src="js/auscope/layer/filterer/forms/CommodityResourceViewFilterForm.js?v=${buildTimestamp}" type="text/javascript"></script>
+<script src="js/auscope/layer/filterer/forms/MineViewFilterForm.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/filterer/forms/MiningActivityFilterForm.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/filterer/forms/MineralTenementFilterForm.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/filterer/forms/NvclFilterForm.js?v=${buildTimestamp}" type="text/javascript"></script>
@@ -74,7 +77,10 @@
 <script src="js/auscope/layer/querier/wfs/factories/CapdfHydroGeoChemFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/querier/wfs/factories/TIMAGeoSampleFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/querier/wfs/factories/MineralTenementFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
-<script src="js/auscope/layer/querier/wfs/factories/MinOccurViewFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
+<script src="js/auscope/layer/querier/wfs/factories/MinOccViewFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
+<script src="js/auscope/layer/querier/wfs/factories/MineralOccurrenceViewFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
+<script src="js/auscope/layer/querier/wfs/factories/CommodityResourceViewFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
+<script src="js/auscope/layer/querier/wfs/factories/MineViewFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/querier/wfs/factories/MiningFeatureOccurrence.Factory.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/querier/wfs/factories/GeologicUnitFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/querier/wfs/factories/LocatedSpecimenFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
@@ -98,3 +104,4 @@
 
 <script src="js/auscope/layer/renderer/cswservice/UncachedCSWServiceRenderer.js?v=${buildTimestamp}" type="text/javascript"></script>
 
+ 

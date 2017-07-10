@@ -1,190 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
-
-
-	<!-- All elements must be of type org.auscope.portal.server.web.KnownLayer -->
-	<bean id="knownTypes" class="java.util.ArrayList">
-		<constructor-arg>
-			<list>
-				<ref bean="knownTypeMine" />
-				<ref bean="knownTypeMiningActivity" />
-				<ref bean="knownTypeMineralTenements" />
-				<ref bean="knownTypeMineralOccurrenceView" />
-				<ref bean="knownTypeNVCLBoreholes" />
-				<ref bean="knownTypeAllBoreholes" />
-				<ref bean="knownTypeSamplingPoint" />
-				<ref bean="knownTypeFeatureCollection" />
-				<ref bean="knownTypeLateriteYilgarnGeoChem" />
-				<ref bean="knownTypeHighPSiteFeatureType" />
-				<ref bean="knownTypeHighPFeatureType" />
-				<ref bean="knownTypeHighPREIronLayer" />
-				<ref bean="knownTypeHighPREPhosLayer" />
-				<ref bean="knownTypeHighPSiteIronLayer" />
-				<ref bean="knownTypeHighPSitePhosLayer" />
-				<ref bean="knownTypePortals" />
-				<ref bean="knownTypeGeoNetworks" />
-				<ref bean="knownTypeGeologicalProvinceContact" />
-				<ref bean="knownTypeGeologicalProvinceMetallogenic" />
-				<ref bean="knownTypeSedimentaryBasinsCenozoic" />
-				<ref bean="knownTypeSedimentaryBasinsMesozoicCenozoic" />
-				<ref bean="knownTypeSedimentaryBasinsMesozoic" />
-				<ref bean="knownTypeSedimentaryBasinsPaleozoicCenozoic" />
-				<ref bean="knownTypeSedimentaryBasinsPaleozoicMesozoic" />
-				<ref bean="knownTypeSedimentaryBasinsLatePaleozoic" />
-				<ref bean="knownTypeSedimentaryBasinsEarlyToLatePaleozoic" />
-				<ref bean="knownTypeSedimentaryBasinsEarlyPaleozoic" />
-				<ref bean="knownTypeTectonicProvincesPaleozoicMesozoic" />
-				<ref bean="knownTypeTectonicProvincesNeoproterozoicPaleozoic" />
-				<ref bean="knownTypeSedimentaryBasinsNeoproterozoicPaleozoic" />
-				<ref bean="knownTypeIgneousProvincesProterozoicPaleozoic" />
-				<ref bean="knownTypeSedimentaryBasinsMesoproterozoic" />
-				<ref bean="knownTypeTectonicProvincesProterozoic" />
-				<ref bean="knownTypeSedimentaryBasinsPaleoproterozoic" />
-				<ref bean="knownTypeSedimentaryBasinsArcheanPaleoproterozoic" />
-				<ref bean="knownTypeTectonicProvincesArcheanProterozoic" />
-				<ref bean="knownTypeCrustalElements" />
-				<ref bean="knownTypeAllGeologicalProvinces" />
-				<ref bean="knownTypeAster" />
-				<ref bean="knownTypeAsterAloh" />
-				<ref bean="knownTypeAsterFerrous" />
-				<ref bean="knownTypeAsterOpaque" />
-				<ref bean="knownTypeAsterFerricOxideContent" />
-				<ref bean="knownTypeAsterFeoh" />
-				<ref bean="knownTypeFerricOxideComp" />
-				<ref bean="knownTypeGroupIndex" />
-				<ref bean="knownTypeQuartzIndex" />
-				<ref bean="knownTypeMgohContent" />
-				<ref bean="knownTypeGreenVeg" />
-				<ref bean="knownTypeFerrCarb" />
-				<ref bean="knownTypeMgohGroupComp" />
-				<ref bean="knownTypeFalseColor" />
-				<ref bean="knownTypeRegolithRatios" />
-				<ref bean="knownTypeAlohGroupContent" />
-				<ref bean="knownTypeGypsumContent" />
-				<ref bean="knownTypeSilicaContent" />
-				<!-- <ref bean="knownTypeSurfaceAftershock" /> -->
-
-				<!-- Analytics -->
-				<!-- ref bean="knownTypeBouguerGeodetic" /> <ref bean="knownTypeGravAnomalyGeodetic" 
-					/> <ref bean="knownTypeRadMapTotaldose" /> <ref bean="knownTypeMagMap" /> 
-					<ref bean="knownTypeGocadModels" /> <ref bean="KnownTypeGeophysicsDatasets" 
-					/> <ref bean="knownTypeGswaMagMerge" /> <ref bean="knownTypeGswaUMerge" /> 
-					<ref bean="knownTypeGswaThMerge" /> <ref bean="knownTypeGswaTcMerge" /> <ref 
-					bean="knownTypeGswaKMerge" /> <ref bean="knownTypeGAAemSurvey" /> <ref bean="knownTypeGARumJungleAEM" 
-					/> <ref bean="knownTypeGAWoolnerAEM" /> <ref bean="knownTypeGAGravitySurvey" 
-					/> <ref bean="knownTypeMusgraveAem" /> <ref bean="knownTypeWesternAreaAem" 
-					/> <ref bean="knownTypeAshburtonAem" / -->
-				<!-- End Analytics -->
-				<ref bean="knownTypeGeologicalMaps_Contacts_Faults_Dykes_MarkerBeds" />
-				<ref bean="knownTypeGeologicalMaps_Lithostratigraphy" />
-				<ref bean="knownTypeGeologicalMaps_Lithology" />
-				<ref bean="knownTypeGeologicalMaps_Age" />
-				<ref bean="knownTypeGeologicalMaps_250K_Scanned_Geological_Maps" />
-				<!-- Group: Topography and Infrastructure -->
-				<ref bean="knownTypePopulatedPlaces1to8" />
-				<ref bean="knownTypeCoastlines" />
-				<ref bean="knownTypeRiversAndLakes" />
-				<ref bean="knownTypeRoads1to4" />
-				<ref bean="knownTypeRailways1to3" />
-				<ref bean="knownTypeOil" />
-				<ref bean="knownTypeGas" />
-				<ref bean="knownTypeMajorPorts" />
-				<!-- Restricted Areas -->
-				<ref bean="knownTypeProtectedAreasCAPAD2014Marine" />
-				<ref bean="knownTypeProtectedAreasCAPAD2014Terrestrial" />
-				<ref bean="knownTypeWorld_Heritage_Areas_Australia" />
-				<ref bean="knownTypeDefence_Prohibited_Areas" />
-				<ref bean="knownTypeDefence_Practice_Areas" />
-				<ref bean="knownTypeDefence_Training_Areas" />
-				<!-- National Geophysical Datasets -->
-				<ref bean="knownTypeOnshoreSeismicSurveys" />
-				<ref bean="knownTypeAirborneSurveys2014" />
-				<ref bean="knownTypeTotalMagneticIntensity2015Greyscale" />
-				<ref bean="knownTypeTotalMagneticIntensity2015HSI" />
-				<ref bean="knownTypeTotalMagneticIntensityVRTP2015Greyscale" />
-				<ref bean="knownTypeGravityBouguerOnshore2010Greyscale" />
-				<ref bean="knownTypeGravityAnomaly2010Greyscale" />
-				<ref bean="knownTypeGravityAnomaly2010HSI" />
-				<ref bean="knownTypeRadiometrics2015TernaryKThU" />
-				<ref bean="knownTypeRadiometrics2015UnfilteredDose" />
-				<ref bean="knownTypeRadiometrics2015FilteredDose" />
-				<ref bean="knownTypeRadiometrics2015UnfilteredPcK" />
-				<ref bean="knownTypeRadiometrics2015FilteredPcK" />
-				<ref bean="knownTypeRadiometrics2015UnfilteredPpmTh" />
-				<ref bean="knownTypeRadiometrics2015FilteredPpmTh" />
-				<ref bean="knownTypeRadiometrics2015UnfilteredPpmU" />
-				<ref bean="knownTypeRadiometrics2015FilteredPpmU" />
-				<ref bean="knownTypeRadiometrics2015FilteredThKRatio" />
-				<ref bean="knownTypeRadiometrics2015FilteredUKRatio" />
-				<ref bean="knownTypeRadiometrics2015FilteredUThRatio" />
-				<ref bean="knownTypeRadiometrics2015FilteredU2ThRatio" />
-				<!-- Rock Properties -->
-				<ref bean="knownTypeRockPropertiesBulkDensity" />
-				<ref bean="knownTypeRockPropertiesChargeability" />
-				<ref bean="knownTypeRockPropertiesElectricalConductivity" />
-				<ref bean="knownTypeRockPropertiesElectricalResistivity" />
-				<ref bean="knownTypeRockPropertiesGammaBulkDensity" />
-				<ref bean="knownTypeRockPropertiesKoenigsbergerRatio" />
-				<ref bean="knownTypeRockPropertiesMagneticSusceptibility" />
-				<ref bean="knownTypeRockPropertiesNaturalGamma" />
-				<ref bean="knownTypeRockPropertiesPorosity" />
-				<ref bean="knownTypeRockPropertiesRemanentMagnetisation" />
-				<ref bean="knownTypeRockPropertiesSonicVelocity" />
-				<ref bean="knownTypeRockPropertiesTemperature" />
-			</list>
-		</constructor-arg>
-	</bean>
-
-	<bean id="cswServiceList" class="java.util.ArrayList">
-		<constructor-arg>
-			<list>
-				<!-- <ref bean="cswGeoscienceLocal" /> -->
-				<ref bean="cswGaDev" />
-				<ref bean="cswGswaDev" />
-				<ref bean="cswGsq" />
-				<ref bean="cswGsv" />
-				<ref bean="cswMineralResourcesTasmaniaDev" />
-				<ref bean="cswAustralianTopography" />
-				<ref bean="cswAustralianSurfaceGeology" />
-				<ref bean="cswBoreholeNVCL" />
-				<ref bean="cswBoreholeView" />
-				<ref bean="cswBoreholeViewWMS" />
-				<ref bean="cswASTER" />
-				<ref bean="cswRestrictedAreas" />
-				<ref bean="cswGeologicalMaps" />
-				<ref bean="cswScannedMapsIndex" />
-				<ref bean="cswNationalGeophysicalDatasets" />
-				<ref bean="cswBoreholes" />
-				<ref bean="cswEnvironment" />
-
-				<!-- <ref bean="darwinDev" /> -->
-				<!-- <ref bean="cswAuscopeTest" /> -->
-				<!-- <ref bean="cswAuscopeProduction"/> -->
-				<!-- <ref bean="cswMDUTest"/> -->
-				<!-- <ref bean="cswMDUProduction"/> -->
-				<!-- <ref bean="cswAsterProduction"/> -->
-				<!-- <ref bean="cswInSarProduction" /> -->
-				<!-- try below -->
-				<!-- <ref bean="cswGswaDev" /> -->
-				<!-- <ref bean="cswMineralResourcesTasmaniaDev" /> -->
-				<!-- <ref bean="cswAuscopeTest" /> -->
-				<!-- <ref bean="cswAuscopeProduction" /> -->
-				<!-- <ref bean="cswMDUTest" /> -->
-				<!-- <ref bean="cswMDUProduction" /> -->
-				<!-- <ref bean="cswSissANUProduction" /> -->
-				<!-- <ref bean="cswGAPetroleumTest" /> -->
-				<!-- <ref bean="cswInSarTest" /> -->
-				<!-- <ref bean="cswInSarProduction" /> -->
-				<!-- <ref bean="cswMRTTest" /> -->
-				<!-- <ref bean="cswMRTProduction" /> -->
-				<!-- <ref bean="cswVeglProduction" /> -->
-			</list>
-		</constructor-arg>
-	</bean>
-
+    <!-- All elements must be of type org.auscope.portal.server.web.KnownLayer -->
+    <bean id="knownTypes" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <ref bean="knownTypeMine" />
+                <ref bean="knownTypeMiningActivity" />
+                <ref bean="knownTypeMineralTenements" />
+                <ref bean="knownTypeMinOccView" />
+                <ref bean="knownTypeMineralOccurrenceView" />
+                <ref bean="knownTypeCommodityResourceView" />
+                <ref bean="knownTypeMineView" />
+                <ref bean="knownTypeNVCLBoreholes" />
+                <ref bean="knownTypeAllBoreholes" />
+                <ref bean="knownTypeSamplingPoint" />
+                <ref bean="knownTypeFeatureCollection" />
+                <ref bean="knownTypeLateriteYilgarnGeoChem" />
+                <ref bean="knownTypeHighPSiteFeatureType" />
+                <ref bean="knownTypeHighPFeatureType" />
+                <ref bean="knownTypeHighPREIronLayer" />
+                <ref bean="knownTypeHighPREPhosLayer" />
+                <ref bean="knownTypeHighPSiteIronLayer" />
+                <ref bean="knownTypeHighPSitePhosLayer" />
+                <ref bean="knownTypePortals" />
+                <ref bean="knownTypeGeoNetworks" />
+                <ref bean="knownTypeGeologicalProvinceContact" />
+                <ref bean="knownTypeGeologicalProvinceMetallogenic" />
+                <ref bean="knownTypeSedimentaryBasinsCenozoic" />
+                <ref bean="knownTypeSedimentaryBasinsMesozoicCenozoic" />
+                <ref bean="knownTypeSedimentaryBasinsMesozoic" />
+                <ref bean="knownTypeSedimentaryBasinsPaleozoicCenozoic" />
+                <ref bean="knownTypeSedimentaryBasinsPaleozoicMesozoic" />
+                <ref bean="knownTypeSedimentaryBasinsLatePaleozoic" />
+                <ref bean="knownTypeSedimentaryBasinsEarlyToLatePaleozoic" />
+                <ref bean="knownTypeSedimentaryBasinsEarlyPaleozoic" />
+                <ref bean="knownTypeTectonicProvincesPaleozoicMesozoic" />
+                <ref bean="knownTypeTectonicProvincesNeoproterozoicPaleozoic" />
+                <ref bean="knownTypeSedimentaryBasinsNeoproterozoicPaleozoic" />
+                <ref bean="knownTypeIgneousProvincesProterozoicPaleozoic" />
+                <ref bean="knownTypeSedimentaryBasinsMesoproterozoic" />
+                <ref bean="knownTypeTectonicProvincesProterozoic" />
+                <ref bean="knownTypeSedimentaryBasinsPaleoproterozoic" />
+                <ref bean="knownTypeSedimentaryBasinsArcheanPaleoproterozoic" />
+                <ref bean="knownTypeTectonicProvincesArcheanProterozoic" />
+                <ref bean="knownTypeCrustalElements" />
+                <ref bean="knownTypeAllGeologicalProvinces" />
+                <ref bean="knownTypeAster" />
+                <ref bean="knownTypeAsterAloh" />
+                <ref bean="knownTypeAsterFerrous" />
+                <ref bean="knownTypeAsterOpaque" />
+                <ref bean="knownTypeAsterFerricOxideContent" />
+                <ref bean="knownTypeAsterFeoh" />
+                <ref bean="knownTypeFerricOxideComp" />
+                <ref bean="knownTypeGroupIndex" />
+                <ref bean="knownTypeQuartzIndex" />
+                <ref bean="knownTypeMgohContent" />
+                <ref bean="knownTypeGreenVeg" />
+                <ref bean="knownTypeFerrCarb" />
+                <ref bean="knownTypeMgohGroupComp" />
+                <ref bean="knownTypeFalseColor" />
+                <ref bean="knownTypeRegolithRatios" />
+                <ref bean="knownTypeAlohGroupContent" />
+                <ref bean="knownTypeGypsumContent" />
+                <ref bean="knownTypeSilicaContent" />
+                <!-- <ref bean="knownTypeSurfaceAftershock" /> -->
+                <!-- Analytics -->
+                <!-- ref bean="knownTypeBouguerGeodetic" /> <ref bean="knownTypeGravAnomalyGeodetic" 
+                    /> <ref bean="knownTypeRadMapTotaldose" /> <ref bean="knownTypeMagMap" /> 
+                    <ref bean="knownTypeGocadModels" /> <ref bean="KnownTypeGeophysicsDatasets" 
+                    /> <ref bean="knownTypeGswaMagMerge" /> <ref bean="knownTypeGswaUMerge" /> 
+                    <ref bean="knownTypeGswaThMerge" /> <ref bean="knownTypeGswaTcMerge" /> <ref 
+                    bean="knownTypeGswaKMerge" /> <ref bean="knownTypeGAAemSurvey" /> <ref bean="knownTypeGARumJungleAEM" 
+                    /> <ref bean="knownTypeGAWoolnerAEM" /> <ref bean="knownTypeGAGravitySurvey" 
+                    /> <ref bean="knownTypeMusgraveAem" /> <ref bean="knownTypeWesternAreaAem" 
+                    /> <ref bean="knownTypeAshburtonAem" / -->
+                <!-- End Analytics -->
+                <ref
+                    bean="knownTypeGeologicalMaps_Contacts_Faults_Dykes_MarkerBeds" />
+                <ref bean="knownTypeGeologicalMaps_Lithostratigraphy" />
+                <ref bean="knownTypeGeologicalMaps_Lithology" />
+                <ref bean="knownTypeGeologicalMaps_Age" />
+                <ref
+                    bean="knownTypeGeologicalMaps_250K_Scanned_Geological_Maps" />
+                <!-- Group: Topography and Infrastructure -->
+                <ref bean="knownTypePopulatedPlaces1to8" />
+                <ref bean="knownTypeCoastlines" />
+                <ref bean="knownTypeRiversAndLakes" />
+                <ref bean="knownTypeRoads1to4" />
+                <ref bean="knownTypeRailways1to3" />
+                <ref bean="knownTypeOil" />
+                <ref bean="knownTypeGas" />
+                <ref bean="knownTypeMajorPorts" />
+                <!-- Restricted Areas -->
+                <ref bean="knownTypeProtectedAreasCAPAD2014Marine" />
+                <ref bean="knownTypeProtectedAreasCAPAD2014Terrestrial" />
+                <ref bean="knownTypeWorld_Heritage_Areas_Australia" />
+                <ref bean="knownTypeDefence_Prohibited_Areas" />
+                <ref bean="knownTypeDefence_Practice_Areas" />
+                <ref bean="knownTypeDefence_Training_Areas" />
+                <!-- National Geophysical Datasets -->
+                <ref bean="knownTypeOnshoreSeismicSurveys" />
+                <ref bean="knownTypeAirborneSurveys2014" />
+                <ref bean="knownTypeTotalMagneticIntensity2015Greyscale" />
+                <ref bean="knownTypeTotalMagneticIntensity2015HSI" />
+                <ref bean="knownTypeTotalMagneticIntensityVRTP2015Greyscale" />
+                <ref bean="knownTypeGravityBouguerOnshore2010Greyscale" />
+                <ref bean="knownTypeGravityAnomaly2010Greyscale" />
+                <ref bean="knownTypeGravityAnomaly2010HSI" />
+                <ref bean="knownTypeRadiometrics2015TernaryKThU" />
+                <ref bean="knownTypeRadiometrics2015UnfilteredDose" />
+                <ref bean="knownTypeRadiometrics2015FilteredDose" />
+                <ref bean="knownTypeRadiometrics2015UnfilteredPcK" />
+                <ref bean="knownTypeRadiometrics2015FilteredPcK" />
+                <ref bean="knownTypeRadiometrics2015UnfilteredPpmTh" />
+                <ref bean="knownTypeRadiometrics2015FilteredPpmTh" />
+                <ref bean="knownTypeRadiometrics2015UnfilteredPpmU" />
+                <ref bean="knownTypeRadiometrics2015FilteredPpmU" />
+                <ref bean="knownTypeRadiometrics2015FilteredThKRatio" />
+                <ref bean="knownTypeRadiometrics2015FilteredUKRatio" />
+                <ref bean="knownTypeRadiometrics2015FilteredUThRatio" />
+                <ref bean="knownTypeRadiometrics2015FilteredU2ThRatio" />
+                <!-- Rock Properties -->
+                <ref bean="knownTypeRockPropertiesBulkDensity" />
+                <ref bean="knownTypeRockPropertiesChargeability" />
+                <ref bean="knownTypeRockPropertiesElectricalConductivity" />
+                <ref bean="knownTypeRockPropertiesElectricalResistivity" />
+                <ref bean="knownTypeRockPropertiesGammaBulkDensity" />
+                <ref bean="knownTypeRockPropertiesKoenigsbergerRatio" />
+                <ref bean="knownTypeRockPropertiesMagneticSusceptibility" />
+                <ref bean="knownTypeRockPropertiesNaturalGamma" />
+                <ref bean="knownTypeRockPropertiesPorosity" />
+                <ref bean="knownTypeRockPropertiesRemanentMagnetisation" />
+                <ref bean="knownTypeRockPropertiesSonicVelocity" />
+                <ref bean="knownTypeRockPropertiesTemperature" />
+            </list>
+        </constructor-arg>
+    </bean>
+    <bean id="cswServiceList" class="java.util.ArrayList">
+        <constructor-arg>
+            <list>
+                <!-- <ref bean="cswGeoscienceLocal" /> -->
+                <ref bean="cswGaDev" />
+                <ref bean="cswGswaDev" />
+                <ref bean="cswGsq" />
+                <ref bean="cswGsv" />
+                <ref bean="cswMineralResourcesTasmaniaDev" />
+                <ref bean="cswAustralianTopography" />
+                <ref bean="cswAustralianSurfaceGeology" />
+                <ref bean="cswBoreholeNVCL" />
+                <ref bean="cswBoreholeView" />
+                <ref bean="cswBoreholeViewWMS" />
+                <ref bean="cswASTER" />
+                <ref bean="cswRestrictedAreas" />
+                <ref bean="cswGeologicalMaps" />
+                <ref bean="cswScannedMapsIndex" />
+                <ref bean="cswNationalGeophysicalDatasets" />
+                <ref bean="cswBoreholes" />
+                <ref bean="cswEnvironment" />
+                <!-- <ref bean="darwinDev" /> -->
+                <!-- <ref bean="cswAuscopeTest" /> -->
+                <!-- <ref bean="cswAuscopeProduction"/> -->
+                <!-- <ref bean="cswMDUTest"/> -->
+                <!-- <ref bean="cswMDUProduction"/> -->
+                <!-- <ref bean="cswAsterProduction"/> -->
+                <!-- <ref bean="cswInSarProduction" /> -->
+                <!-- try below -->
+                <!-- <ref bean="cswGswaDev" /> -->
+                <!-- <ref bean="cswMineralResourcesTasmaniaDev" /> -->
+                <!-- <ref bean="cswAuscopeTest" /> -->
+                <!-- <ref bean="cswAuscopeProduction" /> -->
+                <!-- <ref bean="cswMDUTest" /> -->
+                <!-- <ref bean="cswMDUProduction" /> -->
+                <!-- <ref bean="cswSissANUProduction" /> -->
+                <!-- <ref bean="cswGAPetroleumTest" /> -->
+                <!-- <ref bean="cswInSarTest" /> -->
+                <!-- <ref bean="cswInSarProduction" /> -->
+                <!-- <ref bean="cswMRTTest" /> -->
+                <!-- <ref bean="cswMRTProduction" /> -->
+                <!-- <ref bean="cswVeglProduction" /> -->
+            </list>
+        </constructor-arg>
+    </bean>
 </beans>

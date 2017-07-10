@@ -7,12 +7,12 @@ import org.auscope.portal.core.services.methodmakers.filter.AbstractFilter;
 import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
 
 /**
- * Class that represents ogc:Filter markup for mineral occurrence sf0 queries
+ * Class that represents ogc:Filter markup for MinOccView queries
  *
  * @author Victor Tey
  * @version
  */
-public class MinOccurViewFilter extends AbstractFilter {
+public class MinOccViewFilter extends AbstractFilter {
     List<String> fragments;
 
     /**
@@ -21,7 +21,7 @@ public class MinOccurViewFilter extends AbstractFilter {
      * @param mineName
      *            the main name
      */
-    public MinOccurViewFilter(String name, String commodity, String minOreAmount, String minReserves, String minResources) {
+    public MinOccViewFilter(String name, String commodity, String minOreAmount, String minReserves, String minResources) {
 
         fragments = new ArrayList<String>();
         

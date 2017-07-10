@@ -402,6 +402,11 @@
     </reporting>
 
     <repositories>
+	    <repository>
+            <id>nexus.gadevs</id>
+            <name>Internal nexus</name>
+            <url>https://nexus.gadevs.ga/repository/maven-public</url>
+        </repository>
         <repository>
             <id>osgeo</id>
             <name>Open Source Geospatial Foundation Repository</name>

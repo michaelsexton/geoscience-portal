@@ -8,13 +8,10 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.auscope.portal.core.server.http.HttpServiceCaller;
 import org.auscope.portal.core.services.PortalServiceException;
 import org.auscope.portal.core.services.SISSVoc3Service;
-import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker;
 import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker.Format;
 import org.auscope.portal.core.services.namespaces.VocabNamespaceContext;
 import org.auscope.portal.mineraloccurrence.CommodityVocabMethodMaker;
-import org.springframework.stereotype.Service;
 
-import com.hp.hpl.jena.rdf.model.Literal;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.rdf.model.Property;
@@ -23,12 +20,17 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 
+import au.gov.geoscience.portal.services.vocabularies.CommodityVocabService;
+
 /**
- * An specialisation of a SISSVoc3Service to better deal with an Earth Resource Markup Language commodity vocabulary.
+ * @deprecated Replaced with {@link CommodityVocabService}
+ * 
+ * A specialisation of a SISSVoc3Service to better deal with an Earth Resource Markup Language commodity vocabulary.
  * 
  * @author Josh Vote
  *
  */
+@Deprecated 
 public class ErmlVocabService extends SISSVoc3Service {
 
     public static final String GA_URN_PATTERN = "urn:cgi:classifier:GA:commodity:.*";

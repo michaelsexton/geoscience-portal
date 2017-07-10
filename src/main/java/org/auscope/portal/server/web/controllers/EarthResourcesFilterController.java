@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import au.gov.geoscience.portal.server.controllers.EarthResourceFilterController;
+
 /**
  * Controller that handles all Earth Resource related requests
  * <p>
@@ -30,10 +32,12 @@ import org.springframework.web.servlet.ModelAndView;
  * <li>Mininig Activity</li>
  * </ul>
  * </p>
+ * @deprecated Replaced by {@link EarthResourceFilterController}
  *
  * @author Jarek Sanders
  * @author Josh Vote
  */
+@Deprecated
 @Controller
 public class EarthResourcesFilterController extends BasePortalController {
 
@@ -493,7 +497,7 @@ public class EarthResourcesFilterController extends BasePortalController {
 		if (commodityName != null) {
 			unescapeCommodityName = URLDecoder.decode(commodityName, "UTF-8");
 		}
-		String filter = this.mineralOccurrenceService.getMinOccurViewFilter(name, unescapeCommodityName, minOreAmount,
+		String filter = this.mineralOccurrenceService.getMinOccViewFilter(name, unescapeCommodityName, minOreAmount,
 				minReserves, minResources, bbox);
 
 		String style = this.getStyle(filter, EarthResourcesDownloadController.MINERAL_OCCURRENCE_VIEW_FEATURE_TYPE,
