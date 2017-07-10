@@ -122,11 +122,48 @@
             </list>
         </constructor-arg>
     </bean>
-
-    <bean id="ermlVocabService" class="org.auscope.portal.server.web.service.ErmlVocabService">
+    
+    <bean id="resourceCategoryVocabService" class="au.gov.geoscience.portal.services.vocabularies.ResourceCategoryVocabService">
         <constructor-arg name="httpServiceCaller" ref="httpServiceCaller"/>
-        <constructor-arg name="commodityVocabMethodMaker">
-            <bean class="org.auscope.portal.mineraloccurrence.CommodityVocabMethodMaker">
+        <constructor-arg name="sissVocMethodMaker">
+            <bean class="org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker">
+            </bean>
+        </constructor-arg>
+        <constructor-arg name="baseUrl" value="${HOST.vocabService.url}"/>
+    </bean>
+    
+    <bean id="reserveCategoryVocabService" class="au.gov.geoscience.portal.services.vocabularies.ReserveCategoryVocabService">
+        <constructor-arg name="httpServiceCaller" ref="httpServiceCaller"/>
+        <constructor-arg name="sissVocMethodMaker">
+            <bean class="org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker">
+            </bean>
+        </constructor-arg>
+        <constructor-arg name="baseUrl" value="${HOST.vocabService.url}"/>
+    </bean>
+
+    <bean id="commodityVocabService" class="au.gov.geoscience.portal.services.vocabularies.CommodityVocabService">
+        <constructor-arg name="httpServiceCaller" ref="httpServiceCaller"/>
+        <constructor-arg name="sissVocMethodMaker">
+            <bean class="org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker">
+            </bean>
+        </constructor-arg>
+        <constructor-arg name="baseUrl" value="${HOST.vocabService.url}"/>
+    </bean>
+
+     <bean id="mineStatusVocabService" class="au.gov.geoscience.portal.services.vocabularies.MineStatusVocabService">
+        <constructor-arg name="httpServiceCaller" ref="httpServiceCaller"/>
+        <constructor-arg name="sissVocMethodMaker">
+            <bean class="org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker">
+            </bean>
+        </constructor-arg>
+        <constructor-arg name="baseUrl" value="${HOST.vocabService.url}"/>
+    </bean>
+
+
+    <bean id="geologicTimescaleVocabService" class="au.gov.geoscience.portal.services.vocabularies.GeologicTimescaleVocabService">
+        <constructor-arg name="httpServiceCaller" ref="httpServiceCaller"/>
+        <constructor-arg name="sissVocMethodMaker">
+            <bean class="org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker">
             </bean>
         </constructor-arg>
         <constructor-arg name="baseUrl" value="${HOST.vocabService.url}"/>
