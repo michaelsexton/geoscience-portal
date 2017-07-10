@@ -15,7 +15,7 @@ public class TestMinOccurViewFilter extends PortalTestClass {
      */
     @Test
     public void testMinOccurFilter() throws Exception {
-        MinOccurViewFilter filter = new MinOccurViewFilter("abc", "cde", "fgh", "ijk", "lmn");
+        MinOccViewFilter filter = new MinOccViewFilter("abc", "cde", "fgh", "ijk", "lmn");
 
         String result = filter.getFilterStringAllRecords();
         Document doc = AbstractFilterTestUtilities.parsefilterStringXML(result);
@@ -34,7 +34,7 @@ public class TestMinOccurViewFilter extends PortalTestClass {
      */
     @Test
     public void testEmptyComoodityFilter() throws Exception {
-        MinOccurViewFilter filter = new MinOccurViewFilter("", "", "", "", "");
+        MinOccViewFilter filter = new MinOccViewFilter("", "", "", "", "");
 
         String result = filter.getFilterStringAllRecords();
         Assert.assertTrue(result.isEmpty());

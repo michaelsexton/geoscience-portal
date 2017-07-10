@@ -18,6 +18,7 @@ import org.junit.Test;
 
 import com.hp.hpl.jena.rdf.model.Resource;
 
+@SuppressWarnings("deprecation")
 public class TestErmlVocabService extends PortalTestClass {
     private HttpRequestBase mockMethod = context.mock(HttpRequestBase.class, "mockMethod");
     private HttpRequestBase mockMethod2 = context.mock(HttpRequestBase.class, "mockMethod2");
@@ -33,6 +34,7 @@ public class TestErmlVocabService extends PortalTestClass {
         service.setPageSize(50);
     }
 
+    @SuppressWarnings("unused")
     private boolean containsResourceUri(List<Resource> list, String uri) {
         for (Resource res : list) {
             if (res.getURI().equals(uri)) {
