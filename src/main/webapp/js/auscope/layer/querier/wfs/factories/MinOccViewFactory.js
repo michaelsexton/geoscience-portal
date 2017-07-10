@@ -1,7 +1,7 @@
 /**
- * A factory for parsing a er:MiningFeatureOccurrence element.
+ * A factory for parsing a mo:MinOccView element.
  */
-Ext.define('auscope.layer.querier.wfs.factories.MinOccurViewFactory', {
+Ext.define('auscope.layer.querier.wfs.factories.MinOccViewFactory', {
     extend : 'portal.layer.querier.wfs.factories.BaseFactory',
 
     /**
