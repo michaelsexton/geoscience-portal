@@ -12,9 +12,12 @@ import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker
 /**
  * Additions to the SISSVoc3 method maker to better support the commodity vocab
  * 
+ * @deprecated No longer required for new vocabularies
+ * 
  * @author Josh Vote
  *
  */
+@Deprecated
 public class CommodityVocabMethodMaker extends SISSVoc3MethodMaker {
     /**
      * Generates a method for requesting all concepts (as rdf:Descriptions) in the specified repository

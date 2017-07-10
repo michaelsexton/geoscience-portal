@@ -19,11 +19,17 @@ import org.auscope.portal.mineraloccurrence.MiningActivityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import au.gov.geoscience.portal.services.EarthResourceDownloadService;
+
 /**
+ * 
+ * @deprecated Replaced with {@link EarthResourceDownloadService}
+ * 
  * Manages mineral occurrence download queries. As the size of the data can be big, we handle all responses as stream to avoid oom issues.
  *
  * @version $Id$
  */
+@Deprecated
 @Service
 public class MineralOccurrenceDownloadService extends BaseWFSService {
 

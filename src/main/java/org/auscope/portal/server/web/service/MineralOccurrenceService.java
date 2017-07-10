@@ -2,6 +2,7 @@ package org.auscope.portal.server.web.service;
 
 import java.net.URISyntaxException;
 import java.util.List;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -15,7 +16,7 @@ import org.auscope.portal.core.services.methodmakers.filter.IFilter;
 import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
 import org.auscope.portal.core.services.responses.wfs.WFSTransformedResponse;
 import org.auscope.portal.core.xslt.WfsToKmlTransformer;
-import org.auscope.portal.mineraloccurrence.MinOccurViewFilter;
+import org.auscope.portal.mineraloccurrence.MinOccViewFilter;
 import org.auscope.portal.mineraloccurrence.Mine;
 import org.auscope.portal.mineraloccurrence.MineFilter;
 import org.auscope.portal.mineraloccurrence.MineralOccurrenceFilter;
@@ -24,11 +25,16 @@ import org.auscope.portal.mineraloccurrence.MiningActivityFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import au.gov.geoscience.portal.services.EarthResourceService;
+
 /**
+ * @deprecated Replaced with {@link EarthResourceService}
+ * 
  * Manages mineral occurrence queries
  *
  * @version $Id$
  */
+@Deprecated
 @Service
 public class MineralOccurrenceService extends BaseWFSService {
 
@@ -357,10 +363,10 @@ public class MineralOccurrenceService extends BaseWFSService {
         return generateFilterString(filter, bbox);
     }
 
-    public String getMinOccurViewFilter(String name, String commodityName, String minOreAmount, String minReserves,
+    public String getMinOccViewFilter(String name, String commodityName, String minOreAmount, String minReserves,
             String minResources, FilterBoundingBox bbox)
             throws Exception {
-        MinOccurViewFilter filter = new MinOccurViewFilter(name, commodityName, minOreAmount, minReserves, minResources);
+        MinOccViewFilter filter = new MinOccViewFilter(name, commodityName, minOreAmount, minReserves, minResources);
         return generateFilterString(filter, bbox);
     }
 

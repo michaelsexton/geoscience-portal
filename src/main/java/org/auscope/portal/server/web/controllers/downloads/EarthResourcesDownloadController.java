@@ -21,6 +21,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import au.gov.geoscience.portal.server.controllers.EarthResourceDownloadController;
+
+
+/**
+ * @deprecated Replaced with {@link EarthResourceDownloadController}
+ *
+ */
+@Deprecated
 @Controller
 public class EarthResourcesDownloadController extends BasePortalController {
 
@@ -275,7 +283,7 @@ public class EarthResourcesDownloadController extends BasePortalController {
         if (commodityName != null) {
             unescapeCommodityName = URLDecoder.decode(commodityName, "UTF-8");
         }
-        String filter = this.mineralOccurrenceService.getMinOccurViewFilter(name, unescapeCommodityName, minOreAmount,
+        String filter = this.mineralOccurrenceService.getMinOccViewFilter(name, unescapeCommodityName, minOreAmount,
                 minReserves, minResources, bbox);
         response.setContentType("text/xml");
         OutputStream outputStream = response.getOutputStream();
