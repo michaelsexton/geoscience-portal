@@ -14,7 +14,10 @@
 				<ref bean="knownTypeMine" />
 				<ref bean="knownTypeMiningActivity" />
 				<ref bean="knownTypeMineralTenements" />
-				<ref bean="knownTypeMineralOccurrenceView" />
+				<ref bean="knownTypeMinOccView" />
+                <ref bean="knownTypeMineralOccurrenceView" />
+                <ref bean="knownTypeCommodityResourceView" />
+                <ref bean="knownTypeMineView" />
 				<ref bean="knownTypeNVCLBoreholes" />
 				<ref bean="knownTypeAllBoreholes" />
 				<ref bean="knownTypeSamplingPoint" />
