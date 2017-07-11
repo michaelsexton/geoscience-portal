@@ -94,17 +94,6 @@ Ext.define('auscope.layer.querier.wfs.factories.MineralTenementFactory', {
                     fieldLabel : 'Status uri',
                     value : status_uri
                 }]
-            }],
-            buttonAlign : 'right',
-            buttons : [{
-                text : 'Download Feature',
-                iconCls : 'download',
-                handler : function() {
-                    var getXmlUrl = bf._makeFeatureRequestUrl(wfsUrl, domNode.nodeName, gmlId);
-                    portal.util.FileDownloader.downloadFile('downloadGMLAsZip.do',{
-                        serviceUrls : getXmlUrl
-                    });
-                }
             }]
         });
     }
