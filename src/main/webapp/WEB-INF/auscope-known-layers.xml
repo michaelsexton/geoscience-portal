@@ -183,30 +183,18 @@
                     value="true" />
                 <constructor-arg name="serviceEndpoints">
                     <list>
-                        <value>http://nvclwebservices.vm.csiro.au:80/geoserverBH/wfs
-                        </value>
-                        <value>http://www.mrt.tas.gov.au:80/web-services/wfs
-                        </value>
-                        <value>http://geossdi.dmp.wa.gov.au:80/services/wfs
-                        </value>
-                        <value>http://nvclwebservices.vm.csiro.au:80/geoserverBH/wfs
-                        </value>
-                        <value>http://www.mrt.tas.gov.au:80/web-services/wfs
-                        </value>
-                        <value>http://geossdi.dmp.wa.gov.au:80/services/wfs
-                        </value>
-                        <value>http://geology.data.nt.gov.au:80/geoserver/wfs
-                        </value>
-                        <value>http://auscope.dpi.nsw.gov.au:80/geoserver/wfs
-                        </value>
-                        <value>https://sarigdata.pir.sa.gov.au/nvcl/geoserver/wfs
-                        </value>
-                        <value>http://geology-uat.information.qld.gov.au/geoserver/wfs
-                        </value>
-                        <value>http://geology.information.qld.gov.au/geoserver/wfs
-                        </value>
-                        <value>http://geology.data.vic.gov.au/nvcl/wfs
-                        </value>
+                        <value>http://nvclwebservices.vm.csiro.au:80/geoserverBH/wfs</value>
+                        <value>http://www.mrt.tas.gov.au:80/web-services/wfs</value>
+                        <value>http://geossdi.dmp.wa.gov.au:80/services/wfs</value>
+                        <value>http://nvclwebservices.vm.csiro.au:80/geoserverBH/wfs</value>
+                        <value>http://www.mrt.tas.gov.au:80/web-services/wfs</value>
+                        <value>http://geossdi.dmp.wa.gov.au:80/services/wfs</value>
+                        <value>http://geology.data.nt.gov.au:80/geoserver/wfs</value>
+                        <value>http://auscope.dpi.nsw.gov.au:80/geoserver/wfs</value>
+                        <value>https://sarigdata.pir.sa.gov.au/nvcl/geoserver/wfs</value>
+                        <value>http://geology-uat.information.qld.gov.au/geoserver/wfs</value>
+                        <value>http://geology.information.qld.gov.au/geoserver/wfs</value>
+                        <value>http://geology.data.vic.gov.au/nvcl/wfs</value>
                         <!--<value>https://services-test/nvcl/geoserver/wfs</value> -->
                     </list>
                 </constructor-arg>
@@ -253,30 +241,18 @@
                     value="true" />
                 <constructor-arg name="serviceEndpoints">
                     <list>
-                        <value>http://nvclwebservices.vm.csiro.au:80/geoserverBH/wfs
-                        </value>
-                        <value>http://www.mrt.tas.gov.au:80/web-services/wfs
-                        </value>
-                        <value>http://geossdi.dmp.wa.gov.au:80/services/wfs
-                        </value>
-                        <value>http://nvclwebservices.vm.csiro.au:80/geoserverBH/wfs
-                        </value>
-                        <value>http://www.mrt.tas.gov.au:80/web-services/wfs
-                        </value>
-                        <value>http://geossdi.dmp.wa.gov.au:80/services/wfs
-                        </value>
-                        <value>http://geology.data.nt.gov.au:80/geoserver/wfs
-                        </value>
-                        <value>http://auscope.dpi.nsw.gov.au:80/geoserver/wfs
-                        </value>
-                        <value>https://sarigdata.pir.sa.gov.au/nvcl/geoserver/wfs
-                        </value>
-                        <value>http://geology-uat.information.qld.gov.au/geoserver/wfs
-                        </value>
-                        <value>http://geology.information.qld.gov.au/geoserver/wfs
-                        </value>
-                        <value>http://geology.data.vic.gov.au/nvcl/wfs
-                        </value>
+                        <value>http://nvclwebservices.vm.csiro.au:80/geoserverBH/wfs</value>
+                        <value>http://www.mrt.tas.gov.au:80/web-services/wfs</value>
+                        <value>http://geossdi.dmp.wa.gov.au:80/services/wfs</value>
+                        <value>http://nvclwebservices.vm.csiro.au:80/geoserverBH/wfs</value>
+                        <value>http://www.mrt.tas.gov.au:80/web-services/wfs</value>
+                        <value>http://geossdi.dmp.wa.gov.au:80/services/wfs</value>
+                        <value>http://geology.data.nt.gov.au:80/geoserver/wfs</value>
+                        <value>http://auscope.dpi.nsw.gov.au:80/geoserver/wfs</value>
+                        <value>https://sarigdata.pir.sa.gov.au/nvcl/geoserver/wfs</value>
+                        <value>http://geology-uat.information.qld.gov.au/geoserver/wfs</value>
+                        <value>http://geology.information.qld.gov.au/geoserver/wfs</value>
+                        <value>http://geology.data.vic.gov.au/nvcl/wfs</value>
                     </list>
                 </constructor-arg>
             </bean>
@@ -1424,10 +1400,8 @@
                     value="AND" />
                 <constructor-arg name="layerNames">
                     <list>
-                        <value>AUS_GA_2500k_GUPoly_Lithostratigraphy
-                        </value>
-                        <value>AUS_GA_1M_GUPoly_Lithostratigraphy
-                        </value>
+                        <value>AUS_GA_2500k_GUPoly_Lithostratigraphy</value>
+                        <value>AUS_GA_1M_GUPoly_Lithostratigraphy</value>
                     </list>
                 </constructor-arg>
             </bean>
@@ -1568,22 +1542,15 @@
                     value="AND" />
                 <constructor-arg name="layerNames">
                     <list>
-                        <value>Watercourses_All_Rivers_Watercourse_Lines
-                        </value>
+                        <value>Watercourses_All_Rivers_Watercourse_Lines</value>
                         <value>Watercourse_Areas</value>
-                        <value>Watercourses_Major_Rivers_National_Scale_to_5Million
-                        </value>
-                        <value>Watercourses_Major_Rivers_Scale_5Million_to_300000
-                        </value>
-                        <value>Waterbody_Extra_Lakes_and_Reservoirs
-                        </value>
-                        <value>Waterbody_Lakes_National_Scale_to_5Million
-                        </value>
-                        <value>Waterbody_Lakes_Scale_5Million_to_300000
-                        </value>
+                        <value>Watercourses_Major_Rivers_National_Scale_to_5Million</value>
+                        <value>Watercourses_Major_Rivers_Scale_5Million_to_300000</value>
+                        <value>Waterbody_Extra_Lakes_and_Reservoirs</value>
+                        <value>Waterbody_Lakes_National_Scale_to_5Million</value>
+                        <value>Waterbody_Lakes_Scale_5Million_to_300000</value>
                         <value>Waterbody_All_Lakes</value>
-                        <value>Waterbody_Reservoirs_National_Scale_to_300000
-                        </value>
+                        <value>Waterbody_Reservoirs_National_Scale_to_300000</value>
                         <value>Waterbody_All_Reservoirs</value>
                     </list>
                 </constructor-arg>
