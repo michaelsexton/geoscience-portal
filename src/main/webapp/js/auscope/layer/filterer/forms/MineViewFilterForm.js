@@ -44,11 +44,7 @@ Ext.define('auscope.layer.filterer.forms.MineViewFilterForm', {
                     labelAlign: 'right',
                     fieldLabel: '<span data-qtip="Wildcards: \'!\' escape character; \'*\' zero or more, \'#\' just one character.">' + 'Name',
                     name: 'name'
-                } /*
-                 * TODO: Provider not necessary until other services use erl:MineView 
-                 * 
-                 */
-                /*,{
+                },{
                     xtype : 'combo',
                     anchor: '100%',
                     name: 'statusUri',
@@ -62,7 +58,7 @@ Ext.define('auscope.layer.filterer.forms.MineViewFilterForm', {
                     typeAheadDelay: 500,
                     displayField:'label',   
                     valueField:'urn'
-                }*/]
+                }]
             }]
         });
         
