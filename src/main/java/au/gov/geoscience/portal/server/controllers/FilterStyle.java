@@ -1,7 +1,7 @@
 package au.gov.geoscience.portal.server.controllers;
 
 public enum FilterStyle {
-    MINE_VIEW("square", 8, "#aa00aa", "#000000", 0.15), MINERAL_OCCURRENCE_VIEW("circle", 8, "#00aa00", "#000000",
+    MINE("square", 8, "#1fffff", "#000000", 0.15), MINE_VIEW("square", 8, "#aa00aa", "#000000", 0.15), MINERAL_OCCURRENCE_VIEW("circle", 8, "#00aa00", "#000000",
             0.15), COMMODITY_RESOURCE_VIEW("circle", 8, "#ff00aa", "#000000", 0.15);
 
     public final String shape;

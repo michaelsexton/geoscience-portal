@@ -9,6 +9,7 @@ import org.auscope.portal.core.services.BaseWFSService;
 import org.auscope.portal.core.services.PortalServiceException;
 import org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker;
 import org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker.ResultType;
+import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,6 +57,12 @@ public class EarthResourceDownloadService extends BaseWFSService {
         }
         return downloadWFS(serviceUrl, type, filter, maxFeatures);
 
+    }
+
+    public InputStream downloadMine(String serviceUrl, String filter, int maxFeatures) throws PortalServiceException {
+
+        String type = EarthResourceService.MINING_FEATURE_OCCURRENCE_FEATURE_TYPE;
+        return downloadWFS(serviceUrl, type, filter, maxFeatures);
     }
 
 }

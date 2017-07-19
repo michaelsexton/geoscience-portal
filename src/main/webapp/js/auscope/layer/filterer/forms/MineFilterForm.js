@@ -17,13 +17,13 @@ Ext.define('auscope.layer.filterer.forms.MineFilterForm', {
         for (var i = 0; i < cswRecords.length; i++) {
             var adminArea = cswRecords[i].get('adminArea');
             var allOnlineResources = cswRecords[i].get('onlineResources');
-            var bhOnlineResources = portal.csw.OnlineResource.getFilteredFromArray(allOnlineResources, portal.csw.OnlineResource.WMS, 'er:MiningFeatureOccurrence');
+            var mineWFSOnlineResources = portal.csw.OnlineResource.getFilteredFromArray(allOnlineResources, portal.csw.OnlineResource.WFS, 'er:MiningFeatureOccurrence');
 
-            for (var j = 0; j < bhOnlineResources.length; j++) {
+            for (var j = 0; j < mineWFSOnlineResources.length; j++) {
                 if (adminAreasMap[adminArea]) {
-                    adminAreasMap[adminArea].push(bhOnlineResources[j].get('url'));
+                    adminAreasMap[adminArea].push(mineWFSOnlineResources[j].get('url'));
                 } else {
-                    adminAreasMap[adminArea] = [bhOnlineResources[j].get('url')];
+                    adminAreasMap[adminArea] = [mineWFSOnlineResources[j].get('url')];
                 }
             }
         }
@@ -41,6 +41,22 @@ Ext.define('auscope.layer.filterer.forms.MineFilterForm', {
             fields: ['displayText', 'serviceFilter'],
             data : adminAreasList
         });
+        
+        var mineStatusStore = Ext.create('Ext.data.Store', {
+            fields : ['urn', 'label'],
+            proxy : {
+                type : 'ajax',
+                url : 'getAllMineStatuses.do',
+                reader : {
+                    type : 'array',
+                    rootProperty : 'data'
+                }
+            },
+            sorters : [{
+                property : 'label',
+                direction : 'ASC'
+            }]
+        })
 
         Ext.apply(config, {
             delayedFormLoading: false,
@@ -68,6 +84,19 @@ Ext.define('auscope.layer.filterer.forms.MineFilterForm', {
                                 '</span>',
                     name: 'mineName'
                 },{
+                    xtype : 'combo',
+                    anchor: '100%',
+                    name: 'status',
+                    fieldLabel: '<span data-qtip="Please select a commodity from the Operating Status Vocabulary. Powered by SISSVoc">' + 'Operating Status' + '</span>',
+                    forceSelection: false,
+                    queryMode: 'local',
+                    store: mineStatusStore,
+                    triggerAction: 'all',
+                    typeAhead: true,
+                    typeAheadDelay: 500,
+                    displayField:'label',   
+                    valueField:'label'
+                },{
                     xtype: 'combo',
                     anchor: '100%',
                     itemId: 'serviceFilter-field',
@@ -87,6 +116,17 @@ Ext.define('auscope.layer.filterer.forms.MineFilterForm', {
 
         Ext.tip.QuickTipManager.init();
         this.callParent(arguments);
+        
+        var callingInstance = this;
+        
+        mineStatusStore.load( {
+            callback : function() {
+                //It's very important that once all of our stores are loaded we fire the formloaded event
+                //because we are setting the delayedFormLoading parameter to true in our constructor
+                callingInstance.setIsFormLoaded(true);
+                callingInstance.fireEvent('formloaded');
+            }
+        });
     }
 });
 
