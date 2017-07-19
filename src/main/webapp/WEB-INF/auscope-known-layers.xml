@@ -22,10 +22,10 @@
         <property name="description"
             value="A collection of services that implement the AuScope EarthResourceML v1 Profile for er:Mine" />
         <property name="group" value="Mines and Mining Activity" />
-        <property name="proxyUrl" value="doMineFilter.do" />
-        <property name="proxyCountUrl" value="doMineFilterCount.do" />
-        <property name="proxyStyleUrl" value="doMineFilterStyle.do" />
-        <property name="proxyDownloadUrl" value="doMineFilterDownload.do" />
+        <property name="proxyUrl" value="" />
+        <property name="proxyCountUrl" value="mineFilterCount.do" />
+        <property name="proxyStyleUrl" value="mineFilterStyle.do" />
+        <property name="proxyDownloadUrl" value="mineDownload.do" />
         <property name="order" value="01_Mines and Mining Activity_010" />
     </bean>
     <bean id="knownTypeMineView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">

@@ -110,7 +110,7 @@ Ext.define('auscope.layer.filterer.forms.MineralOccurrenceViewFilterForm', {
                  * GPT-465
                  */
                         
-                /*,{
+               ,{
                     xtype : 'combo',
                     anchor: '100%',
                     name: 'timescaleUri',

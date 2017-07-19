@@ -6,9 +6,12 @@ import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
 /**
  * Class that represents ogc:Filter markup for er:mine queries
  *
+ * @deprecated Replaced by {@link au.gov.geoscience.portal.services.methodmaker.filter.MineFilter}
+ *
  * @author Mat Wyatt
  * @version $Id$
  */
+@Deprecated
 public class MineFilter extends AbstractFilter {
     private String filterFragment;
 
