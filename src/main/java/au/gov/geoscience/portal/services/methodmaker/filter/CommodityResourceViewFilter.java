@@ -28,7 +28,7 @@ public class CommodityResourceViewFilter extends AbstractFilter {
             fragments.add(this.generatePropertyIsEqualToFragment("erl:commodityClassifier_uri", commodityUri));
         }
 
-        if (jorcCategoryUri != null && !commodityUri.isEmpty()) {
+        if (jorcCategoryUri != null && !jorcCategoryUri.isEmpty()) {
             if (jorcCategoryUri.startsWith(VocabularyLookup.RESERVE_CATEGORY.uri())) {
                 if (jorcCategoryUri.equals(VocabularyLookup.RESERVE_CATEGORY.uri())) {
                     propertyIsNull = this.generatePropertyIsNull("erl:reservesCategory_uri");
