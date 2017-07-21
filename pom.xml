@@ -458,7 +458,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    <distributionManagement>
+    <!--<distributionManagement>
         <repository>
             <id>nexus.gadevs.releases</id>
             <name>Internal nexus</name>
@@ -468,5 +468,5 @@
             <id>nexus.gadevs.snapshots</id>
             <url>https://nexus.gadevs.ga/repository/maven-snapshots</url>
         </snapshotRepository>
-    </distributionManagement>
+    </distributionManagement> -->
 </project>
