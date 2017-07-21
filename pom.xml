@@ -3,7 +3,7 @@
     <groupId>au.gov.ga</groupId>
     <artifactId>geoscience-portal</artifactId>
     <packaging>war</packaging>
-    <version>1.3.2-SNAPSHOT</version>
+    <version>1.4.2-SNAPSHOT</version>
     <name>Geoscience Portal</name>
     <description />
     <url>http://portal.geoscience.gov.au</url>
