@@ -238,7 +238,7 @@ Ext.application({
         });
         
         var knownLayersPanel = Ext.create('auscope.widgets.panel.GAKnownLayerPanel', {
-            title : 'Featured',
+            title : 'Featured Data',
             id: 'knownLayersPanel',
             store : knownLayerStore,
             map : map,
@@ -260,7 +260,7 @@ Ext.application({
         knownLayersPanel.menuFactory = knownLayersMenuFactory;
 
         var customRecordsPanel = Ext.create('auscope.widgets.CustomRecordPanel', {
-            title : 'Custom',
+            title : 'My Data',
             itemId : 'org-auscope-custom-record-panel',
             store : customRecordStore,
             onlineResourcePanelType : 'gaonlineresourcespanel',
@@ -301,6 +301,12 @@ Ext.application({
                 xtype: 'gafooter'
             }]
         };
+
+        var AdvancedSearchFormPanel = new ga.widgets.GAAdvancedSearchPanel({
+            title : 'Search Data Catalog',
+            name : 'Filter Form',
+            map: map,
+        });
         
         // basic tabs 1, built from existing content
         var tabsPanel = Ext.create('Ext.TabPanel', {
@@ -311,9 +317,11 @@ Ext.application({
             height : '70%',
             width : '100%',
             enableTabScroll : true,
+
             items:[
                 knownLayersPanel,
-                customRecordsPanel
+                customRecordsPanel,
+                AdvancedSearchFormPanel
             ]
         });
         
@@ -325,9 +333,16 @@ Ext.application({
         	layout: 'border',//VT: vbox doesn't support splitbar unless we custom it.
             region:'west',
             border: false,
-            split:true,
+            split:false,
             margin:'140 0 0 3',
             width: 370,
+
+            title: 'Add Data',
+            cls: 'west-panel',
+            collapsible: true,
+            floatable: true,
+            collapseDirection : 'left',
+            collapsed : false,
             items:[tabsPanel]
         };
 

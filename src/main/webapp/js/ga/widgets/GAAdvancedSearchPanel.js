@@ -13,7 +13,7 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
     boxLayer : null,
     me: null,
     scrollable : true,
-    
+
     constructor : function(cfg){   
         
         me = this;
@@ -36,7 +36,82 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
             data : years
         });
         
-        
+        var controlButtons = [{
+            xtype: 'button',
+            text:'Reset Form',
+            handler:function(button){
+                me.resetForm();
+            }
+        }
+        ,
+        {
+            xtype: 'button',
+            text: 'Search',
+            scope : me,
+            iconCls : 'add',
+            handler: function(button) {
+                if (this.getForm().isValid()) {
+                    var additionalParams = this.getForm().getValues(false, false, false, false);
+
+                    var performSearch = function(confirm) {
+                        if (confirm === 'yes') {
+                            var filteredResultPanels=[];
+                            for(additionalParamKey in additionalParams){
+                                if(additionalParamKey == 'cswServiceId'){
+                                    if(!(additionalParams[additionalParamKey] instanceof Array)){
+                                        additionalParams[additionalParamKey]=[additionalParams[additionalParamKey]]
+                                    }
+                                    for(var j=0; j < additionalParams[additionalParamKey].length;j++){
+                                        //VT:
+                                        filteredResultPanels.push(me._getTabPanels(additionalParams,additionalParams[additionalParamKey][j]));
+                                    }
+                                }
+                            }
+
+                            var gaSearchResultsWindow = new GASearchResultsWindow({
+                                title : 'Advanced Search Results',
+                                id: 'gaSearchResultsWindow',
+                                map : me.map,
+                                layerFactory : me.layerFactory,
+
+                                resultpanels : filteredResultPanels,
+                                listeners : {
+                                    selectioncomplete : function(csws){
+                                        var tabpanel =  Ext.getCmp('auscope-tabs-panel');
+                                        var customPanel = me.ownerCt.getComponent('org-auscope-custom-record-panel');
+                                        tabpanel.setActiveTab(customPanel);
+                                        if(!(csws instanceof Array)){
+                                            csws = [csws];
+                                        }
+                                        for(var i=0; i < csws.length; i++){
+                                            csws[i].set('customlayer',true);
+                                            customPanel.getStore().insert(0,csws[i]);
+                                        }
+
+                                    }
+                                }
+                            });
+                            gaSearchResultsWindow.show();
+
+                        }
+                    };
+
+                    if (additionalParams.north > 0 || additionalParams.south > 0) {
+                        Ext.MessageBox.confirm(
+                                'Confirm Northern Hemisphere search',
+                                'You have provided a latitude coordinate that is in the northern hemisphere.\
+                                Use negative numbers for southern hemisphere. Do you wish to continue? (yes/no)', performSearch, this);
+
+                    } else {
+                        performSearch('yes');
+                    }
+                    portal.util.GoogleAnalytic.trackevent('Advanced Search:', 'Service ids:' + Ext.encode(additionalParams.cswServiceId), 'Search parameters:' + Ext.encode(additionalParams));
+
+                } else {
+                    Ext.Msg.alert('Invalid Data', 'Please correct form errors.')
+                }
+            }}];
+
         Ext.apply(cfg, {
             xtype : 'form',
             id : 'personalpanelcswfilterform',
@@ -56,7 +131,8 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
                  items : [
                      this.dataProvidersTab(),
                      this.moreSearchFiltersTab()                 
-                 ]
+                 ],
+                 buttons : controlButtons
             }]
         });
         
@@ -399,7 +475,7 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
                         hideEmptyLabel: false,
                         boxLabel: 'Publication date (newest first)'
                     }]
-                }              
+                }
               ]
         };
 
@@ -531,6 +607,92 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
                 checkbox.setValue(false);
             }                   
         }
+    },
+
+    _getTabPanels : function(params,cswServiceId) {
+        var me = this;
+
+        //Convert our keys/values into a form the controller can read
+        var keys = [];
+        var values = [];
+        var customRegistries=[];
+
+        var additionalParams = params;
+
+        //Utility function
+        var denormaliseKvp = function(keyList, valueList, kvpObj) {
+            if (kvpObj) {
+                for (key in kvpObj) {
+                    if (kvpObj[key]) {
+                        var value = kvpObj[key].toString();
+                        if(value.length>0 && key != 'cswServiceId' && !(key.slice(0, 4) == 'DNA_')){
+                            keyList.push(key);
+                            valueList.push(value);
+                        }
+                    }
+                }
+            }
+        };
+
+
+        denormaliseKvp(keys, values, additionalParams);
+        if(typeof cswServiceId.id == 'undefined'){
+            keys.push('cswServiceId');
+            values.push(cswServiceId);
+        }
+
+      //Create our CSWRecord store (holds all CSWRecords not mapped by known layers)
+        var filterCSWStore = Ext.create('Ext.data.Store', {
+            model : 'portal.csw.CSWRecord',
+            pageSize: 35,
+            autoLoad: false,
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            proxy : {
+                type : 'ajax',
+                url : 'getFilteredCSWRecords.do',
+                reader : {
+                    type : 'json',
+                    rootProperty : 'data',
+                    successProperty: 'success',
+                    totalProperty: 'totalResults'
+                },
+                extraParams: {
+                    key : keys,
+                    value : values,
+                    customregistries : {
+                        id: cswServiceId.id,
+                        title: cswServiceId.title,
+                        serviceUrl: cswServiceId.serviceUrl,
+                        recordInformationUrl: cswServiceId.recordInformationUrl
+                    }
+                }
+
+            }
+
+        });
+
+        var registriesArray = Ext.getCmp('registryTabCheckboxGroup').getChecked();
+        var title = "Error retrieving title";
+        for(var i = 0; i < registriesArray.length; i ++){
+            if(registriesArray[i].inputValue === cswServiceId){
+                title = registriesArray[i].boxLabel;
+                break;
+            }
+        }
+
+
+        var result={
+                title : title,
+                xtype: 'gasearchresultspanel',
+                layout : 'fit',
+                store : filterCSWStore,
+                map : me.map,
+                layerFactory : me.layerFactory,
+                layerStore : me.layerStore
+            };
+
+        return result;
+
     } 
     
 });
