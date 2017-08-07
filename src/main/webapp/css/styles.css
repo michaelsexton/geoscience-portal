@@ -623,3 +623,8 @@
     #sponsor-link a img{
        vertical-align: middle;
     }
+
+    /*GPT-461 - Changes to left hand panel section */
+    #registryTabCheckboxGroup {
+       left: 10px;
+    }

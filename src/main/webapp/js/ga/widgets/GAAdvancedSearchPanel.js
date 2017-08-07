@@ -190,8 +190,6 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
                     xtype: 'checkboxgroup',
                     name : 'cswServiceId',
                     id : 'registryTabCheckboxGroup',
-                    fieldLabel: 'Registries',
-                    labelStyle: 'visibility: hidden',
                     columns: 1,
                     vertical: true                    
                 }]
