@@ -319,7 +319,7 @@ Ext.application({
             activeTab : 0,
             region : 'center',
             split : true,
-            height : '70%',
+            height : '100%',
             width : '100%',
             enableTabScroll : true,
 
@@ -339,11 +339,12 @@ Ext.application({
             region:'west',
             border: false,
             split:false,
-            margin:'140 0 0 3',
-            width: 370,
+            margin:'140 0 0 0',
+            width: 380,
+
+            html : "<div style='width:100%; height:100%' id='region-west-region'></div>",
 
             title: 'Add Data',
-            cls: 'west-panel',
             collapsible: true,
             floatable: true,
             collapseDirection : 'left',
@@ -358,7 +359,8 @@ Ext.application({
             region: 'center',
             id: 'center_region',
             margin: '140 0 0 0'  ,
-            html : "<div style='width:100%; height:100%' id='center_region-map'></div>",
+            html : "<div style='width:100%; height:100%' id='center_region-map'></div>" +
+                   "<span id='latlng'></span>",
             listeners: {
                 afterrender: function () {
                     map.renderToContainer(centerPanel,'center_region-map');   //After our centerPanel is displayed, render our map into it

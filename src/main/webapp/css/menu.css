@@ -55,10 +55,20 @@
 
 
 #latlng {
-    float: right;
-    color: #000000;
     font: 12px Arial, Tahoma, Helvetica, sans-serif;
-    margin-right: 10px;
+    color: white;
+    margin-left: 90px;
     line-height: 30px;
-    margin-top: -8px;
+    margin-top: 0px;
+    position: relative;
+    top: -30px;
+    z-index: 99999;
+}
+
+#latlng a:link {
+	color: white;
+}
+
+#latlng a:visited {
+	color: white;
 }

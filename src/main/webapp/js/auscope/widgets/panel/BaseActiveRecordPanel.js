@@ -32,7 +32,7 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
             cls : 'auscope-dark-grid',
             header: false,
             hideSearch: true,
-            emptyText : '<p class="centeredlabel">No records match the current filter.</p>',
+            emptyText : '<p class="centeredlabel">No map layers currently loaded.</p>',
             titleField: 'name',
             titleIndex: 1,
             allowReordering: true,
