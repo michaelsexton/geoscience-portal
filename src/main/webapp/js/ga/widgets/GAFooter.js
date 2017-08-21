@@ -36,7 +36,7 @@ Ext.define('ga.widgets.GAFooter', {
                             autoEl: {
                                 tag : 'span',
                                 id : "auscope_attrib",
-                                html : 'Powered by <a href="//www.auscope.org.au/" target="_blank"><img src="img/logos/AuScope-pic.png" alt="link to Auscope partner"/>AuScope</a> AuScope'
+                                html : 'Powered by <a href="//www.auscope.org.au/" target="_blank"><img src="img/logos/AuScope-pic.png" alt="link to Auscope partner"/>AuScope</a>'
                             }
                         }
                         ]

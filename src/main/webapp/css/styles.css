@@ -695,10 +695,12 @@
        font-family: sans-serif;
        line-height: 30px;
        padding-left: 1em;
+       width: 180px;
     }
      #sponsor-link-2 a {
         text-decoration: none;
         color:white;
+        width: 160px;
     }
     #sponsor-link-2 a img{
        vertical-align: middle;
