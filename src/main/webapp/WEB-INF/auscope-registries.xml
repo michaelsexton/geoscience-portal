@@ -13,6 +13,29 @@
         <constructor-arg name="serviceUrl" value="http://localhost:18080/geonetwork/srv/eng/csw"/>
         <constructor-arg name="recordInformationUrl" value="http://localhost:18080/geonetwork/srv/eng/main.home?uuid=%1$s"/>
     </bean>
+    
+    <bean id="cswEarthResource" class="org.auscope.portal.core.services.csw.CSWServiceItem">
+        <constructor-arg name="id" value="cswEarthResource"/>
+        <constructor-arg name="title" value="Earth resource and related records GeoNetwork"/>
+        <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-earth-resource"/>
+        <constructor-arg name="recordInformationUrl" value="http://localhost:8080/geonetwork/srv/eng/main.home?uuid=%1$s"/>
+    </bean>
+
+    <bean id="cswBoreholes" class="org.auscope.portal.core.services.csw.CSWServiceItem">
+        <constructor-arg name="id" value="cswBoreholes"/>
+        <constructor-arg name="title" value="Boreholes"/>
+        <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-boreholes"/>
+        <constructor-arg name="recordInformationUrl" value="/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
+        <property name="hideFromCatalogue" value="true"/>
+    </bean>
+    
+    <bean id="cswGeologicalMaps" class="org.auscope.portal.core.services.csw.CSWServiceItem">
+        <constructor-arg name="id" value="cswGeologicalMaps"/>
+        <constructor-arg name="title" value="Geological Maps"/>
+        <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-geological-maps-test"/>
+        <constructor-arg name="recordInformationUrl" value="/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
+        <property name="hideFromCatalogue" value="true"/>
+    </bean>
 
     <bean id="cswGaDev" class="org.auscope.portal.core.services.csw.CSWServiceItem">
         <constructor-arg name="id" value="cswGaDev"/>
@@ -74,14 +97,7 @@
         <property name="hideFromCatalogue" value="true"/>
     </bean>
 
-    <!-- TODO: name boreholes is inappopriate, csw-boreholes contains other datasets besides boreholes -->
-    <bean id="cswBoreholes" class="org.auscope.portal.core.services.csw.CSWServiceItem">
-        <constructor-arg name="id" value="cswBoreholes"/>
-        <constructor-arg name="title" value="Boreholes"/>
-        <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-boreholes"/>
-        <constructor-arg name="recordInformationUrl" value="/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
-        <property name="hideFromCatalogue" value="true"/>
-    </bean>
+    
 
     <bean id="cswBoreholeView" class="org.auscope.portal.core.services.csw.CSWServiceItem">
         <constructor-arg name="id" value="cswBoreholeView"/>
@@ -115,13 +131,7 @@
         <property name="hideFromCatalogue" value="true"/>
     </bean>
 
-    <bean id="cswGeologicalMaps" class="org.auscope.portal.core.services.csw.CSWServiceItem">
-        <constructor-arg name="id" value="cswGeologicalMaps"/>
-        <constructor-arg name="title" value="Geological Maps"/>
-        <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-geological-maps-featured"/>
-        <constructor-arg name="recordInformationUrl" value="/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
-        <property name="hideFromCatalogue" value="true"/>
-    </bean>
+    
 
     <bean id="cswScannedMapsIndex" class="org.auscope.portal.core.services.csw.CSWServiceItem">
         <constructor-arg name="id" value="cswScannedMapsIndex"/>

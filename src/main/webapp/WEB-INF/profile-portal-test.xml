@@ -145,6 +145,10 @@
         <constructor-arg>
             <list>
                 <!-- <ref bean="cswGeoscienceLocal" /> -->
+                <ref bean="cswEarthResource" />
+                <ref bean="cswBoreholes" />
+                <ref bean="cswGeologicalMaps" />
+                <!-- 
                 <ref bean="cswGaDev" />
                 <ref bean="cswGswaDev" />
                 <ref bean="cswGsq" />
@@ -162,7 +166,7 @@
                 <ref bean="cswNationalGeophysicalDatasets" />
                 <ref bean="cswBoreholes" />
                 <ref bean="cswEnvironment" />
-                <!-- <ref bean="darwinDev" /> -->
+         -->        <!-- <ref bean="darwinDev" /> -->
                 <!-- <ref bean="cswAuscopeTest" /> -->
                 <!-- <ref bean="cswAuscopeProduction"/> -->
                 <!-- <ref bean="cswMDUTest"/> -->
