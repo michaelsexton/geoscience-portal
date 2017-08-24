@@ -7,13 +7,13 @@
                         http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
     version="2.4">
 
-   <display-name>AuScope Portal</display-name>
+   <display-name>AusGIN Portal</display-name>
 
     <!-- This is so our our profile 'magic' context is utilised -->
     <context-param>
         <param-name>contextClass</param-name>
         <param-value>
-            org.auscope.portal.server.AuScopeWebAppContext
+            au.gov.geoscience.portal.server.AusginWebAppContext
         </param-value>
     </context-param>
 
