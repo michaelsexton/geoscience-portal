@@ -205,7 +205,11 @@
         height:20px !important;
     }
 
-    #footer-container:hover {
+    #footer-container-1:hover {
+        bottom:  0;
+    }
+
+    #footer-container-2:hover {
         bottom:  0;
     }
 
@@ -220,7 +224,23 @@
         color: white;
     }
 
-    #footer-container{
+    #footer-container-1{
+        background-color: black;
+        z-index: 10001;
+        position: fixed;
+        width: 100%;
+        bottom: -132px;
+        height: 161px !important;
+        -moz-animation: logoFlyout 7s linear;
+        -webkit-animation: logoFlyout 7s linear;
+        animation: logoFlyout 7s linear;
+        -moz-transition: all .5s ease-in-out;
+        -webkit-transition: all .5s ease-in-out;
+        -o-transition: all .5s ease-in-out;
+        transition: all .5s ease-in-out;
+    }
+
+    #footer-container-2{
         background-color: black;
         z-index: 10001;
         position: fixed;
@@ -235,6 +255,29 @@
         -o-transition: all .5s ease-in-out;
         transition: all .5s ease-in-out;
     }
+
+    #footer-container-1-body {
+        height: 200px !important;
+    }
+    #footer-container-1-innerCt {
+        height: 200px !important;
+    }
+    #footer-container-2-body {
+        height: 200px !important;
+    }
+    #footer-container-2-innerCt {
+        height: 200px !important;
+    }
+    #footer-main {
+        height: 200px !important;
+    }
+    #footer-main-body {
+        height: 200px !important;
+    }
+    #footer-main-innerCt {
+        height: 200px !important;
+    }
+
     #footer-heading{  
         position: fixed;
         bottom: 50px;
@@ -695,10 +738,12 @@
        font-family: sans-serif;
        line-height: 30px;
        padding-left: 1em;
+       width: 180px;
     }
      #sponsor-link-2 a {
         text-decoration: none;
         color:white;
+        width: 160px;
     }
     #sponsor-link-2 a img{
        vertical-align: middle;
