@@ -145,48 +145,22 @@
         <constructor-arg>
             <list>
                 <!-- <ref bean="cswGeoscienceLocal" /> -->
+                
                 <ref bean="cswEarthResource" />
                 <ref bean="cswBoreholes" />
+                <ref bean="cswASTER" />
+                <ref bean="cswGeologicalProvinces" />
                 <ref bean="cswGeologicalMaps" />
-                <!-- 
-                <ref bean="cswGaDev" />
-                <ref bean="cswGswaDev" />
+                <ref bean="cswTopography" />
+                <ref bean="cswRestrictedAreas" />
+                <ref bean="cswNationalGeophysicsDatasets" />
+                <ref bean="cswRockProperties" />
+                
+                <ref bean="cswGswa" />
                 <ref bean="cswGsq" />
                 <ref bean="cswGsv" />
-                <ref bean="cswMineralResourcesTasmaniaDev" />
-                <ref bean="cswAustralianTopography" />
-                <ref bean="cswAustralianSurfaceGeology" />
-                <ref bean="cswBoreholeNVCL" />
-                <ref bean="cswBoreholeView" />
-                <ref bean="cswBoreholeViewWMS" />
-                <ref bean="cswASTER" />
-                <ref bean="cswRestrictedAreas" />
-                <ref bean="cswGeologicalMaps" />
-                <ref bean="cswScannedMapsIndex" />
-                <ref bean="cswNationalGeophysicalDatasets" />
-                <ref bean="cswBoreholes" />
-                <ref bean="cswEnvironment" />
-         -->        <!-- <ref bean="darwinDev" /> -->
-                <!-- <ref bean="cswAuscopeTest" /> -->
-                <!-- <ref bean="cswAuscopeProduction"/> -->
-                <!-- <ref bean="cswMDUTest"/> -->
-                <!-- <ref bean="cswMDUProduction"/> -->
-                <!-- <ref bean="cswAsterProduction"/> -->
-                <!-- <ref bean="cswInSarProduction" /> -->
-                <!-- try below -->
-                <!-- <ref bean="cswGswaDev" /> -->
-                <!-- <ref bean="cswMineralResourcesTasmaniaDev" /> -->
-                <!-- <ref bean="cswAuscopeTest" /> -->
-                <!-- <ref bean="cswAuscopeProduction" /> -->
-                <!-- <ref bean="cswMDUTest" /> -->
-                <!-- <ref bean="cswMDUProduction" /> -->
-                <!-- <ref bean="cswSissANUProduction" /> -->
-                <!-- <ref bean="cswGAPetroleumTest" /> -->
-                <!-- <ref bean="cswInSarTest" /> -->
-                <!-- <ref bean="cswInSarProduction" /> -->
-                <!-- <ref bean="cswMRTTest" /> -->
-                <!-- <ref bean="cswMRTProduction" /> -->
-                <!-- <ref bean="cswVeglProduction" /> -->
+                <ref bean="cswMineralResourcesTasmania" />
+                <ref bean="cswEnvironment" />          
             </list>
         </constructor-arg>
     </bean>
