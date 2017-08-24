@@ -1,4 +1,4 @@
-package org.auscope.portal.server;
+package au.gov.geoscience.portal.server;
 
 import java.io.File;
 import java.io.IOException;
