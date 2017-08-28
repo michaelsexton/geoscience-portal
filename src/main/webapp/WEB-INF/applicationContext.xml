@@ -209,8 +209,8 @@
     <bean id="cswGARegistry" class="org.auscope.portal.core.services.csw.custom.CustomRegistry">
         <constructor-arg name="id" value="cswGARegistry" />
         <constructor-arg name="title" value="Geoscience Australia" />
-        <constructor-arg name="serviceUrl" value="http://ecat.ga.gov.au/geonetwork/srv/eng/csw" />
-        <constructor-arg name="recordInformationUrl" value="http://ecat.ga.gov.au/geonetwork/srv/eng/search#!%1$s" />
+        <constructor-arg name="serviceUrl" value="https://ecat.ga.gov.au/geonetwork/srv/eng/csw" />
+        <constructor-arg name="recordInformationUrl" value="https://ecat.ga.gov.au/geonetwork/srv/eng/search#!%1$s" />
     </bean>
 
     <bean id="customRegistryList" class="java.util.ArrayList">
