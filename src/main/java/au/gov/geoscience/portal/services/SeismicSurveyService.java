@@ -1,4 +1,4 @@
-package org.auscope.portal.server.web.service;
+package au.gov.geoscience.portal.services;
 
 import java.io.InputStream;
 
@@ -19,7 +19,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 @Service
-public class SeismicSurveyWMSService {
+public class SeismicSurveyService {
 
     private HttpServiceCaller serviceCaller;
 
@@ -27,7 +27,7 @@ public class SeismicSurveyWMSService {
 
     // ----------------------------------------------------------- Constructors
     @Autowired
-    public SeismicSurveyWMSService(HttpServiceCaller serviceCaller) {
+    public SeismicSurveyService(HttpServiceCaller serviceCaller) {
         this.serviceCaller = serviceCaller;
         this.transformerFactory = new CSWRecordTransformerFactory();
 
