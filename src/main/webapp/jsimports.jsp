@@ -69,6 +69,7 @@
 <script src="js/auscope/layer/filterer/forms/DisjunctedLayersForm.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/filterer/forms/ScannedGeologicalMapFilterForm.js?v=${buildTimestamp}" type="text/javascript"></script>
 
+
 <script src="js/auscope/layer/querier/wfs/factories/BoreholeFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/querier/wfs/factories/SF0BoreholeFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
 <script src="js/auscope/layer/querier/wfs/factories/RemanentAnomalyFactory.js?v=${buildTimestamp}" type="text/javascript"></script>
@@ -101,6 +102,7 @@
 <script src="js/auscope/layer/renderer/capdf/CapdfRenderer.js?v=${buildTimestamp}" type="text/javascript"></script>
 
 <script src="js/auscope/layer/querier/wms/WMSMultipleTabDisplayQuerier_GA_ScannedGeologicalMap.js?v=${buildTimestamp}" type="text/javascript"></script>
+<script src="js/auscope/layer/querier/wms/OnshoreSeismicSurveyQuerier.js?v=${buildTimestamp}" type="text/javascript"></script>
 
 <script src="js/auscope/layer/renderer/cswservice/UncachedCSWServiceRenderer.js?v=${buildTimestamp}" type="text/javascript"></script>
 
