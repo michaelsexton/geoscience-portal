@@ -1,4 +1,4 @@
-package org.auscope.portal.server.web.controllers;
+package au.gov.geoscience.portal.server.controllers;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,7 +10,6 @@ import org.auscope.portal.core.server.http.HttpServiceCaller;
 import org.auscope.portal.core.services.responses.csw.CSWRecord;
 import org.auscope.portal.core.view.ViewCSWRecordFactory;
 import org.auscope.portal.core.view.ViewKnownLayerFactory;
-import org.auscope.portal.server.web.service.SeismicSurveyWMSService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -18,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import au.gov.geoscience.portal.services.SeismicSurveyService;
 
 @Controller
 @Scope("session")
@@ -27,7 +28,7 @@ public class SeismicSurveyWMS extends BaseCSWController {
 
     // ----------------------------------------------------- Instance variables
 
-    private SeismicSurveyWMSService seismicWMSService;
+    private SeismicSurveyService seismicSurveyService;
     private final Log log = LogFactory.getLog(getClass());
     private int BUFFERSIZE = 1024 * 1024;
     HttpServiceCaller serviceCaller;
@@ -35,23 +36,23 @@ public class SeismicSurveyWMS extends BaseCSWController {
     // ----------------------------------------------------------- Constructors
 
     @Autowired
-    public SeismicSurveyWMS(SeismicSurveyWMSService seismicWMSService,
+    public SeismicSurveyWMS(SeismicSurveyService seismicWMSService,
             ViewCSWRecordFactory viewCSWRecordFactory,
             ViewKnownLayerFactory knownLayerFact,
             HttpServiceCaller serviceCaller) {
         super(viewCSWRecordFactory, knownLayerFact);
-        this.seismicWMSService = seismicWMSService;
+        this.seismicSurveyService = seismicSurveyService;
         this.serviceCaller = serviceCaller;
     }
 
     @RequestMapping(value = "/getSeismicCSWRecord.do", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView getSeismicCSWRecord(@RequestParam("service_URL") String serviceUrl,
+    public ModelAndView getSeismicCSWRecord(@RequestParam("serviceUrl") String serviceUrl,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-
+        
         CSWRecord[] record = new CSWRecord[1];
-        record[0] = this.seismicWMSService.getCSWRecord(serviceUrl);
-        record[0].setRecordInfoUrl(serviceUrl.replace("/xml", ""));
+        record[0] = this.seismicSurveyService.getCSWRecord(serviceUrl);
+        record[0].setRecordInfoUrl(serviceUrl);
         ModelAndView mav = generateJSONResponseMAV(record, record.length);
 
         return mav;

@@ -1,4 +1,4 @@
-package org.auscope.portal.server.web.service;
+package au.gov.geoscience.portal.services;
 
 import java.io.InputStream;
 
@@ -19,7 +19,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 @Service
-public class SeismicSurveyWMSService {
+public class SeismicSurveyService {
 
     private HttpServiceCaller serviceCaller;
 
@@ -27,7 +27,7 @@ public class SeismicSurveyWMSService {
 
     // ----------------------------------------------------------- Constructors
     @Autowired
-    public SeismicSurveyWMSService(HttpServiceCaller serviceCaller) {
+    public SeismicSurveyService(HttpServiceCaller serviceCaller) {
         this.serviceCaller = serviceCaller;
         this.transformerFactory = new CSWRecordTransformerFactory();
 
@@ -36,10 +36,12 @@ public class SeismicSurveyWMSService {
     public CSWRecord getCSWRecord(String httpUrl) throws Exception {
         HttpGet get = new HttpGet(httpUrl);
         InputStream responseString = this.serviceCaller.getMethodResponseAsStream(get);
-        Document responseDoc = DOMUtil.buildDomFromStream(responseString);
+        
 
+        Document responseDoc = DOMUtil.buildDomFromStream(responseString);
+        
         CSWNamespaceContext nc = new CSWNamespaceContext();
-        XPathExpression exprRecordMetadata = DOMUtil.compileXPathExpr("/csw:GetRecordByIdResponse/gmd:MD_Metadata", nc);
+        XPathExpression exprRecordMetadata = DOMUtil.compileXPathExpr("/csw:GetRecordsResponse/csw:SearchResults/gmd:MD_Metadata", nc);
 
         NodeList nodes = (NodeList) exprRecordMetadata.evaluate(responseDoc, XPathConstants.NODESET);
 
