@@ -45,13 +45,13 @@ public class SeismicSurveyWMS extends BaseCSWController {
     }
 
     @RequestMapping(value = "/getSeismicCSWRecord.do", method = {RequestMethod.GET, RequestMethod.POST})
-    public ModelAndView getSeismicCSWRecord(@RequestParam("service_URL") String serviceUrl,
+    public ModelAndView getSeismicCSWRecord(@RequestParam("serviceUrl") String serviceUrl,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-
+        
         CSWRecord[] record = new CSWRecord[1];
         record[0] = this.seismicWMSService.getCSWRecord(serviceUrl);
-        record[0].setRecordInfoUrl(serviceUrl.replace("/xml", ""));
+        record[0].setRecordInfoUrl(serviceUrl);
         ModelAndView mav = generateJSONResponseMAV(record, record.length);
 
         return mav;
