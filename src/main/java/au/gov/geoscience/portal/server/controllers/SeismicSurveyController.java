@@ -24,7 +24,7 @@ import au.gov.geoscience.portal.services.SeismicSurveyService;
 @Scope("session")
 // this can't be a singleton as each request by a user may be targeting a
 // specific wms version
-public class SeismicSurveyWMS extends BaseCSWController {
+public class SeismicSurveyController extends BaseCSWController {
 
     // ----------------------------------------------------- Instance variables
 
@@ -36,7 +36,7 @@ public class SeismicSurveyWMS extends BaseCSWController {
     // ----------------------------------------------------------- Constructors
 
     @Autowired
-    public SeismicSurveyWMS(SeismicSurveyService seismicWMSService,
+    public SeismicSurveyController(SeismicSurveyService seismicSurveyService,
             ViewCSWRecordFactory viewCSWRecordFactory,
             ViewKnownLayerFactory knownLayerFact,
             HttpServiceCaller serviceCaller) {
