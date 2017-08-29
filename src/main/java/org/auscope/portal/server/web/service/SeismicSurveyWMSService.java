@@ -36,10 +36,12 @@ public class SeismicSurveyWMSService {
     public CSWRecord getCSWRecord(String httpUrl) throws Exception {
         HttpGet get = new HttpGet(httpUrl);
         InputStream responseString = this.serviceCaller.getMethodResponseAsStream(get);
-        Document responseDoc = DOMUtil.buildDomFromStream(responseString);
+        
 
+        Document responseDoc = DOMUtil.buildDomFromStream(responseString);
+        
         CSWNamespaceContext nc = new CSWNamespaceContext();
-        XPathExpression exprRecordMetadata = DOMUtil.compileXPathExpr("/csw:GetRecordByIdResponse/gmd:MD_Metadata", nc);
+        XPathExpression exprRecordMetadata = DOMUtil.compileXPathExpr("/csw:GetRecordsResponse/csw:SearchResults/gmd:MD_Metadata", nc);
 
         NodeList nodes = (NodeList) exprRecordMetadata.evaluate(responseDoc, XPathConstants.NODESET);
 
