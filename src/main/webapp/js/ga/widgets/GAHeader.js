@@ -438,10 +438,7 @@ Ext.define('ga.widgets.GAHeader', {
                     height: '50px',
                     autoEl: {tag : 'span'}
                 },
-                {
-                    xtype: 'container',
-                    flex: 1
-                },
+                {   xtype: 'tbfill' }, 
                 {
                     id: 'header-icon',
                     menu: gaMenu  // assign menu by instance

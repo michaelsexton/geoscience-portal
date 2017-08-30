@@ -79,38 +79,34 @@ Ext.define('ga.widgets.GAFooter', {
                                         width: '100%'
                                     },
                                     'width >= 1280': {
-                                        width: '50%'
+                                        width: '48%'
                                     }
                                 },
                                 items :[
                                 {
                                 xtype : 'box',
-                                columnWidth: .24,
-                                width: '25%',
+                                columnWidth: .27,
                                 autoEl : {
                                     tag : 'span',
                                     html: '<a href="http://www.ga.gov.au/" target="_blank"  title="Australian Government - Geoscience Australia"><img alt="Geoscience Australia Logo" src="img/logos/ga.jpg"/></a>'
                                 }
                                 },{
                                 xtype : 'box',
-                                columnWidth: .24,
-                                width: '25%',
+                                columnWidth: .30,
                                 autoEl : {
                                     tag : 'span',
                                     html: '<a href="http://www.resourcesandenergy.nsw.gov.au/" target="_blank"  title="Resources and Energy"><img alt="NSW Trade and Investment Resources and Energy Logo" src="img/logos/nsw.jpg"/></a>'
                                 }
                                 },{
                                 xtype : 'box',
-                                columnWidth: .25,
-                                width: '25%',
+                                columnWidth: .23,
                                 autoEl : {
                                     tag : 'span',
                                     html: '<a href="https://www.dnrm.qld.gov.au/mining" target="_blank"  title="Queensland Government"><img alt="Queensland Government Logo" src="img/logos/qld.jpg"/></a>'
                                 }
                                 },{
                                 xtype : 'box',
-                                columnWidth: .2,
-                                width: '25%',
+                                columnWidth: .19,
                                 autoEl : {
                                     tag : 'span',
                                     html: '<a href="http://www.mrt.tas.gov.au/portal/home" target="_blank"  title="Tasmanian Government"><img alt="Mineral Resources Tasmania Logo" src="img/logos/tas.jpg"/></a>'
@@ -125,34 +121,34 @@ Ext.define('ga.widgets.GAFooter', {
                                         width: '100%'
                                     },
                                     'width >= 1280': {
-                                        width: '50%'
+                                        width: '52%'
                                     }
                                 },
                                 items :[
                                     {
                                         xtype : 'box',
-                                        columnWidth: .22,
+                                        columnWidth: .20,
                                         autoEl : {
                                             tag : 'span',
                                             html: '<a href="http://www.nt.gov.au/d/Minerals_Energy/" target="_blank"  title="Northern Territory Government"><img alt="Northern Territory Government Logo" src="img/logos/nt.jpg"/></a>'
                                         }
                                     },{
                                         xtype : 'box',
-                                        columnWidth: .12,
+                                        columnWidth: .14,
                                         autoEl : {
                                             tag : 'span',
                                             html: '<a href="http://www.energyandresources.vic.gov.au/earth-resources" target="_blank"  title="Victoria State Government"><img alt="Victorian Department of State Development Business and Innovation Logo" src="img/logos/vic.jpg"/></a>'
                                         }
                                     },{
                                         xtype : 'box',
-                                        columnWidth: .29,
+                                        columnWidth: .20,
                                         autoEl : {
                                             tag : 'span',
                                             html: '<a href="http://minerals.statedevelopment.sa.gov.au/" target="_blank"  title="Government of South Australia"><img alt="South Australia Department of Manufacturing, Innovation, Trade, Resources and Energy Logo" src="img/logos/sa.jpg"/></a>'
                                         }
                                     },{
                                         xtype : 'box',
-                                        columnWidth: .37,
+                                        columnWidth: .40,
                                         autoEl : {
                                             tag : 'span',
                                             html: '<a href="http://www.dmp.wa.gov.au/index.aspx" target="_blank"  title="Department of Mines and Petroleum"><img alt="Western Australia Department of Mines and Petroleum Logo" src="img/logos/wa.jpg"/></a>'
