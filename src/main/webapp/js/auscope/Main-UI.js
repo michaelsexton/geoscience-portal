@@ -306,6 +306,7 @@ Ext.application({
             title : 'Search Data Catalog',
             name : 'Filter Form',
             map: map,
+            layerFactory: defaultLayerFactory,
             tooltip : {
                 text : '<p>Search for data and publications from a range of geoscience data providers.</p>',
                 showDelay : 100,
