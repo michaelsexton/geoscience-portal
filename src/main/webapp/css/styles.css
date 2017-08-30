@@ -72,13 +72,13 @@
     }
 
     #header-container {
-        background-color: #404040;
+        background-color: #303030;
         width: 100% !important;
         height: 55px !important;
     }
 
     #header-container div {
-        background-color: #404040;
+        background-color: #303030;
         border: none !important;
     }
         
@@ -147,7 +147,7 @@
     #header-container-innerCt {
         width: 100%;
         color: #ffffff;
-        background-color: #404040;
+        background-color: #303030;
         position:fixed;
         top: 0px;
         left: 0px;
@@ -168,7 +168,7 @@
      #header-icon {
         width: 3% !important;
         margin-left: 0px !important;
-        background: #404040 url( "../img/logos/headerIcon.jpg" ) no-repeat top left;
+        background: #303030 url( "../img/logos/headerIcon.jpg" ) no-repeat top left;
         background-size: 100% 45px;
         display : block !important;
         height : 45px;
@@ -178,15 +178,25 @@
     }
 
     #header-redesign {
-        width: 12% !important;
+        width: 4% !important;
         margin-left: 0px !important;
-        background: #404040 url( "../img/logos/headerRedesign.jpg" ) no-repeat top left;
+        background: #303030 url( "../img/logos/headerRedesign.jpg" ) no-repeat top left;
         background-size: 100% 50px;
         display : block !important;
         height : 50px;
         position : relative;
         top : 0px !important;
         z-index: 202;
+    }
+
+    #header-redesign::after {
+        content: "AUSGIN Geoscience Portal";
+        position: absolute !important;
+        top: 25px !important;
+        left: 60px !important;
+        height: 50px;
+        width: 400px;
+        font-size: 200%;
     }
 
     #ausgin-logo {        
@@ -220,12 +230,12 @@
         top: 0px !important;
         width: 100% !important;
         line-height: 2.4em;
-        background-color: black !important;
+        background-color: #303030 !important;
         color: white;
     }
 
     #footer-container-1{
-        background-color: black;
+        background-color: #303030;
         z-index: 10001;
         position: fixed;
         width: 100%;
@@ -241,7 +251,7 @@
     }
 
     #footer-container-2{
-        background-color: black;
+        background-color: #303030;
         z-index: 10001;
         position: fixed;
         width: 100%;
@@ -270,6 +280,7 @@
     }
     #footer-main {
         height: 200px !important;
+        margin-top: 5px !important;
     }
     #footer-main-body {
         height: 200px !important;
@@ -325,7 +336,7 @@
     #footer-container-innerCt {
         width: 100%;
         /*height: 50px !important;*/
-        background-color: #ffffff;
+        background-color: #303030;
         line-height: 60px; 
         display: flex;
         justify-content: space-between;
@@ -752,4 +763,16 @@
     /*GPT-461 - Changes to left hand panel section */
     #registryTabCheckboxGroup {
        left: 10px;
+    }
+
+    #header-text {
+        font-size: 200%;
+    }
+
+    #region-west-placeholder-targetEl:hover:after {
+        content: "Add Data";
+        position: absolute !important;
+        top: 40px !important;
+        color : black;
+        font-weight: bold;
     }
