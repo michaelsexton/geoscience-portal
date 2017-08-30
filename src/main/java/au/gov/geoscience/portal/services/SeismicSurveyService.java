@@ -5,8 +5,11 @@ import java.io.InputStream;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
 
-import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.auscope.portal.core.server.http.HttpServiceCaller;
+import org.auscope.portal.core.services.methodmakers.CSWMethodMakerGetDataRecords;
+import org.auscope.portal.core.services.methodmakers.CSWMethodMakerGetDataRecords.ResultType;
+import org.auscope.portal.core.services.methodmakers.filter.csw.CSWGetDataRecordsFilter;
 import org.auscope.portal.core.services.namespaces.CSWNamespaceContext;
 import org.auscope.portal.core.services.responses.csw.CSWRecord;
 import org.auscope.portal.core.services.responses.csw.CSWRecordTransformer;
@@ -21,6 +24,8 @@ import org.w3c.dom.NodeList;
 @Service
 public class SeismicSurveyService {
 
+    private static final String ECATURL = "https://ecat.ga.gov.au/geonetwork/srv/eng/csw";
+    
     private HttpServiceCaller serviceCaller;
 
     private CSWRecordTransformerFactory transformerFactory;
@@ -33,11 +38,17 @@ public class SeismicSurveyService {
 
     }
 
-    public CSWRecord getCSWRecord(String httpUrl) throws Exception {
-        HttpGet get = new HttpGet(httpUrl);
-        InputStream responseString = this.serviceCaller.getMethodResponseAsStream(get);
+    public CSWRecord getCSWRecord(String recordNumber) throws Exception {
+       
+        CSWGetDataRecordsFilter alternateIdentifierFilter = new CSWGetDataRecordsFilter();
+        alternateIdentifierFilter.setAlternateIdentifier(recordNumber);
         
-
+        CSWMethodMakerGetDataRecords methodMaker = new CSWMethodMakerGetDataRecords();
+        
+        HttpRequestBase method = methodMaker.makeMethod(ECATURL, alternateIdentifierFilter, ResultType.Results, 10);
+        
+        InputStream responseString = this.serviceCaller.getMethodResponseAsStream(method);
+        
         Document responseDoc = DOMUtil.buildDomFromStream(responseString);
         
         CSWNamespaceContext nc = new CSWNamespaceContext();

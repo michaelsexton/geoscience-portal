@@ -28,7 +28,6 @@ public class SeismicSurveyController extends BaseCSWController {
 
     // ----------------------------------------------------- Instance variables
 
-    private static final String GETRECORDSUBSTRING = "https://ecat.ga.gov.au/geonetwork/srv/eng/csw?service=CSW&request=GetRecords&version=2.0.2&outputSchema=http://www.isotc211.org/2005/gmd&constraintLanguage=CQL_TEXT&constraint_language_version=1.1.0&typeNames=csw:Record&elementSetName=full&resultType=results&constraint=AlternateIdentifier+EQ+";
     private static final String METADATASUBSTRING = "http://www.ga.gov.au/metadata-gateway/metadata/record/gcat_";
     
     private SeismicSurveyService seismicSurveyService;
@@ -54,11 +53,9 @@ public class SeismicSurveyController extends BaseCSWController {
             throws Exception {
         
         String recordNumber = serviceUrl.replace(METADATASUBSTRING,"");
-        
-        String getRecordsUrl = GETRECORDSUBSTRING + recordNumber;
-        
+    
         CSWRecord[] record = new CSWRecord[1];
-        record[0] = this.seismicSurveyService.getCSWRecord(getRecordsUrl);
+        record[0] = this.seismicSurveyService.getCSWRecord(recordNumber);
         record[0].setRecordInfoUrl(serviceUrl);
         ModelAndView mav = generateJSONResponseMAV(record, record.length);
 
