@@ -1,6 +1,8 @@
 Ext.define('portal.layer.querier.wms.OnshoreSeismicSurveyQuerier', {
         extend : 'portal.layer.querier.wms.WMSQuerier',
 
+        responseFields : ["uri", "surveyNo", "surveyName", "lineName", "state", "year", "url", "urlNci"],
+        
         constructor : function(config) {
             this.callParent(arguments);
         }, 
@@ -8,8 +10,13 @@ Ext.define('portal.layer.querier.wms.OnshoreSeismicSurveyQuerier', {
         /**
          * Parse the response and retrieve the CSWRecord for that point.
          */
-         _getCSWRecord : function(cswrecordurl,queryTarget,callback) {
-
+         _displaySeismicSurveyData : function(doc,queryTarget,callback) {
+             var cswUrl = this._getFieldValue(doc,"url");
+             
+             if (!cswUrl) {
+                 callback(this, [], queryTarget);
+             }
+             
              var cswRecordStore = Ext.create('Ext.data.Store', {
                  id:'seismicCSWRecordStore',
                  autoLoad: false,
@@ -18,7 +25,7 @@ Ext.define('portal.layer.querier.wms.OnshoreSeismicSurveyQuerier', {
                      type: 'ajax',
                      url: 'getSeismicCSWRecord.do',
                      extraParams: {
-                         serviceUrl : cswrecordurl
+                         serviceUrl : cswUrl
                      },
                      reader: {
                          type: 'json',
@@ -26,9 +33,7 @@ Ext.define('portal.layer.querier.wms.OnshoreSeismicSurveyQuerier', {
                          successProperty: 'success',
                          totalProperty: 'totalResults'
                      }
-
                  }
-
              });
 
              cswRecordStore.load({
@@ -47,12 +52,82 @@ Ext.define('portal.layer.querier.wms.OnshoreSeismicSurveyQuerier', {
 
                          callback(this, [panel], queryTarget);
                      }else{
-                         callback(this, [this.generateErrorComponent('There was an error when attempting to contact the remote WMS instance for information about this point.')], queryTarget);
+                         callback(this, [this._fallbackWMSPanel(doc)], queryTarget);
                      }
                  }
              });
          },
 
+         /**
+          *  Extracts given field value from the DOM document
+          */
+         _getFieldValue : function(doc, field) {
+             var fieldValue;
+             
+             //VT: The default namespace is causing alot of grief in IE cause javeline xpath is unable to handle complex xpath.
+             if (doc.querySelector) {
+                 //VT: IE's version of selectSingleNode is querySelector.
+                 if (doc.querySelector('FeatureInfoResponse').querySelector('FIELDS')) {
+                     fieldValue = doc.querySelector('FeatureInfoResponse').querySelector('FIELDS').getAttribute(field);
+                 }
+             } else {
+                 fieldValue = portal.util.xml.SimpleXPath.evaluateXPathString(doc.childNodes[0], "//*[local-name()='FIELDS']/@"+field);
+             }
+             return fieldValue;  
+         },
+         
+         /**
+          *  Function to provide basic WMS GetFeatureInfo data from the Onshore Seismic Surveys
+          *  service in case of architectural changes to GA's eCat and other metadata catalogs.
+          *  So long as the service is running, this will display a minimum set of data to the user.
+          */
+         _fallbackWMSPanel : function(doc) {
+             var me = this;
+             var fieldItems = {};
+             Ext.each(this.responseFields, function(field) {
+                 fieldItems[field] = me._getFieldValue(doc, field);
+             });                   
+                     
+                     
+             return Ext.create('portal.layer.querier.BaseComponent', {
+                 border : false,
+                 tabTitle: name,
+                 layout : 'fit',
+                 items : [{
+                     xtype : 'fieldset',
+                     title : 'Onshore Seismic Surveys',
+                     labelWidth : 75,
+                     autoScroll : true,
+                     items : [{
+                         xtype : 'displayfield',
+                         fieldLabel : 'Survey Name',
+                         value : fieldItems["surveyName"]
+                     },{
+                         xtype : 'displayfield',
+                         fieldLabel : 'Survey Number',
+                         value : fieldItems["surveyNo"]
+                     },{
+                         xtype : 'displayfield',
+                         fieldLabel : 'Line Name',
+                         value : fieldItems["lineName"]
+                     },{
+                         xtype : 'displayfield',
+                         fieldLabel : 'State',
+                         value : fieldItems["state"]
+                     },{
+                         xtype : 'displayfield',
+                         fieldLabel : 'Year',
+                         value : fieldItems["year"]
+                     },{
+                         xtype : 'displayfield',
+                         fieldLabel : 'URL',
+                         value : '<a href="'+fieldItems["url"]+'" target="_blank">'+fieldItems["url"]+'</a>'
+                     }]
+                 }]
+             });
+             
+             
+         },
          /**
           * See parent class for definition
           *
@@ -68,21 +143,7 @@ Ext.define('portal.layer.querier.wms.OnshoreSeismicSurveyQuerier', {
                      if (success) {
                          var xmlResponse = response.responseText;
                          var domDoc = portal.util.xml.SimpleDOM.parseStringToDOM(xmlResponse);
-                         //VT: The default namespace is causing alot of grief in IE cause javeline xpath is unable to handle complex xpath.
-                         if(domDoc.querySelector){
-                             //VT: IE's version of selectSingleNode is querySelector.
-                             if(domDoc.querySelector('FeatureInfoResponse').querySelector('FIELDS')){
-                                 var cswUrl = domDoc.querySelector('FeatureInfoResponse').querySelector('FIELDS').getAttribute('url');
-                             }else{
-                                 callback(this,[],queryTarget);
-                                 return;
-                             }
-                         }else{
-                             var cswUrl = portal.util.xml.SimpleXPath.evaluateXPathString(domDoc.childNodes[0], "//*[local-name()='FIELDS']/@url");
-                         }
-
-
-                         this._getCSWRecord(cswUrl,queryTarget,callback);
+                         this._displaySeismicSurveyData(domDoc,queryTarget,callback);
                      }else{
                          callback(this, [this.generateErrorComponent('There was an error when attempting to contact the remote WMS instance for information about this point.')], queryTarget);
                      }
