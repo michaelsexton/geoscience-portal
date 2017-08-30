@@ -1,18 +1,9 @@
 Ext.define('portal.layer.querier.wms.OnshoreSeismicSurveyQuerier', {
         extend : 'portal.layer.querier.wms.WMSQuerier',
 
-        GETRECORDSSUBSTRING : "https://ecat.ga.gov.au/geonetwork/srv/eng/csw?service=CSW&request=GetRecords&version=2.0.2&outputSchema=http://www.isotc211.org/2005/gmd&constraintLanguage=CQL_TEXT&constraint_language_version=1.1.0&typeNames=csw:Record&elementSetName=full&resultType=results&constraint=AlternateIdentifier+EQ+",
-        METADATASUBSTRING : "http://www.ga.gov.au/metadata-gateway/metadata/record/gcat_",
-        
         constructor : function(config) {
             this.callParent(arguments);
         }, 
-        
-
-        _transformCSWUrl : function(cswrecordurl) {
-            var recordNumber = cswrecordurl.replace(this.METADATASUBSTRING,"");
-            return this.GETRECORDSSUBSTRING + recordNumber;
-        },
         
         /**
          * Parse the response and retrieve the CSWRecord for that point.
@@ -90,7 +81,7 @@ Ext.define('portal.layer.querier.wms.OnshoreSeismicSurveyQuerier', {
                              var cswUrl = portal.util.xml.SimpleXPath.evaluateXPathString(domDoc.childNodes[0], "//*[local-name()='FIELDS']/@url");
                          }
 
-                         cswUrl = this._transformCSWUrl(cswUrl);
+
                          this._getCSWRecord(cswUrl,queryTarget,callback);
                      }else{
                          callback(this, [this.generateErrorComponent('There was an error when attempting to contact the remote WMS instance for information about this point.')], queryTarget);
