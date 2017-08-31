@@ -1,12 +1,9 @@
 package au.gov.geoscience.portal.services;
 
-import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.InputStream;
 
 import org.auscope.portal.core.server.http.HttpClientInputStream;
 import org.auscope.portal.core.server.http.HttpServiceCaller;
-import org.auscope.portal.core.services.methodmakers.WMSMethodMakerInterface;
 import org.auscope.portal.core.services.responses.csw.CSWRecord;
 import org.auscope.portal.core.test.PortalTestClass;
 import org.auscope.portal.core.test.ResourceUtil;
@@ -26,11 +23,14 @@ public class TestSeismicSurveyService extends PortalTestClass {
     private SeismicSurveyService service;
     private HttpServiceCaller mockServiceCaller;
 
+
+
     @Before
     public void setup() throws Exception {
-        List<WMSMethodMakerInterface> methodMaker = new ArrayList<WMSMethodMakerInterface>();
         mockServiceCaller = context.mock(HttpServiceCaller.class);
+
         service = new SeismicSurveyService(mockServiceCaller);
+        
     }
 
     /**
@@ -40,20 +40,21 @@ public class TestSeismicSurveyService extends PortalTestClass {
      */
     @Test
     public void testGetCSWRecord() throws Exception {
-        final String docString = ResourceUtil
-                .loadResourceAsString("au/gov/geoscience/portal/services/SeismicSurvey.xml");
-        final ByteArrayInputStream is1 = new ByteArrayInputStream(docString.getBytes());
-        final String mockUrl = "http://example";
+        final InputStream is1 = ResourceUtil
+                .loadResourceAsStream("au/gov/geoscience/portal/services/SeismicSurvey.xml");
+        final String mockRecordNumber = "1111";
+        final String mockUrl = "http://www.example.org";
 
         context.checking(new Expectations() {
             {
 
-                oneOf(mockServiceCaller).getMethodResponseAsStream(with(aHttpMethodBase(null, mockUrl, null)));
-                will(returnValue(new HttpClientInputStream(is1, null)));
+            	oneOf(mockServiceCaller).getMethodResponseAsStream(with(aHttpMethodBase(null, mockUrl, null)));
+            	will(returnValue(new HttpClientInputStream(is1, null)));
+               
             }
         });
 
-        CSWRecord record = service.getCSWRecord(mockUrl);
+        CSWRecord record = service.getCSWRecord(mockRecordNumber, mockUrl);
         Assert.assertEquals("Canberra", record.getContact().getContactInfo().getAddressCity());
         Assert.assertEquals("ACT", record.getContact().getContactInfo().getAddressAdministrativeArea());
         Assert.assertEquals("ce415703-fb0a-1a1c-e044-00144fdd4fa6", record.getFileIdentifier());
