@@ -129,7 +129,7 @@
             <bean class="org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker">
             </bean>
         </constructor-arg>
-        <constructor-arg name="baseUrl" value="${HOST.vocabService.url}"/>
+        <constructor-arg name="baseUrl" value="${HOST.cgiVocabService.url}"/>
     </bean>
     
     <bean id="reserveCategoryVocabService" class="au.gov.geoscience.portal.services.vocabularies.ReserveCategoryVocabService">
@@ -138,7 +138,7 @@
             <bean class="org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker">
             </bean>
         </constructor-arg>
-        <constructor-arg name="baseUrl" value="${HOST.vocabService.url}"/>
+        <constructor-arg name="baseUrl" value="${HOST.cgiVocabService.url}"/>
     </bean>
 
     <bean id="commodityVocabService" class="au.gov.geoscience.portal.services.vocabularies.CommodityVocabService">
@@ -147,7 +147,7 @@
             <bean class="org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker">
             </bean>
         </constructor-arg>
-        <constructor-arg name="baseUrl" value="${HOST.vocabService.url}"/>
+        <constructor-arg name="baseUrl" value="${HOST.cgiVocabService.url}"/>
     </bean>
 
      <bean id="mineStatusVocabService" class="au.gov.geoscience.portal.services.vocabularies.MineStatusVocabService">
@@ -156,7 +156,7 @@
             <bean class="org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker">
             </bean>
         </constructor-arg>
-        <constructor-arg name="baseUrl" value="${HOST.vocabService.url}"/>
+        <constructor-arg name="baseUrl" value="${HOST.cgiVocabService.url}"/>
     </bean>
 
 
@@ -166,7 +166,7 @@
             <bean class="org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker">
             </bean>
         </constructor-arg>
-        <constructor-arg name="baseUrl" value="${HOST.vocabService.url}"/>
+        <constructor-arg name="baseUrl" value="${HOST.andsVocabService.url}"/>
     </bean>
 
     <bean id="nvclVocabService" class="org.auscope.portal.server.web.service.NvclVocabService">
@@ -175,7 +175,7 @@
             <bean class="org.auscope.portal.nvcl.NvclVocabMethodMaker">
             </bean>
         </constructor-arg>
-        <constructor-arg name="baseUrl" value="${HOST.vocabService.url}"/>
+        <constructor-arg name="baseUrl" value="${HOST.cgiVocabService.url}"/>
     </bean>
 
     <bean id="fileDownloadService" class="org.auscope.portal.core.server.http.download.FileDownloadService">
