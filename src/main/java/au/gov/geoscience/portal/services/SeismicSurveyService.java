@@ -24,9 +24,11 @@ import org.w3c.dom.NodeList;
 @Service
 public class SeismicSurveyService {
 
-    private static final String ECATURL = "https://ecat.ga.gov.au/geonetwork/srv/eng/csw";
-    
+
+
     private HttpServiceCaller serviceCaller;
+
+    private CSWMethodMakerGetDataRecords methodMaker;
 
     private CSWRecordTransformerFactory transformerFactory;
 
@@ -34,25 +36,25 @@ public class SeismicSurveyService {
     @Autowired
     public SeismicSurveyService(HttpServiceCaller serviceCaller) {
         this.serviceCaller = serviceCaller;
+        this.methodMaker = new CSWMethodMakerGetDataRecords();
         this.transformerFactory = new CSWRecordTransformerFactory();
 
     }
 
-    public CSWRecord getCSWRecord(String recordNumber) throws Exception {
-       
+    public CSWRecord getCSWRecord(String recordNumber, String url) throws Exception {
+
         CSWGetDataRecordsFilter alternateIdentifierFilter = new CSWGetDataRecordsFilter();
         alternateIdentifierFilter.setAlternateIdentifier(recordNumber);
-        
-        CSWMethodMakerGetDataRecords methodMaker = new CSWMethodMakerGetDataRecords();
-        
-        HttpRequestBase method = methodMaker.makeMethod(ECATURL, alternateIdentifierFilter, ResultType.Results, 10);
-        
+
+        HttpRequestBase method = methodMaker.makeMethod(url, alternateIdentifierFilter, ResultType.Results, 1);
+
         InputStream responseString = this.serviceCaller.getMethodResponseAsStream(method);
-        
+
         Document responseDoc = DOMUtil.buildDomFromStream(responseString);
-        
+
         CSWNamespaceContext nc = new CSWNamespaceContext();
-        XPathExpression exprRecordMetadata = DOMUtil.compileXPathExpr("/csw:GetRecordsResponse/csw:SearchResults/gmd:MD_Metadata", nc);
+        XPathExpression exprRecordMetadata = DOMUtil
+                .compileXPathExpr("/csw:GetRecordsResponse/csw:SearchResults/gmd:MD_Metadata", nc);
 
         NodeList nodes = (NodeList) exprRecordMetadata.evaluate(responseDoc, XPathConstants.NODESET);
 

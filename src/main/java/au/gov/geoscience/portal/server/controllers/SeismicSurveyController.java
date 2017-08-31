@@ -27,7 +27,8 @@ import au.gov.geoscience.portal.services.SeismicSurveyService;
 public class SeismicSurveyController extends BaseCSWController {
 
     // ----------------------------------------------------- Instance variables
-
+    private static final String ECATURL = "https://ecat.ga.gov.au/geonetwork/srv/eng/csw";
+	
     private static final String METADATASUBSTRING = "http://www.ga.gov.au/metadata-gateway/metadata/record/gcat_";
     
     private SeismicSurveyService seismicSurveyService;
@@ -55,7 +56,7 @@ public class SeismicSurveyController extends BaseCSWController {
         String recordNumber = serviceUrl.replace(METADATASUBSTRING,"");
     
         CSWRecord[] record = new CSWRecord[1];
-        record[0] = this.seismicSurveyService.getCSWRecord(recordNumber);
+        record[0] = this.seismicSurveyService.getCSWRecord(recordNumber, ECATURL);
         record[0].setRecordInfoUrl(serviceUrl);
         ModelAndView mav = generateJSONResponseMAV(record, record.length);
 
