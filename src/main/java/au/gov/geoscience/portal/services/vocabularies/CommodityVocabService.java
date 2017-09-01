@@ -23,7 +23,7 @@ import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 public class CommodityVocabService extends SISSVoc3Service {
 
-	public static final String REPOSITORY_NAME = "ga/commodity-code/v0-1";
+	public static final String REPOSITORY_NAME = "commodity-code";
 
 	public CommodityVocabService(HttpServiceCaller httpServiceCaller, SISSVoc3MethodMaker sissVocMethodMaker,
 			String baseUrl) {

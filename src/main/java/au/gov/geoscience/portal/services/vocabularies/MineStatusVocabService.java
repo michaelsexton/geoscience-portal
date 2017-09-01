@@ -21,7 +21,7 @@ import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 public class MineStatusVocabService extends SISSVoc3Service {
     
-    public static final String REPOSITORY_NAME = "ga/mine-status/v0-1";
+    public static final String REPOSITORY_NAME = "mine-status";
     
     public MineStatusVocabService(HttpServiceCaller httpServiceCaller, SISSVoc3MethodMaker sissVocMethodMaker,
             String baseUrl) {

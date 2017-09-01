@@ -21,7 +21,7 @@ import com.hp.hpl.jena.rdf.model.StmtIterator;
 
 public class ResourceCategoryVocabService extends SISSVoc3Service {
 
-    public static final String REPOSITORY_NAME = "ga/resource-assessment-category/v0-1";
+    public static final String REPOSITORY_NAME = "resource-assessment-category";
 
     public ResourceCategoryVocabService(HttpServiceCaller httpServiceCaller, SISSVoc3MethodMaker sissVocMethodMaker,
             String baseUrl) {
