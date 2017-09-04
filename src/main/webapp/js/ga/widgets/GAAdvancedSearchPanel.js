@@ -275,8 +275,13 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
                             name : 'authorSurname',
                             itemId: 'authorSurname',
                             fieldLabel : 'Author surname'
-                        },
-                        {                        
+                        },{
+                        	xtype: 'checkbox',
+                        	name: 'onlineResourceType',
+                        	itemId: 'onlineResourceType',
+                        	inputValue : "WMS",
+                        	fieldLabel: 'Has map layers'
+                        },{                        
                             xtype: 'fieldset',
                             flex:1,
                             layout: 'vbox',

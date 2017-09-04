@@ -354,6 +354,7 @@ public class CSWFilterController extends BaseCSWController {
         KeywordMatchType keywordMatchType = KeywordMatchType.Any;
         String titleOrAbstract = parameters.get("titleOrAbstract");
         String authorSurname = parameters.get("authorSurname");
+        String onlineResourceType = parameters.get("onlineResourceType");
         String publicationDateFrom = parameters.get("publicationDateFrom");
         String publicationDateTo = parameters.get("publicationDateTo");
 
@@ -379,6 +380,8 @@ public class CSWFilterController extends BaseCSWController {
 		} else {
 			filter.setAuthorSurname(authorSurname != null ? authorSurname.trim() : null);
 		}
+		
+		filter.setOnlineResourceType(onlineResourceType != null ? onlineResourceType : null);
 
         filter.setPublicationDateFrom(
                 publicationDateFrom != null ? stringYearToDate(publicationDateFrom.trim(), false) : null);
