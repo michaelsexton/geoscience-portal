@@ -166,7 +166,7 @@
     }
  
      #header-icon {
-        width: 3% !important;
+        width: 47px !important;
         margin-left: 0px !important;
         background: #303030 url( "../img/logos/headerIcon.jpg" ) no-repeat top left;
         background-size: 100% 45px;
@@ -178,7 +178,7 @@
     }
 
     #header-redesign {
-        width: 4% !important;
+        width: 53px !important;
         margin-left: 0px !important;
         background: #303030 url( "../img/logos/headerRedesign.jpg" ) no-repeat top left;
         background-size: 100% 50px;
