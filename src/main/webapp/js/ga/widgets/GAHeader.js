@@ -386,17 +386,8 @@ Ext.define('ga.widgets.GAHeader', {
                     handler: printMapHandler
                 }, '-',
                 {
-                    text: 'Quick links',
-                    menu: {
-                        plain: true,
-                        cls: 'x-btn-text',
-                        items: [
-                            {
-                                text: 'Scanned 250K Geological Maps',
-                                handler: scannedMapsHandler
-                            }
-                        ]
-                    }
+                    text: 'Scanned 250K Geological Maps',
+                    handler: scannedMapsHandler
                 }, '-',
                 {
                     text: 'Help',
