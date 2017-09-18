@@ -331,6 +331,48 @@ Ext.application({
             ]
         });
         
+        var clearMapHandler = function() {
+
+            ActiveLayerManager.removeAllLayers(me.map);
+
+            me.map.setZoom(4);
+            var center = new portal.map.Point({longitude:133.3, latitude: -26});
+            me.map.setCenter(center);
+
+            /* set the Base Layer for the map */
+            Ext.each(me.map.layerSwitcher.baseLayers, function(baseLayer) {
+                if (baseLayer.layer.name === "Google Satellite") {
+                    me.map.map.setBaseLayer(baseLayer.layer);
+                    return false;
+                }
+            });
+
+            // if the browser supports local storage, clear the stored map state
+            if(typeof(Storage) !== "undefined") {
+                localStorage.removeItem("portalStorageApplicationState");
+                localStorage.removeItem("portalStorageDefaultBaseLayer");
+            }
+            portal.util.GoogleAnalytic.trackevent('ClearMapHandlerClick', 'Clear Map', 'http://portal.geoscience.gov.au');
+        };
+
+        var scannedMapsHandler = function() {
+
+            clearMapHandler();
+            var id = "250K-scanned-geological-maps";
+
+            var knownLayer = knownLayerStore.getById(id);
+            var scannedMapsLayer = me.layerFactory.generateLayerFromKnownLayer(knownLayer);
+            knownLayer.set('layer', scannedMapsLayer);
+
+            var filterParams = {bbox: {"westBoundLongitude":"102","southBoundLatitude":"…157","northBoundLatitude":"-2","crs":"EPSG:4326"}, opacity: 1}
+            var filterer = scannedMapsLayer.get('filterer');
+            filterer.setParameters(filterParams);
+            var renderer = scannedMapsLayer.get('renderer');
+            renderer.displayData(scannedMapsLayer.getAllOnlineResources(),filterer,Ext.emptyFn);
+            ActiveLayerManager.addLayer(scannedMapsLayer);
+            portal.util.GoogleAnalytic.trackevent('ScannedMapsHandlerClick', id, id);
+        };
+
         /**
          * Used as a placeholder for the tree and details panel on the left of screen
          */
@@ -345,6 +387,14 @@ Ext.application({
 
             html : "<div style='width:100%; height:100%' id='region-west-region'></div>",
 
+            header:{
+                titlePosition: 0,
+                items:[{
+                    xtype: 'button',
+                    text: 'Add 1:250K Geological Maps',
+                    handler: scannedMapsHandler
+                }]
+            },
             title: 'Add Data',
             collapsible: true,
             floatable: true,
