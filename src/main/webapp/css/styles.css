@@ -437,7 +437,7 @@
         top: 55px !important;
         position: absolute;
         z-index: 110;
-        height: calc(100% - 65px) !important;
+        height: calc(100% - 85px) !important;
     }
 
     #menu-bar a {
@@ -770,9 +770,21 @@
     }
 
     #region-west-placeholder-targetEl:hover:after {
-        content: "Add Data";
-        position: absolute !important;
-        top: 40px !important;
-        color : black;
-        font-weight: bold;
+        content: "Choose data layers to add to the map";
+        position: fixed !important;
+        top: 60px !important;
+        left: 40px !important;
+        width: 400px !important;
+        z-index: 2000001 !important;
+        overflow: visible !important;
+        color : white;
+        font-size: 120%;
+    }
+
+    #region-west-placeholder {
+        z-index: 99999999 !important;
+    }
+
+    #region-west_header-innerCt .x-btn {
+        left: 100px !important;
     }
