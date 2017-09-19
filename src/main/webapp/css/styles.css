@@ -775,16 +775,20 @@
         top: 60px !important;
         left: 40px !important;
         width: 400px !important;
-        z-index: 2000001 !important;
+        z-index: 20000001 !important;
         overflow: visible !important;
         color : white;
         font-size: 120%;
     }
 
     #region-west-placeholder {
-        z-index: 99999999 !important;
+        z-index: 112 !important;
     }
 
     #region-west_header-innerCt .x-btn {
         left: 100px !important;
+    }
+
+    #region-south {
+        z-index: 113;
     }

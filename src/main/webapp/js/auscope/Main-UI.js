@@ -296,6 +296,7 @@ Ext.application({
         // footer
         var southPanel = {
             layout: 'fit',
+            id: "region-south",
             region:'south',
             items:[{
                 xtype: 'gafooter'
