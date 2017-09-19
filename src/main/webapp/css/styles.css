@@ -774,10 +774,16 @@
         position: fixed !important;
         top: 60px !important;
         left: 40px !important;
-        width: 400px !important;
+        width: 260px !important;
+        height: 17px;
         z-index: 20000001 !important;
         overflow: visible !important;
-        color : white;
+        color : black;
+        background-color: #FFF5EE;
+        border-style: solid;
+        border-color: black;
+        text-align: center;
+        padding: 5px;
         font-size: 120%;
     }
 
