@@ -19,7 +19,7 @@ Ext.define('ga.widgets.GAFooter', {
                         id: 'footer-container-1'
                     },
                     'width >= 1280': {
-                        id: 'footer-container-2'
+                        id: 'footer-container-1'
                     }
                 },
                 items : [
@@ -54,19 +54,8 @@ Ext.define('ga.widgets.GAFooter', {
                         id: 'footer-main',
                         width: '100%',
                         plugins: 'responsive',
-                        responsiveConfig: {
-                            'width < 1280': {
-                                layout: {
-                                    type: 'container',
-                                    vertical: true,
-                                },
-                            },
-                            'width >= 1280': {
-                                layout: {
-                                    type: 'box',
-                                    vertical: false,
-                                },
-                            }
+                        layout: {
+                            type: 'container'
                         },
                         items: [
                             {
@@ -79,34 +68,34 @@ Ext.define('ga.widgets.GAFooter', {
                                         width: '100%'
                                     },
                                     'width >= 1280': {
-                                        width: '48%'
+                                        width: '100%'
                                     }
                                 },
                                 items :[
                                 {
                                 xtype : 'box',
-                                columnWidth: .27,
+                                columnWidth: .25,
                                 autoEl : {
                                     tag : 'span',
                                     html: '<a href="http://www.ga.gov.au/" target="_blank"  title="Australian Government - Geoscience Australia"><img alt="Geoscience Australia Logo" src="img/logos/ga.jpg"/></a>'
                                 }
                                 },{
                                 xtype : 'box',
-                                columnWidth: .30,
+                                columnWidth: .25,
                                 autoEl : {
                                     tag : 'span',
                                     html: '<a href="http://www.resourcesandenergy.nsw.gov.au/" target="_blank"  title="Resources and Energy"><img alt="NSW Trade and Investment Resources and Energy Logo" src="img/logos/nsw.jpg"/></a>'
                                 }
                                 },{
                                 xtype : 'box',
-                                columnWidth: .23,
+                                columnWidth: .25,
                                 autoEl : {
                                     tag : 'span',
                                     html: '<a href="https://www.dnrm.qld.gov.au/mining" target="_blank"  title="Queensland Government"><img alt="Queensland Government Logo" src="img/logos/qld.jpg"/></a>'
                                 }
                                 },{
                                 xtype : 'box',
-                                columnWidth: .19,
+                                columnWidth: .25,
                                 autoEl : {
                                     tag : 'span',
                                     html: '<a href="http://www.mrt.tas.gov.au/portal/home" target="_blank"  title="Tasmanian Government"><img alt="Mineral Resources Tasmania Logo" src="img/logos/tas.jpg"/></a>'
@@ -121,20 +110,20 @@ Ext.define('ga.widgets.GAFooter', {
                                         width: '100%'
                                     },
                                     'width >= 1280': {
-                                        width: '52%'
+                                        width: '100%'
                                     }
                                 },
                                 items :[
                                     {
                                         xtype : 'box',
-                                        columnWidth: .20,
+                                        columnWidth: .25,
                                         autoEl : {
                                             tag : 'span',
                                             html: '<a href="http://www.nt.gov.au/d/Minerals_Energy/" target="_blank"  title="Northern Territory Government"><img alt="Northern Territory Government Logo" src="img/logos/nt.jpg"/></a>'
                                         }
                                     },{
                                         xtype : 'box',
-                                        columnWidth: .14,
+                                        columnWidth: .25,
                                         autoEl : {
                                             tag : 'span',
                                             html: '<a href="http://www.energyandresources.vic.gov.au/earth-resources" target="_blank"  title="Victoria State Government"><img alt="Victorian Department of State Development Business and Innovation Logo" src="img/logos/vic.jpg"/></a>'
@@ -148,7 +137,7 @@ Ext.define('ga.widgets.GAFooter', {
                                         }
                                     },{
                                         xtype : 'box',
-                                        columnWidth: .40,
+                                        columnWidth: .30,
                                         autoEl : {
                                             tag : 'span',
                                             html: '<a href="http://www.dmp.wa.gov.au/index.aspx" target="_blank"  title="Department of Mines and Petroleum"><img alt="Western Australia Department of Mines and Petroleum Logo" src="img/logos/wa.jpg"/></a>'
