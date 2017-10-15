@@ -26,6 +26,35 @@
         <property name="proxyStyleUrl" value="mineFilterStyle.do" />
         <property name="proxyDownloadUrl" value="mineDownload.do" />
         <property name="order" value="01_Mines and Mining Activity_010" />
+        <property name="filterCollection">
+            <bean class="org.auscope.portal.core.uifilter.FilterCollection">
+                <property name="optionalFilters">
+                    <list>
+                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UITextBox">
+                            <constructor-arg name="label" value="Mine Name"></constructor-arg>
+                            <constructor-arg name="xpath" value="er:specification/er:Mine/er:mineName/er:MineName/er:mineName"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>                            
+                            <constructor-arg name="predicate">
+                                <value type="org.auscope.portal.core.uifilter.Predicate">ISLIKE</value>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UIDropDownRemote">
+                            <constructor-arg name="label" value="Operating Status"></constructor-arg>
+                            <constructor-arg name="xpath" value="er:specification/er:Mine/er:status"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>  
+                            <constructor-arg name="url" value="getAllMineStatuses.do"></constructor-arg>                          
+                            <constructor-arg name="predicate">
+                                <value type="org.auscope.portal.core.uifilter.Predicate">ISEQUAL</value>
+                            </constructor-arg>
+                        </bean>                          
+                         <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
+                            <constructor-arg name="label" value="Provider"></constructor-arg>                            
+                            <constructor-arg name="value"><null/></constructor-arg>                                                        
+                        </bean>   
+                    </list>
+                </property>
+            </bean>
+        </property>
     </bean>
     <bean id="knownTypeMineView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="erl-mine-view" />
