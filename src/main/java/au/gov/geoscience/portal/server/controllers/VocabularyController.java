@@ -19,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import au.gov.geoscience.portal.services.vocabularies.CommodityVocabService;
@@ -29,6 +28,7 @@ import au.gov.geoscience.portal.services.vocabularies.ReserveCategoryVocabServic
 import au.gov.geoscience.portal.services.vocabularies.ResourceCategoryVocabService;
 import au.gov.geoscience.portal.services.vocabularies.VocabularyLookup;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONSerializer;
 
 /**
  * Controller that enables access to vocabulary services.
@@ -261,17 +261,18 @@ public class VocabularyController extends BasePortalController {
 	 * @return Spring ModelAndView containing the JSON
 	 */
 	@RequestMapping("getAreaMaps.do")
-	public @ResponseBody String getAreaMaps() throws Exception {
+	public ModelAndView getAreaMaps() throws Exception {
 
-		String jsonData = null;
-
+		String jsonString = null;
+		JSONArray json = null;
 		// Attempt to locate the resource containing the area maps and parse it
 		// into a String
 		try {
 			Resource resource = resourceLoader.getResource("classpath:/localdatastore/AreaMaps.json");
 			StringWriter writer = new StringWriter();
 			IOUtils.copy(resource.getInputStream(), writer, "UTF-8");
-			jsonData = writer.toString();
+			jsonString = writer.toString();
+			json = (JSONArray) JSONSerializer.toJSON( jsonString );
 		} catch (Exception ex) {
 			// On error, just return failure JSON (and the response string if
 			// any)
@@ -281,6 +282,6 @@ public class VocabularyController extends BasePortalController {
 		}
 
 		// got the data, generate a response
-		return jsonData;
+		return generateJSONResponseMAV(true, json, "");
 	}
 }
