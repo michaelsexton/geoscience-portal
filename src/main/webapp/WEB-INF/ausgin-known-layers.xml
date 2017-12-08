@@ -287,7 +287,9 @@
             value="A collection of services implementing the GeoSciML Portrayal Borehole View (gsmlp:BoreholeView)" />
         <property name="proxyUrl" value="" />
         <property name="proxyCountUrl" value="" />
+        <property name="proxyDownloadUrl" value="doBoreholeViewFilter.do" />
         <property name="proxyStyleUrl" value="doBoreholeViewFilterStyle.do" />
+        
         <property name="order" value="20_Boreholes_020" />
     </bean>
     <bean id="knownTypeGeologicalProvinceContact" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
