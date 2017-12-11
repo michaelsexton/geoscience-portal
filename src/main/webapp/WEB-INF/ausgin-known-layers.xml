@@ -25,6 +25,7 @@
         <property name="proxyCountUrl" value="mineFilterCount.do" />
         <property name="proxyStyleUrl" value="mineFilterStyle.do" />
         <property name="proxyDownloadUrl" value="mineDownload.do" />
+        <property name="staticLegendUrl" value="/img/legends/mines.jpg" />
         <property name="order" value="01_Mines and Mining Activity_010" />
         <property name="filterCollection">
             <bean class="org.auscope.portal.core.uifilter.FilterCollection">
@@ -153,6 +154,7 @@
         <property name="proxyCountUrl" value="doMineralOccurrenceFilterCount.do" />
         <property name="proxyStyleUrl" value="doMinOccurViewFilterStyle.do" />
         <property name="proxyDownloadUrl" value="downloadMinOccurView.do" />
+        <property name="staticLegendUrl" value="/img/legends/mineral_occurrences.jpg" />
         <property name="order"
             value="02_Mineral Occurrences and Resources_010" />
     </bean>
@@ -199,6 +201,7 @@
         <property name="proxyCountUrl" value="getMineralTenementCount.do" />
         <property name="proxyStyleUrl" value="getMineralTenementStyle.do" />
         <property name="proxyDownloadUrl" value="doMineralTenementDownload.do" />
+        <property name="staticLegendUrl" value="/img/legends/tenements.jpg" />
         <property name="order" value="40_Tenements_010" />
     </bean>
     <bean id="knownTypeNVCLBoreholes" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -289,7 +292,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="proxyDownloadUrl" value="doBoreholeViewFilter.do" />
         <property name="proxyStyleUrl" value="doBoreholeViewFilterStyle.do" />
-        
+        <property name="staticLegendUrl" value="/img/legends/all_boreholes.jpg" />
         <property name="order" value="20_Boreholes_020" />
     </bean>
     <bean id="knownTypeGeologicalProvinceContact" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -1663,6 +1666,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="getOilStyle.do" />
         <property name="proxyDownloadUrl" value="" />
+        <property name="staticLegendUrl" value="/img/legends/oil_pipelines.jpg" />
         <property name="order" value="70_Topography and Infrastructure_060" />
     </bean>
     <bean id="knownTypeGas" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -1681,6 +1685,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="getGasStyle.do" />
         <property name="proxyDownloadUrl" value="" />
+        <property name="staticLegendUrl" value="/img/legends/gas_boreholes.jpg" />
         <property name="order" value="70_Topography and Infrastructure_070" />
     </bean>
     <bean id="knownTypeMajorPorts" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -1699,6 +1704,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="" />
+        <property name="staticLegendUrl" value="/img/legends/major_ports.jpg" />
         <property name="order" value="70_Topography and Infrastructure_080" />
     </bean>
     <!-- END: GPT-74 - Topology and Infrastructure -->
