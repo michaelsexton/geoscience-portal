@@ -1685,7 +1685,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="getGasStyle.do" />
         <property name="proxyDownloadUrl" value="" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/gas_boreholes.jpg" />
+        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/gas_pipelines.jpg" />
         <property name="order" value="70_Topography and Infrastructure_070" />
     </bean>
     <bean id="knownTypeMajorPorts" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
