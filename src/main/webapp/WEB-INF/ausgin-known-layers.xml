@@ -1508,6 +1508,7 @@
         <property name="group" value="Geological Maps" />
         <property name="proxyStyleUrl" value="getScannedGeologicalMapsStyle.do" />
         <property name="singleTile" value="true" />
+        <property name="staticLegendUrl" value="http://services.ga.gov.au/gis/rest/directories/capabilities/Scanned_250k_Geological_Map_Index/Scanned_250k_Geological_Map_Index_Legend.png" />
         <property name="order" value="60_Geological Maps_050" />
     </bean>
     <!-- END: GPT-41 / GPT-88 - 250K Scanned Geological Maps -->
