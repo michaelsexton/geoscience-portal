@@ -526,7 +526,7 @@ public class WMSController extends BaseCSWController {
 
         response.setContentType("image/png");
 
-        HttpClientInputStream styleStream = this.wmsService.getMap(url, layer, bbox, request.getRequestURL().toString().replace(request.getServletPath(),"") + sldUrl, version);
+        HttpClientInputStream styleStream = this.wmsService.getMap(url, layer, bbox, request.getRequestURL().toString().replace(request.getServletPath(),"") + sldUrl, version, "EPSG:4283");
         OutputStream outputStream = response.getOutputStream();
         IOUtils.copy(styleStream,outputStream);
         //FileIOUtil.writeInputToOutputStream(styleStream, outputStream, 1024, false);
