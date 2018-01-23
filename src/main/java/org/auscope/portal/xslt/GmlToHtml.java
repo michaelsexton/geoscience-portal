@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  * @author Josh Vote
  *
  */
-@Component
+//@Component
 public class GmlToHtml extends PortalXSLTTransformer {
 
     public GmlToHtml() {

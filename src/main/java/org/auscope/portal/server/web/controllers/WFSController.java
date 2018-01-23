@@ -30,7 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @version $Id$
  */
 
-@Controller
+//@Controller
 public class WFSController extends BasePortalController {
 
     private WFSService wfsService;

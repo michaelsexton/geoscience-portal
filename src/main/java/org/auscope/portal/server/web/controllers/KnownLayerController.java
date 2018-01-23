@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Josh Vote
  *
  */
-@Controller
+//@Controller
 public class KnownLayerController extends BaseCSWController {
 
     /** Used for requesting groupings of CSWRecords under known layers */
