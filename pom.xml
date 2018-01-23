@@ -32,7 +32,7 @@
         <spring.version>3.0.5.RELEASE</spring.version>
         <spring.security.version>3.0.5.RELEASE</spring.security.version>
         <geotools.version>2.6.5</geotools.version>
-        <portal.core.version>1.7.0-SNAPSHOT</portal.core.version>
+        <portal.core.version>2.0.0-SNAPSHOT</portal.core.version>
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format> 
         <additionalparam>-Xdoclint:none</additionalparam>
@@ -442,7 +442,7 @@
         <dependency>
             <groupId>org.auscope.portal</groupId>
             <artifactId>portal-core</artifactId>
-            <version>1.7.0-SNAPSHOT</version>
+            <version>2.0.0-SNAPSHOT</version>
         </dependency>
         <!-- Selenium and testng are needed for automated UI testing -->
         <dependency>
