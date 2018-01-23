@@ -36,7 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Josh Vote
  *
  */
-@Controller
+//@Controller
 public class WCSController extends BasePortalController {
     private final Log logger = LogFactory.getLog(getClass());
 

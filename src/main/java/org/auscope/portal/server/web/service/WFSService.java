@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
  * @author Josh Vote
  *
  */
-@Service
+//@Service
 public class WFSService extends BaseWFSService {
 
     private GmlToHtml gmlToHtml;

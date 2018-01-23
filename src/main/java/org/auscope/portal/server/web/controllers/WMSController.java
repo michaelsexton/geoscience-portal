@@ -47,8 +47,8 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Jarek Sanders
  * @version $Id$
  */
-@Controller
-@Scope("session")
+//@Controller
+//@Scope("session")
 //this can't be a singleton as each request by a user may be targeting a specific wms version
 public class WMSController extends BaseCSWController {
 

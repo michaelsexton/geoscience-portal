@@ -5,13 +5,13 @@ import java.util.Arrays;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.auscope.portal.core.server.controllers.BasePortalController;
+import org.auscope.portal.core.services.WFSService;
 import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
 import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
 import org.auscope.portal.core.services.responses.wfs.WFSResponse;
 import org.auscope.portal.gsml.YilgarnGeochemistryFilter;
 import org.auscope.portal.gsml.YilgarnLocatedSpecimenRecord;
 import org.auscope.portal.gsml.YilgarnObservationRecord;
-import org.auscope.portal.server.web.service.WFSService;
 import org.auscope.portal.server.web.service.YilgarnGeochemistryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -184,7 +184,6 @@ public class YilgarnGeochemistryController extends BasePortalController {
      *            A FilterBoundingBox encoded in JSON
      * @param maxFeatures
      *            The maximum number of features to request (or 0 for unbounded)
-     * @param request
      * @return
      * @throws Exception
      */

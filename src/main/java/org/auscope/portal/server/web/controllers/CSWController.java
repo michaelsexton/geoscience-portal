@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-@Controller
+//@Controller
 public class CSWController extends BaseCSWController {
 
     private HttpServiceCaller serviceCaller;

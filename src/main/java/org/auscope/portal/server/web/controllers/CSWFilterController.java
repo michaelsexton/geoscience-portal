@@ -37,7 +37,7 @@ import org.springframework.web.servlet.ModelAndView;
  * 
  * @author Josh Vote
  */
-@Controller
+//@Controller
 public class CSWFilterController extends BaseCSWController {
     public static final int DEFAULT_MAX_RECORDS = 100;
     private CSWFilterService cswFilterService;

@@ -39,7 +39,7 @@ import com.google.common.io.Files;
  * User: Mathew Wyatt Date: 02/09/2009 Time: 12:33:48 PM
  */
 
-@Controller
+//@Controller
 public class DownloadController extends BasePortalController {
     private final Log logger = LogFactory.getLog(getClass());
     private HttpServiceCaller serviceCaller;

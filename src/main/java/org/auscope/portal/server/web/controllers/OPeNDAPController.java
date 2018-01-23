@@ -32,7 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author vot002
  *
  */
-@Controller
+//@Controller
 public class OPeNDAPController extends BasePortalController {
 
     /** The log. */
