@@ -15,6 +15,14 @@
         <constructor-arg name="serviceUrl" value="http://localhost:18080/geonetwork/srv/eng/csw"/>
         <constructor-arg name="recordInformationUrl" value="http://localhost:18080/geonetwork/srv/eng/main.home?uuid=%1$s"/>
     </bean>
+
+    <bean id="cswGARegistry" class="org.auscope.portal.core.services.csw.CSWServiceItem">
+        <constructor-arg name="id" value="cswGARegistry" />
+        <constructor-arg name="title" value="Geoscience Australia" />
+        <constructor-arg name="serviceUrl" value="https://ecat.ga.gov.au/geonetwork/srv/eng/csw" />
+        <constructor-arg name="recordInformationUrl" value="https://ecat.ga.gov.au/geonetwork/srv/eng/search#!%1$s" />
+        <property name="noCache" value="true"/>
+    </bean>
     
     <!-- Virtual CSWs for Known Layers / Featured Data -->
     

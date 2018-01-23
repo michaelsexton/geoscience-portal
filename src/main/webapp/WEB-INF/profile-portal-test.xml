@@ -145,7 +145,7 @@
         <constructor-arg>
             <list>
                 <!-- <ref bean="cswGeoscienceLocal" /> -->
-                
+                <ref bean="cswGARegistry" />
                 <ref bean="cswEarthResource" />
                 <ref bean="cswBoreholes" />
                 <ref bean="cswASTER" />

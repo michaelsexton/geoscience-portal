@@ -21,7 +21,24 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
         this.map = cfg.map;      
         
         this.areaMapStore = new ga.store.AreaMapStore({});
- 
+
+        this.keywordStore = new Ext.data.Store({
+            autoload: true,
+            fields : ['keyword','count'],
+            proxy : {
+                type : 'ajax',
+                url : 'getFilteredCSWKeywords.do',
+                extraParams : {
+                    cswServiceIds : []
+                },
+                reader : {
+                    type : 'json',
+                    rootProperty : 'data'
+                }
+            }
+
+        });
+
         var years = [];
 
         y = 1900
@@ -235,6 +252,9 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
                     registryTabCheckboxGroup.add(checkBoxItems);
                     registryTabCheckboxGroup.allowBlank = false;
                     registryTabCheckboxGroup.blankText = 'At least one registry must be selected for the search';
+                    me.keywordStore.getProxy().extraParams = {
+                        cswServiceIds : registryTabCheckboxGroup.getValue().cswServiceId
+                    };
                 }
             }
 
@@ -265,10 +285,26 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
                             itemId: 'titleOrAbstract',
                             fieldLabel : 'Title/Abstract'
                         },{
-                            xtype : 'textareafield',
+                            xtype : 'combo',
                             name : 'keywords',
                             itemId: 'keywords',
-                            fieldLabel : 'Keyword(s)',     
+                            queryMode : 'remote',
+                            typeAhead: true,
+                            style: {
+                                marginBottom: '0px'
+                            },
+                            typeAheadDelay : 500,
+                            forceSelection : false,
+                            queryParam: 'keyword',
+                            displayField: 'keyword',
+                            valueField: 'keyword',
+                            fieldLabel : 'Keyword',
+                            store :    this.keywordStore,
+                            listeners: {
+                                beforequery: function(qe){
+                                    delete qe.combo.lastQuery;
+                                }
+                            }
                         },{
                             xtype : 'textfield',
                             name : 'authorSurname',
@@ -695,6 +731,8 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
 
         return result;
 
-    } 
-    
+    }
+
+
+
 });
