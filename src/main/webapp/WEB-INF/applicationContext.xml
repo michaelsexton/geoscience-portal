@@ -206,24 +206,8 @@
     </bean>
     -->
 
-    <bean id="cswGARegistry" class="org.auscope.portal.core.services.csw.custom.CustomRegistry">
-        <constructor-arg name="id" value="cswGARegistry" />
-        <constructor-arg name="title" value="Geoscience Australia" />
-        <constructor-arg name="serviceUrl" value="https://ecat.ga.gov.au/geonetwork/srv/eng/csw" />
-        <constructor-arg name="recordInformationUrl" value="https://ecat.ga.gov.au/geonetwork/srv/eng/search#!%1$s" />
-    </bean>
 
-    <bean id="customRegistryList" class="java.util.ArrayList">
-        <constructor-arg>
-            <list>
-                <ref bean="cswGARegistry"/>
-            </list>
-        </constructor-arg>
-    </bean>
-    
-    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        <!-- one of the properties available; the maximum file size in bytes -->
-        <property name="maxUploadSize" value="10000000"/>
-    </bean>
+
+
 
 </beans>
