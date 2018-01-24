@@ -47,9 +47,9 @@ Ext.define('ga.widgets.GALayerSelectionWindow', {
             model : 'portal.csw.CSWRecord',
             proxy : {
                 type : 'ajax',
-                url : 'getWMSLayersForCSWRecord.do',
+                url : 'getCustomLayers.do',
                 extraParams : { 
-                    service_URL : me.getCapabilitiesUrl,
+                    serviceUrl : me.getCapabilitiesUrl,
                     weakCheck : 'Y',
                     recordName : me.cswRecord.get('name'),
                     isService : this._checkForService()
