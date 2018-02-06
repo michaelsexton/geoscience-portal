@@ -24,7 +24,7 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
 
         this.keywordStore = new Ext.data.Store({
             autoload: true,
-            fields : ['keyword','count'],
+            fields : [{name: 'keyword', sortType: Ext.data.SortTypes.asUCString}],
             proxy : {
                 type : 'ajax',
                 url : 'getFilteredCSWKeywords.do',
@@ -35,7 +35,11 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
                     type : 'json',
                     rootProperty : 'data'
                 }
-            }
+            },
+            sorters : [{
+                property : 'keyword',
+                direction : 'ASC'
+            }]
 
         });
 
