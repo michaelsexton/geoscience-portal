@@ -56,7 +56,7 @@ Ext.define('auscope.layer.querier.wfs.factories.CommodityResourceViewFactory', {
         var displayItems = [{
                 xtype : 'displayfield',
                 fieldLabel : 'Name',
-                value : this._pidResolver(identifier, name, 'Click here for the metadata record for the Borehole')
+                value : this._makeGeneralPopupHtml(identifier, name, 'Click here for the metadata record for the Borehole')
             },{
                 xtype : 'displayfield',
                 fieldLabel : 'Commodity',
@@ -64,7 +64,7 @@ Ext.define('auscope.layer.querier.wfs.factories.CommodityResourceViewFactory', {
             },{
                 xtype : 'displayfield',
                 fieldLabel : 'Mineral Occurrence',
-                value : this._pidResolver(mineralOccurrence_uri, mineralOccurrenceName, 'Click here for the metadata record for the Borehole')
+                value : this._makeGeneralPopupHtml(mineralOccurrence_uri, mineralOccurrenceName, 'Click here for the metadata record for the Borehole')
             }];
         
         
@@ -114,7 +114,7 @@ Ext.define('auscope.layer.querier.wfs.factories.CommodityResourceViewFactory', {
             displayItems.push({
                 xtype : 'displayfield',
                 fieldLabel : 'Mine',
-                value : this._pidResolver(mine_uri, mineName, 'Click here for the metadata record for the Borehole')
+                value : this._makeGeneralPopupHtml(mine_uri, mineName, 'Click here for the metadata record for the Borehole')
             });
         }
         
@@ -126,7 +126,7 @@ Ext.define('auscope.layer.querier.wfs.factories.CommodityResourceViewFactory', {
         },{
             xtype : 'displayfield',
             fieldLabel : 'Specification',
-            value : this._pidResolver(specification_uri, "Click for resources and full specification", 'Click here for more information about this feature.')
+            value : this._makeGeneralPopupHtml(specification_uri, "Click for resources and full specification", 'Click here for more information about this feature.')
         }
         ]);
         
@@ -158,43 +158,5 @@ Ext.define('auscope.layer.querier.wfs.factories.CommodityResourceViewFactory', {
             return Ext.String.format('{0} ({1} - {2})',mineralOccurrenceName, commodity, reservesCategory || resourcesCategory);
         } 
         return Ext.String.format('{0} ({1})',mineralOccurrenceName, commodity);
-    },
-    
-    /*
-     * Resolves PIDs that don't actually have a PID service behind them
-     * 
-     * */
-    
-    _pidResolver : function(pidUri, text, comment) {
-        
-        var outputFormatLookup = {
-                'er' : 'gml32',
-                'erl' : 'gml3'
-        }
-        
-        var typeNameLookup ={
-                'mineraloccurrenceview' : 'MineralOccurrenceView',
-                'commodityresourceview' : 'CommodityResourceView',
-                'mine' : 'Mine',
-                'mineraloccurrence' : 'MineralOccurrence',
-                'commodity' : 'Commodity'
-        }
-        
-        fragment = 'http://pid.geoscience.gov.au/feature/ga/';
-        if (pidUri.startsWith('http://pid.geoscience.gov.au/feature/ga/')){
-            partialString = pidUri.replace(fragment,'');
-            partials=partialString.split('/')
-            featureType = partials[0] + ':' + typeNameLookup[partials[1]];
-            featureId = 'ga';
-            for (i = 0; i < partials.length ; i++) {
-                featureId = featureId + '.' + partials[i]
-            }
-            outputFormat = outputFormatLookup[partials[0]]
-            wfsUri = 'http://services.ga.gov.au/earthresource/ows?service=WFS&version=1.1.0&request=GetFeature&typeName={0}&featureId={1}&outputFormat={2}';
-            resolvedUri = Ext.String.format(wfsUri, featureType, featureId, outputFormat);          
-            return this._makeGeneralPopupHtml(resolvedUri, text, comment);
-        } else {
-            return text;
-        }       
     }
 });
