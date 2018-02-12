@@ -254,37 +254,42 @@ Ext.define('ga.widgets.GASearchResultsPanel', {
     
 
     displayFileDownloadWindow : function(record){
-        
-        var links = []; 
-        
+        //var links = [];
+
+        /**
+         * MS Not sure the below is ever used
+         *
         var uris = record.get('datasetURIs');
         if (uris && uris.length > 0) {
             uris.forEach(function(item){
                links.push(item);
             });            
         } 
-        
+        */
+
+        var html;
+
         var onlineResources = record.data.onlineResources;
         if (onlineResources && onlineResources.length > 0) {
+            html = '<ul>';
             onlineResources.forEach(function(onlineResource){
                 var type = onlineResource.get('type');
                 // Show only file downloads
                 if (type == portal.csw.OnlineResource.UNSUPPORTED || type == portal.csw.OnlineResource.WWW || type == portal.csw.OnlineResource.FTP) {
-                    links.push(onlineResource.get('url'));
+                    var link = onlineResource.get('url');
+                    var name = onlineResource.get('name');
+                    var description  = onlineResource.get('description');
+
+                    var text = this._generateDownloadName(name, description);
+
+                    if (link.indexOf('file:/') < 0) {
+                        html += '<li><a target="_blank" href="' + link + '">' + text + '</a></li>';
+                    }
                 }
-            });            
-        }
-        
-        var html;
-        
-        if (links && links.length > 0) {
-            html = '<ul>';
-            links.forEach(function(link){
-                html += '<li><a target="_blank" href="' + link + '">' + link + '</a></li>';
-            });            
+            }, this);
             html += '</ul>';
         }
-                
+
         Ext.create('Ext.window.Window', {
             title: 'File Downloads',           
             maxHeight: 200,
@@ -304,6 +309,16 @@ Ext.define('ga.widgets.GASearchResultsPanel', {
             layerStore: me.layerStore,
             cswRecord: record
         }).show();        
-    }   
+    },
+
+    _generateDownloadName : function(name, description) {
+        var FILE_PARTIAL = 'File download';
+        var RELATED_PARTIAL = 'Related';
+
+        if (name.indexOf(FILE_PARTIAL) > -1 || name.indexOf(RELATED_PARTIAL) > -1) {
+            return name + ' - ' + description;
+        }
+        return name;
+    }
 
 });
