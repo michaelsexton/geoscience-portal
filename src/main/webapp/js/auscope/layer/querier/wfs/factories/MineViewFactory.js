@@ -40,57 +40,28 @@ Ext.define('auscope.layer.querier.wfs.factories.MineViewFactory', {
            layout : 'fit',
            items : [{
                xtype : 'fieldset',
-               title : 'Mines (Geoscience Australia)',
+               title : 'Mines (New)',
                margin : '0 20 0 0',
                autoScroll : true,
                items : [{
                    xtype : 'displayfield',
                    fieldLabel : 'Name',
-                   value : this._pidResolver(identifier, name, 'Click here for the metadata record for the Mines')
+                   value : this._makeGeneralPopupHtml(identifier, name, 'Click here for the metadata record for the Mines')
                },{
                    xtype : 'displayfield',
                    fieldLabel : 'Operating Status',
-                   value : this._makeGeneralPopupHtml(status_uri, status, 'Click here for the metadata record for the Borehole')
+                   value : this._makeGeneralPopupHtml(status_uri, status, 'Click here for the information about mine statuses')
                },{
                    xtype : 'displayfield',
-                   fieldLabel : 'Owner',
-                   value : this._makeGeneralPopupHtml(source, owner, 'Click here for the metadata record for the Borehole')
+                   fieldLabel : 'Source / Owner',
+                   value : this._makeGeneralPopupHtml(source, owner, 'Click here to get further information for source or owner of this mine')
                },{
                    xtype : 'displayfield',
                    fieldLabel : 'Specification',
-                   value : this._pidResolver(specification_uri, "Click for resources and full specification", 'Click here for more information about this feature.')
+                   value : this._makeGeneralPopupHtml(specification_uri, "Click for full specification", 'Click here for more information about this feature.')
                }]
            }]
        });
-   },
-   
-   _pidResolver : function(pidUri, text, comment) {
-       
-       var outputFormatLookup = {
-               'er' : 'gml32',
-               'erl' : 'gml3'
-       }
-       
-       var typeNameLookup ={
-               'mineview' : 'MineView',
-               'mine' : 'Mine',
-       }
-       
-       fragment = 'http://pid.geoscience.gov.au/feature/ga/';
-       if (pidUri.startsWith('http://pid.geoscience.gov.au/feature/ga/')){
-           partialString = pidUri.replace(fragment,'');
-           partials=partialString.split('/')
-           featureType = partials[0] + ':' + typeNameLookup[partials[1]];
-           featureId = 'ga';
-           for (i = 0; i < partials.length ; i++) {
-               featureId = featureId + '.' + partials[i]
-           }
-           outputFormat = outputFormatLookup[partials[0]]
-           wfsUri = 'http://services.ga.gov.au/earthresource/ows?service=WFS&version=1.1.0&request=GetFeature&typeName={0}&featureId={1}&outputFormat={2}';
-           resolvedUri = Ext.String.format(wfsUri, featureType, featureId, outputFormat);          
-           return this._makeGeneralPopupHtml(resolvedUri, text, comment);
-       } else {
-           return text;
-       }       
    }
+
 });

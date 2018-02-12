@@ -4,6 +4,23 @@
     xsi:schemaLocation="
       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+    <bean id="knownTypeMineView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
+        <constructor-arg name="id" value="erl-mine-view" />
+        <constructor-arg name="knownLayerSelector">
+            <bean class="org.auscope.portal.core.view.knownlayer.WFSSelector">
+                <constructor-arg name="featureTypeName" value="erl:MineView" />
+            </bean>
+        </constructor-arg>
+        <property name="name" value="Mines (New)" />
+        <property name="description"
+                  value="A collection of services that implement the AuScope EarthResourceML v1 Profile for mo:MinOccView" />
+        <property name="group" value="Mines and Mining Activity" />
+        <property name="proxyUrl" value="" />
+        <property name="proxyCountUrl" value="mineViewFilterCount.do" />
+        <property name="proxyStyleUrl" value="mineViewFilterStyle.do" />
+        <property name="proxyDownloadUrl" value="mineViewDownload.do" />
+        <property name="order" value="01_Mines and Mining Activity_000" />
+    </bean>
     <bean id="knownTypeMine" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="erml-mine" />
         <constructor-arg name="knownLayerSelector">
@@ -18,7 +35,7 @@
                 </property>
             </bean>
         </constructor-arg>
-        <property name="name" value="Mines" />
+        <property name="name" value="Mines (Deprecated)" />
         <property name="description"
             value="A collection of services that implement the AuScope EarthResourceML v1 Profile for er:Mine" />
         <property name="group" value="Mines and Mining Activity" />
@@ -57,23 +74,7 @@
             </bean>
         </property>
     </bean>
-    <bean id="knownTypeMineView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-        <constructor-arg name="id" value="erl-mine-view" />
-        <constructor-arg name="knownLayerSelector">
-            <bean class="org.auscope.portal.core.view.knownlayer.WFSSelector">
-                <constructor-arg name="featureTypeName" value="erl:MineView" />
-            </bean>
-        </constructor-arg>
-        <property name="name" value="Mines (Geoscience Australia)" />
-        <property name="description"
-            value="A collection of services that implement the AuScope EarthResourceML v1 Profile for mo:MinOccView" />
-        <property name="group" value="Mines and Mining Activity" />
-        <property name="proxyUrl" value="" />
-        <property name="proxyCountUrl" value="mineViewFilterCount.do" />
-        <property name="proxyStyleUrl" value="mineViewFilterStyle.do" />
-        <property name="proxyDownloadUrl" value="mineViewDownload.do" />
-        <property name="order" value="01_Mines and Mining Activity_020" />
-    </bean>
+
     <bean id="knownTypeMiningActivity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="erml-miningactivity" />
         <constructor-arg name="knownLayerSelector">
@@ -88,7 +89,7 @@
                 </property>
             </bean>
         </constructor-arg>
-        <property name="name" value="Mining Activity" />
+        <property name="name" value="Mining Activity (Deprecated)" />
         <property name="description"
             value="A collection of services that implement the AuScope EarthResourceML v1 Profile for er:MiningActivity" />
         <property name="group" value="Mines and Mining Activity" />
@@ -96,7 +97,7 @@
         <property name="proxyCountUrl" value="doMiningActivityFilterCount.do" />
         <property name="proxyStyleUrl" value="doMiningActivityFilterStyle.do" />
         <property name="proxyDownloadUrl" value="doMiningActivityFilterDownload.do" />
-        <property name="order" value="01_Mines and Mining Activity_030" />
+        <property name="order" value="01_Mines and Mining Activity_020" />
     </bean>
     <bean id="knownTypeMineralOccurrenceView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -107,7 +108,7 @@
                     value="erl:MineralOccurrenceView" />
             </bean>
         </constructor-arg>
-        <property name="name" value="Mineral Deposits" />
+        <property name="name" value="Mineral Occurrences" />
         <property name="description"
             value="A collection of services that implement the AuScope EarthResourceML v1 Profile for mo:MinOccView" />
         <property name="group" value="Mineral Occurrences and Resources" />
@@ -116,7 +117,7 @@
         <property name="proxyStyleUrl" value="mineralOccurrenceViewFilterStyle.do" />
         <property name="proxyDownloadUrl" value="mineralOccurrenceViewDownload.do" />
         <property name="order"
-            value="02_Mineral Occurrences and Resources_011" />
+            value="02_Mineral Occurrences and Resources_000" />
     </bean>
     <bean id="knownTypeCommodityResourceView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -127,7 +128,7 @@
                     value="erl:CommodityResourceView" />
             </bean>
         </constructor-arg>
-        <property name="name" value="Mineral Resources and Reserves" />
+        <property name="name" value="Commodities, Reserves and Resources" />
         <property name="description"
             value="A collection of services that implement the AuScope EarthResourceML v1 Profile for mo:MinOccView" />
         <property name="group" value="Mineral Occurrences and Resources" />
@@ -136,7 +137,7 @@
         <property name="proxyStyleUrl" value="commodityResourceViewFilterStyle.do" />
         <property name="proxyDownloadUrl" value="commodityResourceViewDownload.do" />
         <property name="order"
-            value="02_Mineral Occurrences and Resources_012" />
+            value="02_Mineral Occurrences and Resources_010" />
     </bean>
     <bean id="knownTypeMinOccView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="mineral-occ-view" />
@@ -146,7 +147,7 @@
                     value="mo:MinOccView" />
             </bean>
         </constructor-arg>
-        <property name="name" value="Mineral Occurrences" />
+        <property name="name" value="Mineral Occurrences (Deprecated)" />
         <property name="description"
             value="A collection of services that implement the AuScope EarthResourceML v1 Profile for mo:MinOccView" />
         <property name="group" value="Mineral Occurrences and Resources" />
@@ -156,7 +157,7 @@
         <property name="proxyDownloadUrl" value="downloadMinOccurView.do" />
         <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/mineral_occurrences.jpg" />
         <property name="order"
-            value="02_Mineral Occurrences and Resources_010" />
+            value="02_Mineral Occurrences and Resources_020" />
     </bean>
     <bean id="knownTypeMineralOccurrence" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="erml-mineraloccurrence" />

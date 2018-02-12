@@ -8,6 +8,10 @@ Ext.define('auscope.layer.filterer.forms.MineralOccurrenceViewFilterForm', {
         
         for (var i = 0; i < cswRecords.length; i++) {
             var adminArea = cswRecords[i].get('adminArea');
+            if (adminArea === 'ACT') {
+                adminArea = cswRecords[i].get('contactOrg')
+            }
+
             var allOnlineResources = cswRecords[i].get('onlineResources');
             var mineralOccurrenceOnlineResources = portal.csw.OnlineResource.getFilteredFromArray(allOnlineResources, portal.csw.OnlineResource.WMS, 'erl:MineralOccurrenceView');
             
@@ -125,11 +129,6 @@ Ext.define('auscope.layer.filterer.forms.MineralOccurrenceViewFilterForm', {
                     displayField:'label',   
                     valueField:'urn'
                 },
-                /*
-                 * TODO: Provider not necessary until other services use erl:MineralOccurrenceView 
-                 * 
-                 */
-                /*
                 {
                     xtype: 'combo',
                     anchor: '100%',
@@ -145,7 +144,7 @@ Ext.define('auscope.layer.filterer.forms.MineralOccurrenceViewFilterForm', {
                     valueField: 'serviceFilter',
                     displayField: 'displayText',
                     hiddenName: 'serviceFilter'
-                }*/]
+                }]
             }]
         });
 

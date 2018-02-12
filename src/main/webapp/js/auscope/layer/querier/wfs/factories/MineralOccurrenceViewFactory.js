@@ -51,7 +51,7 @@ Ext.define('auscope.layer.querier.wfs.factories.MineralOccurrenceViewFactory', {
                 items : [{
                     xtype : 'displayfield',
                     fieldLabel : 'Name',
-                    value : this._pidResolver(identifier, name, 'Click here for the metadata record for the Borehole')
+                    value : this._makeGeneralPopupHtml(identifier, name, 'Click here for the metadata record for the Borehole')
                 },{
                     xtype : 'displayfield',
                     fieldLabel : 'Type',
@@ -63,7 +63,7 @@ Ext.define('auscope.layer.querier.wfs.factories.MineralOccurrenceViewFactory', {
                 },{
                     xtype : 'displayfield',
                     fieldLabel : 'Mine',
-                    value : this._pidResolver(mine_uri, mineName, 'Click here for the metadata record for the Borehole')
+                    value : this._makeGeneralPopupHtml(mine_uri, mineName, 'Click here for the metadata record for the Borehole')
                 },{
                     xtype : 'displayfield',
                     fieldLabel : 'Geologic History',
@@ -71,48 +71,12 @@ Ext.define('auscope.layer.querier.wfs.factories.MineralOccurrenceViewFactory', {
                 },{
                     xtype : 'displayfield',
                     fieldLabel : 'Specification',
-                    value : this._pidResolver(specification_uri, "Click for resources and full specification", 'Click here for more information about this feature.')
+                    value : this._makeGeneralPopupHtml(specification_uri, "Click for resources and full specification", 'Click here for more information about this feature.')
                 }]
             }]
            
         });
         
         
-    },
-    
-    /*
-     * Resolves PIDs that don't actually have a PID service behind them
-     * 
-     * */
-    
-    _pidResolver : function(pidUri, text, comment) {
-        
-        var outputFormatLookup = {
-                'er' : 'gml32',
-                'erl' : 'gml3'
-        }
-        
-        var typeNameLookup ={
-                'mineraloccurrenceview' : 'MineralOccurrenceView',
-                'mine' : 'Mine',
-                'mineraloccurrence' : 'MineralOccurrence',
-        }
-        
-        fragment = 'http://pid.geoscience.gov.au/feature/ga/';
-        if (pidUri.startsWith('http://pid.geoscience.gov.au/feature/ga/')){
-            partialString = pidUri.replace(fragment,'');
-            partials=partialString.split('/')
-            featureType = partials[0] + ':' + typeNameLookup[partials[1]];
-            featureId = 'ga';
-            for (i = 0; i < partials.length ; i++) {
-                featureId = featureId + '.' + partials[i]
-            }
-            outputFormat = outputFormatLookup[partials[0]]
-            wfsUri = 'http://services.ga.gov.au/earthresource/ows?service=WFS&version=1.1.0&request=GetFeature&typeName={0}&featureId={1}&outputFormat={2}';
-            resolvedUri = Ext.String.format(wfsUri, featureType, featureId, outputFormat);          
-            return this._makeGeneralPopupHtml(resolvedUri, text, comment);
-        } else {
-            return text;
-        }       
     }
 });

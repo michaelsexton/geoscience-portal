@@ -10,6 +10,9 @@ Ext.define('auscope.layer.filterer.forms.CommodityResourceViewFilterForm', {
         
         for (var i = 0; i < cswRecords.length; i++) {
             var adminArea = cswRecords[i].get('adminArea');
+            if (adminArea === 'ACT') {
+                adminArea = cswRecords[i].get('contactOrg')
+            }
             var allOnlineResources = cswRecords[i].get('onlineResources');
             var mineralOccurrenceOnlineResources = portal.csw.OnlineResource.getFilteredFromArray(allOnlineResources, portal.csw.OnlineResource.WMS, 'erl:CommodityResourceView');
             
@@ -120,12 +123,8 @@ Ext.define('auscope.layer.filterer.forms.CommodityResourceViewFilterForm', {
                     typeAheadDelay: 500,
                     displayField:'label',  
                     valueField:'urn'
-                }
-                /*
-                 * TODO: Provider not necessary until other services use erl:CommodityResourceView 
-                 * 
-                 */
-                /*,{
+                },
+                {
                     xtype: 'combo',
                     anchor: '100%',
                     itemId: 'serviceFilter-field',
@@ -140,7 +139,7 @@ Ext.define('auscope.layer.filterer.forms.CommodityResourceViewFilterForm', {
                     valueField: 'serviceFilter',
                     displayField: 'displayText',
                     hiddenName: 'serviceFilter'
-                }*/]
+                }]
             }]
         });
         
