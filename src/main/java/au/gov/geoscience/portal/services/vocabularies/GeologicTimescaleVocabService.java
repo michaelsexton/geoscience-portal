@@ -33,7 +33,7 @@ public class GeologicTimescaleVocabService extends SISSVoc3Service {
                                                                                // this
                     "http://resource.geosciml.org/ontology/timescale/gts#Eon"));
 
-    public static final String REPOSITORY_NAME = "csiro/international-chronostratigraphic-chart-2016/2016-12-v3";
+    public static final String REPOSITORY_NAME = "csiro/international-chronostratigraphic-chart/2017";
 
     public GeologicTimescaleVocabService(HttpServiceCaller httpServiceCaller, SISSVoc3MethodMaker sissVocMethodMaker,
             String baseUrl) {
