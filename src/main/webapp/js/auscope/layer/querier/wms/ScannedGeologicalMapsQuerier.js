@@ -2,7 +2,7 @@
  * Sub-Class for making and then parsing a WMS request/response for WMSGetFeatureRequests on Geological Maps / Scanned 250K Geological Map index.
  * Then render each field in a tab in the panel / window.
  */
-Ext.define('portal.layer.querier.wms.WMSMultipleTabDisplayQuerier_GA_ScannedGeologicalMaps', {
+Ext.define('portal.layer.querier.wms.ScannedGeologicalMapsQuerier', {
     extend: 'portal.layer.querier.wms.WMSMultipleTabDisplayQuerier',
 
     constructor: function(config){
