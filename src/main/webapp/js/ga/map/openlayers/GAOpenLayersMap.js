@@ -481,8 +481,8 @@ Ext.define('ga.map.openlayers.GAOpenLayersMap', {
     openInfoWindow : function(windowLocation, width, height, content,layer) {
         //Firstly create a popup with a chunk of placeholder HTML - we will render an ExtJS container inside that
         var popupId = Ext.id();
-        var location = new OpenLayers.LonLat(windowLocation.getLongitude(), windowLocation.getLatitude());
-        location = location.transform('EPSG:4326','EPSG:3857');
+        var lonLat = new OpenLayers.LonLat(windowLocation.getLongitude(), windowLocation.getLatitude());
+        var location = lonLat.transform('EPSG:4326','EPSG:3857');
         var verticalPadding = content.length <= 1 ? 0 : 32; //If we are opening a padded popup, we need to pad for the header
         var horizontalPadding = 0;
         var paddedSize = new OpenLayers.Size(width + horizontalPadding, height + verticalPadding);
@@ -527,7 +527,9 @@ Ext.define('ga.map.openlayers.GAOpenLayersMap', {
         node.addEventListener('click', handler);             
 
         //End workaround
-        
+
+        var parameters = lonLat;
+
         
         this.openedInfoLayerId=layer.get('id');
         //next create an Ext.Container to house our content, render it to the HTML created above
@@ -547,8 +549,8 @@ Ext.define('ga.map.openlayers.GAOpenLayersMap', {
                 border : false,
                 items : content
             });
-          //VT:Tracking
-            portal.util.GoogleAnalytic.trackevent('Query','layer:'+layer.get('name'),'id:' + content[0].tabTitle);
+            parameters['id'] = content[0].tabTitle;
+            portal.util.GoogleAnalytic.trackevent('Query','layer:'+layer.get('name'),'parameters:' + Ext.encode(parameters));
             
         } else {
             var tabPanelItems = [];
@@ -561,7 +563,8 @@ Ext.define('ga.map.openlayers.GAOpenLayersMap', {
                         autoScroll : true,
                         html : content[i]
                     });
-                    portal.util.GoogleAnalytic.trackevent('Query','layer:'+layer.get('name'),'id:Unknown');
+                    parameters['id'] = 'Unknown';
+                    portal.util.GoogleAnalytic.trackevent('Query','layer:'+layer.get('name'),'parameters:' + Ext.encode(parameters));
                 } else {
                     tabPanelItems.push({
                         title : content[i].tabTitle,
@@ -570,7 +573,8 @@ Ext.define('ga.map.openlayers.GAOpenLayersMap', {
                         autoScroll : true,
                         items : [content[i]]
                     });
-                    portal.util.GoogleAnalytic.trackevent('Query','layer:'+layer.get('name'),'id:' + content[i].tabTitle);
+                    parameters['id'] = content[i].tabTitle;
+                    portal.util.GoogleAnalytic.trackevent('Query','layer:'+layer.get('name'),'parameters:' + Ext.encode(parameters));
                 }
             }
 
