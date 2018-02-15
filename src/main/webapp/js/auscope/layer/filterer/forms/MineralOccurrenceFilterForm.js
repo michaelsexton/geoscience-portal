@@ -17,7 +17,7 @@ Ext.define('auscope.layer.filterer.forms.MineralOccurrenceFilterForm', {
         for (var i = 0; i < cswRecords.length; i++) {
             var adminArea = cswRecords[i].get('adminArea');
             var allOnlineResources = cswRecords[i].get('onlineResources');
-            var bhOnlineResources = portal.csw.OnlineResource.getFilteredFromArray(allOnlineResources, portal.csw.OnlineResource.WMS, 'mo:MinOccView');
+            var bhOnlineResources = portal.csw.OnlineResource.getFilteredFromArray(allOnlineResources, portal.csw.OnlineResource.WFS, 'mo:MinOccView');
 
             for (var j = 0; j < bhOnlineResources.length; j++) {
                 if (adminAreasMap[adminArea]) {

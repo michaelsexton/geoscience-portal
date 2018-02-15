@@ -14,7 +14,7 @@ Ext.define('auscope.layer.filterer.forms.CommodityResourceViewFilterForm', {
                 adminArea = cswRecords[i].get('contactOrg')
             }
             var allOnlineResources = cswRecords[i].get('onlineResources');
-            var mineralOccurrenceOnlineResources = portal.csw.OnlineResource.getFilteredFromArray(allOnlineResources, portal.csw.OnlineResource.WMS, 'erl:CommodityResourceView');
+            var mineralOccurrenceOnlineResources = portal.csw.OnlineResource.getFilteredFromArray(allOnlineResources, portal.csw.OnlineResource.WFS, 'erl:CommodityResourceView');
             
             for (var j = 0; j < mineralOccurrenceOnlineResources.length; j++) {
                 if (adminAreasMap[adminArea]) {
