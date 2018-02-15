@@ -272,6 +272,7 @@ Ext.define('ga.widgets.GASearchResultsPanel', {
         var onlineResources = record.data.onlineResources;
         if (onlineResources && onlineResources.length > 0) {
             html = '<ul>';
+            var link_ids = [];
             onlineResources.forEach(function(onlineResource){
                 var type = onlineResource.get('type');
                 // Show only file downloads
@@ -283,20 +284,35 @@ Ext.define('ga.widgets.GASearchResultsPanel', {
                     var text = this._generateDownloadName(name, description);
 
                     if (link.indexOf('file:/') < 0) {
-                        html += '<li><a target="_blank" href="' + link + '">' + text + '</a></li>';
+                        var link_id = 'catalog-download-'+onlineResource.get('id').replace(/\./g,'-');
+                        link_ids.push(link_id)
+                        html += '<li><a target="_blank" id="'+ link_id +'" href="' + link + '">' + text + '</a></li>';
                     }
                 }
             }, this);
             html += '</ul>';
         }
 
+
+
         Ext.create('Ext.window.Window', {
             title: 'File Downloads',           
             maxHeight: 200,
             width: 600,
             autoScroll: true,
-            html: html
+            html: html,
+            listeners: {
+                render: function(view) {
+                    link_ids.forEach( function(link_id) {
+                        Ext.get(link_id).on('click', function() {
+                            portal.util.GoogleAnalytic.trackevent('CatalogDownload',  record.data.name, record.data.id, this.dom.href);
+                        })
+                    })
+                }
+            }
         }).show();
+
+
     },    
 
     // displays a popup window allowing the user to select layers to add to the map
