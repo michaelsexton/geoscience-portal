@@ -20,6 +20,36 @@
         <property name="proxyStyleUrl" value="mineViewFilterStyle.do" />
         <property name="proxyDownloadUrl" value="mineViewDownload.do" />
         <property name="order" value="01_Mines and Mining Activity_000" />
+        <property name="filterCollection">
+            <bean class="org.auscope.portal.core.uifilter.FilterCollection">
+                <property name="optionalFilters">
+                    <list>
+                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UITextBox">
+                            <constructor-arg name="label" value="Name"></constructor-arg>
+                            <constructor-arg name="xpath" value="erl:name"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                            <constructor-arg name="predicate">
+                                <value type="org.auscope.portal.core.uifilter.Predicate">ISLIKE</value>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UIDropDownRemote">
+                            <constructor-arg name="label" value="Operating Status"></constructor-arg>
+                            <constructor-arg name="xpath" value="erl:status_uri"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                            <constructor-arg name="url" value="getAllMineStatuses.do"></constructor-arg>
+                            <constructor-arg name="predicate">
+                                <value type="org.auscope.portal.core.uifilter.Predicate">ISEQUAL</value>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
+                            <constructor-arg name="label" value="Provider"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                        </bean>
+                    </list>
+                </property>
+            </bean>
+        </property>
+
     </bean>
     <bean id="knownTypeMine" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="erml-mine" />
@@ -44,37 +74,7 @@
         <property name="proxyDownloadUrl" value="mineDownload.do" />
         <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/mines.jpg" />
         <property name="order" value="01_Mines and Mining Activity_010" />
-        <property name="filterCollection">
-            <bean class="org.auscope.portal.core.uifilter.FilterCollection">
-                <property name="optionalFilters">
-                    <list>
-                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UITextBox">
-                            <constructor-arg name="label" value="Mine Name"></constructor-arg>
-                            <constructor-arg name="xpath" value="er:specification/er:Mine/er:mineName/er:MineName/er:mineName"></constructor-arg>
-                            <constructor-arg name="value"><null/></constructor-arg>                            
-                            <constructor-arg name="predicate">
-                                <value type="org.auscope.portal.core.uifilter.Predicate">ISLIKE</value>
-                            </constructor-arg>
-                        </bean>
-                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UIDropDownRemote">
-                            <constructor-arg name="label" value="Operating Status"></constructor-arg>
-                            <constructor-arg name="xpath" value="er:specification/er:Mine/er:status"></constructor-arg>
-                            <constructor-arg name="value"><null/></constructor-arg>  
-                            <constructor-arg name="url" value="getAllMineStatuses.do"></constructor-arg>                          
-                            <constructor-arg name="predicate">
-                                <value type="org.auscope.portal.core.uifilter.Predicate">ISEQUAL</value>
-                            </constructor-arg>
-                        </bean>                          
-                         <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
-                            <constructor-arg name="label" value="Provider"></constructor-arg>                            
-                            <constructor-arg name="value"><null/></constructor-arg>                                                        
-                        </bean>   
-                    </list>
-                </property>
-            </bean>
-        </property>
     </bean>
-
     <bean id="knownTypeMiningActivity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="erml-miningactivity" />
         <constructor-arg name="knownLayerSelector">
@@ -118,6 +118,44 @@
         <property name="proxyDownloadUrl" value="mineralOccurrenceViewDownload.do" />
         <property name="order"
             value="02_Mineral Occurrences and Resources_000" />
+        <property name="filterCollection">
+            <bean class="org.auscope.portal.core.uifilter.FilterCollection">
+                <property name="optionalFilters">
+                    <list>
+                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UITextBox">
+                            <constructor-arg name="label" value="Name"></constructor-arg>
+                            <constructor-arg name="xpath" value="erl:name"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                            <constructor-arg name="predicate">
+                                <value type="org.auscope.portal.core.uifilter.Predicate">ISLIKE</value>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UIDropDownRemote">
+                            <constructor-arg name="label" value="Primary Commodity"></constructor-arg>
+                            <constructor-arg name="xpath" value="erl:representativeCommodity_uri"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                            <constructor-arg name="url" value="getAllCommodities"></constructor-arg>
+                            <constructor-arg name="predicate">
+                                <value type="org.auscope.portal.core.uifilter.Predicate">ISEQUAL</value>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UIDropDownRemote">
+                            <constructor-arg name="label" value="Geologic Timescale"></constructor-arg>
+                            <constructor-arg name="xpath" value="erl:representativeAge_uri"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                            <constructor-arg name="url" value="getAllTimescales.do"></constructor-arg>
+                            <constructor-arg name="predicate">
+                                <value type="org.auscope.portal.core.uifilter.Predicate">ISEQUAL</value>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
+                            <constructor-arg name="label" value="Provider"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                        </bean>
+                    </list>
+                </property>
+            </bean>
+        </property>
     </bean>
     <bean id="knownTypeCommodityResourceView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -138,6 +176,44 @@
         <property name="proxyDownloadUrl" value="commodityResourceViewDownload.do" />
         <property name="order"
             value="02_Mineral Occurrences and Resources_010" />
+        <property name="filterCollection">
+            <bean class="org.auscope.portal.core.uifilter.FilterCollection">
+                <property name="optionalFilters">
+                    <list>
+                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UITextBox">
+                            <constructor-arg name="label" value="Name"></constructor-arg>
+                            <constructor-arg name="xpath" value="erl:mineralOccurrenceName"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                            <constructor-arg name="predicate">
+                                <value type="org.auscope.portal.core.uifilter.Predicate">ISLIKE</value>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UIDropDownRemote">
+                            <constructor-arg name="label" value="Commodity"></constructor-arg>
+                            <constructor-arg name="xpath" value="erl:commodityClassifier_uri"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                            <constructor-arg name="url" value="getAllCommodities.do"></constructor-arg>
+                            <constructor-arg name="predicate">
+                                <value type="org.auscope.portal.core.uifilter.Predicate">ISEQUAL</value>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UIDropDownRemote">
+                            <constructor-arg name="label" value="Resource Category"></constructor-arg>
+                            <constructor-arg name="xpath" value="erl:resourcesCategory_uri|erl:reservesCategory_uri"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                            <constructor-arg name="url" value="getAllJorcCategories.do"></constructor-arg>
+                            <constructor-arg name="predicate">
+                                <value type="org.auscope.portal.core.uifilter.Predicate">ISEQUAL</value>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
+                            <constructor-arg name="label" value="Provider"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                        </bean>
+                    </list>
+                </property>
+            </bean>
+        </property>
     </bean>
     <bean id="knownTypeMinOccView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="mineral-occ-view" />
@@ -158,52 +234,6 @@
         <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/mineral_occurrences.jpg" />
         <property name="order"
             value="02_Mineral Occurrences and Resources_020" />
-    </bean>
-    <bean id="knownTypeMineralOccurrence" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-        <constructor-arg name="id" value="erml-mineraloccurrence" />
-        <constructor-arg name="knownLayerSelector">
-            <bean class="org.auscope.portal.core.view.knownlayer.WFSSelector">
-                <constructor-arg name="featureTypeName"
-                    value="gsml:MappedFeature" />
-                <property name="relatedFeatureTypeNames">
-                    <list>
-                        <value>er:Commodity</value>
-                        <value>er:MineralOccurrence</value>
-                    </list>
-                </property>
-            </bean>
-        </constructor-arg>
-        <property name="name" value="Earth Resource Mineral Occurrence" />
-        <property name="description"
-            value="A collection of services that implement the AuScope EarthResourceML v1 Profile for er:MineralOccurence" />
-        <property name="group" value="AuScope Earth Resource Services" />
-        <property name="proxyUrl" value="" />
-        <property name="proxyCountUrl" value="doMineralOccurrenceFilterCount.do" />
-        <property name="proxyStyleUrl" value="doMineralOccurrenceFilterStyle.do" />
-        <property name="proxyDownloadUrl" value="doMineralOccurrenceFilterDownload.do" />
-        <property name="order" value="1_AuScope Earth Resource Services_020" />
-    </bean>
-    <bean id="knownTypeMineralTenements" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-        <constructor-arg name="id" value="mineral-tenements" />
-        <constructor-arg name="knownLayerSelector">
-            <bean
-                class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
-                <constructor-arg name="featureTypeName"
-                    value="mt:MineralTenement" />
-                <constructor-arg name="layerName" value="MineralTenement" />
-            </bean>
-        </constructor-arg>
-        <property name="name" value="Mineral Tenements" />
-        <property name="description"
-            value="A collection of services that implement the AuScope EarthResourceML v1 Profile for mt:Mineral Tenement" />
-        <property name="group" value="Tenements" />
-        <property name="proxyUrl" value="" />
-        <property name="proxyGetFeatureInfoUrl" value="getMineralTenementFeatureInfo.do" />
-        <property name="proxyCountUrl" value="getMineralTenementCount.do" />
-        <property name="proxyStyleUrl" value="getMineralTenementStyle.do" />
-        <property name="proxyDownloadUrl" value="doMineralTenementDownload.do" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/tenements.jpg" />
-        <property name="order" value="40_Tenements_010" />
     </bean>
     <bean id="knownTypeNVCLBoreholes" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="nvcl-borehole" />
@@ -241,12 +271,12 @@
         <property name="name" value="National Virtual Core Library" />
         <property name="group" value="Boreholes" />
         <property name="description"
-            value="A collection of services implementing the National Virtual Core Library Profile v1 for gsml:Borehole and a collection of observations" />
+                  value="A collection of services implementing the National Virtual Core Library Profile v1 for gsml:Borehole and a collection of observations" />
         <property name="proxyUrl" value="doNVCLFilter.do" />
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="iconUrl"
-            value="http://maps.google.com/mapfiles/kml/paddle/blu-blank.png" />
+                  value="http://maps.google.com/mapfiles/kml/paddle/blu-blank.png" />
         <property name="iconAnchor">
             <bean class="java.awt.Point">
                 <constructor-arg index="0" value="16" />
@@ -260,6 +290,34 @@
             </bean>
         </property>
         <property name="order" value="20_Boreholes_010" />
+        <property name="filterCollection">
+            <bean class="org.auscope.portal.core.uifilter.FilterCollection">
+                <property name="optionalFilters">
+                    <list>
+                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UITextBox">
+                            <constructor-arg name="label" value="Name"></constructor-arg>
+                            <constructor-arg name="xpath" value="gsml:Borehole/gml:name"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                            <constructor-arg name="predicate">
+                                <value type="org.auscope.portal.core.uifilter.Predicate">ISLIKE</value>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UITextBox">
+                            <constructor-arg name="label" value="Drilling Year"></constructor-arg>
+                            <constructor-arg name="xpath" value="gsml:Borehole/gsml:indexData/gsml:BoreholeDetails/gsml:dateOfDrilling"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                            <constructor-arg name="predicate">
+                                <value type="org.auscope.portal.core.uifilter.Predicate">ISLIKE</value>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
+                            <constructor-arg name="label" value="Provider"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                        </bean>
+                    </list>
+                </property>
+            </bean>
+        </property>
     </bean>
     <bean id="knownTypeAllBoreholes" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="sf0-borehole-nvcl" />
@@ -288,13 +346,91 @@
         <property name="name" value="All Boreholes" />
         <property name="group" value="Boreholes" />
         <property name="description"
-            value="A collection of services implementing the GeoSciML Portrayal Borehole View (gsmlp:BoreholeView)" />
+                  value="A collection of services implementing the GeoSciML Portrayal Borehole View (gsmlp:BoreholeView)" />
         <property name="proxyUrl" value="" />
         <property name="proxyCountUrl" value="" />
         <property name="proxyDownloadUrl" value="doBoreholeViewFilter.do" />
         <property name="proxyStyleUrl" value="doBoreholeViewFilterStyle.do" />
         <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/all_boreholes.jpg" />
         <property name="order" value="20_Boreholes_020" />
+        <property name="filterCollection">
+            <bean class="org.auscope.portal.core.uifilter.FilterCollection">
+                <property name="optionalFilters">
+                    <list>
+                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UITextBox">
+                            <constructor-arg name="label" value="Name"></constructor-arg>
+                            <constructor-arg name="xpath" value="gsmlp:name"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                            <constructor-arg name="predicate">
+                                <value type="org.auscope.portal.core.uifilter.Predicate">ISLIKE</value>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UITextBox">
+                            <constructor-arg name="label" value="Drilling Year"></constructor-arg>
+                            <constructor-arg name="xpath" value="gsmlp:drillStartDate"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                            <constructor-arg name="predicate">
+                                <value type="org.auscope.portal.core.uifilter.Predicate">ISLIKE</value>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
+                            <constructor-arg name="label" value="Provider"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                        </bean>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+    <bean id="knownTypeMineralTenements" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
+        <constructor-arg name="id" value="mineral-tenements" />
+        <constructor-arg name="knownLayerSelector">
+            <bean
+                class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
+                <constructor-arg name="featureTypeName"
+                    value="mt:MineralTenement" />
+                <constructor-arg name="layerName" value="MineralTenement" />
+            </bean>
+        </constructor-arg>
+        <property name="name" value="Mineral Tenements" />
+        <property name="description"
+            value="A collection of services that implement the AuScope EarthResourceML v1 Profile for mt:Mineral Tenement" />
+        <property name="group" value="Tenements" />
+        <property name="proxyUrl" value="" />
+        <property name="proxyGetFeatureInfoUrl" value="getMineralTenementFeatureInfo.do" />
+        <property name="proxyCountUrl" value="getMineralTenementCount.do" />
+        <property name="proxyStyleUrl" value="getMineralTenementStyle.do" />
+        <property name="proxyDownloadUrl" value="doMineralTenementDownload.do" />
+        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/tenements.jpg" />
+        <property name="order" value="40_Tenements_010" />
+        <property name="filterCollection">
+            <bean class="org.auscope.portal.core.uifilter.FilterCollection">
+                <property name="optionalFilters">
+                    <list>
+                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UITextBox">
+                            <constructor-arg name="label" value="Name"></constructor-arg>
+                            <constructor-arg name="xpath" value="mt:name"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                            <constructor-arg name="predicate">
+                                <value type="org.auscope.portal.core.uifilter.Predicate">ISLIKE</value>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UITextBox">
+                            <constructor-arg name="label" value="Owner"></constructor-arg>
+                            <constructor-arg name="xpath" value="mt:owner"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                            <constructor-arg name="predicate">
+                                <value type="org.auscope.portal.core.uifilter.Predicate">ISLIKE</value>
+                            </constructor-arg>
+                        </bean>
+                        <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
+                            <constructor-arg name="label" value="Provider"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                        </bean>
+                    </list>
+                </property>
+            </bean>
+        </property>
     </bean>
     <bean id="knownTypeGeologicalProvinceContact" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -1511,6 +1647,23 @@
         <property name="singleTile" value="true" />
         <property name="staticLegendUrl" value="http://services.ga.gov.au/gis/rest/directories/capabilities/Scanned_250k_Geological_Map_Index/Scanned_250k_Geological_Map_Index_Legend.png" />
         <property name="order" value="60_Geological Maps_050" />
+        <property name="filterCollection">
+            <bean class="org.auscope.portal.core.uifilter.FilterCollection">
+                <property name="optionalFilters">
+                    <list>
+                        <bean class="org.auscope.portal.core.uifilter.optional.xpath.UIDropDownRemote">
+                            <constructor-arg name="label" value="Map Name"></constructor-arg>
+                            <constructor-arg name="xpath" value="FIELDS/@QMAPNAME"></constructor-arg>
+                            <constructor-arg name="value"><null/></constructor-arg>
+                            <constructor-arg name="url" value="getAreaMaps.do"></constructor-arg>
+                            <constructor-arg name="predicate">
+                                <value type="org.auscope.portal.core.uifilter.Predicate">ISEQUAL</value>
+                            </constructor-arg>
+                        </bean>
+                    </list>
+                </property>
+            </bean>
+        </property>
     </bean>
     <!-- END: GPT-41 / GPT-88 - 250K Scanned Geological Maps -->
     <!-- END: GPT-41 - Surface Geology Layers -->
