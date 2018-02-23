@@ -228,7 +228,7 @@
             value="A collection of services that implement the AuScope EarthResourceML v1 Profile for mo:MinOccView" />
         <property name="group" value="Mineral Occurrences and Resources" />
         <property name="proxyUrl" value="" />
-        <property name="proxyCountUrl" value="doMineralOccurrenceFilterCount.do" />
+        <property name="proxyCountUrl" value="minOccViewFilterCount.do" />
         <property name="proxyStyleUrl" value="doMinOccurViewFilterStyle.do" />
         <property name="proxyDownloadUrl" value="downloadMinOccurView.do" />
         <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/mineral_occurrences.jpg" />
