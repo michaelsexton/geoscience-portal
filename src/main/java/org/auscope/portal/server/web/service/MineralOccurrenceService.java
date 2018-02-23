@@ -207,7 +207,7 @@ public class MineralOccurrenceService extends BaseWFSService {
 
         String filterString = generateFilterString(filter, bbox);
 
-        HttpRequestBase method = generateWFSRequest(serviceURL, MIN_OCC_VIEW_FEATURE_TYPE, null, filterString,
+        HttpRequestBase method = generateWFSRequest(serviceURL, MINERAL_OCCURRENCE_FEATURE_TYPE, null, filterString,
                 maxFeatures, null, ResultType.Results);
         try {
             String response = httpServiceCaller.getMethodResponseAsString(method);
