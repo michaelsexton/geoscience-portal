@@ -34,7 +34,7 @@
 
     <bean id="httpServiceCaller" class="org.auscope.portal.core.server.http.HttpServiceCaller">
         <constructor-arg type="int" name="connectionTimeOut">
-            <value>900000</value>
+            <value>30000</value>
         </constructor-arg>
     </bean>
 
