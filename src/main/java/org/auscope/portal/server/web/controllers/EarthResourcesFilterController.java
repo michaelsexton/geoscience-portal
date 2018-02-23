@@ -252,6 +252,34 @@ public class EarthResourcesFilterController extends BasePortalController {
 
 		}
 	}
+	
+	@RequestMapping("/minOccViewFilterCount.do")
+	public ModelAndView minOccViewFilterCount(
+	        @RequestParam(value = "serviceUrl", required = false) String serviceUrl,
+	        @RequestParam(required = false, value = "name") String name,            
+            @RequestParam(required = false, value = "commodityName") String commodityName,
+            @RequestParam(required = false, value = "minOreAmount") String minOreAmount,
+            @RequestParam(required = false, value = "minReserves") String minReserves,
+            @RequestParam(required = false, value = "minReserves") String minResources,
+            @RequestParam(required = false, value = "bbox") String bboxJson,
+            @RequestParam(required = false, value = "outputFormat") String outputFormat,
+            @RequestParam(required = false, value = "maxFeatures", defaultValue = "0") int maxFeatures
+	        ){
+	    OgcServiceProviderType ogcServiceProviderType = OgcServiceProviderType.parseUrl(serviceUrl);
+        FilterBoundingBox bbox = FilterBoundingBox.attemptParseFromJSON(bboxJson,ogcServiceProviderType);
+        
+        
+	    try {
+	        WFSCountResponse response = this.mineralOccurrenceService.getMinOccViewCount(serviceUrl, commodityName, minOreAmount, minReserves, minResources,
+	                maxFeatures, bbox);
+	        return generateJSONResponseMAV(true,new Integer(response.getNumberOfFeatures()),"");
+	    } catch (Exception e) {
+	        log.warn(String.format("Error performing filter for '%1$s': %2$s", serviceUrl, e));
+            log.debug("Exception: ", e);
+            return this.generateExceptionResponse(e, serviceUrl);
+	    }
+	}
+	
 
 	/**
 	 * Handles Mining Activity filter queries Returns WFS response converted

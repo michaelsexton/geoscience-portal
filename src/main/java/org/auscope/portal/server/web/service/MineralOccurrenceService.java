@@ -43,6 +43,7 @@ public class MineralOccurrenceService extends BaseWFSService {
     private final Log log = LogFactory.getLog(getClass());
     public static final String MINE_FEATURE_TYPE = "er:MiningFeatureOccurrence";
     public static final String MINERAL_OCCURRENCE_FEATURE_TYPE = "gsml:MappedFeature";
+    public static final String MIN_OCC_VIEW_FEATURE_TYPE = "mo:MinOccView";
     public static final String MINING_ACTIVITY_FEATURE_TYPE = "er:MiningFeatureOccurrence";
 
     // ----------------------------------------------------- Instance variables
@@ -206,7 +207,7 @@ public class MineralOccurrenceService extends BaseWFSService {
 
         String filterString = generateFilterString(filter, bbox);
 
-        HttpRequestBase method = generateWFSRequest(serviceURL, MINERAL_OCCURRENCE_FEATURE_TYPE, null, filterString,
+        HttpRequestBase method = generateWFSRequest(serviceURL, MIN_OCC_VIEW_FEATURE_TYPE, null, filterString,
                 maxFeatures, null, ResultType.Results);
         try {
             String response = httpServiceCaller.getMethodResponseAsString(method);
@@ -255,6 +256,16 @@ public class MineralOccurrenceService extends BaseWFSService {
         HttpRequestBase method = generateWFSRequest(serviceURL, MINERAL_OCCURRENCE_FEATURE_TYPE, null, filterString,
                 maxFeatures, null, ResultType.Hits);
         return getWfsFeatureCount(method);
+    }
+    
+    public WFSCountResponse getMinOccViewCount(String serviceUrl, String commodityName, String minOreAmount,
+            String minReserves, String minResources, int maxFeatures, FilterBoundingBox bbox) throws URISyntaxException, PortalServiceException {
+        MinOccViewFilter filter = new MinOccViewFilter(null, commodityName, minOreAmount, minReserves, minResources);
+        String filterString = generateFilterString(filter, bbox);
+        HttpRequestBase method = generateWFSRequest(serviceUrl, MIN_OCC_VIEW_FEATURE_TYPE, null, filterString, maxFeatures, null, ResultType.Hits);
+        
+       return getWfsFeatureCount(method);
+        
     }
 
     /**
@@ -369,5 +380,7 @@ public class MineralOccurrenceService extends BaseWFSService {
         MinOccViewFilter filter = new MinOccViewFilter(name, commodityName, minOreAmount, minReserves, minResources);
         return generateFilterString(filter, bbox);
     }
+
+    
 
 }
