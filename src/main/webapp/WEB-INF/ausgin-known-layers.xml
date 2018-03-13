@@ -89,7 +89,7 @@
                 </property>
             </bean>
         </constructor-arg>
-        <property name="name" value="Mining Activity (Deprecated)" />
+        <property name="name" value="Mining Activity" />
         <property name="description"
             value="A collection of services that implement the AuScope EarthResourceML v1 Profile for er:MiningActivity" />
         <property name="group" value="Mines and Mining Activity" />

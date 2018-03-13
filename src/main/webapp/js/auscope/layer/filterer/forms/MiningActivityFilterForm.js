@@ -72,57 +72,6 @@ Ext.define('auscope.layer.filterer.forms.MiningActivityFilterForm', {
                 defaultType: 'textfield',
                 defaults: {anchor: '100%'},
                 items :[{
-                    fieldLabel: '<span data-qtip="Wildcards: \'!\' escape character; \'*\' zero or more, \'#\' just one character.">' +
-                                'Associated Mine' +
-                                '</span>',
-                    name: 'mineName'
-                },{
-                    xtype : 'combo',
-                    anchor: '100%',
-                    name: 'producedMaterial', /* this just returns the values from displayField! */
-                    hiddenName: 'producedMaterial',    /* this returns the values from valueField! */
-                    fieldLabel: 'Produced Material',
-                    forceSelection: true,
-                    queryMode: 'local',
-                    store: commodityStore,
-                    triggerAction: 'all',
-                    typeAhead: true,
-                    typeAheadDelay: 500,
-                    displayField:'label',   /* change tpl field to this value as well! */
-                    valueField:'urn'
-                },{
-                    xtype: 'datefield',
-                    fieldLabel: '<span data-qtip="Activity which start AFTER this date">' +
-                                'Activity Start Date' +
-                                '</span>',
-                    name: 'startDate',
-                    format: "Y-m-d",
-                    value: ''
-                },{
-                    xtype: 'datefield',
-                    fieldLabel: '<span data-qtip="Activity which end BEFORE this date">' +
-                                'Activity End Date' +
-                                '</span>',
-
-                    name: 'endDate',
-                    format: "Y-m-d",
-                    value: ''
-                },{
-                    fieldLabel: '<span data-qtip="Minimum Amount of Ore Processed">' +
-                                'Min. Ore Processed' +
-                                '</span>',
-                    name: 'oreProcessed'
-                },{
-                    fieldLabel: '<span data-qtip="Minimum Amount of Product Produced">' +
-                                'Min. Prod. Amount' +
-                                '</span>',
-                    name: 'production'
-                },{
-                    fieldLabel: 'Grade',
-                    name: 'cutOffGrade',
-                    hidden: true,
-                    hideLabel: true
-                },{
                     xtype: 'combo',
                     anchor: '100%',
                     itemId: 'serviceFilter-field',
