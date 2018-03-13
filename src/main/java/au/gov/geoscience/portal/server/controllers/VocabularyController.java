@@ -11,6 +11,7 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.auscope.portal.core.server.controllers.BasePortalController;
+import org.auscope.portal.core.services.VocabularyCacheService;
 import org.auscope.portal.server.web.service.NvclVocabService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -35,16 +36,21 @@ import net.sf.json.JSONSerializer;
  */
 @Controller
 public class VocabularyController extends BasePortalController {
+	public static final String TIMESCALE_VOCABULARY_ID = "vocabularyGeologicTimescales";
+	public static final String COMMODITY_VOCABULARY_ID = "vocabularyCommodities";
+	public static final String MINE_STATUS_VOCABULARY_ID = "vocabularyMineStatuses";
+	public static final String RESOURCE_VOCABULARY_ID = "vocabularyResourceCategories";
+	public static final String RESERVE_VOCABULARY_ID = "vocabularyReserveCategories";
+
+
 	private final Log log = LogFactory.getLog(getClass());
 
 	private NvclVocabService nvclVocabService;
-	private CommodityVocabService commodityVocabService;
-	private ResourceCategoryVocabService resourceCategoryVocabService;
-	private ReserveCategoryVocabService reserveCategoryVocabService;
-	private GeologicTimescaleVocabService geologicTimescaleVocabService;
-	private MineStatusVocabService mineStatusVocabService;
 
-	@Inject
+    private VocabularyCacheService vocabularyCacheService;
+
+
+    @Inject
 	private ResourceLoader resourceLoader;
 
 	/**
@@ -53,18 +59,12 @@ public class VocabularyController extends BasePortalController {
 	 * @param
 	 */
 	@Autowired
-	public VocabularyController(NvclVocabService nvclVocabService, CommodityVocabService commodityVocabService,
-			ResourceCategoryVocabService resourceCategoryVocabService,
-			ReserveCategoryVocabService reserveCategoryVocabService,
-			GeologicTimescaleVocabService geologicTimescaleVocabService,
-			MineStatusVocabService mineStatusVocabService) {
+	public VocabularyController(NvclVocabService nvclVocabService,
+                                VocabularyCacheService vocabularyCacheService) {
 		super();
 		this.nvclVocabService = nvclVocabService;
-		this.commodityVocabService = commodityVocabService;
-		this.resourceCategoryVocabService = resourceCategoryVocabService;
-		this.reserveCategoryVocabService = reserveCategoryVocabService;
-		this.geologicTimescaleVocabService = geologicTimescaleVocabService;
-		this.mineStatusVocabService = mineStatusVocabService;
+
+		this.vocabularyCacheService = vocabularyCacheService;
 	}
 
 	/**
@@ -128,7 +128,7 @@ public class VocabularyController extends BasePortalController {
 
 		// Attempt to request and parse our response
 		try {
-			urnLabelMappings = commodityVocabService.getAllCommodityConcepts();
+			urnLabelMappings = vocabularyCacheService.getVocabularyCacheById(COMMODITY_VOCABULARY_ID);
 		} catch (Exception ex) {
 			// On error, just return failure JSON (and the response string if
 			// any)
@@ -158,7 +158,7 @@ public class VocabularyController extends BasePortalController {
 
         // Attempt to request and parse our response
         try {
-            urnLabelMappings = mineStatusVocabService.getAllMineStatusConcepts();
+            urnLabelMappings = vocabularyCacheService.getVocabularyCacheById(MINE_STATUS_VOCABULARY_ID);
         } catch (Exception ex) {
             // On error, just return failure JSON (and the response string if
             // any)
@@ -190,9 +190,9 @@ public class VocabularyController extends BasePortalController {
 
 		// Attempt to request and parse our response
 		try {
-			resourceCategoryMappings = resourceCategoryVocabService.getJorcResourceCategoryConcepts();
+			resourceCategoryMappings = vocabularyCacheService.getVocabularyCacheById(RESOURCE_VOCABULARY_ID);
 
-			reserveCategoryMappings = reserveCategoryVocabService.getJorcReserveCategoryConcepts();
+			reserveCategoryMappings = vocabularyCacheService.getVocabularyCacheById(RESERVE_VOCABULARY_ID);
 
 			jorcCategoryMappings.putAll(resourceCategoryMappings);
 			jorcCategoryMappings.putAll(reserveCategoryMappings);
@@ -230,7 +230,7 @@ public class VocabularyController extends BasePortalController {
 
 		// Attempt to request and parse our response
 		try {
-			timescaleMappings = geologicTimescaleVocabService.getAllTimescaleConcepts();
+			timescaleMappings = vocabularyCacheService.getVocabularyCacheById(TIMESCALE_VOCABULARY_ID);
 
 		} catch (Exception ex) {
 			// On error, just return failure JSON (and the response string if

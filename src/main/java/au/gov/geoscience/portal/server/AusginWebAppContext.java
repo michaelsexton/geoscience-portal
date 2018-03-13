@@ -14,10 +14,11 @@ public class AusginWebAppContext extends PortalProfileXmlWebApplicationContext {
         init.run();
         //--  end of initialization
 
-        String[] ausginLocations = Arrays.copyOf(locations, locations.length + 3);
+        String[] ausginLocations = Arrays.copyOf(locations, locations.length + 4);
         ausginLocations[ausginLocations.length - 1] = DEFAULT_CONFIG_LOCATION_PREFIX + "ausgin-known-layers.xml";
         ausginLocations[ausginLocations.length - 2] = DEFAULT_CONFIG_LOCATION_PREFIX + "ausgin-registries.xml";
-        ausginLocations[ausginLocations.length - 3] = DEFAULT_CONFIG_LOCATION_PREFIX + "service-level-config.xml";
+        ausginLocations[ausginLocations.length - 3] = DEFAULT_CONFIG_LOCATION_PREFIX + "ausgin-vocabularies.xml";
+        ausginLocations[ausginLocations.length - 4] = DEFAULT_CONFIG_LOCATION_PREFIX + "service-level-config.xml";
 
         return ausginLocations;
     }
