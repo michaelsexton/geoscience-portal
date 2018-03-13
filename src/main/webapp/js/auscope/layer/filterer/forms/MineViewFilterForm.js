@@ -76,7 +76,6 @@ Ext.define('auscope.layer.filterer.forms.MineViewFilterForm', {
                     xtype: 'textfield',
                     anchor: '100%',
                     itemId: 'name-field',
-                    labelAlign: 'right',
                     fieldLabel: '<span data-qtip="Wildcards: \'!\' escape character; \'*\' zero or more, \'#\' just one character.">' + 'Name',
                     name: 'name'
                 },{
@@ -84,7 +83,6 @@ Ext.define('auscope.layer.filterer.forms.MineViewFilterForm', {
                     anchor: '100%',
                     name: 'statusUri',
                     fieldLabel: '<span data-qtip="Please select a commodity from the Operating Status Vocabulary. Powered by SISSVoc">' + 'Operating Status' + '</span>',
-                    labelAlign: 'right',
                     forceSelection: false,
                     queryMode: 'local',
                     store: mineStatusStore,
