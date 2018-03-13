@@ -1,31 +1,24 @@
 package au.gov.geoscience.portal.services.vocabularies;
 
+import com.hp.hpl.jena.rdf.model.*;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.auscope.portal.core.server.http.HttpServiceCaller;
+import org.auscope.portal.core.services.PortalServiceException;
+import org.auscope.portal.core.services.VocabularyService;
+import org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker;
+import org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker.Format;
+import org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker.View;
+import org.auscope.portal.core.services.namespaces.VocabNamespaceContext;
+
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.http.client.methods.HttpRequestBase;
-import org.auscope.portal.core.server.http.HttpServiceCaller;
-import org.auscope.portal.core.services.SISSVoc3Service;
-import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker;
-import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker.Format;
-import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker.View;
-import org.auscope.portal.core.services.namespaces.VocabNamespaceContext;
+public class ResourceCategoryVocabService extends VocabularyService {
 
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.Property;
-import com.hp.hpl.jena.rdf.model.ResIterator;
-import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.rdf.model.Statement;
-import com.hp.hpl.jena.rdf.model.StmtIterator;
-
-public class ResourceCategoryVocabService extends SISSVoc3Service {
-
-    public static final String REPOSITORY_NAME = "resource-assessment-category";
-
-    public ResourceCategoryVocabService(HttpServiceCaller httpServiceCaller, SISSVoc3MethodMaker sissVocMethodMaker,
-            String baseUrl) {
-        super(httpServiceCaller, sissVocMethodMaker, baseUrl, REPOSITORY_NAME);
+    public ResourceCategoryVocabService(HttpServiceCaller httpServiceCaller, VocabularyMethodMaker vocabularyMethodMaker,
+            String serviceUrl) {
+        super(httpServiceCaller, vocabularyMethodMaker, serviceUrl);
     }
 
     public Map<String, String> getAllResourceCategoryConcepts() throws Exception {
@@ -37,7 +30,7 @@ public class ResourceCategoryVocabService extends SISSVoc3Service {
         int pageSize = this.getPageSize();
 
         do {
-            HttpRequestBase method = sissVocMethodMaker.getAllConcepts(getBaseUrl(), getRepository(), Format.Rdf,
+            HttpRequestBase method = vocabularyMethodMaker.getAllConcepts(getServiceUrl(), Format.Rdf,
                     View.basic, pageSize, pageNumber);
             if (requestPageOfConcepts(method, model)) {
                 pageNumber++;
@@ -69,7 +62,12 @@ public class ResourceCategoryVocabService extends SISSVoc3Service {
         return result;
     }
 
-    public Map<String, String> getJorcResourceCategoryConcepts() throws Exception {
+    @Override
+    public Map<String, String> getAllRelevantConcepts() throws URISyntaxException, PortalServiceException {
+        return getJorcResourceCategoryConcepts();
+    }
+
+    public Map<String, String> getJorcResourceCategoryConcepts() throws URISyntaxException, PortalServiceException {
         Map<String, String> result = new HashMap<String, String>();
 
         Model model = ModelFactory.createDefaultModel();
@@ -78,7 +76,7 @@ public class ResourceCategoryVocabService extends SISSVoc3Service {
         int pageSize = this.getPageSize();
 
         do {
-            HttpRequestBase method = sissVocMethodMaker.getAllConcepts(getBaseUrl(), getRepository(), Format.Rdf,
+            HttpRequestBase method = vocabularyMethodMaker.getAllConcepts(getServiceUrl(), Format.Rdf,
                     View.description, pageSize, pageNumber);
             if (requestPageOfConcepts(method, model)) {
                 pageNumber++;

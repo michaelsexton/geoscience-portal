@@ -8,9 +8,10 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.auscope.portal.core.server.http.HttpServiceCaller;
 import org.auscope.portal.core.services.PortalServiceException;
 import org.auscope.portal.core.services.SISSVoc3Service;
-import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker;
-import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker.Format;
-import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker.View;
+import org.auscope.portal.core.services.VocabularyService;
+import org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker;
+import org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker.View;
+import org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker.Format;
 import org.auscope.portal.core.services.namespaces.VocabNamespaceContext;
 
 import com.hp.hpl.jena.rdf.model.Model;
@@ -21,13 +22,12 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 
-public class CommodityVocabService extends SISSVoc3Service {
+public class CommodityVocabService extends VocabularyService {
 
-	public static final String REPOSITORY_NAME = "commodity-code";
 
-	public CommodityVocabService(HttpServiceCaller httpServiceCaller, SISSVoc3MethodMaker sissVocMethodMaker,
-			String baseUrl) {
-		super(httpServiceCaller, sissVocMethodMaker, baseUrl, REPOSITORY_NAME);
+	public CommodityVocabService(HttpServiceCaller httpServiceCaller, VocabularyMethodMaker vocabularyMethodMaker,
+			String serviceUrl) {
+		super(httpServiceCaller, vocabularyMethodMaker, serviceUrl );
 
 	}
 
@@ -40,7 +40,7 @@ public class CommodityVocabService extends SISSVoc3Service {
 
 		// Request each of the GA commodity names
 		do {
-			HttpRequestBase method = sissVocMethodMaker.getAllConcepts(getBaseUrl(), getRepository(),
+			HttpRequestBase method = vocabularyMethodMaker.getAllConcepts(getServiceUrl(),
 					 Format.Rdf, View.concept, pageSize, pageNumber);
 			if (requestPageOfConcepts(method, model)) {
 				pageNumber++;

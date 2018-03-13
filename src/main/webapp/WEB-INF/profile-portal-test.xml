@@ -164,4 +164,15 @@
             </list>
         </constructor-arg>
     </bean>
+    <bean id="vocabularyServiceList" class="java.util.ArrayList" >
+        <constructor-arg>
+            <list value-type="org.auscope.portal.core.services.vocabs.VocabularyServiceItem">
+                <ref bean="vocabularyGeologicTimescales" />
+                <ref bean="vocabularyCommodities" />
+                <ref bean="vocabularyMineStatuses" />
+                <ref bean="vocabularyReserveCategories" />
+                <ref bean="vocabularyResourceCategories" />
+            </list>
+        </constructor-arg>
+    </bean>
 </beans>

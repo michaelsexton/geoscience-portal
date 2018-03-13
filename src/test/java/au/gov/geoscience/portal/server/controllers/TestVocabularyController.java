@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.auscope.portal.core.services.PortalServiceException;
+import org.auscope.portal.core.services.VocabularyCacheService;
 import org.auscope.portal.core.test.PortalTestClass;
 import org.auscope.portal.server.web.service.NvclVocabService;
 import org.jmock.Expectations;
@@ -32,20 +33,12 @@ public class TestVocabularyController extends PortalTestClass {
     private VocabularyController vocabularyController;
 
     private NvclVocabService mockNvclVocabService = context.mock(NvclVocabService.class);
-    private CommodityVocabService mockCommodityVocabService = context.mock(CommodityVocabService.class);
-    private ResourceCategoryVocabService mockResourceCategoryVocabService = context
-            .mock(ResourceCategoryVocabService.class);
-    private ReserveCategoryVocabService mockReserveCategoryVocabService = context
-            .mock(ReserveCategoryVocabService.class);
-    private GeologicTimescaleVocabService mockGeologicTimescaleVocabService = context
-            .mock(GeologicTimescaleVocabService.class);
-    private MineStatusVocabService mockMineStatusVocabService = context.mock(MineStatusVocabService.class);
+
+    private VocabularyCacheService mockVocabularyCacheService = context.mock(VocabularyCacheService.class);
 
     @Before
     public void setUp() {
-        this.vocabularyController = new VocabularyController(mockNvclVocabService, mockCommodityVocabService,
-                mockResourceCategoryVocabService, mockReserveCategoryVocabService, mockGeologicTimescaleVocabService,
-                mockMineStatusVocabService);
+        this.vocabularyController = new VocabularyController(mockNvclVocabService, mockVocabularyCacheService);
     }
 
     /**
@@ -103,7 +96,7 @@ public class TestVocabularyController extends PortalTestClass {
 
         context.checking(new Expectations() {
             {
-                oneOf(mockCommodityVocabService).getAllCommodityConcepts();
+                oneOf(mockVocabularyCacheService).getVocabularyCacheById(VocabularyController.COMMODITY_VOCABULARY_ID);
                 will(returnValue(serviceResult));
             }
         });
@@ -135,7 +128,7 @@ public class TestVocabularyController extends PortalTestClass {
     public void testGetAllCommoditiesError() throws Exception {
         context.checking(new Expectations() {
             {
-                oneOf(mockCommodityVocabService).getAllCommodityConcepts();
+                oneOf(mockVocabularyCacheService).getVocabularyCacheById(VocabularyController.COMMODITY_VOCABULARY_ID);
                 will(throwException(new PortalServiceException("")));
             }
         });
@@ -157,7 +150,7 @@ public class TestVocabularyController extends PortalTestClass {
 
         context.checking(new Expectations() {
             {
-                oneOf(mockMineStatusVocabService).getAllMineStatusConcepts();
+                oneOf(mockVocabularyCacheService).getVocabularyCacheById(VocabularyController.MINE_STATUS_VOCABULARY_ID);
                 will(returnValue(serviceResult));
             }
         });
@@ -193,7 +186,7 @@ public class TestVocabularyController extends PortalTestClass {
     public void testGetAllMineStatusesError() throws Exception {
         context.checking(new Expectations() {
             {
-                oneOf(mockMineStatusVocabService).getAllMineStatusConcepts();
+                oneOf(mockVocabularyCacheService).getVocabularyCacheById(VocabularyController.MINE_STATUS_VOCABULARY_ID);
                 will(throwException(new PortalServiceException("")));
             }
         });
@@ -208,6 +201,7 @@ public class TestVocabularyController extends PortalTestClass {
      */
     @Test
     public void testGetAllJorcCategories() throws Exception {
+
         final Map<String, String> serviceResults = new HashMap<String, String>();
         final Map<String, String> serviceResult1 = new HashMap<String, String>();
         final Map<String, String> serviceResult2 = new HashMap<String, String>();
@@ -224,9 +218,9 @@ public class TestVocabularyController extends PortalTestClass {
 
         context.checking(new Expectations() {
             {
-                oneOf(mockReserveCategoryVocabService).getJorcReserveCategoryConcepts();
+                oneOf(mockVocabularyCacheService).getVocabularyCacheById(VocabularyController.RESOURCE_VOCABULARY_ID);
                 will(returnValue(serviceResult1));
-                oneOf(mockResourceCategoryVocabService).getJorcResourceCategoryConcepts();
+                oneOf(mockVocabularyCacheService).getVocabularyCacheById(VocabularyController.RESERVE_VOCABULARY_ID);
                 will(returnValue(serviceResult2));
             }
         });
@@ -262,9 +256,10 @@ public class TestVocabularyController extends PortalTestClass {
     public void testGetAllJorcCategoriesError() throws Exception {
         context.checking(new Expectations() {
             {
-                oneOf(mockResourceCategoryVocabService).getJorcResourceCategoryConcepts();
+                oneOf(mockVocabularyCacheService).getVocabularyCacheById(VocabularyController.RESOURCE_VOCABULARY_ID);
 
-                oneOf(mockReserveCategoryVocabService).getJorcReserveCategoryConcepts();
+                oneOf(mockVocabularyCacheService).getVocabularyCacheById(VocabularyController.RESERVE_VOCABULARY_ID);
+
                 will(throwException(new PortalServiceException("")));
 
             }
@@ -287,7 +282,7 @@ public class TestVocabularyController extends PortalTestClass {
 
         context.checking(new Expectations() {
             {
-                oneOf(mockGeologicTimescaleVocabService).getAllTimescaleConcepts();
+                oneOf(mockVocabularyCacheService).getVocabularyCacheById(VocabularyController.TIMESCALE_VOCABULARY_ID);
                 will(returnValue(serviceResult));
             }
         });
@@ -323,7 +318,7 @@ public class TestVocabularyController extends PortalTestClass {
     public void testGetAllTimescalesError() throws Exception {
         context.checking(new Expectations() {
             {
-                oneOf(mockGeologicTimescaleVocabService).getAllTimescaleConcepts();
+                oneOf(mockVocabularyCacheService).getVocabularyCacheById(VocabularyController.TIMESCALE_VOCABULARY_ID);
                 will(throwException(new PortalServiceException("")));
             }
         });

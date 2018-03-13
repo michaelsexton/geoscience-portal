@@ -7,9 +7,9 @@ import java.util.Map;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.auscope.portal.core.server.http.HttpClientInputStream;
 import org.auscope.portal.core.server.http.HttpServiceCaller;
-import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker;
-import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker.Format;
-import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker.View;
+import org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker;
+import org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker.Format;
+import org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker.View;
 import org.auscope.portal.core.test.PortalTestClass;
 import org.auscope.portal.core.test.ResourceUtil;
 import org.jmock.Expectations;
@@ -27,7 +27,7 @@ public class TestCommodityVocabService extends PortalTestClass {
     private HttpRequestBase mockMethod = context.mock(HttpRequestBase.class, "mockMethod");
     private HttpRequestBase mockMethod2 = context.mock(HttpRequestBase.class, "mockMethod2");
     private HttpServiceCaller mockServiceCaller = context.mock(HttpServiceCaller.class);
-    private SISSVoc3MethodMaker mockMethodMaker = context.mock(SISSVoc3MethodMaker.class);
+    private VocabularyMethodMaker mockMethodMaker = context.mock(VocabularyMethodMaker.class);
     private String baseUrl = "http://example.org:8080/sissvoc/path";
 
     private CommodityVocabService commodityVocabService;
@@ -58,10 +58,10 @@ public class TestCommodityVocabService extends PortalTestClass {
         context.checking(new Expectations() {
             {
 
-                oneOf(mockMethodMaker).getAllConcepts(baseUrl, CommodityVocabService.REPOSITORY_NAME, Format.Rdf,
+                oneOf(mockMethodMaker).getAllConcepts(baseUrl, Format.Rdf,
                         View.concept, commodityVocabService.getPageSize(), 0);
                 will(returnValue(mockMethod));
-                oneOf(mockMethodMaker).getAllConcepts(baseUrl, CommodityVocabService.REPOSITORY_NAME, Format.Rdf,
+                oneOf(mockMethodMaker).getAllConcepts(baseUrl, Format.Rdf,
                         View.concept, commodityVocabService.getPageSize(), 1);
                 will(returnValue(mockMethod2));
 

@@ -10,10 +10,11 @@ import java.util.Set;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.auscope.portal.core.server.http.HttpServiceCaller;
 import org.auscope.portal.core.services.PortalServiceException;
-import org.auscope.portal.core.services.SISSVoc3Service;
-import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker;
-import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker.Format;
-import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker.View;
+import org.auscope.portal.core.services.VocabularyService;
+import org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker;
+import org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker.Format;
+import org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker.View;
+
 import org.auscope.portal.core.services.namespaces.VocabNamespaceContext;
 
 import com.hp.hpl.jena.rdf.model.Model;
@@ -24,10 +25,12 @@ import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Statement;
 import com.hp.hpl.jena.rdf.model.StmtIterator;
 
-public class GeologicTimescaleVocabService extends SISSVoc3Service {
+import static com.sun.org.apache.bcel.internal.Repository.getRepository;
+
+public class GeologicTimescaleVocabService extends VocabularyService {
 
     private static final Set<String> RANKS = new HashSet<String>(
-            Arrays.asList("http://resource.geosciml.org/ontology/timescale/gts#Period",
+            Arrays.asList("http://resource.geosciml.org/ontology/timescale/gts#Pxeriod",
                     "http://resource.geosciml.org/ontology/timescale/gts#Era", // TODO
                                                                                // Fix
                                                                                // this
@@ -35,13 +38,14 @@ public class GeologicTimescaleVocabService extends SISSVoc3Service {
 
     public static final String REPOSITORY_NAME = "csiro/international-chronostratigraphic-chart/2017";
 
-    public GeologicTimescaleVocabService(HttpServiceCaller httpServiceCaller, SISSVoc3MethodMaker sissVocMethodMaker,
+    public GeologicTimescaleVocabService(HttpServiceCaller httpServiceCaller, VocabularyMethodMaker vocabularyMethodMaker,
             String baseUrl) {
-        super(httpServiceCaller, sissVocMethodMaker, baseUrl, REPOSITORY_NAME);
+        super(httpServiceCaller, vocabularyMethodMaker, baseUrl);
 
     }
 
-    public Map<String, String> getAllTimescaleConcepts() throws PortalServiceException, URISyntaxException {
+    @Override
+    public Map<String, String> getAllRelevantConcepts() throws PortalServiceException, URISyntaxException {
         Map<String, String> result = new HashMap<String, String>();
 
         Model model = ModelFactory.createDefaultModel();
@@ -50,7 +54,7 @@ public class GeologicTimescaleVocabService extends SISSVoc3Service {
 
         // Request each of the GA commodity names
         do {
-            HttpRequestBase method = sissVocMethodMaker.getAllConcepts(getBaseUrl(), getRepository(), Format.Rdf,
+            HttpRequestBase method = vocabularyMethodMaker.getAllConcepts(getServiceUrl(), Format.Rdf,
                     View.description, pageSize, pageNumber);
             if (requestPageOfConcepts(method, model)) {
                 pageNumber++;

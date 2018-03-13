@@ -1,31 +1,22 @@
 package au.gov.geoscience.portal.services.vocabularies;
 
+import com.hp.hpl.jena.rdf.model.*;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.auscope.portal.core.server.http.HttpServiceCaller;
+import org.auscope.portal.core.services.VocabularyService;
+import org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker;
+import org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker.Format;
+import org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker.View;
+import org.auscope.portal.core.services.namespaces.VocabNamespaceContext;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.http.client.methods.HttpRequestBase;
-import org.auscope.portal.core.server.http.HttpServiceCaller;
-import org.auscope.portal.core.services.SISSVoc3Service;
-import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker;
-import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker.Format;
-import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker.View;
-import org.auscope.portal.core.services.namespaces.VocabNamespaceContext;
+public class MineStatusVocabService extends VocabularyService {
 
-import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.ModelFactory;
-import com.hp.hpl.jena.rdf.model.Property;
-import com.hp.hpl.jena.rdf.model.ResIterator;
-import com.hp.hpl.jena.rdf.model.Resource;
-import com.hp.hpl.jena.rdf.model.Statement;
-import com.hp.hpl.jena.rdf.model.StmtIterator;
-
-public class MineStatusVocabService extends SISSVoc3Service {
-    
-    public static final String REPOSITORY_NAME = "mine-status";
-    
-    public MineStatusVocabService(HttpServiceCaller httpServiceCaller, SISSVoc3MethodMaker sissVocMethodMaker,
-            String baseUrl) {
-        super(httpServiceCaller, sissVocMethodMaker, baseUrl, REPOSITORY_NAME);
+    public MineStatusVocabService(HttpServiceCaller httpServiceCaller, VocabularyMethodMaker vocabularyMethodMaker,
+            String serviceUrl) {
+        super(httpServiceCaller, vocabularyMethodMaker, serviceUrl);
    
     }
 
@@ -39,7 +30,7 @@ public class MineStatusVocabService extends SISSVoc3Service {
         int pageSize = this.getPageSize();
 
         do {
-            HttpRequestBase method = sissVocMethodMaker.getAllConcepts(getBaseUrl(), getRepository(),
+            HttpRequestBase method = vocabularyMethodMaker.getAllConcepts(getServiceUrl(),
                     Format.Rdf, View.description, pageSize, pageNumber);
             if (requestPageOfConcepts(method, model)) {
                 pageNumber++;
