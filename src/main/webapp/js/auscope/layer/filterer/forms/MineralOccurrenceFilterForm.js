@@ -42,22 +42,6 @@ Ext.define('auscope.layer.filterer.forms.MineralOccurrenceFilterForm', {
             data : adminAreasList
         });
 
-        var commodityStore = Ext.create('Ext.data.Store', {
-            fields : ['urn', 'label'],
-            proxy : {
-                type : 'ajax',
-                url : 'getAllCommodities.do',
-                reader : {
-                    type : 'array',
-                    rootProperty : 'data'
-                }
-            },
-            sorters : [{
-                property : 'label',
-                direction : 'ASC'
-            }]
-        });
-
         Ext.apply(config, {
             delayedFormLoading: true, //we won't be ready until our commodity store is loaded - therefore we have to fire formloaded when ready
             border: false,
@@ -79,30 +63,14 @@ Ext.define('auscope.layer.filterer.forms.MineralOccurrenceFilterForm', {
                     xtype: 'textfield',
                     anchor: '100%',
                     itemId: 'name-field',
-                    labelAlign: 'right',
                     fieldLabel: '<span data-qtip="Wildcards: \'!\' escape character; \'*\' zero or more, \'#\' just one character.">' + 'Name',
                     name: 'name'
-                },{
-                    xtype : 'combo',
-                    anchor: '100%',
-                    name: 'commodityName',
-                    fieldLabel: '<span data-qtip="Please select a commodity from the Commodity Vocabulary. Powered by SISSVoc">' + 'Commodity' + '</span>',
-                    labelAlign: 'right',
-                    forceSelection: false,
-                    queryMode: 'local',
-                    store: commodityStore,
-                    triggerAction: 'all',
-                    typeAhead: true,
-                    typeAheadDelay: 500,
-                    displayField:'label',   /* change tpl field to this value as well! */
-                    valueField:'urn'
                 },{
                     xtype: 'combo',
                     anchor: '100%',
                     itemId: 'serviceFilter-field',
                     fieldLabel: 'Provider',
                     name: 'serviceFilter',
-                    labelAlign: 'right',
                     typeAhead: true,
                     triggerAction: 'all',
                     lazyRender:true,
@@ -119,13 +87,6 @@ Ext.define('auscope.layer.filterer.forms.MineralOccurrenceFilterForm', {
 
         //load our commodity store
         var callingInstance = this;
-        commodityStore.load( {
-            callback : function() {
-                //It's very important that once all of our stores are loaded we fire the formloaded event
-                //because we are setting the delayedFormLoading parameter to true in our constructor
-                callingInstance.setIsFormLoaded(true);
-                callingInstance.fireEvent('formloaded');
-            }
-        });
+
     }
 });
