@@ -68,14 +68,14 @@ Ext.define('ga.widgets.GASearchResultsPanel', {
                         var hasDownloadableData = false;
 
                         var onlineResources = record.data.onlineResources;
-                        if (onlineResources && onlineResources.length > 0 && onlineResources[0]) hasDownloadableData = true;
-                        
+
                         for (var i = 0; i < onlineResources.length; i++) {
                             var type = onlineResources[i].get('type');
                             if (type == portal.csw.OnlineResource.WMS) {
                                 hasWMSResource = true;
-                                break;
-                            }                                          
+                            } else if (type == portal.csw.OnlineResource.UNSUPPORTED || type == portal.csw.OnlineResource.WWW || type == portal.csw.OnlineResource.FTP) {
+                                hasDownloadableData = true;
+                            }
                         };
                         var uris = record.get('datasetURIs');
                         if (uris && uris.length > 0 && uris[0]) hasDownloadableData = true;
@@ -254,25 +254,28 @@ Ext.define('ga.widgets.GASearchResultsPanel', {
     
 
     displayFileDownloadWindow : function(record){
-        //var links = [];
 
-        /**
-         * MS Not sure the below is ever used
-         *
+
+        var links = [];
+
         var uris = record.get('datasetURIs');
         if (uris && uris.length > 0) {
             uris.forEach(function(item){
-               links.push(item);
-            });            
-        } 
-        */
+                links.push(item);
+            });
+        }
+        var link_ids = [];
 
-        var html;
+        var html = '';
+
+        links.forEach(function(link) {
+            var link_id = 'catalog-download-'+record.get('id').replace(/\./g,'-');
+            link_ids.push(link_id)
+            html += '<li><a target="_blank" id="'+ link_id +'" href="' + link + '">' + link + '</a></li>';
+        });
 
         var onlineResources = record.data.onlineResources;
         if (onlineResources && onlineResources.length > 0) {
-            html = '<ul>';
-            var link_ids = [];
             onlineResources.forEach(function(onlineResource){
                 var type = onlineResource.get('type');
                 // Show only file downloads
@@ -281,7 +284,7 @@ Ext.define('ga.widgets.GASearchResultsPanel', {
                     var name = onlineResource.get('name');
                     var description  = onlineResource.get('description');
 
-                    var text = this._generateDownloadName(name, description);
+                    var text = this._generateDownloadName(name, description, link);
 
                     if (link.indexOf('file:/') < 0) {
                         var link_id = 'catalog-download-'+onlineResource.get('id').replace(/\./g,'-');
@@ -290,10 +293,9 @@ Ext.define('ga.widgets.GASearchResultsPanel', {
                     }
                 }
             }, this);
-            html += '</ul>';
         }
 
-
+        html = '<ul>' + html + '</ul>';
 
         Ext.create('Ext.window.Window', {
             title: 'File Downloads',           
@@ -303,11 +305,13 @@ Ext.define('ga.widgets.GASearchResultsPanel', {
             html: html,
             listeners: {
                 render: function(view) {
-                    link_ids.forEach( function(link_id) {
-                        Ext.get(link_id).on('click', function() {
-                            portal.util.GoogleAnalytic.trackevent('CatalogDownload',  record.data.name, record.data.id, this.dom.href);
-                        })
-                    })
+                    if (link_ids) {
+                        link_ids.forEach(function (link_id) {
+                            Ext.get(link_id).on('click', function () {
+                                portal.util.GoogleAnalytic.trackevent('CatalogDownload', record.data.name, record.data.id, this.dom.href);
+                            })
+                        });
+                    }
                 }
             }
         }).show();
@@ -327,7 +331,10 @@ Ext.define('ga.widgets.GASearchResultsPanel', {
         }).show();        
     },
 
-    _generateDownloadName : function(name, description) {
+    _generateDownloadName : function(name, description, url) {
+        if (!name) {
+            return url;
+        }
         var FILE_PARTIAL = 'File download';
         var RELATED_PARTIAL = 'Related';
 
