@@ -92,7 +92,6 @@ Ext.define('auscope.layer.filterer.forms.CommodityResourceViewFilterForm', {
                     xtype: 'textfield',
                     anchor: '100%',
                     itemId: 'name-field',
-                    labelAlign: 'right',
                     fieldLabel: '<span data-qtip="Wildcards: \'!\' escape character; \'*\' zero or more, \'#\' just one character.">' + 'Name',
                     name: 'name'
                 },{
@@ -100,7 +99,6 @@ Ext.define('auscope.layer.filterer.forms.CommodityResourceViewFilterForm', {
                     anchor: '100%',
                     name: 'commodityUri',
                     fieldLabel: '<span data-qtip="Please select a commodity from the Commodity Vocabulary. Powered by SISSVoc">' + 'Commodity' + '</span>',
-                    labelAlign: 'right',
                     forceSelection: false,
                     queryMode: 'local',
                     store: commodityStore,
@@ -114,7 +112,6 @@ Ext.define('auscope.layer.filterer.forms.CommodityResourceViewFilterForm', {
                     anchor: '100%',
                     name: 'jorcCategoryUri',
                     fieldLabel: '<span data-qtip="Please select a commodity from the Commodity Vocabulary. Powered by SISSVoc">' + 'JORC Category' + '</span>',
-                    labelAlign: 'right',
                     forceSelection: false,
                     queryMode: 'local',
                     store: jorcCategoryStore,
@@ -130,7 +127,6 @@ Ext.define('auscope.layer.filterer.forms.CommodityResourceViewFilterForm', {
                     itemId: 'serviceFilter-field',
                     fieldLabel: 'Provider',
                     name: 'serviceFilter',
-                    labelAlign: 'right',
                     typeAhead: true,
                     triggerAction: 'all',
                     lazyRender:true,

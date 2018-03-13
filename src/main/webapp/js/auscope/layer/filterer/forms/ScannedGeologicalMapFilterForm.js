@@ -32,7 +32,6 @@ Ext.define('auscope.layer.filterer.forms.ScannedGeologicalMapFilterForm', {
               anchor: '100%',
               name: 'mapName',
               fieldLabel: 'Map Name',
-              labelAlign: 'right',
               forceSelection: false,
               queryMode: 'local',
               store: areaMapStore,
