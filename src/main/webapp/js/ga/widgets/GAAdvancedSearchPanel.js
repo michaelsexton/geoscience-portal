@@ -651,7 +651,7 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
         }
     },
 
-    _getTabPanels : function(params,cswServiceId) {
+    _getTabPanels : function(params, cswServiceId) {
         var me = this;
 
         //Convert our keys/values into a form the controller can read
@@ -660,6 +660,12 @@ Ext.define('ga.widgets.GAAdvancedSearchPanel', {
         var customRegistries=[];
 
         var additionalParams = params;
+
+        // Geoscience Australia's eCat does not accept authorSurname as a parameter
+        if (cswServiceId != null && cswServiceId === 'cswGARegistry') {
+            additionalParams["anyText"] = additionalParams["authorSurname"];
+            delete additionalParams["authorSurname"];
+        }
 
         //Utility function
         var denormaliseKvp = function(keyList, valueList, kvpObj) {
