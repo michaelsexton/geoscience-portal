@@ -11,7 +11,7 @@
                 <constructor-arg name="featureTypeName" value="erl:MineView" />
             </bean>
         </constructor-arg>
-        <property name="name" value="Mines (New)" />
+        <property name="name" value="Mines (new version)" />
         <property name="description"
                   value="A collection of services that implement the AuScope EarthResourceML v1 Profile for mo:MinOccView" />
         <property name="group" value="Mines and Mining Activity" />
@@ -65,7 +65,7 @@
                 </property>
             </bean>
         </constructor-arg>
-        <property name="name" value="Mines (Deprecated)" />
+        <property name="name" value="Mines (old version)" />
         <property name="description"
             value="A collection of services that implement the AuScope EarthResourceML v1 Profile for er:Mine" />
         <property name="group" value="Mines and Mining Activity" />
@@ -108,7 +108,7 @@
                     value="erl:MineralOccurrenceView" />
             </bean>
         </constructor-arg>
-        <property name="name" value="Mineral Occurrences" />
+        <property name="name" value="Mineral Occurrences (new version)" />
         <property name="description"
             value="A collection of services that implement the AuScope EarthResourceML v1 Profile for mo:MinOccView" />
         <property name="group" value="Mineral Occurrences and Resources" />
@@ -157,25 +157,46 @@
             </bean>
         </property>
     </bean>
-    <bean id="knownTypeCommodityResourceView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-        <constructor-arg name="id"
-            value="erl-commodity-resource-view" />
+
+    <bean id="knownTypeMinOccView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
+        <constructor-arg name="id" value="mineral-occ-view" />
         <constructor-arg name="knownLayerSelector">
             <bean class="org.auscope.portal.core.view.knownlayer.WFSSelector">
                 <constructor-arg name="featureTypeName"
-                    value="erl:CommodityResourceView" />
+                    value="mo:MinOccView" />
+            </bean>
+        </constructor-arg>
+        <property name="name" value="Mineral Occurrences (old version)" />
+        <property name="description"
+            value="A collection of services that implement the AuScope EarthResourceML v1 Profile for mo:MinOccView" />
+        <property name="group" value="Mineral Occurrences and Resources" />
+        <property name="proxyUrl" value="" />
+        <property name="proxyCountUrl" value="minOccViewFilterCount.do" />
+        <property name="proxyStyleUrl" value="doMinOccurViewFilterStyle.do" />
+        <property name="proxyDownloadUrl" value="downloadMinOccurView.do" />
+        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/mineral_occurrences.jpg" />
+        <property name="order"
+            value="02_Mineral Occurrences and Resources_010" />
+    </bean>
+    <bean id="knownTypeCommodityResourceView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
+        <constructor-arg name="id"
+                         value="erl-commodity-resource-view" />
+        <constructor-arg name="knownLayerSelector">
+            <bean class="org.auscope.portal.core.view.knownlayer.WFSSelector">
+                <constructor-arg name="featureTypeName"
+                                 value="erl:CommodityResourceView" />
             </bean>
         </constructor-arg>
         <property name="name" value="Commodities, Reserves and Resources" />
         <property name="description"
-            value="A collection of services that implement the AuScope EarthResourceML v1 Profile for mo:MinOccView" />
+                  value="A collection of services that implement the AuScope EarthResourceML v1 Profile for mo:MinOccView" />
         <property name="group" value="Mineral Occurrences and Resources" />
         <property name="proxyUrl" value="" />
         <property name="proxyCountUrl" value="commodityResourceViewFilterCount.do" />
         <property name="proxyStyleUrl" value="commodityResourceViewFilterStyle.do" />
         <property name="proxyDownloadUrl" value="commodityResourceViewDownload.do" />
         <property name="order"
-            value="02_Mineral Occurrences and Resources_010" />
+                  value="02_Mineral Occurrences and Resources_020" />
         <property name="filterCollection">
             <bean class="org.auscope.portal.core.uifilter.FilterCollection">
                 <property name="optionalFilters">
@@ -214,26 +235,6 @@
                 </property>
             </bean>
         </property>
-    </bean>
-    <bean id="knownTypeMinOccView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
-        <constructor-arg name="id" value="mineral-occ-view" />
-        <constructor-arg name="knownLayerSelector">
-            <bean class="org.auscope.portal.core.view.knownlayer.WFSSelector">
-                <constructor-arg name="featureTypeName"
-                    value="mo:MinOccView" />
-            </bean>
-        </constructor-arg>
-        <property name="name" value="Mineral Occurrences (Deprecated)" />
-        <property name="description"
-            value="A collection of services that implement the AuScope EarthResourceML v1 Profile for mo:MinOccView" />
-        <property name="group" value="Mineral Occurrences and Resources" />
-        <property name="proxyUrl" value="" />
-        <property name="proxyCountUrl" value="minOccViewFilterCount.do" />
-        <property name="proxyStyleUrl" value="doMinOccurViewFilterStyle.do" />
-        <property name="proxyDownloadUrl" value="downloadMinOccurView.do" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/mineral_occurrences.jpg" />
-        <property name="order"
-            value="02_Mineral Occurrences and Resources_020" />
     </bean>
     <bean id="knownTypeNVCLBoreholes" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="nvcl-borehole" />
