@@ -37,7 +37,13 @@
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format> 
         <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
-    <build>    
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <extensions>
             <extension>
                 <groupId>org.springframework.build</groupId>
@@ -99,6 +105,13 @@
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.6</version>
+                <configuration>
+                    <delimiters>
+                        <delimiter>@</delimiter>
+
+                    </delimiters>
+                    <!--<useDefaultDelimiters>false</useDefaultDelimiters>-->
+                </configuration>
                 <executions>
                     <execution>
                         <id>copy-user-guide</id>
@@ -192,7 +205,7 @@
     
         </plugins>
     </build>
-    
+
     <profiles>
         <profile>
             <id>development</id>
