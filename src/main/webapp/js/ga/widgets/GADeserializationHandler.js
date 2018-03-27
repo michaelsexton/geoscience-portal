@@ -16,7 +16,7 @@ Ext.define('ga.widgets.GADeserializationHandler', {
                 msg: '<b><h1 style="margin:0em;">Please wait...</h2></b><br>' +
                      '<p style="font-size:140%;margin:0em;">Restoring <b>Featured Layers</b> to your map</p><br>' +
                      '<p style="font-size:140%;margin:0em;">Custom Layers will not be reloaded</p>' +
-                     '<p style="font-size:140%;">Click "CLEAR MAP" to start with an empty map</p>'
+                     '<p style="font-size:140%;">If certain functions of the portal are not working, please refresh your cache</p>'
             });
 
             setTimeout(function(){
