@@ -4,69 +4,53 @@
     xmlns:gml="http://www.opengis.net/gml" xmlns:gsml="urn:cgi:xmlns:CGI:GeoSciML:2.0"
     xmlns:ngcp="http://www.auscope.org/ngcp" xmlns:sa="http://www.opengis.net/sampling/1.0"
     xmlns:wfs="http://www.opengis.net/wfs" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:mt="http://xmlns.geoscience.gov.au/mineraltenementml/1.0"
+    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:mt="WFS"
     exclude-result-prefixes="er geodesy gml gsml mt ngcp sa wfs xsl xlink">
     <xsl:output method="text" encoding="utf-8"/>
+
     <xsl:strip-space elements="*"/>
 
-    <xsl:variable name="CRLF">
-        <xsl:text>&#13;&#10;</xsl:text>
-    </xsl:variable>
-    <xsl:variable name="CR">
-        <xsl:text>&#13;</xsl:text>
-    </xsl:variable>
-    <xsl:variable name="LF">
+    <xsl:template match="wfs:FeatureCollection">
+        <xsl:text>mt:ObjectID,mt:identifier,mt:name,mt:tenementType,mt:commodity,mt:owner,mt:status,mt:applicationDate,mt:grantDate,mt:expireDate,mt:fileID,mt:tenementType_uri,mt:status_uri,mt:jurisdiction_uri,mt:shape</xsl:text>
         <xsl:text>&#10;</xsl:text>
-    </xsl:variable>
-    <xsl:variable name="apos">'</xsl:variable>
-
-    <xsl:template match="/wfs:FeatureCollection/gml:boundedBy"></xsl:template>
-
-    <xsl:template match="/wfs:FeatureCollection/gml:featureMember">
-        <xsl:for-each select="mt:MineralTenement[1]/*">
-            <xsl:value-of select="name()"/>
-            <xsl:if test="position() != last()">,</xsl:if>
-        </xsl:for-each>
-        <xsl:value-of select="$LF"/>
         <xsl:apply-templates/>
     </xsl:template>
 
-    <xsl:template match="mt:MineralTenement">
-        <xsl:apply-templates/>
-        <xsl:value-of select="$LF"/>
-    </xsl:template>
+    <xsl:template match="gml:boundedBy"/>
+    <xsl:template match="gml:featureMember/mt:MineralTenement">
 
-    <xsl:template match="mt:MineralTenement/*">
-        <xsl:choose>
-            <xsl:when
-                test="contains(text(), ',') or contains(text(), $apos) or contains(text(), $CRLF) or contains(text(), $CR) or contains(text(), $LF)">
-                <xsl:text>&quot;</xsl:text>
-                <xsl:call-template name="doublequotes">
-                    <xsl:with-param name="text" select="text()"/>
-                </xsl:call-template>
-                <xsl:text>&quot;</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="."/>
-            </xsl:otherwise>
-        </xsl:choose>
-        <xsl:if test="position() != last()">,</xsl:if>
-    </xsl:template>
+        <xsl:text>"</xsl:text>
+        <xsl:value-of select="mt:ObjectID"/>
+        <xsl:text>","</xsl:text>
+        <xsl:value-of select="mt:identifier"/>
+        <xsl:text>","</xsl:text>
+        <xsl:value-of select="mt:name"/>
+        <xsl:text>","</xsl:text>
+        <xsl:value-of select="mt:tenementType"/>
+        <xsl:text>","</xsl:text>
+        <xsl:value-of select="mt:commodity"/>
+        <xsl:text>","</xsl:text>
+        <xsl:value-of select="mt:owner"/>
+        <xsl:text>","</xsl:text>
+        <xsl:value-of select="mt:status"/>
+        <xsl:text>","</xsl:text>
+        <xsl:value-of select="mt:applicationDate"/>
+        <xsl:text>","</xsl:text>
+        <xsl:value-of select="mt:grantDate"/>
+        <xsl:text>","</xsl:text>
+        <xsl:value-of select="mt:expireDate"/>
+        <xsl:text>","</xsl:text>
+        <xsl:value-of select="mt:fileID"/>
+        <xsl:text>","</xsl:text>
+        <xsl:value-of select="mt:tenementType_uri"/>
+        <xsl:text>","</xsl:text>
+        <xsl:value-of select="mt:status_uri"/>
+        <xsl:text>","</xsl:text>
+        <xsl:value-of select="mt:jurisdiction_uri"/>
+        <xsl:text>"</xsl:text>
+        
+        <xsl:text>&#10;</xsl:text>
 
-    <xsl:template name="doublequotes">
-        <xsl:param name="text"/>
-        <xsl:choose>
-            <xsl:when test="contains($text, '&quot;')">
-                <!-- recursive call -->
-                <xsl:value-of select="concat(substring-before($text, '&quot;'), '&quot;&quot;')"/>
-                <xsl:call-template name="doublequotes">
-                    <xsl:with-param name="text" select="substring-after($text, '&quot;')"/>
-                </xsl:call-template>
-            </xsl:when>
-            <xsl:otherwise>
-                <xsl:value-of select="$text"/>
-            </xsl:otherwise>
-        </xsl:choose>
+
     </xsl:template>
 </xsl:stylesheet>
