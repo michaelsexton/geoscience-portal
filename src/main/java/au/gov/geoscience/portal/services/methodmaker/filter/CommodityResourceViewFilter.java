@@ -2,20 +2,27 @@ package au.gov.geoscience.portal.services.methodmaker.filter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.auscope.portal.core.services.methodmakers.filter.AbstractFilter;
 import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
 
 import au.gov.geoscience.portal.services.vocabularies.VocabularyLookup;
 
+/**
+ *
+ */
 public class CommodityResourceViewFilter extends AbstractFilter {
 
     List<String> fragments;
 
+    /**
+     * @param mineralOccurrenceName
+     * @param commodityUri
+     * @param jorcCategoryUri
+     */
     public CommodityResourceViewFilter(String mineralOccurrenceName, String commodityUri, String jorcCategoryUri) {
 
-        String propertyIsNull;
-        String notNull;
 
         fragments = new ArrayList<String>();
 
@@ -27,6 +34,35 @@ public class CommodityResourceViewFilter extends AbstractFilter {
         if (commodityUri != null && !commodityUri.isEmpty()) {
             fragments.add(this.generatePropertyIsEqualToFragment("erl:commodityClassifier_uri", commodityUri));
         }
+
+        generateJorcFragments(jorcCategoryUri);
+
+    }
+
+    /**
+     * @param name
+     * @param commodityUris
+     * @param jorcCategoryUri
+     */
+    public CommodityResourceViewFilter(String name, Set<String> commodityUris, String jorcCategoryUri) {
+        fragments = new ArrayList<String>();
+        if (commodityUris != null && !commodityUris.isEmpty()) {
+            List<String> localFragments = new ArrayList<String>();
+            for (String commodityUri : commodityUris) {
+                localFragments.add(this.generatePropertyIsEqualToFragment("erl:commodityClassifier_uri", commodityUri));
+            }
+            fragments.add(this.generateOrComparisonFragment(localFragments.toArray(new String[localFragments.size()])));
+        }
+
+        generateJorcFragments(jorcCategoryUri);
+    }
+
+    /**
+     * @param jorcCategoryUri
+     */
+    private void generateJorcFragments(String jorcCategoryUri) {
+        String propertyIsNull;
+        String notNull;
 
         if (jorcCategoryUri != null && !jorcCategoryUri.isEmpty()) {
             if (jorcCategoryUri.startsWith(VocabularyLookup.RESERVE_CATEGORY.uri())) {

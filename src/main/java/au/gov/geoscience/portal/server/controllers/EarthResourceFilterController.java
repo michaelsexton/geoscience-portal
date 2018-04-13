@@ -1,10 +1,6 @@
 package au.gov.geoscience.portal.server.controllers;
 
-import java.io.ByteArrayInputStream;
-import java.io.OutputStream;
-
-import javax.servlet.http.HttpServletResponse;
-
+import au.gov.geoscience.portal.services.EarthResourceService;
 import org.auscope.portal.core.server.OgcServiceProviderType;
 import org.auscope.portal.core.server.controllers.BasePortalController;
 import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
@@ -16,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import au.gov.geoscience.portal.services.EarthResourceService;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.io.OutputStream;
 
 @Controller
 public class EarthResourceFilterController extends BasePortalController {
@@ -29,11 +27,11 @@ public class EarthResourceFilterController extends BasePortalController {
     }
 
     /**
-     * @param response
-     * @param mineName
-     * @param status
-     * @param bboxJson
-     * @param maxFeatures
+     * @param response Response to return
+     * @param mineName Name of the mine
+     * @param status Status of the mine
+     * @param bboxJson Bounding box of the query
+     * @param maxFeatures Maximum number of features to return
      * @throws Exception
      */
     @RequestMapping("mineFilterStyle.do")
@@ -61,7 +59,15 @@ public class EarthResourceFilterController extends BasePortalController {
         styleStream.close();
         outputStream.close();
     }
-    
+
+    /**
+     * @param serviceUrl
+     * @param mineName
+     * @param status
+     * @param bboxJson
+     * @param maxFeatures
+     * @return
+     */
     @RequestMapping("/mineFilterCount.do")
     public ModelAndView mineFilterCount(
             @RequestParam("serviceUrl") String serviceUrl,
@@ -88,12 +94,13 @@ public class EarthResourceFilterController extends BasePortalController {
     /**
      * Handles the styling for EarthResourceML Lite MineralOccurrenceView
      * feature types
-     * 
-     * @param name
-     * @param commodityUri
-     * @param
-     * @param bbox
-     * @param maxFeatures
+     *
+     * @param response Response to return
+     * @param name Name of the mine to query
+     * @param commodityUri Commodity URI term
+     * @param timescaleUri Timescale URI term
+     * @param bboxJson Bounding box of the query
+     * @param maxFeatures Maximum number of features to return
      *
      * @throws Exception
      */
@@ -130,7 +137,7 @@ public class EarthResourceFilterController extends BasePortalController {
      * @param name
      * @param commodityUri
      * @param timescaleUri
-     * @param bboxJson
+     * @param bboxJson Bounding box of the query
      * @param maxFeatures
      * @return
      */
@@ -157,6 +164,14 @@ public class EarthResourceFilterController extends BasePortalController {
 
     }
 
+    /**
+     * @param response
+     * @param name
+     * @param statusUri
+     * @param bboxJson
+     * @param maxFeatures
+     * @throws Exception
+     */
     @RequestMapping("/mineViewFilterStyle.do")
     public void mineViewFilterStyle(HttpServletResponse response,
             @RequestParam(required = false, value = "name") String name,
@@ -182,6 +197,14 @@ public class EarthResourceFilterController extends BasePortalController {
         outputStream.close();
     }
 
+    /**
+     * @param serviceUrl
+     * @param name
+     * @param statusUri
+     * @param bboxJson
+     * @param maxFeatures
+     * @return
+     */
     @RequestMapping("/mineViewFilterCount.do")
     public ModelAndView mineViewFilterCount(@RequestParam("serviceUrl") String serviceUrl,
             @RequestParam(required = false, value = "name") String name,
@@ -208,10 +231,9 @@ public class EarthResourceFilterController extends BasePortalController {
      * Handles the styling for EarthResourceML Lite CommodityResourceView
      * feature types
      * 
-     * @param name
-     * @param commodityUri
-     * @param bbox
-     * @param maxFeatures
+     * @param name Name of the mineral occurrence to query
+     * @param commodityUri Commodity URI from the vocabulary
+     * @param maxFeatures Maximum number of features
      *
      * @throws Exception
      */
@@ -242,8 +264,17 @@ public class EarthResourceFilterController extends BasePortalController {
         styleStream.close();
         outputStream.close();
     }
-    
-    
+
+
+    /**
+     * @param serviceUrl
+     * @param name
+     * @param commodityUri
+     * @param jorcCategoryUri
+     * @param bboxJson
+     * @param maxFeatures
+     * @return
+     */
     @RequestMapping("/commodityResourceViewFilterCount.do")
     public ModelAndView commodityResourceViewFilterCount(@RequestParam("serviceUrl") String serviceUrl,
             @RequestParam(required = false, value = "name") String name,

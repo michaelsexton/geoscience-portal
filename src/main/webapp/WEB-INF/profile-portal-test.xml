@@ -172,6 +172,9 @@
                 <ref bean="vocabularyMineStatuses" />
                 <ref bean="vocabularyReserveCategories" />
                 <ref bean="vocabularyResourceCategories" />
+                <ref bean="vocabularyTenementType" />
+                <ref bean="vocabularyTenementStatus" />
+                <ref bean="vocabularyMineralOccurrenceTypes" />
             </list>
         </constructor-arg>
     </bean>
