@@ -185,18 +185,18 @@ public class MineralTenementController extends BasePortalController {
      *
      * @param serviceUrl
      * @param name
-     * @param tenementType
+     * @param tenementTypeUri
      * @param owner
-     * @param status
+     * @param statusUri
      * @throws Exception
      */
     @RequestMapping("/getMineralTenementStyle.do")
-    public void doMineFilterStyle(
+    public void getMineralTenementStyle(
             @RequestParam(required = false, value = "serviceUrl") String serviceUrl,
             @RequestParam(required = false, value = "name") String name,
-            @RequestParam(required = false, value = "tenementType") String tenementType,
+            @RequestParam(required = false, value = "tenementTypeUri") String tenementTypeUri,
             @RequestParam(required = false, value = "owner") String owner,
-            @RequestParam(required = false, value = "size") String size,
+            @RequestParam(required = false, value = "tenementStatusUri") String tenementStatusUri,
             @RequestParam(required = false, value = "endDate") String endDate,
             HttpServletResponse response) throws Exception {
 
@@ -205,8 +205,8 @@ public class MineralTenementController extends BasePortalController {
         
         MineralTenementServiceProviderType mineralTenementServiceProviderType = MineralTenementServiceProviderType.parseUrl(serviceUrl);
         
-        String filter = this.mineralTenementService.getMineralTenementFilter(name, tenementType, owner, size, endDate,
-                bbox, mineralTenementServiceProviderType); // VT:get filter from service
+        String filter = this.mineralTenementService.getMineralTenementFilter(name, tenementTypeUri, owner, tenementStatusUri, endDate,
+                bbox, mineralTenementServiceProviderType);
 
         String style = this.getPolygonStyle(filter, mineralTenementServiceProviderType.featureType() , mineralTenementServiceProviderType.fillColour(), mineralTenementServiceProviderType.borderColour());
 

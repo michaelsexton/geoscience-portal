@@ -1,23 +1,26 @@
 package org.auscope.portal.server.web.service;
 
-import java.net.URISyntaxException;
-
-import javax.naming.OperationNotSupportedException;
-
+import au.gov.geoscience.portal.server.controllers.VocabularyController;
+import au.gov.geoscience.portal.services.methodmaker.filter.MineralTenementFilter;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.auscope.portal.core.server.http.HttpServiceCaller;
 import org.auscope.portal.core.services.BaseWFSService;
 import org.auscope.portal.core.services.PortalServiceException;
+import org.auscope.portal.core.services.VocabularyFilterService;
 import org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker;
 import org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker.ResultType;
 import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
 import org.auscope.portal.core.services.methodmakers.filter.IFilter;
 import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
 import org.auscope.portal.core.services.responses.wfs.WFSResponse;
-import org.auscope.portal.mineraloccurrence.MineralTenementFilter;
 import org.auscope.portal.server.MineralTenementServiceProviderType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.naming.OperationNotSupportedException;
+import java.net.URISyntaxException;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Manages mineral tenement queries
@@ -29,42 +32,46 @@ import org.springframework.stereotype.Service;
 public class MineralTenementService extends BaseWFSService {
 
 
+	private final VocabularyFilterService vocabularyFilterService;
+
 	@Autowired
-	public MineralTenementService(HttpServiceCaller httpServiceCaller, WFSGetFeatureMethodMaker methodMaker) {
+	public MineralTenementService(HttpServiceCaller httpServiceCaller, WFSGetFeatureMethodMaker methodMaker, VocabularyFilterService vocabularyFilterService) {
 		super(httpServiceCaller, methodMaker);
+		this.vocabularyFilterService = vocabularyFilterService;
 
 	}
 
-	/**
-	 * Utility for turning a filter and optional bounding box into a OGC filter
-	 * string
-	 * 
-	 * @param filter
-	 *            The filter
-	 * @param bbox
-	 *            [Optional] the spatial bounds to constrain the result set
-	 * @return
-	 */
-	public static String generateFilterString(IFilter filter, FilterBoundingBox bbox) {
-		String filterString = null;
-		if (bbox == null) {
-			filterString = filter.getFilterStringAllRecords();
-		} else {
-			filterString = filter.getFilterStringBoundingBox(bbox);
-		}
-
-		return filterString;
-	}
-
-	public String getMineralTenementFilter(String name, String tenementType, String owner, String size, String endDate,
+    /**
+     * @param name
+     * @param typeUri
+     * @param owner
+     * @param statusUri
+     * @param endDate
+     * @param bbox
+     * @param mineralTenementServiceProviderType
+     * @return
+     * @throws Exception
+     */
+	public String getMineralTenementFilter(String name, String typeUri, String owner, String statusUri, String endDate,
 			FilterBoundingBox bbox, MineralTenementServiceProviderType mineralTenementServiceProviderType) throws Exception {
-		MineralTenementFilter filter = new MineralTenementFilter(name, tenementType, owner, size, endDate, mineralTenementServiceProviderType);
+
+	    Set<String> typeUris = new HashSet<>();
+
+	    if (typeUri != null && !typeUri.isEmpty()) {
+	        typeUris = this.vocabularyFilterService.getAllNarrower(VocabularyController.TENEMENT_TYPE_VOCABULARY_ID, typeUri);
+        }
+
+        Set<String> statusUris = new HashSet<>();
+        if (statusUri != null && !statusUri.isEmpty()) {
+            statusUris = this.vocabularyFilterService.getAllNarrower(VocabularyController.TENEMENT_STATUS_VOCABULARY_ID, statusUri);
+        }
+		MineralTenementFilter filter = new MineralTenementFilter(name, owner, statusUris, typeUris, mineralTenementServiceProviderType);
 		return generateFilterString(filter, bbox);
 	}
 
-	public String getMineralTenementWithStyling(String name, String tenementType, String owner, String size,
+	public String getMineralTenementWithStyling(String name, String tenementTypeUri, String owner, String statusUri,
 			String endDate) throws Exception {
-		MineralTenementFilter filter = new MineralTenementFilter(name, tenementType, owner, size, endDate, MineralTenementServiceProviderType.GeoServer);
+		MineralTenementFilter filter = new MineralTenementFilter(name, tenementTypeUri, owner, statusUri, endDate, MineralTenementServiceProviderType.GeoServer);
 		return generateAdditionalStyleFilter(filter);
 	}
 
@@ -128,5 +135,26 @@ public class MineralTenementService extends BaseWFSService {
 		return getWfsFeatureCount(method);
 
 	}
+
+    /**
+     * Utility for turning a filter and optional bounding box into a OGC filter
+     * string
+     *
+     * @param filter
+     *            The filter
+     * @param bbox
+     *            [Optional] the spatial bounds to constrain the result set
+     * @return
+     */
+    public static String generateFilterString(IFilter filter, FilterBoundingBox bbox) {
+        String filterString = null;
+        if (bbox == null) {
+            filterString = filter.getFilterStringAllRecords();
+        } else {
+            filterString = filter.getFilterStringBoundingBox(bbox);
+        }
+
+        return filterString;
+    }
 
 }

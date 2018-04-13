@@ -1,17 +1,17 @@
 package au.gov.geoscience.portal.server.controllers;
 
-import java.io.StringWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import javax.inject.Inject;
-
+import au.gov.geoscience.portal.services.vocabularies.VocabularyLookup;
+import com.hp.hpl.jena.rdf.model.*;
+import com.hp.hpl.jena.vocabulary.DCTerms;
+import com.hp.hpl.jena.vocabulary.RDF;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONSerializer;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.auscope.portal.core.server.controllers.BasePortalController;
-import org.auscope.portal.core.services.VocabularyCacheService;
+import org.auscope.portal.core.services.VocabularyFilterService;
 import org.auscope.portal.server.web.service.NvclVocabService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -22,32 +22,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import au.gov.geoscience.portal.services.vocabularies.CommodityVocabService;
-import au.gov.geoscience.portal.services.vocabularies.GeologicTimescaleVocabService;
-import au.gov.geoscience.portal.services.vocabularies.MineStatusVocabService;
-import au.gov.geoscience.portal.services.vocabularies.ReserveCategoryVocabService;
-import au.gov.geoscience.portal.services.vocabularies.ResourceCategoryVocabService;
-import au.gov.geoscience.portal.services.vocabularies.VocabularyLookup;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONSerializer;
+import javax.inject.Inject;
+import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Controller that enables access to vocabulary services.
  */
 @Controller
 public class VocabularyController extends BasePortalController {
-	public static final String TIMESCALE_VOCABULARY_ID = "vocabularyGeologicTimescales";
-	public static final String COMMODITY_VOCABULARY_ID = "vocabularyCommodities";
-	public static final String MINE_STATUS_VOCABULARY_ID = "vocabularyMineStatuses";
-	public static final String RESOURCE_VOCABULARY_ID = "vocabularyResourceCategories";
-	public static final String RESERVE_VOCABULARY_ID = "vocabularyReserveCategories";
 
 
-	private final Log log = LogFactory.getLog(getClass());
+
+    public static final String TIMESCALE_VOCABULARY_ID = "vocabularyGeologicTimescales";
+    public static final String COMMODITY_VOCABULARY_ID = "vocabularyCommodities";
+    public static final String MINE_STATUS_VOCABULARY_ID = "vocabularyMineStatuses";
+    public static final String RESOURCE_VOCABULARY_ID = "vocabularyResourceCategories";
+    public static final String RESERVE_VOCABULARY_ID = "vocabularyReserveCategories";
+    public static final String TENEMENT_TYPE_VOCABULARY_ID = "vocabularyTenementType";
+    public static final String TENEMENT_STATUS_VOCABULARY_ID = "vocabularyTenementStatus";
+    public static final String MINERAL_OCCURRENCE_TYPE_VOCABULARY = "vocabularyMineralOccurrenceType";
+
+
+    private final Log log = LogFactory.getLog(getClass());
 
 	private NvclVocabService nvclVocabService;
 
-    private VocabularyCacheService vocabularyCacheService;
+    private VocabularyFilterService vocabularyFilterService;
 
 
     @Inject
@@ -60,11 +63,11 @@ public class VocabularyController extends BasePortalController {
 	 */
 	@Autowired
 	public VocabularyController(NvclVocabService nvclVocabService,
-                                VocabularyCacheService vocabularyCacheService) {
+								VocabularyFilterService vocabularyFilterService) {
 		super();
 		this.nvclVocabService = nvclVocabService;
 
-		this.vocabularyCacheService = vocabularyCacheService;
+		this.vocabularyFilterService = vocabularyFilterService;
 	}
 
 	/**
@@ -116,60 +119,141 @@ public class VocabularyController extends BasePortalController {
 		return map;
 	}
 
+
+    @RequestMapping("getAllMineralOccurrenceTypes.do")
+    public ModelAndView getAllMineralOccurrenceTypes() {
+        Map<String, String> vocabularyMappings = this.vocabularyFilterService.getVocabularyById(MINERAL_OCCURRENCE_TYPE_VOCABULARY);
+
+        return getVocabularyMappings(vocabularyMappings);
+    }
+
 	/**
 	 * Get all GA commodity URNs with prefLabels
 	 *
 	 * @param
 	 */
 	@RequestMapping("getAllCommodities.do")
-	public ModelAndView getAllCommodities() throws Exception {
-		JSONArray dataItems = new JSONArray();
-		Map<String, String> urnLabelMappings = null;
+	public ModelAndView getAllCommodities() {
+        Map<String, String> vocabularyMappings = this.vocabularyFilterService.getVocabularyById(COMMODITY_VOCABULARY_ID);
 
-		// Attempt to request and parse our response
-		try {
-			urnLabelMappings = vocabularyCacheService.getVocabularyCacheById(COMMODITY_VOCABULARY_ID);
-		} catch (Exception ex) {
-			// On error, just return failure JSON (and the response string if
-			// any)
-			log.error("Error accessing commodity mappings: " + ex.getMessage());
-			log.debug("Exception: ", ex);
-			return generateJSONResponseMAV(false);
-		}
-
-		// Turn our map of urns -> labels into an array of arrays for the view
-		for (String urn : urnLabelMappings.keySet()) {
-			String label = urnLabelMappings.get(urn);
-
-			JSONArray tableRow = new JSONArray();
-			tableRow.add(urn);
-			tableRow.add(label);
-			dataItems.add(tableRow);
-		}
-
-		return generateJSONResponseMAV(true, dataItems, "");
+        return getVocabularyMappings(vocabularyMappings);
 	}
-	
-	
-	@RequestMapping("getAllMineStatuses.do")
-    public ModelAndView getAllMineStatuses() throws Exception {
-        JSONArray dataItems = new JSONArray();
-        Map<String, String> urnLabelMappings = null;
 
-        // Attempt to request and parse our response
-        try {
-            urnLabelMappings = vocabularyCacheService.getVocabularyCacheById(MINE_STATUS_VOCABULARY_ID);
-        } catch (Exception ex) {
-            // On error, just return failure JSON (and the response string if
-            // any)
-            log.error("Error accessing commodity mappings: " + ex.getMessage());
-            log.debug("Exception: ", ex);
-            return generateJSONResponseMAV(false);
+
+    /**
+     * @return
+     * @throws Exception
+     */
+	@RequestMapping("getAllMineStatuses.do")
+    public ModelAndView getAllMineStatuses() {
+        Map<String, String> vocabularyMappings = this.vocabularyFilterService.getVocabularyById(MINE_STATUS_VOCABULARY_ID);
+
+        return getVocabularyMappings(vocabularyMappings);
+    }
+
+
+
+    /**
+     * @return
+     * @throws Exception
+     */
+	@RequestMapping("getAllJorcCategories.do")
+	public ModelAndView getAllJorcCategories() {
+
+	    Property sourceProperty = DCTerms.source;
+
+	    Selector selector = new SimpleSelector(null, sourceProperty, "CRIRSCO Code; JORC 2004", "en");
+
+
+		Map<String, String> jorcCategoryMappings = new HashMap<String, String>();
+        jorcCategoryMappings.put(VocabularyLookup.RESERVE_CATEGORY.uri(),"any reserves");
+        jorcCategoryMappings.put(VocabularyLookup.RESOURCE_CATEGORY.uri(), "any resources");
+
+        Map<String, String> resourceCategoryMappings = this.vocabularyFilterService.getFilteredVocabularyById(RESOURCE_VOCABULARY_ID, selector);
+        Map<String, String> reserveCategoryMappings = this.vocabularyFilterService.getFilteredVocabularyById(RESERVE_VOCABULARY_ID, selector);
+        jorcCategoryMappings.putAll(resourceCategoryMappings);
+        jorcCategoryMappings.putAll(reserveCategoryMappings);
+
+        return getVocabularyMappings(jorcCategoryMappings);
+
+
+	}
+
+
+    /**
+     * @return
+     */
+	@RequestMapping("getAllTimescales.do")
+	public ModelAndView getAllTimescales() {
+
+        String[] ranks = {"http://resource.geosciml.org/ontology/timescale/gts#Period",
+                        "http://resource.geosciml.org/ontology/timescale/gts#Era",
+                        "http://resource.geosciml.org/ontology/timescale/gts#Eon"};
+
+        Property typeProperty = RDF.type;
+
+        Selector[] selectors = new Selector[ranks.length];
+        for (int i=0; i < ranks.length; i++){
+            selectors[i] = new SimpleSelector(null, typeProperty, ResourceFactory.createResource(ranks[i]));
+        }
+        Map<String, String> vocabularyMappings = this.vocabularyFilterService.getFilteredVocabularyById(TIMESCALE_VOCABULARY_ID, selectors);
+
+        return getVocabularyMappings(vocabularyMappings);
+
+	}
+
+    /**
+     * @return
+     */
+	@RequestMapping("getTenementTypes.do")
+    public ModelAndView getTenementTypes() {
+        String[] topConcepts = {
+                "http://resource.geoscience.gov.au/classifier/ggic/tenementtype/production",
+                "http://resource.geoscience.gov.au/classifier/ggic/tenementtype/exploration"
+        };
+
+        Selector[] selectors = new Selector[topConcepts.length];
+
+        for (int i=0; i < topConcepts.length; i++) {
+            selectors[i] = new SimpleSelector(ResourceFactory.createResource(topConcepts[i]), null, (RDFNode) null);
         }
 
+        Map<String, String> vocabularyMappings = this.vocabularyFilterService.getFilteredVocabularyById(TENEMENT_TYPE_VOCABULARY_ID, selectors);
+
+        return getVocabularyMappings(vocabularyMappings);
+    }
+
+    /**
+     * @return
+     */
+    @RequestMapping("getTenementStatuses.do")
+    public ModelAndView getTenementStatuses() {
+        String[] topConcepts = {
+                "http://resource.geoscience.gov.au/classifier/ggic/tenement-status/granted",
+                "http://resource.geoscience.gov.au/classifier/ggic/tenement-status/application"
+        };
+
+        Selector[] selectors = new Selector[topConcepts.length];
+
+        for (int i=0; i < topConcepts.length; i++) {
+            selectors[i] = new SimpleSelector(ResourceFactory.createResource(topConcepts[i]), null, (RDFNode) null);
+        }
+
+        Map<String, String> vocabularyMappings = this.vocabularyFilterService.getFilteredVocabularyById(TENEMENT_STATUS_VOCABULARY_ID, selectors);
+
+        return getVocabularyMappings(vocabularyMappings);
+    }
+
+    /**
+     * @param vocabularyMappings
+     * @return
+     */
+    private ModelAndView getVocabularyMappings(Map<String, String> vocabularyMappings) {
+        JSONArray dataItems = new JSONArray();
+
         // Turn our map of urns -> labels into an array of arrays for the view
-        for (String urn : urnLabelMappings.keySet()) {
-            String label = urnLabelMappings.get(urn);
+        for (String urn : vocabularyMappings.keySet()) {
+            String label = vocabularyMappings.get(urn);
 
             JSONArray tableRow = new JSONArray();
             tableRow.add(urn);
@@ -179,80 +263,6 @@ public class VocabularyController extends BasePortalController {
 
         return generateJSONResponseMAV(true, dataItems, "");
     }
-	
-
-	@RequestMapping("getAllJorcCategories.do")
-	public ModelAndView getAllJorcCategories() throws Exception {
-		JSONArray dataItems = new JSONArray();
-		Map<String, String> reserveCategoryMappings = null;
-		Map<String, String> resourceCategoryMappings = null;
-		Map<String, String> jorcCategoryMappings = new HashMap<String, String>();
-
-		// Attempt to request and parse our response
-		try {
-			resourceCategoryMappings = vocabularyCacheService.getVocabularyCacheById(RESOURCE_VOCABULARY_ID);
-
-			reserveCategoryMappings = vocabularyCacheService.getVocabularyCacheById(RESERVE_VOCABULARY_ID);
-
-			jorcCategoryMappings.putAll(resourceCategoryMappings);
-			jorcCategoryMappings.putAll(reserveCategoryMappings);
-			
-			jorcCategoryMappings.put(VocabularyLookup.RESERVE_CATEGORY.uri(),"any reserves");
-			jorcCategoryMappings.put(VocabularyLookup.RESOURCE_CATEGORY.uri(), "any resources");
-		} catch (Exception ex) {
-			// On error, just return failure JSON (and the response string if
-			// any)
-			log.error("Error accessing JORC mappings: " + ex.getMessage());
-			log.debug("Exception: ", ex);
-			return generateJSONResponseMAV(false);
-		}
-
-		// Turn our map of urns -> labels into an array of arrays for the view
-		for (String urn : jorcCategoryMappings.keySet()) {
-			String label = jorcCategoryMappings.get(urn);
-
-			JSONArray tableRow = new JSONArray();
-			tableRow.add(urn);
-			tableRow.add(label);
-			dataItems.add(tableRow);
-		}
-
-		return generateJSONResponseMAV(true, dataItems, "");
-
-	}
-	
-	
-	@RequestMapping("getAllTimescales.do")
-	public ModelAndView getAllTimescales() throws Exception {
-		JSONArray dataItems = new JSONArray();
-
-		Map<String, String> timescaleMappings = new HashMap<String, String>();
-
-		// Attempt to request and parse our response
-		try {
-			timescaleMappings = vocabularyCacheService.getVocabularyCacheById(TIMESCALE_VOCABULARY_ID);
-
-		} catch (Exception ex) {
-			// On error, just return failure JSON (and the response string if
-			// any)
-			log.error("Error accessing geologic timescale mappings: " + ex.getMessage());
-			log.debug("Exception: ", ex);
-			return generateJSONResponseMAV(false);
-		}
-
-		// Turn our map of urns -> labels into an array of arrays for the view
-		for (String urn : timescaleMappings.keySet()) {
-			String label = timescaleMappings.get(urn);
-
-			JSONArray tableRow = new JSONArray();
-			tableRow.add(urn);
-			tableRow.add(label);
-			dataItems.add(tableRow);
-		}
-
-		return generateJSONResponseMAV(true, dataItems, "");
-
-	}
 
 	/**
 	 * Get all Area Maps. Ideally this would call a service to get the data from

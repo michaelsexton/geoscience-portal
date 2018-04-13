@@ -1,5 +1,6 @@
 package au.gov.geoscience.portal.server.controllers;
 
+import com.hp.hpl.jena.rdf.model.Model;
 import org.auscope.portal.core.server.controllers.BasePortalController;
 import org.auscope.portal.core.services.VocabularyCacheService;
 import org.auscope.portal.core.services.responses.csw.CSWRecord;
@@ -32,7 +33,7 @@ public class VocabularyCacheController extends BasePortalController {
      */
     @RequestMapping("/getVocabularies.do")
     public ModelAndView getVocabularies() {
-        Map<String, Map<String, String>> vocabularyCache = this.vocabularyCacheService.getVocabularyCache();
+        Map<String, Model> vocabularyCache = this.vocabularyCacheService.getVocabularyCache();
         return generateJSONResponseMAV(true, vocabularyCache, "success");
 
     }
