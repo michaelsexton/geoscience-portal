@@ -1,5 +1,6 @@
 package org.auscope.portal.mineraloccurrence;
 
+import au.gov.geoscience.portal.services.methodmaker.filter.MineralTenementFilter;
 import org.auscope.portal.core.test.PortalTestClass;
 import org.auscope.portal.server.domain.ogc.AbstractFilterTestUtilities;
 import org.junit.Assert;
