@@ -34,7 +34,7 @@
 
     <bean id="httpServiceCaller" class="org.auscope.portal.core.server.http.HttpServiceCaller">
         <constructor-arg type="int" name="connectionTimeOut">
-            <value>30000</value>
+            <value>900000</value>
         </constructor-arg>
     </bean>
 
@@ -60,9 +60,22 @@
 	<bean id="arcGISToMineralTenementTransformer" class="org.auscope.portal.xslt.ArcGISToMineralTenement">
     </bean>
 
+    <bean id="commodityService" class="org.auscope.portal.core.services.VocabularyService">
+        <constructor-arg name="serviceUrl" value="http://vocabs.ga.gov.au/cgi/sissvoc/commodity-code" />
+        <constructor-arg name="httpServiceCaller" ref="httpServiceCaller"/>
+        <constructor-arg name="vocabularyMethodMaker">
+            <bean class="org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker">
+            </bean>
+        </constructor-arg>
+    </bean>
+
     <bean id="vocabularyCacheService" class="org.auscope.portal.core.services.VocabularyCacheService">
         <constructor-arg name="executor" ref="taskExecutor" />
         <constructor-arg name="serviceList" ref="vocabularyServiceList" />
+    </bean>
+
+    <bean id="vocabularyFilterService" class="org.auscope.portal.core.services.VocabularyFilterService">
+        <constructor-arg name="vocabularyCacheService" ref="vocabularyCacheService"/>
     </bean>
 
     <bean id="cswCacheService" class="org.auscope.portal.core.services.CSWCacheService">
