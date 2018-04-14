@@ -48,7 +48,7 @@
         <constructor-arg name="id" value="vocabularyResourceCategories" />
         <constructor-arg name="title" value="Resource Categories Vocabulary" />
         <constructor-arg name="vocabularyService">
-            <bean id="commodityService" class="org.auscope.portal.core.services.VocabularyService">
+            <bean id="resourceCategoryService" class="org.auscope.portal.core.services.VocabularyService">
                 <constructor-arg name="serviceUrl" value="http://vocabs.ga.gov.au/cgi/sissvoc/resource-assessment-category" />
                 <constructor-arg name="httpServiceCaller" ref="httpServiceCaller"/>
                 <constructor-arg name="vocabularyMethodMaker">
@@ -63,7 +63,7 @@
         <constructor-arg name="id" value="vocabularyReserveCategories" />
         <constructor-arg name="title" value="Reserve Categories Vocabulary" />
         <constructor-arg name="vocabularyService">
-            <bean id="commodityService" class="org.auscope.portal.core.services.VocabularyService">
+            <bean id="reserveCategoryService" class="org.auscope.portal.core.services.VocabularyService">
                 <constructor-arg name="serviceUrl" value="http://vocabs.ga.gov.au/cgi/sissvoc/reserve-assessment-category" />
                 <constructor-arg name="httpServiceCaller" ref="httpServiceCaller"/>
                 <constructor-arg name="vocabularyMethodMaker">
@@ -74,11 +74,11 @@
         </constructor-arg>
     </bean>
 
-    <bean id="vocabularyTenementStatus" class="org.auscope.portal.core.services.vocabs.VocabularyServiceItem">
-        <constructor-arg name="id" value="vocabularyTenementStatus" />
+    <bean id="vocabularyTenementStatuses" class="org.auscope.portal.core.services.vocabs.VocabularyServiceItem">
+        <constructor-arg name="id" value="vocabularyTenementStatuses" />
         <constructor-arg name="title" value="Tenement Status Vocabulary" />
         <constructor-arg name="vocabularyService">
-            <bean id="commodityService" class="org.auscope.portal.core.services.VocabularyService">
+            <bean id="tenementStatusService" class="org.auscope.portal.core.services.VocabularyService">
                 <constructor-arg name="serviceUrl" value="http://vocabs.ga.gov.au/ggic/sissvoc/tenement-status" />
                 <constructor-arg name="httpServiceCaller" ref="httpServiceCaller"/>
                 <constructor-arg name="vocabularyMethodMaker">
@@ -89,11 +89,11 @@
         </constructor-arg>
     </bean>
 
-    <bean id="vocabularyTenementType" class="org.auscope.portal.core.services.vocabs.VocabularyServiceItem">
-        <constructor-arg name="id" value="vocabularyTenementType" />
+    <bean id="vocabularyTenementTypes" class="org.auscope.portal.core.services.vocabs.VocabularyServiceItem">
+        <constructor-arg name="id" value="vocabularyTenementTypes" />
         <constructor-arg name="title" value="Tenement Type Vocabulary" />
         <constructor-arg name="vocabularyService">
-            <bean id="tenementService" class="org.auscope.portal.core.services.VocabularyService">
+            <bean id="tenementTypeService" class="org.auscope.portal.core.services.VocabularyService">
                 <constructor-arg name="serviceUrl" value="http://vocabs.ga.gov.au/ggic/sissvoc/tenement-type" />
                 <constructor-arg name="httpServiceCaller" ref="httpServiceCaller"/>
                 <constructor-arg name="vocabularyMethodMaker">
@@ -104,12 +104,12 @@
         </constructor-arg>
     </bean>
 
-    <bean id="vocabularyMineralOccurrenceType" class="org.auscope.portal.core.services.vocabs.VocabularyServiceItem">
-        <constructor-arg name="id" value="vocabularyMineralOccurrenceType" />
-        <constructor-arg name="title" value="Tenement Type Vocabulary" />
+    <bean id="vocabularyMineralOccurrenceTypes" class="org.auscope.portal.core.services.vocabs.VocabularyServiceItem">
+        <constructor-arg name="id" value="vocabularyMineralOccurrenceTypes" />
+        <constructor-arg name="title" value="Mineral Occurrence Type Vocabulary" />
         <constructor-arg name="vocabularyService">
             <bean id="mineralOccurrenceTypeService" class="org.auscope.portal.core.services.VocabularyService">
-                <constructor-arg name="serviceUrl" value="http://vocabs.ga.gov.au/cgi/sissvoc/mineral-occurrence-type/concept" />
+                <constructor-arg name="serviceUrl" value="http://vocabs.ga.gov.au/cgi/sissvoc/mineral-occurrence-type" />
                 <constructor-arg name="httpServiceCaller" ref="httpServiceCaller"/>
                 <constructor-arg name="vocabularyMethodMaker">
                     <bean class="org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker">
