@@ -33,7 +33,7 @@
         <constructor-arg name="id" value="vocabularyMineStatuses" />
         <constructor-arg name="title" value="Mine Statuses Vocabulary" />
         <constructor-arg name="vocabularyService">
-            <bean id="mineStatusService" class="au.gov.geoscience.portal.services.vocabularies.VocabularyService">
+            <bean id="mineStatusService" class="org.auscope.portal.core.services.VocabularyService">
                 <constructor-arg name="serviceUrl" value="http://vocabs.ga.gov.au/cgi/sissvoc/mine-status" />
                 <constructor-arg name="httpServiceCaller" ref="httpServiceCaller"/>
                 <constructor-arg name="vocabularyMethodMaker">
@@ -48,7 +48,7 @@
         <constructor-arg name="id" value="vocabularyResourceCategories" />
         <constructor-arg name="title" value="Resource Categories Vocabulary" />
         <constructor-arg name="vocabularyService">
-            <bean id="commodityService" class="au.gov.geoscience.portal.services.vocabularies.VocabularyService">
+            <bean id="commodityService" class="org.auscope.portal.core.services.VocabularyService">
                 <constructor-arg name="serviceUrl" value="http://vocabs.ga.gov.au/cgi/sissvoc/resource-assessment-category" />
                 <constructor-arg name="httpServiceCaller" ref="httpServiceCaller"/>
                 <constructor-arg name="vocabularyMethodMaker">
@@ -63,7 +63,7 @@
         <constructor-arg name="id" value="vocabularyReserveCategories" />
         <constructor-arg name="title" value="Reserve Categories Vocabulary" />
         <constructor-arg name="vocabularyService">
-            <bean id="commodityService" class="au.gov.geoscience.portal.services.vocabularies.VocabularyService">
+            <bean id="commodityService" class="org.auscope.portal.core.services.VocabularyService">
                 <constructor-arg name="serviceUrl" value="http://vocabs.ga.gov.au/cgi/sissvoc/reserve-assessment-category" />
                 <constructor-arg name="httpServiceCaller" ref="httpServiceCaller"/>
                 <constructor-arg name="vocabularyMethodMaker">
