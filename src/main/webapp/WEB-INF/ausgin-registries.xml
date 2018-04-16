@@ -20,7 +20,7 @@
         <constructor-arg name="id" value="cswGARegistry" />
         <constructor-arg name="title" value="Geoscience Australia" />
         <constructor-arg name="serviceUrl" value="https://ecat.ga.gov.au/geonetwork/srv/eng/csw" />
-        <constructor-arg name="recordInformationUrl" value="https://ecat.ga.gov.au/geonetwork/srv/eng/search#!%1$s" />
+        <constructor-arg name="recordInformationUrl" value="https://ecat.ga.gov.au/geonetwork/srv/eng/catalog.search#/metadata/%1$s" />
         <property name="noCache" value="true"/>
     </bean>
     
