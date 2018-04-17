@@ -222,9 +222,9 @@ public class TestVocabularyController extends PortalTestClass {
         context.checking(new Expectations() {
             {
                 Matcher<SimpleSelector[]> anySelectorArray = anything();
-                oneOf(mockVocabularyFilterService).getFilteredVocabularyById(with(same(VocabularyController.RESOURCE_VOCABULARY_ID)),with(anySelectorArray));
+                oneOf(mockVocabularyFilterService).getVocabularyById(with(same(VocabularyController.RESOURCE_VOCABULARY_ID)),with(anySelectorArray));
                 will(returnValue(serviceResult1));
-                oneOf(mockVocabularyFilterService).getFilteredVocabularyById(with(same(VocabularyController.RESERVE_VOCABULARY_ID)),with(anySelectorArray));
+                oneOf(mockVocabularyFilterService).getVocabularyById(with(same(VocabularyController.RESERVE_VOCABULARY_ID)),with(anySelectorArray));
                 will(returnValue(serviceResult2));
             }
         });
@@ -287,7 +287,7 @@ public class TestVocabularyController extends PortalTestClass {
         context.checking(new Expectations() {
             {
                 Matcher<SimpleSelector[]> anySelectorArray = anything();
-                oneOf(mockVocabularyFilterService).getFilteredVocabularyById(with(same(VocabularyController.TIMESCALE_VOCABULARY_ID)),with(anySelectorArray));
+                oneOf(mockVocabularyFilterService).getVocabularyById(with(same(VocabularyController.TIMESCALE_VOCABULARY_ID)),with(anySelectorArray));
                 will(returnValue(serviceResult));
             }
         });
