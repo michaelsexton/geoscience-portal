@@ -35,7 +35,6 @@ import java.util.Map;
 public class VocabularyController extends BasePortalController {
 
 
-
     public static final String TIMESCALE_VOCABULARY_ID = "vocabularyGeologicTimescales";
     public static final String COMMODITY_VOCABULARY_ID = "vocabularyCommodities";
     public static final String MINE_STATUS_VOCABULARY_ID = "vocabularyMineStatuses";
@@ -48,76 +47,76 @@ public class VocabularyController extends BasePortalController {
 
     private final Log log = LogFactory.getLog(getClass());
 
-	private NvclVocabService nvclVocabService;
+    private NvclVocabService nvclVocabService;
 
     private VocabularyFilterService vocabularyFilterService;
 
 
     @Inject
-	private ResourceLoader resourceLoader;
+    private ResourceLoader resourceLoader;
 
-	/**
-	 * Construct
-	 * 
-	 * @param
-	 */
-	@Autowired
-	public VocabularyController(NvclVocabService nvclVocabService,
-								VocabularyFilterService vocabularyFilterService) {
-		super();
-		this.nvclVocabService = nvclVocabService;
+    /**
+     * Construct
+     *
+     * @param
+     */
+    @Autowired
+    public VocabularyController(NvclVocabService nvclVocabService,
+                                VocabularyFilterService vocabularyFilterService) {
+        super();
+        this.nvclVocabService = nvclVocabService;
 
-		this.vocabularyFilterService = vocabularyFilterService;
-	}
+        this.vocabularyFilterService = vocabularyFilterService;
+    }
 
-	/**
-	 * Performs a query to the vocabulary service on behalf of the client and
-	 * returns a JSON Map success: Set to either true or false data: The raw XML
-	 * response scopeNote: The scope note element from the response label: The
-	 * label element from the response
-	 * 
-	 * @param repository
-	 * @param label
-	 * @return
-	 */
-	@RequestMapping("/getScalar.do")
-	public ModelAndView getScalarQuery(@RequestParam("repository") final String repository,
-			@RequestParam("label") final String label) throws Exception {
+    /**
+     * Performs a query to the vocabulary service on behalf of the client and
+     * returns a JSON Map success: Set to either true or false data: The raw XML
+     * response scopeNote: The scope note element from the response label: The
+     * label element from the response
+     *
+     * @param repository
+     * @param label
+     * @return
+     */
+    @RequestMapping("/getScalar.do")
+    public ModelAndView getScalarQuery(@RequestParam("repository") final String repository,
+                                       @RequestParam("label") final String label) throws Exception {
 
-		// Attempt to request and parse our response
-		try {
-			// Do the request
-			List<String> definitions = nvclVocabService.getScalarDefinitionsByLabel(label);
+        // Attempt to request and parse our response
+        try {
+            // Do the request
+            List<String> definitions = nvclVocabService.getScalarDefinitionsByLabel(label);
 
-			String labelString = null;
-			String scopeNoteString = null;
-			String definitionString = null;
-			if (definitions != null && definitions.size() > 0) {
-				labelString = label;
-				scopeNoteString = definitions.get(0); // this is for legacy
-														// support
-				definitionString = definitions.get(0);
-			}
+            String labelString = null;
+            String scopeNoteString = null;
+            String definitionString = null;
+            if (definitions != null && definitions.size() > 0) {
+                labelString = label;
+                scopeNoteString = definitions.get(0); // this is for legacy
+                // support
+                definitionString = definitions.get(0);
+            }
 
-			return generateJSONResponseMAV(true, createScalarQueryModel(scopeNoteString, labelString, definitionString),
-					"");
-		} catch (Exception ex) {
-			// On error, just return failure JSON (and the response string if
-			// any)
-			log.error("getVocabQuery ERROR: " + ex.getMessage());
+            return generateJSONResponseMAV(true, createScalarQueryModel(scopeNoteString, labelString, definitionString),
+                    "");
+        } catch (Exception ex) {
+            // On error, just return failure JSON (and the response string if
+            // any)
+            log.error("getVocabQuery ERROR: " + ex.getMessage());
 
-			return generateJSONResponseMAV(false, null, "");
-		}
-	}
+            return generateJSONResponseMAV(false, null, "");
+        }
+    }
 
-	private ModelMap createScalarQueryModel(final String scopeNote, final String label, final String definition) {
-		ModelMap map = new ModelMap();
-		map.put("scopeNote", scopeNote);
-		map.put("definition", definition);
-		map.put("label", label);
+    private ModelMap createScalarQueryModel(final String scopeNote, final String label, final String definition) {
+        ModelMap map = new ModelMap();
+        map.put("scopeNote", scopeNote);
+        map.put("definition", definition);
+        map.put("label", label);
 
-		return map;
-	}
+        return map;
+    }
 
 
     @RequestMapping("getAllMineralOccurrenceTypes.do")
@@ -127,24 +126,24 @@ public class VocabularyController extends BasePortalController {
         return getVocabularyMappings(vocabularyMappings);
     }
 
-	/**
-	 * Get all GA commodity URNs with prefLabels
-	 *
-	 * @param
-	 */
-	@RequestMapping("getAllCommodities.do")
-	public ModelAndView getAllCommodities() {
+    /**
+     * Get all GA commodity URNs with prefLabels
+     *
+     * @param
+     */
+    @RequestMapping("getAllCommodities.do")
+    public ModelAndView getAllCommodities() {
         Map<String, String> vocabularyMappings = this.vocabularyFilterService.getVocabularyById(COMMODITY_VOCABULARY_ID);
 
         return getVocabularyMappings(vocabularyMappings);
-	}
+    }
 
 
     /**
      * @return
      * @throws Exception
      */
-	@RequestMapping("getAllMineStatuses.do")
+    @RequestMapping("getAllMineStatuses.do")
     public ModelAndView getAllMineStatuses() {
         Map<String, String> vocabularyMappings = this.vocabularyFilterService.getVocabularyById(MINE_STATUS_VOCABULARY_ID);
 
@@ -152,60 +151,59 @@ public class VocabularyController extends BasePortalController {
     }
 
 
-
     /**
      * @return
      * @throws Exception
      */
-	@RequestMapping("getAllJorcCategories.do")
-	public ModelAndView getAllJorcCategories() {
+    @RequestMapping("getAllJorcCategories.do")
+    public ModelAndView getAllJorcCategories() {
 
-	    Property sourceProperty = DCTerms.source;
+        Property sourceProperty = DCTerms.source;
 
-	    Selector selector = new SimpleSelector(null, sourceProperty, "CRIRSCO Code; JORC 2004", "en");
+        Selector selector = new SimpleSelector(null, sourceProperty, "CRIRSCO Code; JORC 2004", "en");
 
 
-		Map<String, String> jorcCategoryMappings = new HashMap<String, String>();
-        jorcCategoryMappings.put(VocabularyLookup.RESERVE_CATEGORY.uri(),"any reserves");
+        Map<String, String> jorcCategoryMappings = new HashMap<String, String>();
+        jorcCategoryMappings.put(VocabularyLookup.RESERVE_CATEGORY.uri(), "any reserves");
         jorcCategoryMappings.put(VocabularyLookup.RESOURCE_CATEGORY.uri(), "any resources");
 
-        Map<String, String> resourceCategoryMappings = this.vocabularyFilterService.getFilteredVocabularyById(RESOURCE_VOCABULARY_ID, selector);
-        Map<String, String> reserveCategoryMappings = this.vocabularyFilterService.getFilteredVocabularyById(RESERVE_VOCABULARY_ID, selector);
+        Map<String, String> resourceCategoryMappings = this.vocabularyFilterService.getVocabularyById(RESOURCE_VOCABULARY_ID, selector);
+        Map<String, String> reserveCategoryMappings = this.vocabularyFilterService.getVocabularyById(RESERVE_VOCABULARY_ID, selector);
         jorcCategoryMappings.putAll(resourceCategoryMappings);
         jorcCategoryMappings.putAll(reserveCategoryMappings);
 
         return getVocabularyMappings(jorcCategoryMappings);
 
 
-	}
+    }
 
 
     /**
      * @return
      */
-	@RequestMapping("getAllTimescales.do")
-	public ModelAndView getAllTimescales() {
+    @RequestMapping("getAllTimescales.do")
+    public ModelAndView getAllTimescales() {
 
         String[] ranks = {"http://resource.geosciml.org/ontology/timescale/gts#Period",
-                        "http://resource.geosciml.org/ontology/timescale/gts#Era",
-                        "http://resource.geosciml.org/ontology/timescale/gts#Eon"};
+                "http://resource.geosciml.org/ontology/timescale/gts#Era",
+                "http://resource.geosciml.org/ontology/timescale/gts#Eon"};
 
         Property typeProperty = RDF.type;
 
         Selector[] selectors = new Selector[ranks.length];
-        for (int i=0; i < ranks.length; i++){
+        for (int i = 0; i < ranks.length; i++) {
             selectors[i] = new SimpleSelector(null, typeProperty, ResourceFactory.createResource(ranks[i]));
         }
-        Map<String, String> vocabularyMappings = this.vocabularyFilterService.getFilteredVocabularyById(TIMESCALE_VOCABULARY_ID, selectors);
+        Map<String, String> vocabularyMappings = this.vocabularyFilterService.getVocabularyById(TIMESCALE_VOCABULARY_ID, selectors);
 
         return getVocabularyMappings(vocabularyMappings);
 
-	}
+    }
 
     /**
      * @return
      */
-	@RequestMapping("getTenementTypes.do")
+    @RequestMapping("getTenementTypes.do")
     public ModelAndView getTenementTypes() {
         String[] topConcepts = {
                 "http://resource.geoscience.gov.au/classifier/ggic/tenementtype/production",
@@ -214,11 +212,11 @@ public class VocabularyController extends BasePortalController {
 
         Selector[] selectors = new Selector[topConcepts.length];
 
-        for (int i=0; i < topConcepts.length; i++) {
+        for (int i = 0; i < topConcepts.length; i++) {
             selectors[i] = new SimpleSelector(ResourceFactory.createResource(topConcepts[i]), null, (RDFNode) null);
         }
 
-        Map<String, String> vocabularyMappings = this.vocabularyFilterService.getFilteredVocabularyById(TENEMENT_TYPE_VOCABULARY_ID, selectors);
+        Map<String, String> vocabularyMappings = this.vocabularyFilterService.getVocabularyById(TENEMENT_TYPE_VOCABULARY_ID, selectors);
 
         return getVocabularyMappings(vocabularyMappings);
     }
@@ -235,11 +233,11 @@ public class VocabularyController extends BasePortalController {
 
         Selector[] selectors = new Selector[topConcepts.length];
 
-        for (int i=0; i < topConcepts.length; i++) {
+        for (int i = 0; i < topConcepts.length; i++) {
             selectors[i] = new SimpleSelector(ResourceFactory.createResource(topConcepts[i]), null, (RDFNode) null);
         }
 
-        Map<String, String> vocabularyMappings = this.vocabularyFilterService.getFilteredVocabularyById(TENEMENT_STATUS_VOCABULARY_ID, selectors);
+        Map<String, String> vocabularyMappings = this.vocabularyFilterService.getVocabularyById(TENEMENT_STATUS_VOCABULARY_ID, selectors);
 
         return getVocabularyMappings(vocabularyMappings);
     }
@@ -264,34 +262,34 @@ public class VocabularyController extends BasePortalController {
         return generateJSONResponseMAV(true, dataItems, "");
     }
 
-	/**
-	 * Get all Area Maps. Ideally this would call a service to get the data from
-	 * a vocabulary service
-	 * 
-	 * @return Spring ModelAndView containing the JSON
-	 */
-	@RequestMapping("getAreaMaps.do")
-	public ModelAndView getAreaMaps() throws Exception {
+    /**
+     * Get all Area Maps. Ideally this would call a service to get the data from
+     * a vocabulary service
+     *
+     * @return Spring ModelAndView containing the JSON
+     */
+    @RequestMapping("getAreaMaps.do")
+    public ModelAndView getAreaMaps() throws Exception {
 
-		String jsonString = null;
-		JSONArray json = null;
-		// Attempt to locate the resource containing the area maps and parse it
-		// into a String
-		try {
-			Resource resource = resourceLoader.getResource("classpath:/localdatastore/AreaMaps.json");
-			StringWriter writer = new StringWriter();
-			IOUtils.copy(resource.getInputStream(), writer, "UTF-8");
-			jsonString = writer.toString();
-			json = (JSONArray) JSONSerializer.toJSON( jsonString );
-		} catch (Exception ex) {
-			// On error, just return failure JSON (and the response string if
-			// any)
-			log.error("Error accessing 1:250k area maps: " + ex.getMessage());
-			log.debug("Exception: ", ex);
-			return null;
-		}
+        String jsonString = null;
+        JSONArray json = null;
+        // Attempt to locate the resource containing the area maps and parse it
+        // into a String
+        try {
+            Resource resource = resourceLoader.getResource("classpath:/localdatastore/AreaMaps.json");
+            StringWriter writer = new StringWriter();
+            IOUtils.copy(resource.getInputStream(), writer, "UTF-8");
+            jsonString = writer.toString();
+            json = (JSONArray) JSONSerializer.toJSON(jsonString);
+        } catch (Exception ex) {
+            // On error, just return failure JSON (and the response string if
+            // any)
+            log.error("Error accessing 1:250k area maps: " + ex.getMessage());
+            log.debug("Exception: ", ex);
+            return null;
+        }
 
-		// got the data, generate a response
-		return generateJSONResponseMAV(true, json, "");
-	}
+        // got the data, generate a response
+        return generateJSONResponseMAV(true, json, "");
+    }
 }
