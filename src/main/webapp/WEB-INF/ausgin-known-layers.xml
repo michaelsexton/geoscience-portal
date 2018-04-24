@@ -49,7 +49,7 @@
                 </property>
             </bean>
         </property>
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/erl_mineview.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/erl_mineview.jpg" />
     </bean>
     <bean id="knownTypeMine" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="erml-mine" />
@@ -72,7 +72,7 @@
         <property name="proxyCountUrl" value="mineFilterCount.do" />
         <property name="proxyStyleUrl" value="mineFilterStyle.do" />
         <property name="proxyDownloadUrl" value="mineDownload.do" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/er_mine.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/er_mine.jpg" />
         <property name="order" value="01_Mines and Mining Activity_010" />
     </bean>
     <bean id="knownTypeMiningActivity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -97,7 +97,7 @@
         <property name="proxyCountUrl" value="doMiningActivityFilterCount.do" />
         <property name="proxyStyleUrl" value="doMiningActivityFilterStyle.do" />
         <property name="proxyDownloadUrl" value="doMiningActivityFilterDownload.do" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/er_miningactivity.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/er_miningactivity.jpg" />
         <property name="order" value="01_Mines and Mining Activity_020" />
     </bean>
     <bean id="knownTypeMineralOccurrenceView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -157,7 +157,7 @@
                 </property>
             </bean>
         </property>
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/erl_mineraloccurrenceview.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/erl_mineraloccurrenceview.jpg" />
     </bean>
 
     <bean id="knownTypeMinOccView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -176,7 +176,7 @@
         <property name="proxyCountUrl" value="minOccViewFilterCount.do" />
         <property name="proxyStyleUrl" value="doMinOccurViewFilterStyle.do" />
         <property name="proxyDownloadUrl" value="downloadMinOccurView.do" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/mo_minoccview.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/mo_minoccview.jpg" />
         <property name="order"
             value="02_Mineral Occurrences and Resources_010" />
     </bean>
@@ -199,7 +199,7 @@
         <property name="proxyDownloadUrl" value="commodityResourceViewDownload.do" />
         <property name="order"
                   value="02_Mineral Occurrences and Resources_020" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/erl_commodityresourceview.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/erl_commodityresourceview.jpg" />
         <property name="filterCollection">
             <bean class="org.auscope.portal.core.uifilter.FilterCollection">
                 <property name="optionalFilters">
@@ -322,7 +322,7 @@
                 </property>
             </bean>
         </property>
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/gsml_borehole.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/gsml_borehole.jpg" />
     </bean>
     <bean id="knownTypeAllBoreholes" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="sf0-borehole-nvcl" />
@@ -356,7 +356,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="proxyDownloadUrl" value="doBoreholeViewFilter.do" />
         <property name="proxyStyleUrl" value="doBoreholeViewFilterStyle.do" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/gsmlp_boreholeview.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/gsmlp_boreholeview.jpg" />
         <property name="order" value="20_Boreholes_020" />
         <property name="filterCollection">
             <bean class="org.auscope.portal.core.uifilter.FilterCollection">
@@ -406,7 +406,7 @@
         <property name="proxyCountUrl" value="getMineralTenementCount.do" />
         <property name="proxyStyleUrl" value="getMineralTenementStyle.do" />
         <property name="proxyDownloadUrl" value="doMineralTenementDownload.do" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/mt_mineraltenement.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/mt_mineraltenement.jpg" />
         <property name="order" value="40_Tenements_010" />
         <property name="filterCollection">
             <bean class="org.auscope.portal.core.uifilter.FilterCollection">
@@ -1826,7 +1826,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="getOilStyle.do" />
         <property name="proxyDownloadUrl" value="" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/oil_pipelines.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/oil_pipelines.jpg" />
         <property name="order" value="70_Topography and Infrastructure_060" />
     </bean>
     <bean id="knownTypeGas" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -1845,7 +1845,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="getGasStyle.do" />
         <property name="proxyDownloadUrl" value="" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/gas_pipelines.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/gas_pipelines.jpg" />
         <property name="order" value="70_Topography and Infrastructure_070" />
     </bean>
     <bean id="knownTypeMajorPorts" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -1864,7 +1864,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/major_ports.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/major_ports.jpg" />
         <property name="order" value="70_Topography and Infrastructure_080" />
     </bean>
     <!-- END: GPT-74 - Topology and Infrastructure -->
@@ -2321,7 +2321,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getBulkDensityDownload.do" />
         <property name="group" value="Rock Properties" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/rock_properties.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 000" />
     </bean>
     <bean id="knownTypeRockPropertiesChargeability" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -2341,7 +2341,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getChargeabilityDownload.do" />
         <property name="group" value="Rock Properties" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/rock_properties.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 010" />
     </bean>
     <bean id="knownTypeRockPropertiesElectricalConductivity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -2362,7 +2362,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getElectricalConductivityDownload.do" />
         <property name="group" value="Rock Properties" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/rock_properties.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 020" />
     </bean>
     <bean id="knownTypeRockPropertiesElectricalResistivity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -2383,7 +2383,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getElectricalResistivityDownload.do" />
         <property name="group" value="Rock Properties" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/rock_properties.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 030" />
     </bean>
     <bean id="knownTypeRockPropertiesGammaBulkDensity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -2404,7 +2404,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getGammaBulkDensityDownload.do" />
         <property name="group" value="Rock Properties" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/rock_properties.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 040" />
     </bean>
     <bean id="knownTypeRockPropertiesKoenigsbergerRatio" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -2425,7 +2425,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getKoenigsbergerRatioDownload.do" />
         <property name="group" value="Rock Properties" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/rock_properties.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 050" />
     </bean>
     <bean id="knownTypeRockPropertiesMagneticSusceptibility" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -2446,7 +2446,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getMagneticSusceptibilityDownload.do" />
         <property name="group" value="Rock Properties" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/rock_properties.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 060" />
     </bean>
     <bean id="knownTypeRockPropertiesNaturalGamma" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -2466,7 +2466,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getNaturalGammaDownload.do" />
         <property name="group" value="Rock Properties" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/rock_properties.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 070" />
     </bean>
     <bean id="knownTypeRockPropertiesPorosity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -2486,7 +2486,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getPorosityDownload.do" />
         <property name="group" value="Rock Properties" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/rock_properties.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 080" />
     </bean>
     <bean id="knownTypeRockPropertiesRemanentMagnetisation" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -2507,7 +2507,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getRemanentMagnetisationDownload.do" />
         <property name="group" value="Rock Properties" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/rock_properties.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 090" />
     </bean>
     <bean id="knownTypeRockPropertiesSonicVelocity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -2527,7 +2527,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getSonicVelocityDownload.do" />
         <property name="group" value="Rock Properties" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/rock_properties.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 100" />
     </bean>
     <bean id="knownTypeRockPropertiesTemperature" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -2547,7 +2547,7 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getTemperatureDownload.do" />
         <property name="group" value="Rock Properties" />
-        <property name="staticLegendUrl" value="http://dev.portal.geoscience.gov.au/img/legends/rock_properties.jpg" />
+        <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 110" />
     </bean>
 </beans>
