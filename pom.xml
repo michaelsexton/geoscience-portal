@@ -215,7 +215,10 @@
                     <name>environment</name>
                     <value>development</value>
                 </property>         
-            </activation>        
+            </activation>
+            <properties>
+                <environment.host>http://dev.portal.geoscience.gov.au</environment.host>
+            </properties>
             <build>
                 <finalName>geoscience-portal</finalName>                
                 <plugins>                                 
