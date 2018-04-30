@@ -73,6 +73,14 @@ Ext.define('auscope.layer.GAFilterPanelMenuFactory', {
             }
         });
         return downloadLayerAction;
+    },
+
+    layerRemoveHandler : function(layer){
+        this.fireEvent('removeLayer', layer);
+    },
+
+    layerAddHandler : function(layer){
+        this.fireEvent('addLayer', layer);
     }
 
 });
