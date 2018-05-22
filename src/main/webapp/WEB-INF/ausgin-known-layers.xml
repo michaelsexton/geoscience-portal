@@ -242,7 +242,7 @@
                             <constructor-arg name="label" value="Resource Category"></constructor-arg>
                             <constructor-arg name="value"><null/></constructor-arg>
                             <constructor-arg name="parameterName" value="jorcCategoryUri" />
-                            <constructor-arg name="url" value="getAllCommodities.do"></constructor-arg>
+                            <constructor-arg name="url" value="getAllJorcCategories.do"></constructor-arg>
 
                         </bean>
                         <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
