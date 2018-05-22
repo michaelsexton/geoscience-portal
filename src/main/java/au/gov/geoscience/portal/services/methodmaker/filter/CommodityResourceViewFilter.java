@@ -40,12 +40,18 @@ public class CommodityResourceViewFilter extends AbstractFilter {
     }
 
     /**
-     * @param name
+     * @param mineralOccurrenceName
      * @param commodityUris
      * @param jorcCategoryUri
      */
-    public CommodityResourceViewFilter(String name, Set<String> commodityUris, String jorcCategoryUri) {
+    public CommodityResourceViewFilter(String mineralOccurrenceName, Set<String> commodityUris, String jorcCategoryUri) {
         fragments = new ArrayList<String>();
+
+        if (mineralOccurrenceName != null && !mineralOccurrenceName.isEmpty()) {
+            fragments.add(this.generatePropertyIsLikeFragment("erl:mineralOccurrenceName",
+                    "*" + mineralOccurrenceName + "*"));
+        }
+
         if (commodityUris != null && !commodityUris.isEmpty()) {
             List<String> localFragments = new ArrayList<String>();
             for (String commodityUri : commodityUris) {
