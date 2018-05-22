@@ -318,7 +318,7 @@
                             <constructor-arg name="value" value=""/>
                             <constructor-arg name="parameterName" value="boreholeName"/>
                         </bean>
-                        <bean class="au.gov.geoscience.portal.uifilter.UIFilterDate">
+                        <bean class="au.gov.geoscience.portal.uifilter.UIFilterText">
                             <constructor-arg name="label" value="Drilling Year" />
                             <constructor-arg name="value" value=""/>
                             <constructor-arg name="parameterName" value="dateOfDrilling" />
