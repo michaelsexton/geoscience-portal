@@ -77,6 +77,16 @@
                             <constructor-arg name="value" value="" />
                             <constructor-arg name="parameterName" value="mineName" />
                         </bean>
+                        <bean class="au.gov.geoscience.portal.uifilter.UIFilterVocabulary">
+                            <constructor-arg name="label" value="Operating Status" />
+                            <constructor-arg name="value" value="" />
+                            <constructor-arg name="parameterName" value="statusUri" />
+                            <constructor-arg name="url" value="getAllMineStatuses.do" />
+                        </bean>
+                        <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
+                            <constructor-arg name="label" value="Provider" />
+                            <constructor-arg name="value" value=""/>
+                        </bean>
                     </list>
                 </property>
             </bean>
@@ -114,6 +124,10 @@
                             <constructor-arg name="label" value="Mine Name" />
                             <constructor-arg name="value" value="" />
                             <constructor-arg name="parameterName" value="mineName" />
+                        </bean>
+                        <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
+                            <constructor-arg name="label" value="Provider" />
+                            <constructor-arg name="value" value=""/>
                         </bean>
                     </list>
                 </property>
