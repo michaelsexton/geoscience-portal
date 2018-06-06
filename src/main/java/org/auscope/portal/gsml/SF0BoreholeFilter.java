@@ -25,8 +25,8 @@ public class SF0BoreholeFilter extends BoreholeFilter {
     }
 
 
-    public SF0BoreholeFilter(String boreholeName, String custodian, String dateOfDrillingStart, String dateOfDrillingEnd,List<String> ids, List<String> identifiers,  Boolean justNVCL) {
-        super(boreholeName, custodian, dateOfDrillingStart, dateOfDrillingEnd, ids);
+    public SF0BoreholeFilter(String boreholeName, String custodian, String dateOfDrilling, List<String> ids, List<String> identifiers,  Boolean justNVCL) {
+        super(boreholeName, custodian, dateOfDrilling, ids);
         this.justNVCL = justNVCL;
         this.identifiers = identifiers;
     }

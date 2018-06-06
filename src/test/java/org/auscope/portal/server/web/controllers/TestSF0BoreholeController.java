@@ -9,6 +9,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.auscope.portal.core.services.CSWCacheService;
 import org.auscope.portal.core.services.responses.wfs.WFSResponse;
 import org.auscope.portal.core.test.PortalTestClass;
+import org.auscope.portal.server.web.service.NVCL2_0_DataService;
 import org.auscope.portal.server.web.service.SF0BoreholeService;
 import org.jmock.Expectations;
 import org.junit.Assert;
@@ -30,6 +31,8 @@ public class TestSF0BoreholeController extends PortalTestClass {
     /** The portrayal borehole view controller. */
     private SF0BoreholeController sf0BoreholeController;
 
+    private NVCL2_0_DataService mockNvclDataService;
+
     /** The mock csw service. */
     private CSWCacheService mockCSWService;
 
@@ -41,7 +44,7 @@ public class TestSF0BoreholeController extends PortalTestClass {
         context.mock(HttpServletResponse.class);
         this.mockSF0BoreholeService = context.mock(SF0BoreholeService.class);
         this.mockCSWService = context.mock(CSWCacheService.class);
-        this.sf0BoreholeController = new SF0BoreholeController(this.mockSF0BoreholeService, this.mockCSWService);
+        this.sf0BoreholeController = new SF0BoreholeController(this.mockSF0BoreholeService, this.mockCSWService, this.mockNvclDataService);
     }
 
     /**

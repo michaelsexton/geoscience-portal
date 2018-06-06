@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -759,8 +760,7 @@ public class NVCLController extends BasePortalController {
             @RequestParam("wfsUrl") String[] wfsUrls,
 
             @RequestParam(required = false, value = "boreholeName", defaultValue = "") String boreholeName,
-            @RequestParam(required = false, value = "dateOfDrillingStart", defaultValue = "") String dateOfDrillingStart,
-            @RequestParam(required = false, value = "dateOfDrillingEnd", defaultValue = "") String dateOfDrillingEnd,
+            @RequestParam(required = false, value = "dateOfDrilling", defaultValue = "") String dateOfDrilling,
             @RequestParam(required = false, value = "bbox") String bboxJson,
 
             @RequestParam("algorithmOutputId") int algorithmOutputId,
@@ -775,7 +775,7 @@ public class NVCLController extends BasePortalController {
 
         String filterString = null;
         FilterBoundingBox bbox = FilterBoundingBox.attemptParseFromJSON(bboxJson);
-        filterString = sf0BoreholeService.getFilter(boreholeName, "", dateOfDrillingStart, dateOfDrillingEnd, -1, bbox, null, true);
+        filterString = sf0BoreholeService.getFilter(boreholeName, "", dateOfDrilling, -1, bbox, null, true);
 
         try {
             boolean result = this.dataService2_0.submitProcessingJob(email, jobName, wfsUrls, filterString, algorithmOutputId, classification, startDepth, endDepth, operator, value, units, span);

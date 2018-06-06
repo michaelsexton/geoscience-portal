@@ -166,7 +166,7 @@ public class TestSF0BoreholeService extends PortalTestClass {
         final String dateOfDrilling = "2010-01-02";
         final String gmlString = "xmlString";
 
-        final String filterString = (new SF0BoreholeFilter(boreholeName, custodian, dateOfDrillingStart, dateOfDrillingEnd, null, null, null))
+        final String filterString = (new SF0BoreholeFilter(boreholeName, custodian, dateOfDrilling, null, null, null))
                 .getFilterStringAllRecords();
 
         context.checking(new Expectations() {
