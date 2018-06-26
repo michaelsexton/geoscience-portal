@@ -1,8 +1,12 @@
 package org.auscope.portal.server.web.service;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpression;
@@ -11,6 +15,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.Header;
@@ -36,6 +41,9 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+
+import au.com.bytecode.opencsv.CSVReader;
+
 
 @Service
 public class NVCL2_0_DataService {
@@ -318,4 +326,226 @@ public class NVCL2_0_DataService {
 
         return results;
     }
+
+    /**
+     * Makes a request for scalar data from NVCL Analytics job and initiates binning
+     * @param serviceUrl
+     * @param jobId
+     * @param boreholeId
+     * @return
+     * @throws Exception
+     */
+    public BinnedCSVResponse getNVCL2_0_JobsScalarBinned(String[] jobIds, String boreholeId, double binSizeMetres) throws Exception {
+        BinnedCSVResponse binnedResponse = new BinnedCSVResponse();
+        Bin[] totalBins = new Bin[0];
+        for (String jobId: jobIds) {
+            HttpRequestBase method = nvclMethodMaker.getNVCLJobsScalarMethod(analyticalServicesUrl, jobId, boreholeId);
+            InputStream responseStream = httpServiceCaller.getMethodResponseAsStream(method);
+            Bin[] bins = doBinning(binnedResponse, responseStream, binSizeMetres, '"', 1, 2, jobId);
+            totalBins = (Bin[])ArrayUtils.addAll(totalBins, bins);
+        }
+        binnedResponse.setBinnedValues(totalBins);
+        binnedResponse.setBinSize(binSizeMetres);
+        return binnedResponse;
+    }
+
+    /**
+     * Makes JSON download requests from an NVCL 2.0 service and parses the resulting data
+     * @param serviceUrl
+     * @param logIds
+     * @return
+     * @throws Exception
+     */
+    public String getNVCL2_0_JSONDownsampledData(String serviceUrl, String[] logIds) throws Exception {
+        serviceUrl += "getDownsampledData.html";
+        JSONArray outArr = new JSONArray();
+        for (String logId: logIds) {
+            HttpRequestBase method = nvclMethodMaker.getDownloadJSONMethod(serviceUrl, logId);
+            String httpResponseStr = httpServiceCaller.getMethodResponseAsString(method);
+            JSONArray inArr = JSONArray.fromObject(httpResponseStr);
+            if (inArr.size()>0) {
+                JSONObject firstObj = inArr.getJSONObject(0);
+                if (firstObj.has("classCount")) {
+                    JSONObject baseObj = new JSONObject();
+                    baseObj.element("logId", logId);
+                    baseObj.element("stringValues", inArr);
+                    outArr.element(baseObj);
+                } else if (firstObj.has("averageValue")) {
+                    JSONObject baseObj = new JSONObject();
+                    baseObj.element("logId", logId);
+                    baseObj.element("numericValues", inArr);
+                    outArr.element(baseObj);
+                }
+            }
+        }
+        return outArr.toString();
+    }
+
+    /**
+     * Performs the binning by parsing the resulting data into a series of binSizeMetres bins where
+     * each bin represents the average value for that range of the borehole. Uses CSV header as name for each bin.
+     * @param method
+     * @param binSizeMetres
+     * @param startAtCol column number (1..N) where the data starts. If -1 use then it defaults to 2
+     * @param stopAtCol column number (1..N) where the data stops (non-inclusive) -1 = data goes all the way to the last column
+     * @param altName alternative name for a bin. Use null to force it to use CSV header
+     * @return
+     */
+    private Bin[] doBinning(BinnedCSVResponse binnedResponse, InputStream responseStream, double binSizeMetres, char quoteChar, int startAtCol, int stopAtCol, String altName) throws Exception {
+        final String MISSING_DATA_STRING = "null";
+        final int INITIAL_LIST_SIZE = 512;
+
+        CSVReader reader = null;
+        Bin[] bins = null;
+
+        try {
+            //Prepare parsing
+            reader = new CSVReader(new InputStreamReader(responseStream), ',', quoteChar, 0);
+            String[] headerLine = reader.readNext();
+            if (headerLine == null || headerLine.length <= startAtCol) {
+                throw new IOException("No or malformed CSV header sent");
+            }
+            // Set start & stop columns to default
+            if (stopAtCol<0) {
+                stopAtCol=headerLine.length;
+            }
+            if (startAtCol<0) {
+                startAtCol=2;
+            }
+            //Prepare our bins
+            bins = new Bin[stopAtCol - startAtCol];
+            List<HashMap<String, Integer>> valueCounts = new ArrayList<HashMap<String, Integer>>(bins.length);
+            double[] numericTotal = new double[bins.length];
+            int[] numericCount = new int[bins.length];
+            double currentBinStartDepth = -Double.MAX_VALUE;
+            int currentBinSize = 0;
+            for (int i = 0; i < bins.length; i++) {
+                String name = headerLine[startAtCol + i];
+                if (altName!=null) {
+                    name=altName;
+                }
+                bins[i] = binnedResponse.new Bin(name, new ArrayList<Double>(INITIAL_LIST_SIZE), true, new ArrayList<Map<String, Integer>>(INITIAL_LIST_SIZE), new ArrayList<String>(INITIAL_LIST_SIZE), new ArrayList<Double>(INITIAL_LIST_SIZE));
+                bins[i].setNumeric(true);
+                valueCounts.add(new HashMap<String, Integer>());
+            }
+
+            //Start parsing our data - loading it into bins
+            String[] dataLine = null;
+            while ((dataLine = reader.readNext()) != null) {
+                if (dataLine.length != headerLine.length) {
+                    continue; //skip malformed lines
+                }
+
+                //If we've exceeded our current bin size - save the data and start a new bin
+                double depth = Double.parseDouble(dataLine[0]);
+                if (depth - currentBinStartDepth >= binSizeMetres) {
+
+                    if (currentBinStartDepth == -Double.MAX_VALUE) {
+                        currentBinStartDepth = depth;
+                    }
+
+                    for (int i = 0; i < bins.length; i++) {
+                        if (bins[i].isNumeric()) {
+                            if (numericCount[i] > 0) {
+                                bins[i].getNumericValues().add(numericTotal[i] / (double) numericCount[i]);
+                                bins[i].getStartDepths().add(currentBinStartDepth);
+                            }
+                        } else {
+                            String value = getMostCountedValue(valueCounts.get(i));
+                            if (value != null) {
+                                bins[i].getStartDepths().add(currentBinStartDepth);
+                                bins[i].getHighStringValues().add(value);
+                                bins[i].getStringValues().add(valueCounts.get(i));
+                            }
+                        }
+                    }
+
+                    //Reset our working bin data
+                    for (int i = 0; i < bins.length; i++) {
+                        valueCounts.set(i, new HashMap<String, Integer>());
+                        numericTotal[i] = 0.0;
+                        numericCount[i] = 0;
+                    }
+
+                    currentBinStartDepth = depth;
+                    currentBinSize = 0;
+                }
+
+                //Build up our current bin
+                boolean dataAdded = false;
+                for (int i = 0; i < bins.length; i++) {
+                    String rawBinData = dataLine[startAtCol + i];
+                    if (rawBinData == null || rawBinData.isEmpty() || rawBinData.equals(MISSING_DATA_STRING)) {
+                        continue; //skip missing data
+                    } else {
+                        dataAdded = true;
+                    }
+
+                    if (bins[i].isNumeric()) {
+                        try {
+                            double newData = Double.parseDouble(rawBinData);
+                            numericCount[i]++;
+                            numericTotal[i] += newData;
+                        } catch (NumberFormatException nfe) {
+                            //OK - this column isn't actually numeric
+                            bins[i].setNumeric(false);
+                        }
+                    }
+
+                    if (!bins[i].isNumeric()) {
+                        Integer currentCount = valueCounts.get(i).get(rawBinData);
+                        if (currentCount == null) {
+                            valueCounts.get(i).put(rawBinData, 1);
+                        } else {
+                            valueCounts.get(i).put(rawBinData, currentCount + 1);
+                        }
+                    }
+                }
+                if (dataAdded) {
+                    currentBinSize++;
+                }
+            }
+
+            //If we've got a partial bin at the end - let's include the data
+            if (currentBinSize > 0) {
+                for (int i = 0; i < bins.length; i++) {
+                    if (bins[i].isNumeric()) {
+                        if (numericCount[i] > 0) {
+                            bins[i].getNumericValues().add(numericTotal[i] / (double) numericCount[i]);
+                            bins[i].getStartDepths().add(currentBinStartDepth);
+                        }
+                    } else {
+                        String value = getMostCountedValue(valueCounts.get(i));
+                        if (value != null) {
+                            bins[i].getStartDepths().add(currentBinStartDepth);
+                            bins[i].getHighStringValues().add(value);
+                            bins[i].getStringValues().add(valueCounts.get(i));
+                        }
+                    }
+                }
+            }
+
+
+        } finally {
+            IOUtils.closeQuietly(reader);
+            IOUtils.closeQuietly(responseStream);
+        }
+
+        return bins;
+    }
+
+    private String getMostCountedValue(HashMap<String, Integer> map) {
+        String largestValue = null;
+        int largestCount = Integer.MIN_VALUE;
+
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            if (entry.getValue() > largestCount) {
+                largestCount = entry.getValue();
+                largestValue = entry.getKey();
+            }
+        }
+
+        return largestValue;
+    }
+
 }
