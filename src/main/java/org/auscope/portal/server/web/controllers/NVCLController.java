@@ -820,4 +820,53 @@ public class NVCLController extends BasePortalController {
             return generateJSONResponseMAV(false);
         }
     }
+
+    /**
+     * Proxies a CSV download request to a WFS from a NVCL 2.0 service. Parses the response into a series of 1m averaged bins.
+     *
+     * @param serviceUrl
+     *            The URL of an observation and measurements URL (obtained from a getDatasetCollection response)
+     * @param datasetId
+     *            The dataset to download
+     * @return
+     */
+    @RequestMapping("getNVCL2_0_JSONDataBinned.do")
+    public ModelAndView getNVCL2_0_JSONDataBinned(@RequestParam("serviceUrl") String serviceUrl,
+                                                  @RequestParam("logIds") String[] logIds) throws Exception {
+
+        //Make our request
+        try {
+            String responseStr = dataService2_0.getNVCL2_0_JSONDownsampledData(serviceUrl, logIds);
+            return generateJSONResponseMAV(true, responseStr, "");
+
+        } catch (Exception ex) {
+            log.warn(String.format("Error requesting json download for logId '%1$s' from %2$s: %3$s", logIds,serviceUrl, ex));
+            log.debug("Exception:", ex);
+            return generateJSONResponseMAV(false);
+        }
+    }
+
+
+    /**
+     * Fetches NVCL TSG Jobs data
+     * @param jobId
+     *          job id of data to be downloaded
+     * @param boreholeId
+     *          borehole id of data to be downloaded
+     */
+    @RequestMapping("getNVCL2_0_JobsScalarBinned.do")
+    public ModelAndView getNVCL2_0_JobsScalarBinned(@RequestParam("jobIds") String[] jobIds, @RequestParam("boreholeId") String boreholeId) {
+
+        //Make our request
+        try {
+            BinnedCSVResponse response = dataService2_0.getNVCL2_0_JobsScalarBinned(jobIds, boreholeId, 1.0);
+
+            return generateJSONResponseMAV(true, Arrays.asList(response), "");
+
+        } catch (Exception ex) {
+            log.warn(String.format("Error requesting scalar csv download from NVCL job for boreholeId '%1$s': %2$s", boreholeId, ex));
+            log.debug("Exception:", ex);
+            return generateJSONResponseMAV(false);
+        }
+    }
 }

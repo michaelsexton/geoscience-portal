@@ -186,4 +186,42 @@ public class NVCL2_0_DataServiceMethodMaker extends AbstractMethodMaker {
         method.setURI(builder.build());
         return method;
     }
+
+    /**
+     * Generates a method to get scalars that result from an NVCL scalar processing job
+     *
+     * @return
+     * @throws URISyntaxException
+     */
+    public  HttpRequestBase getNVCLJobsScalarMethod(String serviceUrl, String jobId, String boreholeId) throws URISyntaxException {
+        HttpGet method = new HttpGet();
+        URIBuilder builder = new URIBuilder(urlPathConcat(serviceUrl, "doDownloadscalar.do"));
+        builder.setParameter("jobid", jobId);
+        builder.setParameter("boreholeid", boreholeId);
+
+        method.setURI(builder.build());
+        return method;
+    }
+
+    /**
+     * Generates a method for making a request to NVCL 2.0 for downloading data for plotting
+     *
+     * The response will be 'json'
+     *
+     *
+     * @param serviceUrl
+     *            The URL of the NVCLDataService
+     * @param logId
+     *            The logID (from a getLogCollection request) to query
+     * @return
+     * @throws URISyntaxException
+     */
+    public HttpRequestBase getDownloadJSONMethod(String serviceUrl, String logId) throws Exception {
+        HttpGet method = new HttpGet(serviceUrl);
+        URIBuilder builder = new URIBuilder(serviceUrl);
+        builder.addParameter("logid", logId);
+        builder.addParameter("outputformat","json");
+        method.setURI(builder.build());
+        return method;
+    }
 }
