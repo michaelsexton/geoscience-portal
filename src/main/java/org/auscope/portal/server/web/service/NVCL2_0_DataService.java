@@ -548,4 +548,33 @@ public class NVCL2_0_DataService {
         return largestValue;
     }
 
+    /**
+     * Given boreholeId, gets the TSG job Id and job name
+     *
+     * @param serviceUrl
+     * @param logIds
+     * @return string of colour tables in JSON format
+     * @throws Exception
+     */
+    public JSONArray getNVCL2_0_getTsgJobsByBoreholeId(String boreholeId) throws Exception {
+        JSONArray outArr = new JSONArray();
+        HttpRequestBase method = nvclMethodMaker.getTSGJobsByBoreholeIdMethod(analyticalServicesUrl, boreholeId);
+        String httpResponseStr = httpServiceCaller.getMethodResponseAsString(method);
+        JSONArray inArray = JSONArray.fromObject(httpResponseStr);
+        for (Object i : inArray) {
+            JSONObject inObj = (JSONObject) i;
+            if (inObj.has("jobid") && inObj.has("jobName")) {
+                String jobId = inObj.getString("jobid");
+                String jobName = inObj.getString("jobName");
+                JSONObject outObj = new JSONObject();
+                outObj.element("boreholeId", boreholeId);
+                outObj.element("jobId", jobId);
+                outObj.element("jobName", jobName);
+                outArr.add(outObj);
+            }
+        }
+        return outArr;
+    }
+
+
 }
