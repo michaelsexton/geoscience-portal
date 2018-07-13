@@ -153,4 +153,15 @@
     <bean id="fileDownloadService" class="org.auscope.portal.core.server.http.download.FileDownloadService">
         <constructor-arg name="serviceCaller" ref="httpServiceCaller"/>
     </bean>
+
+    <bean id="nagios4CachedService" class="org.auscope.portal.core.services.Nagios4CachedService">
+        <constructor-arg name="serviceUrl" value="${HOST.nagios.url}"/>
+        <constructor-arg name="serviceCaller" ref="httpServiceCaller"/>
+        <constructor-arg name="methodMaker">
+            <bean class="org.auscope.portal.core.services.methodmakers.Nagios4MethodMaker">
+            </bean>
+        </constructor-arg>
+        <property name="userName" value="${env.nagiosUser}" />
+        <property name="password" value="${env.nagiosPassword}" />
+    </bean>
 </beans>

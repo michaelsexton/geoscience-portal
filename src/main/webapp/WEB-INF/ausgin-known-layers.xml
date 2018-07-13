@@ -44,6 +44,7 @@
             </bean>
         </property>
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/erl_mineview.jpg" />
+        <property name="nagiosHostGroup" value="GeolSurveySISSDeployments"/>
     </bean>
     <bean id="knownTypeMine" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="erml-mine" />
@@ -91,6 +92,7 @@
                 </property>
             </bean>
         </property>
+        <property name="nagiosHostGroup" value="GeolSurveySISSDeployments"/>
     </bean>
     <bean id="knownTypeMiningActivity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="erml-miningactivity" />
@@ -133,6 +135,7 @@
                 </property>
             </bean>
         </property>
+        <property name="nagiosHostGroup" value="GeolSurveySISSDeployments"/>
     </bean>
     <bean id="knownTypeMineralOccurrenceView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -181,8 +184,10 @@
                     </list>
                 </property>
             </bean>
+
         </property>
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/erl_mineraloccurrenceview.jpg" />
+        <property name="nagiosHostGroup" value="GeolSurveySISSDeployments"/>
     </bean>
     <bean id="knownTypeMinOccView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="mineral-occ-view" />
@@ -219,6 +224,8 @@
                 </property>
             </bean>
         </property>
+        <property name="nagiosHostGroup" value="GeolSurveySISSDeployments"/>
+
     </bean>
     <bean id="knownTypeCommodityResourceView" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -271,6 +278,8 @@
                 </property>
             </bean>
         </property>
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
+
     </bean>
     <bean id="knownTypeNVCLBoreholes" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="nvcl-borehole" />
@@ -350,6 +359,7 @@
             </bean>
         </property>
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/gsml_borehole.jpg" />
+        <property name="nagiosHostGroup" value="GeolSurveySISSDeployments"/>
     </bean>
 
 
@@ -406,7 +416,6 @@
             </bean>
         </property>
         <property name="order" value="51" />
-        <property name="nagiosHostGroup" value="GeolSurveySISSDeployments"/>
         <property name="filterCollection">
             <bean class="org.auscope.portal.core.uifilter.FilterCollection">
                 <property name="optionalFilters">
@@ -429,6 +438,7 @@
                 </property>
             </bean>
         </property>
+        <property name="nagiosHostGroup" value="GeolSurveySISSDeployments"/>
     </bean>
 
     <bean id="knownTypeAllBoreholes" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -488,6 +498,7 @@
                 </property>
             </bean>
         </property>
+        <property name="nagiosHostGroup" value="GeolSurveySISSDeployments"/>
     </bean>
     <bean id="knownTypeMineralTenements" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="mineral-tenements" />
@@ -534,6 +545,7 @@
                 </property>
             </bean>
         </property>
+        <property name="nagiosHostGroup" value="GeolSurveySISSDeployments"/>
     </bean>
     <bean id="knownTypeGeologicalProvinceContact" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -552,6 +564,8 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_010" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
+
     </bean>
     <bean id="knownTypeGeologicalProvinceMetallogenic" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -570,6 +584,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_020" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeSedimentaryBasinsCenozoic" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -589,6 +604,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_030" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeSedimentaryBasinsMesozoicCenozoic" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -609,6 +625,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_040" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeSedimentaryBasinsMesozoic" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -628,6 +645,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_050" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeSedimentaryBasinsPaleozoicCenozoic" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -648,6 +666,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_060" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeSedimentaryBasinsPaleozoicMesozoic" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -668,6 +687,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_070" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeSedimentaryBasinsLatePaleozoic" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -687,6 +707,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_080" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeSedimentaryBasinsEarlyToLatePaleozoic"
         class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -708,6 +729,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_090" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeSedimentaryBasinsEarlyPaleozoic" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -727,6 +749,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_100" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeTectonicProvincesPaleozoicMesozoic" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -747,6 +770,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_110" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeTectonicProvincesNeoproterozoicPaleozoic"
         class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -768,6 +792,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_120" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeSedimentaryBasinsNeoproterozoicPaleozoic"
         class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -789,6 +814,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_130" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeIgneousProvincesProterozoicPaleozoic" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -809,6 +835,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_140" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeSedimentaryBasinsMesoproterozoic" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -828,6 +855,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_150" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeTectonicProvincesProterozoic" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -847,6 +875,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_160" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeSedimentaryBasinsPaleoproterozoic" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -866,6 +895,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_170" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeSedimentaryBasinsArcheanPaleoproterozoic"
         class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -887,6 +917,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_180" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeTectonicProvincesArcheanProterozoic" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -907,6 +938,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_190" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeCrustalElements" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="crustalElements" />
@@ -924,6 +956,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_200" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeAllGeologicalProvinces" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="allGeologicalProvinces" />
@@ -941,6 +974,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="50_Geological Provinces_210" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeAster" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="aster-main" />
@@ -957,6 +991,7 @@
         <property name="group" value="ASTER Maps" />
         <property name="hidden" value="true" />
         <property name="order" value="30_ASTER Maps_010" />
+
     </bean>
     <bean id="knownTypeAsterAloh" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="aster-aloh" />
@@ -1659,6 +1694,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="60_Geological Maps_010" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeGeologicalMaps_Lithostratigraphy" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -1683,6 +1719,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="60_Geological Maps_020" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeGeologicalMaps_Lithology" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
@@ -1707,6 +1744,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="60_Geological Maps_030" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeGeologicalMaps_Age" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="geological-units-age" />
@@ -1730,6 +1768,7 @@
         <property name="proxyCountUrl" value="" />
         <property name="singleTile" value="true" />
         <property name="order" value="60_Geological Maps_040" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <!-- GPT-41 / GPT-88 - 250K Scanned Geological Maps -->
     <bean id="knownTypeGeologicalMaps_250K_Scanned_Geological_Maps"
@@ -1767,6 +1806,7 @@
                 </property>
             </bean>
         </property>
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <!-- END: GPT-41 / GPT-88 - 250K Scanned Geological Maps -->
     <!-- END: GPT-41 - Surface Geology Layers -->
@@ -1801,6 +1841,7 @@
         <property name="staticLegendUrl"
             value="http://www.ga.gov.au/interactive-maps/content/legends/AustralianTopogaphyLegend.png" />
         <property name="order" value="70_Topography and Infrastructure_010" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <!-- Coastlines (AND) -->
     <bean id="knownTypeCoastlines" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -1819,6 +1860,7 @@
         <property name="staticLegendUrl"
             value="http://www.ga.gov.au/interactive-maps/content/legends/AustralianTopogaphyLegend.png" />
         <property name="order" value="70_Topography and Infrastructure_020" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <!-- AusHydro -->
     <bean id="knownTypeRiversAndLakes" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -1852,6 +1894,7 @@
         <property name="staticLegendUrl"
             value="http://www.ga.gov.au/interactive-maps/content/legends/AustralianTopogaphyLegend.png" />
         <property name="order" value="70_Topography and Infrastructure_030" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <!-- Roads 1 to 4 (AND) -->
     <bean id="knownTypeRoads1to4" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -1880,6 +1923,7 @@
         <property name="staticLegendUrl"
             value="http://www.ga.gov.au/interactive-maps/content/legends/AustralianTopogaphyLegend.png" />
         <property name="order" value="70_Topography and Infrastructure_040" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <!-- Railways 1 to 3 (AND) -->
     <bean id="knownTypeRailways1to3" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -1906,6 +1950,7 @@
         <property name="staticLegendUrl"
             value="http://www.ga.gov.au/interactive-maps/content/legends/AustralianTopogaphyLegend.png" />
         <property name="order" value="70_Topography and Infrastructure_050" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <!-- Oil WFS -->
     <bean id="knownTypeOil" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -1926,6 +1971,7 @@
         <property name="proxyDownloadUrl" value="" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/oil_pipelines.jpg" />
         <property name="order" value="70_Topography and Infrastructure_060" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeGas" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="gas" />
@@ -1945,6 +1991,7 @@
         <property name="proxyDownloadUrl" value="" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/gas_pipelines.jpg" />
         <property name="order" value="70_Topography and Infrastructure_070" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <bean id="knownTypeMajorPorts" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="majorports" />
@@ -1964,6 +2011,7 @@
         <property name="proxyDownloadUrl" value="" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/major_ports.jpg" />
         <property name="order" value="70_Topography and Infrastructure_080" />
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
     </bean>
     <!-- END: GPT-74 - Topology and Infrastructure -->
     <!-- GPT-106 - Restricted Areas -->
