@@ -418,6 +418,14 @@
         <property name="order" value="51" />
         <property name="filterCollection">
             <bean class="org.auscope.portal.core.uifilter.FilterCollection">
+                <property name="hiddenParams">
+                    <list>
+                        <bean class="org.auscope.portal.core.uifilter.mandatory.UIHiddenParam">
+                            <constructor-arg name="parameter" value="nvclCollection" />
+                            <constructor-arg name="value" value="true" />
+                        </bean>
+                    </list>
+                </property>
                 <property name="optionalFilters">
                     <list>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterText">
