@@ -9,6 +9,9 @@ deploy:
   application: "geoscience-portal-codedeploy"
   deployment_group: "geoscience-portal-group"
   region: "ap-southeast-2"
+  branches:
+    only:
+      - develop-ga
 cache:
   directories:
     - $HOME/.m2
