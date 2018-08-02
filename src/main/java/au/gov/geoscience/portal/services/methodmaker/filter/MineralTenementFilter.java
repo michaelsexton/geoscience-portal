@@ -66,9 +66,14 @@ public class MineralTenementFilter extends AbstractFilter {
 		if (mineralTenementServiceProviderType == null) {
 			mineralTenementServiceProviderType = MineralTenementServiceProviderType.GeoServer;
 		}
-		fragments = new ArrayList<String>();
+		fragments = new ArrayList<>();
 		if (tenementName != null && !tenementName.isEmpty()) {
-			fragments.add(this.generatePropertyIsLikeFragment(mineralTenementServiceProviderType.nameField(), "*" + tenementName + "*"));
+			List<String> nameFragments = new ArrayList<>();
+
+			nameFragments.add(this.generatePropertyIsLikeFragment("mt:name", "*" + tenementName + "*"));
+			nameFragments.add(this.generatePropertyIsLikeFragment("TENNAME", "*" + tenementName + "*"));
+			fragments.add(this.generateOrComparisonFragment(nameFragments.toArray(new String[nameFragments.size()])));
+
 		}
 		if (tenementTypeUri != null && !tenementTypeUri.isEmpty()) {
 			fragments.add(this.generatePropertyIsEqualToFragment("mt:tenementType_uri", tenementTypeUri));
@@ -78,7 +83,11 @@ public class MineralTenementFilter extends AbstractFilter {
         }
 
 		if (owner != null && !owner.isEmpty()) {
-			fragments.add(this.generatePropertyIsLikeFragment(mineralTenementServiceProviderType.ownerField(), owner));
+			List<String> ownerFragments = new ArrayList<>();
+
+			ownerFragments.add(this.generatePropertyIsLikeFragment("mt:owner", "*" + owner + "*"));
+			ownerFragments.add(this.generatePropertyIsLikeFragment("TENOWNER", "*" + owner + "*"));
+			fragments.add(this.generateOrComparisonFragment(ownerFragments.toArray(new String[ownerFragments.size()])));
 		}
 
 		if (endDate != null && !endDate.isEmpty()) {
@@ -97,13 +106,22 @@ public class MineralTenementFilter extends AbstractFilter {
 	 */
     public MineralTenementFilter(String name, String owner, Set<String> statusUris, Set<String> typeUris, MineralTenementServiceProviderType mineralTenementServiceProviderType) {
 		fragments = new ArrayList<String>();
-    	if (name != null && !name.isEmpty()) {
-			fragments.add(this.generatePropertyIsLikeFragment(mineralTenementServiceProviderType.nameField(), "*" + name + "*"));
-		}
+        if (name != null && !name.isEmpty()) {
+            List<String> nameFragments = new ArrayList<>();
 
-		if (owner != null && !owner.isEmpty()) {
-			fragments.add(this.generatePropertyIsLikeFragment(mineralTenementServiceProviderType.ownerField(), owner));
-		}
+            nameFragments.add(this.generatePropertyIsLikeFragment("mt:name", "*" + name + "*"));
+            nameFragments.add(this.generatePropertyIsLikeFragment("TENNAME", "*" + name + "*"));
+            fragments.add(this.generateOrComparisonFragment(nameFragments.toArray(new String[nameFragments.size()])));
+
+        }
+
+        if (owner != null && !owner.isEmpty()) {
+            List<String> ownerFragments = new ArrayList<>();
+
+            ownerFragments.add(this.generatePropertyIsLikeFragment("mt:owner", "*" + owner + "*"));
+            ownerFragments.add(this.generatePropertyIsLikeFragment("TENOWNER", "*" + owner + "*"));
+            fragments.add(this.generateOrComparisonFragment(ownerFragments.toArray(new String[ownerFragments.size()])));
+        }
 
 		if (statusUris != null && !statusUris.isEmpty()) {
 			List<String> localFragments = new ArrayList<String>();
