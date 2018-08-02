@@ -2474,6 +2474,8 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getBulkDensityDownload.do" />
+        <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 000" />
@@ -2494,6 +2496,8 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getChargeabilityDownload.do" />
+        <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 010" />
@@ -2515,6 +2519,8 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getElectricalConductivityDownload.do" />
+        <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 020" />
@@ -2536,6 +2542,8 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getElectricalResistivityDownload.do" />
+        <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 030" />
@@ -2557,6 +2565,8 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getGammaBulkDensityDownload.do" />
+        <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 040" />
@@ -2578,6 +2588,8 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getKoenigsbergerRatioDownload.do" />
+        <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 050" />
@@ -2599,6 +2611,8 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getMagneticSusceptibilityDownload.do" />
+        <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 060" />
@@ -2619,6 +2633,8 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getNaturalGammaDownload.do" />
+        <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 070" />
@@ -2639,6 +2655,8 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getPorosityDownload.do" />
+        <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 080" />
@@ -2660,6 +2678,8 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getRemanentMagnetisationDownload.do" />
+        <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 090" />
@@ -2680,6 +2700,8 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getSonicVelocityDownload.do" />
+        <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 100" />
@@ -2700,6 +2722,8 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         <property name="proxyCountUrl" value="" />
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getTemperatureDownload.do" />
+        <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 110" />
