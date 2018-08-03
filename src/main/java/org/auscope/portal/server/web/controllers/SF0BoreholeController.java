@@ -13,6 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.auscope.portal.core.server.controllers.BasePortalController;
 import org.auscope.portal.core.services.CSWCacheService;
 import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
+import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
 import org.auscope.portal.core.services.responses.wfs.WFSResponse;
 import org.auscope.portal.core.util.FileIOUtil;
 import org.auscope.portal.server.domain.nvcldataservice.AnalyticalJobResults;
@@ -51,6 +52,36 @@ public class SF0BoreholeController extends BasePortalController {
 		this.gsmlpNameSpaceTable = _gsmlpNameSpaceTable;
 
 	}
+
+    /**
+     * @param serviceUrl
+     * @param mineName
+     * @param status
+     * @param bboxJson
+     * @param maxFeatures
+     * @return
+     */
+    @RequestMapping("/nationalVirtualCoreLibraryFilterCount.do")
+    public ModelAndView mineFilterCount(
+            @RequestParam("serviceUrl") String serviceUrl,
+            @RequestParam(required = false, value = "boreholeName", defaultValue = "") String boreholeName,
+            @RequestParam(required = false, value = "dateOfDrilling", defaultValue = "") String dateOfDrilling,
+            @RequestParam(required = false, value = "nvclCollection", defaultValue = "") Boolean nvclCollection,
+            @RequestParam(required = false, value = "bbox", defaultValue = "") String bboxJson,
+            @RequestParam(required = false, value = "maxFeatures", defaultValue = "0") int maxFeatures) {
+
+
+        FilterBoundingBox bbox = FilterBoundingBox.attemptParseFromJSON(bboxJson);
+
+        try {
+            WFSCountResponse response = this.boreholeService.getNVCLCount(serviceUrl, boreholeName, dateOfDrilling, nvclCollection, bbox, maxFeatures);
+            return generateJSONResponseMAV(true, new Integer(response.getNumberOfFeatures()), "");
+        } catch (Exception e) {
+            log.warn(String.format("Error performing filter for '%1$s': %2$s", serviceUrl, e));
+            log.debug("Exception: ", e);
+            return this.generateExceptionResponse(e, serviceUrl);
+        }
+    }
 
     /**
      * Handles getting the style of the SF0 borehole filter queries. (If the bbox elements are specified, they will limit the output response to 200 records
