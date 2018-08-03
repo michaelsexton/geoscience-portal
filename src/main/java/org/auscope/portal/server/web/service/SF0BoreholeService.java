@@ -1,5 +1,6 @@
 package org.auscope.portal.server.web.service;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 import org.apache.http.client.methods.HttpRequestBase;
@@ -8,6 +9,7 @@ import org.auscope.portal.core.services.PortalServiceException;
 import org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker;
 import org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker.ResultType;
 import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
+import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
 import org.auscope.portal.core.services.responses.wfs.WFSResponse;
 import org.auscope.portal.gsml.SF0BoreholeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,4 +108,13 @@ public class SF0BoreholeService extends BoreholeService {
         return "gsmlp:shape";
     }
 
+    public WFSCountResponse getNVCLCount(String serviceUrl, String boreholeName, String dateOfDrilling, Boolean nvclCollection, FilterBoundingBox bbox, int maxFeatures) throws URISyntaxException, PortalServiceException {
+        SF0BoreholeFilter filter = new SF0BoreholeFilter(boreholeName, "", dateOfDrilling, null, null, nvclCollection);
+
+
+        String filterString = generateFilterString(filter, bbox);
+        HttpRequestBase method = generateWFSRequest(serviceUrl, "gsmlp:BoreholeView", null,
+                filterString, maxFeatures, null, ResultType.Hits);
+        return getWfsFeatureCount(method);
+    }
 }

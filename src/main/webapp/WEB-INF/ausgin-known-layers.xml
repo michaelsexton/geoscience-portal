@@ -399,7 +399,7 @@
         <property name="group" value="Boreholes"/>
         <property name="description" value="A collection of services implementing the National Virtual Core Library Profile v1 for gsml:Borehole and a collection of observations"/>
         <property name="proxyUrl" value="doBoreholeViewFilter.do"/>
-        <property name="proxyCountUrl" value=""/>
+        <property name="proxyCountUrl" value="nationalVirtualCoreLibraryFilterCount.do"/>
         <property name="proxyDownloadUrl" value="doNVCLBoreholeViewCSVDownload.do"/>
         <property name="proxyStyleUrl" value="nationalVirtualCoreLibraryFilterStyle.do"/>
         <!-- <property name="iconUrl" value="http://maps.google.com/mapfiles/kml/paddle/purple-blank.png"/> -->
