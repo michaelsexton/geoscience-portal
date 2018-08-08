@@ -2470,9 +2470,8 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         </constructor-arg>
         <property name="name" value="Bulk Density" />
         <property name="description" value="" />
-        <property name="proxyUrl" value="" />
-        <property name="proxyCountUrl" value="" />
-        <property name="proxyStyleUrl" value="rockPropertiesClusterStyle.do" />
+
+        <property name="mapStyles" value="bulk_density_cluster" />
         <property name="proxyDownloadUrl" value="getBulkDensityDownload.do" />
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
 
@@ -2492,12 +2491,10 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         </constructor-arg>
         <property name="name" value="Chargeability" />
         <property name="description" value="" />
-        <property name="proxyUrl" value="" />
-        <property name="proxyCountUrl" value="" />
-        <property name="proxyStyleUrl" value="" />
+
         <property name="proxyDownloadUrl" value="getChargeabilityDownload.do" />
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
-
+        <property name="mapStyles" value="chargeability_cluster"/>
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="95 Rock Properties 010" />
@@ -2515,11 +2512,11 @@ The coastal boundary for the Great Barrier Reef World Heritage Area is interim. 
         </constructor-arg>
         <property name="name" value="Electrical Conductivity" />
         <property name="description" value="" />
-        <property name="proxyUrl" value="" />
-        <property name="proxyCountUrl" value="" />
-        <property name="proxyStyleUrl" value="" />
+
         <property name="proxyDownloadUrl" value="getElectricalConductivityDownload.do" />
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+        <property name="mapStyles" value="electrical_conductivity_cluster"/>
+
 
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
