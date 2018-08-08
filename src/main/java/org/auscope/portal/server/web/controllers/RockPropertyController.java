@@ -16,6 +16,7 @@ import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
 import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
 import org.auscope.portal.core.services.responses.wfs.WFSTransformedResponse;
 import org.auscope.portal.core.util.FileIOUtil;
+import org.auscope.portal.core.util.SLDLoader;
 import org.auscope.portal.server.web.service.RockPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -262,11 +263,13 @@ public class RockPropertyController extends BasePortalController {
     @RequestMapping("/rockPropertyStyle.do")
     public void mineralOccurrenceViewFilterStyle(HttpServletResponse response) throws IOException {
         String sldResource = "/au/gov/geoscience/portal/sld/bulk_density_cluster.sld";
-        InputStream sld = getClass().getResourceAsStream(sldResource);
+
         OutputStream outputStream = response.getOutputStream();
-        FileIOUtil.writeInputToOutputStream(sld, outputStream, 1024, false);
-        sld.close();
+        String sld = SLDLoader.loadSLD(sldResource,null, false);
+        InputStream inputStream = new ByteArrayInputStream(sld.getBytes());
+        FileIOUtil.writeInputToOutputStream(inputStream, outputStream, 8 * 1024, true);
         outputStream.close();
+
     }
 
 }
