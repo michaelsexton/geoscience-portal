@@ -259,4 +259,14 @@ public class RockPropertyController extends BasePortalController {
 		outputStream.close();
 	}
 
+    @RequestMapping("/rockPropertyStyle.do")
+    public void mineralOccurrenceViewFilterStyle(HttpServletResponse response) throws IOException {
+        String sldResource = "/au/gov/geoscience/portal/sld/bulk_density_cluster.sld";
+        InputStream sld = getClass().getResourceAsStream(sldResource);
+        OutputStream outputStream = response.getOutputStream();
+        FileIOUtil.writeInputToOutputStream(sld, outputStream, 1024, false);
+        sld.close();
+        outputStream.close();
+    }
+
 }
