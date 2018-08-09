@@ -1495,6 +1495,7 @@
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getBulkDensityDownload.do" />
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+        <property name="mapStyles" value="bulk_density_cluster"/>
 
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
@@ -1517,6 +1518,7 @@
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getChargeabilityDownload.do" />
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+        <property name="mapStyles" value="chargeability_cluster"/>
 
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
@@ -1535,11 +1537,9 @@
         </constructor-arg>
         <property name="name" value="Electrical Conductivity" />
         <property name="description" value="" />
-        <property name="proxyUrl" value="" />
-        <property name="proxyCountUrl" value="" />
-        <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getElectricalConductivityDownload.do" />
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+        <property name="mapStyles" value="electrical_conductivity_cluster"/>
 
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
@@ -1563,7 +1563,7 @@
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getElectricalResistivityDownload.do" />
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
-
+        <property name="mapStyles" value="electrical_resistivity_cluster"/>
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="08 Rock Properties 030" />
@@ -1586,6 +1586,7 @@
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getGammaBulkDensityDownload.do" />
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+        <property name="mapStyles" value="gamma_density_cluster"/>
 
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
@@ -1609,6 +1610,7 @@
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getKoenigsbergerRatioDownload.do" />
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+        <property name="mapStyles" value="koenigsberger_ratio_cluster"/>
 
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
@@ -1632,6 +1634,7 @@
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getMagneticSusceptibilityDownload.do" />
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+        <property name="mapStyles" value="magnetic_susceptibility_cluster"/>
 
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
@@ -1655,6 +1658,8 @@
         <property name="proxyDownloadUrl" value="getNaturalGammaDownload.do" />
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
 
+        <property name="mapStyles" value="natural_gamma_cluster"/>
+
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="08 Rock Properties 070" />
@@ -1676,6 +1681,8 @@
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getPorosityDownload.do" />
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+        <property name="mapStyles" value="porosity_cluster"/>
+
 
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
@@ -1699,6 +1706,7 @@
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getRemanentMagnetisationDownload.do" />
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+        <property name="mapStyles" value="remanent_magnetisation_cluster"/>
 
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
@@ -1721,6 +1729,7 @@
         <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getSonicVelocityDownload.do" />
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+        <property name="mapStyles" value="sonic_velocity_cluster"/>
 
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
@@ -1738,11 +1747,9 @@
         </constructor-arg>
         <property name="name" value="Temperature" />
         <property name="description" value="" />
-        <property name="proxyUrl" value="" />
-        <property name="proxyCountUrl" value="" />
-        <property name="proxyStyleUrl" value="" />
         <property name="proxyDownloadUrl" value="getTemperatureDownload.do" />
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
+        <property name="mapStyles" value="temperature_cluster"/>
 
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
