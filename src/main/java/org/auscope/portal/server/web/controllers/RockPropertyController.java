@@ -4,10 +4,14 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.auscope.portal.core.server.OgcServiceProviderType;
 import org.auscope.portal.core.server.controllers.BasePortalController;
 import org.auscope.portal.core.services.PortalServiceException;
@@ -68,14 +72,18 @@ public class RockPropertyController extends BasePortalController {
 		double lat1 = Double.parseDouble(bboxParts[1]);
 		double lat2 = Double.parseDouble(bboxParts[3]);
 
-		String styles = "point";
+		//String styles = "point";
+
+		List<NameValuePair> vendorParams = new ArrayList<>();
+
+		vendorParams.add(new BasicNameValuePair("buffer","75"));
 
 		String responseString = wmsService.getFeatureInfo(serviceUrl, infoFormat, queryLayers, "EPSG:3857",
 				Math.min(lng1, lng2), Math.min(lat1, lat2), Math.max(lng1, lng2), Math.max(lat1, lat2),
 				Integer.parseInt(width), Integer.parseInt(height), Double.parseDouble(longitude),
 				Double.parseDouble(latitude),
-				(int) (Double.parseDouble(x)), (int) (Double.parseDouble(y)), styles, sldBody, postMethod, version,
-				feature_count, true);
+				(int) (Double.parseDouble(x)), (int) (Double.parseDouble(y)), "", sldBody, false, version,
+				feature_count, true, vendorParams);
 		//VT: Ugly hack for the GA wms layer in registered tab as its font is way too small at 80.
 		//VT : GA style sheet also mess up the portal styling of tables as well.
 		if (responseString.contains("table, th, td {")) {
