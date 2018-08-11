@@ -34,6 +34,14 @@
         <property name="hideFromCatalogue" value="true"/>
     </bean>
 
+    <bean id="cswTenements" class="org.auscope.portal.core.services.csw.CSWServiceItem">
+        <constructor-arg name="id" value="cswTenements"/>
+        <constructor-arg name="title" value="Mineral tenement and offshore petroleum title records GeoNetwork"/>
+        <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-tenements"/>
+        <constructor-arg name="recordInformationUrl" value="${portal.build.environment.host}/geonetwork/srv/eng/main.home?uuid=%1$s"/>
+        <property name="hideFromCatalogue" value="true"/>
+    </bean>
+
     <bean id="cswBoreholes" class="org.auscope.portal.core.services.csw.CSWServiceItem">
         <constructor-arg name="id" value="cswBoreholes"/>
         <constructor-arg name="title" value="Boreholes"/>

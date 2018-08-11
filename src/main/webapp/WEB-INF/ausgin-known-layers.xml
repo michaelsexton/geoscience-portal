@@ -708,6 +708,21 @@
         <property name="nagiosHostGroup" value="GeolSurveySISSDeployments"/>
     </bean>
 
+    <bean id="knownTypeOffshorePetroleumTitles" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
+        <constructor-arg name="id" value="offshore-petroleum-titles" />
+        <constructor-arg name="knownLayerSelector">
+            <bean class="org.auscope.portal.core.view.knownlayer.CSWRecordSelector">
+            <property name="recordId" value="48ce338d9766f90a79cdf05306e86e7093d83a2c"/>
+            </bean>
+
+        </constructor-arg>
+        <property name="name" value="Offshore Petroleum Titles" />
+        <property name="description" value="" />
+        <property name="group" value="Tenements" />
+        <property name="order" value="05_Tenements_2" />
+    </bean>
+
+
     <!-- Geological Provinces folder -->
 
     <bean id="knownTypeGeologicalProvinceContact" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
@@ -2237,6 +2252,7 @@
     <bean id="knownTypeProtectedAreasCAPAD2014Marine" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
                 value="protectedAreasCAPAD2014Marine" />
+
         <constructor-arg name="knownLayerSelector">
             <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
                 <constructor-arg name="layerName" value="0" />
