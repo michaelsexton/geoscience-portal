@@ -34,6 +34,7 @@
 
                 <!-- Tenements folder -->
                 <ref bean="knownTypeMineralTenements"/>
+                <ref bean="knownTypeOffshorePetroleumTitles"/>
 
                 <!-- Geological Provinces folder -->
                 <ref bean="knownTypeGeologicalProvinceContact"/>
@@ -141,6 +142,7 @@
                 <!-- <ref bean="cswGeoscienceLocal" /> -->
                 <ref bean="cswGARegistry"/>
                 <ref bean="cswEarthResource"/>
+                <ref bean="cswTenements"/>
                 <ref bean="cswBoreholes"/>
                 <ref bean="cswASTER"/>
                 <ref bean="cswGeologicalProvinces"/>
