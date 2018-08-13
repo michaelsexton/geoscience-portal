@@ -1534,7 +1534,6 @@
         <property name="proxyDownloadUrl" value="getChargeabilityDownload.do" />
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do" />
         <property name="mapStyles" value="chargeability_cluster"/>
-
         <property name="group" value="Rock Properties" />
         <property name="staticLegendUrl" value="${portal.build.environment.host}/img/legends/rock_properties.jpg" />
         <property name="order" value="08 Rock Properties 010" />
@@ -2254,9 +2253,10 @@
                 value="protectedAreasCAPAD2014Marine" />
 
         <constructor-arg name="knownLayerSelector">
-            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
-                <constructor-arg name="layerName" value="0" />
+            <bean class="org.auscope.portal.core.view.knownlayer.CSWRecordSelector">
+                <property name="recordId" value="6cd862d180adb50c7ec7fde53bc1422a10a8f64c" />
             </bean>
+
         </constructor-arg>
         <property name="name" value="Protected Areas CAPAD 2014 - Marine" />
         <property name="description"
