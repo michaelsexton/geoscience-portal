@@ -154,7 +154,7 @@
         <constructor-arg name="serviceCaller" ref="httpServiceCaller"/>
     </bean>
 
-    <!--<bean id="nagios4CachedService" class="org.auscope.portal.core.services.Nagios4CachedService">
+    <bean id="nagios4CachedService" class="org.auscope.portal.core.services.Nagios4CachedService">
         <constructor-arg name="serviceUrl" value="${HOST.nagios.url}"/>
         <constructor-arg name="serviceCaller" ref="httpServiceCaller"/>
         <constructor-arg name="methodMaker">
@@ -163,5 +163,5 @@
         </constructor-arg>
         <property name="userName" value="${env.nagiosUser}" />
         <property name="password" value="${env.nagiosPassword}" />
-</bean>-->
+</bean>
 </beans>
