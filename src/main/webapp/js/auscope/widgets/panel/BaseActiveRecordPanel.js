@@ -179,7 +179,7 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
 
                 if (staticLegendURL && staticLegendURL.length > 0) {
                     legend.getLegendComponent(onlineResources, filterer,"", true, Ext.bind(legendCallback, this, [layer], true), staticLegendURL, true);
-                } else if(styleUrl && styleUrl.length > 0) {
+                } else if (styleUrl && styleUrl.length > 0) {
     
                     Ext.Ajax.request({
                         url: styleUrl,
@@ -192,6 +192,8 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
                             legend.getLegendComponent(onlineResources, filterer,"", true, Ext.bind(legendCallback, this, [layer], true));
                         }
                     });
+                } else {
+                    legend.getLegendComponent(onlineResources, filterer,"", true, Ext.bind(legendCallback, this, [layer], true), null, true);
                 }
             }
         });
