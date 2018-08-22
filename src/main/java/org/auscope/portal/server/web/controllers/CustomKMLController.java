@@ -1,15 +1,20 @@
 package org.auscope.portal.server.web.controllers;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
 
 import org.apache.commons.io.IOUtils;
 import org.auscope.portal.core.server.controllers.BasePortalController;
 import org.auscope.portal.core.server.http.download.DownloadResponse;
 import org.auscope.portal.core.server.http.download.FileDownloadService;
 import org.auscope.portal.core.server.http.download.FileUploadBean;
+import org.auscope.portal.core.util.DOMUtil;
 import org.auscope.portal.core.util.MimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +27,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 @Controller
 public class CustomKMLController extends BasePortalController {
@@ -64,9 +71,18 @@ public class CustomKMLController extends BasePortalController {
                 fileExtension = "." + fileExtension;
             }
 
+            String kmlString = dlRes.getResponseAsString();
+
+            Document kml = DOMUtil.buildDomFromString(kmlString);
+            XPathExpression xpath = DOMUtil.compileXPathExpr("/kml");
+            Node kmlNode = (Node) xpath.evaluate(kml, XPathConstants.NODE);
+            if (kmlNode == null) {
+                return generateJSONResponseMAV(false, null, "Sorry, the URL you have supplied is not KML data");
+            }
+
             ModelMap model = new ModelMap();
             model.put("success", true);
-            model.put("file", IOUtils.toString(dlRes.getResponseAsStream()));
+            model.put("file", kmlString);
             model.put("name", uri.getHost() + fileExtension);
 
             return generateJSONResponseMAV(true, model, "success");
