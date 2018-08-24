@@ -263,7 +263,7 @@
             </bean>
         </constructor-arg>
 
-        <property name="name" value="National Virtual Core Library WMS"/>
+        <property name="name" value="National Virtual Core Library"/>
         <property name="group" value="Boreholes"/>
         <property name="description" value="A collection of services implementing the National Virtual Core Library Profile v1 for gsml:Borehole and a collection of observations"/>
         <property name="proxyUrl" value="doBoreholeViewFilter.do"/>
