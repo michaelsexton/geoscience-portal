@@ -165,6 +165,39 @@ public class SF0BoreholeController extends BasePortalController {
         outputStream.close();
     }
 
+    /**
+     * Handles the borehole filter queries.
+     *
+     * @param serviceUrl
+     *            the url of the service to query
+     * @param mineName
+     *            the name of the mine to query for
+     * @param request
+     *            the HTTP client request
+     * @return a WFS response converted into KML
+     * @throws Exception
+     */
+    @RequestMapping("/doNVCLBoreholeViewCSVDownload.do")
+    public ModelAndView doNVCLBoreholeViewCSVDownload(
+            @RequestParam(required = false, value = "serviceUrl", defaultValue = "") String serviceUrl,
+            @RequestParam(required = false, value = "boreholeName", defaultValue = "") String boreholeName,
+            @RequestParam(required = false, value = "custodian", defaultValue = "") String custodian,
+            @RequestParam(required = false, value = "dateOfDrilling", defaultValue = "") String dateOfDrilling,
+            @RequestParam(required = false, value = "nvclCollection", defaultValue = "") Boolean nvclCollection,
+            @RequestParam(required = false, value = "maxFeatures", defaultValue = "0") Integer maxFeatures,
+            @RequestParam(required = false, value = "bbox") String bbox,
+            @RequestParam(required = false, value = "outputFormat") String outputFormat) throws Exception {
+
+        try {
+            FilterBoundingBox box = FilterBoundingBox.attemptParseFromJSON(bbox);
+            WFSResponse response = this.boreholeService.getAllBoreholes(serviceUrl, boreholeName, custodian,
+                    dateOfDrilling, nvclCollection, maxFeatures, box, outputFormat);
+            return generateNamedJSONResponseMAV(true, "gml", response.getData(), response.getMethod());
+        } catch (Exception e) {
+            return this.generateExceptionResponse(e, serviceUrl);
+        }
+    }
+
 	/**
 	 * Handles the borehole filter queries.
 	 *
