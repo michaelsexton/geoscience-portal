@@ -64,9 +64,25 @@ public class SF0BoreholeService extends BoreholeService {
      */
     public WFSResponse getAllBoreholes(String serviceURL, String boreholeName, String custodian,
             String dateOfDrilling, int maxFeatures, FilterBoundingBox bbox, String outputFormat) throws Exception {
+        return getAllBoreholes(serviceURL, boreholeName, custodian, dateOfDrilling, null, maxFeatures, bbox, null);
+    }
+
+    /**
+     * Get all SF0 Boreholes from a given service url and return the response
+     *
+     * @param serviceURL
+     * @param bbox
+     *            Set to the bounding box in which to fetch results, otherwise set it to null
+     * @param restrictToIDList
+     *            [Optional] A list of gml:id values that the resulting filter should restrict its search space to
+     * @return
+     * @throws Exception
+     */
+    public WFSResponse getAllBoreholes(String serviceURL, String boreholeName, String custodian,
+                                       String dateOfDrilling, Boolean justNVCL, int maxFeatures, FilterBoundingBox bbox, String outputFormat) throws Exception {
         String filterString;
 
-        SF0BoreholeFilter sf0BoreholeFilter = new SF0BoreholeFilter(boreholeName, custodian, dateOfDrilling, null, null,null);
+        SF0BoreholeFilter sf0BoreholeFilter = new SF0BoreholeFilter(boreholeName, custodian, dateOfDrilling, null, null, justNVCL);
         if (bbox == null) {
             filterString = sf0BoreholeFilter.getFilterStringAllRecords();
         } else {
@@ -85,6 +101,7 @@ public class SF0BoreholeService extends BoreholeService {
             throw new PortalServiceException(method, ex);
         }
     }
+
 
     public String getFilter(String boreholeName, String custodian, String dateOfDrilling,
             int maxFeatures, FilterBoundingBox bbox, List<String> ids, Boolean justNVCL) throws Exception {
