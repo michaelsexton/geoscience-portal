@@ -17,8 +17,8 @@
                 <ref bean="knownTypeGeologicalUnitsAge"/>
 
                 <!-- Boreholes folder -->
-                <!-- TODO: GEOPOR-541 remove the below -->
-                <ref bean="knownTypeNVCLBoreholes"/>
+                <!-- TODO: GEOPOR-569 remove the below -->
+                <!--<ref bean="knownTypeNVCLBoreholes"/>-->
                 <ref bean="knownTypeNationalVirtualCoreLibrary"/>
                 <ref bean="knownTypeAllBoreholes"/>
 
