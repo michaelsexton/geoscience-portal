@@ -664,10 +664,10 @@
         <constructor-arg name="id" value="mineral-tenements" />
         <constructor-arg name="knownLayerSelector">
             <bean
-                    class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
+                    class="org.auscope.portal.core.view.knownlayer.WFSSelector">
                 <constructor-arg name="featureTypeName"
                         value="mt:MineralTenement" />
-                <constructor-arg name="layerName" value="MineralTenement" />
+
             </bean>
         </constructor-arg>
         <property name="name" value="Mineral Tenements" />
