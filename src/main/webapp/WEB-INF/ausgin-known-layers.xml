@@ -711,8 +711,8 @@
     <bean id="knownTypeOffshorePetroleumTitles" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="offshore-petroleum-titles" />
         <constructor-arg name="knownLayerSelector">
-            <bean class="org.auscope.portal.core.view.knownlayer.CSWRecordSelector">
-            <property name="recordId" value="48ce338d9766f90a79cdf05306e86e7093d83a2c"/>
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+                <constructor-arg name="layerName" value="Petroleum Titles Company" />
             </bean>
 
         </constructor-arg>
