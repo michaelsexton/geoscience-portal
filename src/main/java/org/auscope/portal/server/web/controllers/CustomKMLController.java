@@ -73,10 +73,8 @@ public class CustomKMLController extends BasePortalController {
 
             String kmlString = dlRes.getResponseAsString();
 
-            Document kml = DOMUtil.buildDomFromString(kmlString);
-            XPathExpression xpath = DOMUtil.compileXPathExpr("/kml");
-            Node kmlNode = (Node) xpath.evaluate(kml, XPathConstants.NODE);
-            if (kmlNode == null) {
+            Document kml = DOMUtil.buildDomFromString(kmlString, true);
+            if (kml.getDocumentElement() != null &&  !kml.getDocumentElement().getLocalName().equals("kml")) {
                 return generateJSONResponseMAV(false, null, "Sorry, the URL you have supplied is not KML data");
             }
 
