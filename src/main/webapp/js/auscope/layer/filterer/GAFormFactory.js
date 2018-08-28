@@ -76,7 +76,7 @@ Ext.define('auscope.layer.filterer.GAFormFactory', {
             case 'portal-reports':
                 baseFilterForm = Ext.create('auscope.layer.filterer.forms.ReportFilterForm', baseFilterFormCfg);
                 return this._generateResult(baseFilterForm, true);
-            case 'sf0-borehole-nvcl' :
+            case 'gsmlp-borehole' :
                 baseFilterForm = Ext.create('auscope.layer.filterer.forms.SF0BoreholeFilterForm', baseFilterFormCfg);
                 return this._generateResult(baseFilterForm, true);
             case 'remanent-anomalies':
@@ -137,7 +137,6 @@ Ext.define('auscope.layer.filterer.GAFormFactory', {
             baseFilterForm = Ext.create('auscope.layer.filterer.forms.CSWServiceFilterForm', baseFilterFormCfg);
             return this._generateResult(baseFilterForm, true);
         }
-
 
         //And otherwise we just show the empty filter form
         return this._generateResult(Ext.create('portal.layer.filterer.forms.EmptyFilterForm', baseFilterFormCfg), false);
