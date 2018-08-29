@@ -9,15 +9,14 @@ Ext.define('ga.widgets.GADeserializationHandler', {
     _deserialize : function() {
         var featureLayers = this._getLayersToAdd();
 
-        if (this.mapStateSerializer.serializedLayers.length > 0)
-        {
-            var restoreMsg =  '<p>Restore featured map layers from your previous<br/>' +
-                     'session?</p>' +
-                     '<p><b>NOTE</b>: ASTER maps have been temporarily removed <br />' +
-                     'from this Portal due to service problems. ASTER data <br />' +
-                     'are still available through the <a href="http://portal.auscope.org/">AuScope Research Portal</a>.</p>';
+        if (this.mapStateSerializer.serializedLayers.length > 0) {
+            var restoreMsg = '<p>Restore featured map layers from your previous<br/>' +
+                'session?</p>' +
+                '<p><b>NOTE</b>: ASTER maps have been temporarily removed <br />' +
+                'from this Portal due to service problems. ASTER data <br />' +
+                'are still available through the <a href="http://portal.auscope.org/">AuScope Research Portal</a>.</p>';
 
-            Ext.MessageBox.confirm('Restoring Map Layers', restoreMsg, function(btn) {
+            Ext.MessageBox.confirm('Restoring Map Layers', restoreMsg, function (btn) {
                 if (btn === 'yes') {
                     ActiveLayerManager.addLayers(featureLayers);
                 } else {
@@ -25,5 +24,6 @@ Ext.define('ga.widgets.GADeserializationHandler', {
                 }
             }, this);
 
+        }
     }
 });
