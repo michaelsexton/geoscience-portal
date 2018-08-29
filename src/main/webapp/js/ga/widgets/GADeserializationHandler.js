@@ -11,20 +11,19 @@ Ext.define('ga.widgets.GADeserializationHandler', {
 
         if (this.mapStateSerializer.serializedLayers.length > 0)
         {
-            var restoreMsg = Ext.MessageBox.show({
-                title: '<p style="font-size:140%;margin:0em;">Reloading map layers...</p>',
-                msg: '<b><h1 style="margin:0em;">Please wait...</h2></b><br>' +
-                     '<p style="font-size:140%;margin:0em;">Restoring <b>Featured Layers</b> to your map</p><br>' +
-                     '<p style="font-size:140%;margin:0em;">Custom Layers will not be reloaded</p>' +
-                     '<p style="font-size:140%;">If certain functions of the portal are not working, please refresh your cache</p>'
-            });
+            var restoreMsg =  '<p>Restore featured map layers from your previous<br/>' +
+                     'session?</p>' +
+                     '<p><b>NOTE</b>: ASTER maps have been temporarily removed <br />' +
+                     'from this Portal due to service problems. ASTER data <br />' +
+                     'are still available through the <a href="http://portal.auscope.org/">AuScope Research Portal</a>.</p>';
 
-            setTimeout(function(){
-                restoreMsg.close();
-            }, 8000);
-        }
+            Ext.MessageBox.confirm('Restoring Map Layers', restoreMsg, function(btn) {
+                if (btn === 'yes') {
+                    ActiveLayerManager.addLayers(featureLayers);
+                } else {
+                    this.mapStateSerializer.clear();
+                }
+            }, this);
 
-        //Add the layers to the internal store
-        ActiveLayerManager.addLayers(featureLayers);
-    },
+    }
 });
