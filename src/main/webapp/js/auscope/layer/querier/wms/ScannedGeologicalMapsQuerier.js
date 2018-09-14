@@ -56,14 +56,14 @@ Ext.define('portal.layer.querier.wms.ScannedGeologicalMapsQuerier', {
             order.push(pubYear[0]);
             
             var pubAgency = "";
-            if (tile.data['AGENCY1']) {
-                pubAgency = tile.data['AGENCY1'];
+            if (tile.data['agency1']) {
+                pubAgency = tile.data['agency1'];
             }
-            if (tile.data['AGENCY2']) {
+            if (tile.data['agency2']) {
                 if (pubAgency.size > 0) {
                     pubAgency += ", ";
                 } 
-                pubAgency += tile.data['AGENCY2'];
+                pubAgency += tile.data['agency2'];
             }
             record["Publishing Agency"] = pubAgency;
             order.push("Publishing Agency");
