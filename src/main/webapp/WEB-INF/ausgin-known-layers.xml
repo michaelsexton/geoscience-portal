@@ -212,17 +212,23 @@
                     <list>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterText">
                             <constructor-arg name="label" value="Name" />
-                            <constructor-arg name="value" value=""/>
+                            <constructor-arg name="value" value="All Names"/>
                             <constructor-arg name="parameterName" value="boreholeName"/>
+                            <property name="toolTip"  value="Type all or part of borehole name.
+                             Use the * wildcards to broaden your search (eg DD*2).
+                             The portal will automatically add a wildcard to each end of your search term." />
                         </bean>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterText">
                             <constructor-arg name="label" value="Drilling Year" />
-                            <constructor-arg name="value" value=""/>
+                            <constructor-arg name="value" value="All Years"/>
                             <constructor-arg name="parameterName" value="dateOfDrilling" />
+                            <property name="toolTip" value="Type a year (eg 1998).
+                            Use a wildcard to select a decade (eg 199*). Leave blank to select all years."/>
                         </bean>
                         <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
                             <constructor-arg name="label" value="Provider" />
-                            <constructor-arg name="value" value=""/>
+                            <constructor-arg name="value" value="All data providers"/>
+                            <property name="toolTip" value="Choose a data provider from the drop-down list." />
                         </bean>
                     </list>
                 </property>
@@ -298,17 +304,23 @@
                     <list>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterText">
                             <constructor-arg name="label" value="Name" />
-                            <constructor-arg name="value" value=""/>
+                            <constructor-arg name="value" value="All Names"/>
                             <constructor-arg name="parameterName" value="boreholeName"/>
+                            <property name="toolTip"  value="Type all or part of borehole name.
+                             Use the * wildcards to broaden your search (eg DD*2).
+                             The portal will automatically add a wildcard to each end of your search term." />
                         </bean>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterText">
                             <constructor-arg name="label" value="Drilling Year" />
-                            <constructor-arg name="value" value=""/>
+                            <constructor-arg name="value" value="All Years"/>
                             <constructor-arg name="parameterName" value="dateOfDrilling" />
+                            <property name="toolTip" value="Type a year (eg 1998).
+                            Use a wildcard to select a decade (eg 199*). Leave blank to select all years."/>
                         </bean>
                         <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
                             <constructor-arg name="label" value="Provider" />
-                            <constructor-arg name="value" value=""/>
+                            <constructor-arg name="value" value="All data providers"/>
+                            <property name="toolTip" value="Choose a data provider from the drop-down list." />
                         </bean>
                     </list>
                 </property>
@@ -355,19 +367,24 @@
                 <property name="optionalFilters">
                     <list>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterText">
-                            <constructor-arg name="label" value="Name"></constructor-arg>
-
-                            <constructor-arg name="value"><null/></constructor-arg>
-                            <constructor-arg name="parameterName" value="boreholeName" />
+                            <constructor-arg name="label" value="Name" />
+                            <constructor-arg name="value" value="All Names"/>
+                            <constructor-arg name="parameterName" value="boreholeName"/>
+                            <property name="toolTip"  value="Type all or part of borehole name.
+                             Use the * wildcards to broaden your search (eg DD*2).
+                             The portal will automatically add a wildcard to each end of your search term." />
                         </bean>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterText">
-                            <constructor-arg name="label" value="Drilling Year"></constructor-arg>
-                            <constructor-arg name="value"><null/></constructor-arg>
+                            <constructor-arg name="label" value="Drilling Year" />
+                            <constructor-arg name="value" value="All Years"/>
                             <constructor-arg name="parameterName" value="dateOfDrilling" />
+                            <property name="toolTip" value="Type a year (eg 1998).
+                            Use a wildcard to select a decade (eg 199*). Leave blank to select all years."/>
                         </bean>
                         <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
                             <constructor-arg name="label" value="Provider" />
-                            <constructor-arg name="value"><null/></constructor-arg>
+                            <constructor-arg name="value" value="All data providers"/>
+                            <property name="toolTip" value="Choose a data provider from the drop-down list." />
                         </bean>
                     </list>
                 </property>
