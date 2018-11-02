@@ -756,7 +756,7 @@
                         <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
                             <constructor-arg name="label" value="Provider"></constructor-arg>
                             <constructor-arg name="value" value="All data providers" />
-                            <property name="toolTip " value="Choose a data provider from the drop-down list" />
+                            <property name="toolTip" value="Choose a data provider from the drop-down list" />
                         </bean>
                     </list>
                 </property>
