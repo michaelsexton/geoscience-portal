@@ -479,7 +479,7 @@
                     <list>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterText">
                             <constructor-arg name="label" value="Name"/>
-                            <constructor-arg name="value" value="All mineral occurrence names"/>
+                            <constructor-arg name="value" value="All names"/>
                             <constructor-arg name="parameterName" value="name"/>
                             <property name="toolTip" value="All or part of a mineral occurrence name. Use wildcards to broaden your search (eg m*t*isa). The portal prepends and appends wildcards to your search term and is case insensitive" />
                         </bean>
