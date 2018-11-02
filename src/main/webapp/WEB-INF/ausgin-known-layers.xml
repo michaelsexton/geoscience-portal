@@ -213,14 +213,14 @@
                     <list>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterText">
                             <constructor-arg name="label" value="Name"/>
-                            <constructor-arg name="value" value="All Names"/>
+                            <constructor-arg name="value" value="All names"/>
                             <constructor-arg name="parameterName" value="boreholeName"/>
                             <property name="toolTip"
                                       value="Type all or part of borehole name. Use the * wildcards to broaden your search (eg DD*2). The portal will automatically add a wildcard to each end of your search term."/>
                         </bean>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterText">
                             <constructor-arg name="label" value="Drilling Year"/>
-                            <constructor-arg name="value" value="All Years"/>
+                            <constructor-arg name="value" value="All years"/>
                             <constructor-arg name="parameterName" value="dateOfDrilling"/>
                             <property name="toolTip"
                                       value="Type a year (eg 1998). Use a wildcard to select a decade (eg 199*). Leave blank to select all years."/>
@@ -305,14 +305,14 @@
                     <list>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterText">
                             <constructor-arg name="label" value="Name"/>
-                            <constructor-arg name="value" value="All Names"/>
+                            <constructor-arg name="value" value="All names"/>
                             <constructor-arg name="parameterName" value="boreholeName"/>
                             <property name="toolTip"
                                       value="Type all or part of borehole name. Use the * wildcards to broaden your search (eg DD*2). The portal will automatically add a wildcard to each end of your search term."/>
                         </bean>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterText">
                             <constructor-arg name="label" value="Drilling Year"/>
-                            <constructor-arg name="value" value="All Years"/>
+                            <constructor-arg name="value" value="All years"/>
                             <constructor-arg name="parameterName" value="dateOfDrilling"/>
                             <property name="toolTip"
                                       value="Type a year (eg 1998). Use a wildcard to select a decade (eg 199*). Leave blank to select all years."/>
@@ -479,7 +479,7 @@
                     <list>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterText">
                             <constructor-arg name="label" value="Name"/>
-                            <constructor-arg name="value" value="All mineral occurrence names"/>
+                            <constructor-arg name="value" value="All names"/>
                             <constructor-arg name="parameterName" value="name"/>
                             <property name="toolTip" value="All or part of a mineral occurrence name. Use wildcards to broaden your search (eg m*t*isa). The portal prepends and appends wildcards to your search term and is case insensitive" />
                         </bean>
