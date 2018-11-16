@@ -47,7 +47,7 @@
 
     <bean id="wfsMethodMaker" class="org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker">
         <property name="namespaces">
-            <bean class="org.auscope.portal.core.services.namespaces.ErmlNamespaceContext"/>
+            <bean class="org.auscope.portal.core.services.namespaces.WFSNamespaceContext"/>
         </property>
     </bean>
 
