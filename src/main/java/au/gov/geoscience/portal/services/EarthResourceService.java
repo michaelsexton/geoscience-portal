@@ -1,5 +1,6 @@
 package au.gov.geoscience.portal.services;
 
+import au.gov.geoscience.portal.server.NamespaceService;
 import au.gov.geoscience.portal.server.controllers.VocabularyController;
 import au.gov.geoscience.portal.services.methodmaker.filter.CommodityResourceViewFilter;
 import au.gov.geoscience.portal.services.methodmaker.filter.MineFilter;
@@ -28,6 +29,9 @@ import java.util.Set;
 @Service
 public class EarthResourceService extends BaseWFSService {
 
+    private static String ER_PREFIX = "er";
+    private static String ERL_PREFIX = "erl";
+
     public static final String MINING_FEATURE_OCCURRENCE_FEATURE_TYPE = "er:MiningFeatureOccurrence";
 
     public static final String MINERAL_OCCURRENCE_VIEW_FEATURE_TYPE = "erl:MineralOccurrenceView";
@@ -36,10 +40,16 @@ public class EarthResourceService extends BaseWFSService {
 
     private VocabularyFilterService vocabularyFilterService;
 
+    private NamespaceService namespaceService;
+
+
+
+
     @Autowired
-    public EarthResourceService(HttpServiceCaller httpServiceCaller, WFSGetFeatureMethodMaker wfsMethodMaker, VocabularyFilterService vocabularyFilterService) {
+    public EarthResourceService(HttpServiceCaller httpServiceCaller, WFSGetFeatureMethodMaker wfsMethodMaker, VocabularyFilterService vocabularyFilterService, NamespaceService namespaceService) {
         super(httpServiceCaller, wfsMethodMaker);
         this.vocabularyFilterService = vocabularyFilterService;
+        this.namespaceService = namespaceService;
     }
 
     /**
@@ -113,6 +123,8 @@ public class EarthResourceService extends BaseWFSService {
     public WFSCountResponse getMineralOccurrenceViewCount(String serviceUrl, String name, String commodityUri,
                                                           String timescaleUri, FilterBoundingBox bbox, int maxFeatures)
             throws URISyntaxException, PortalServiceException {
+
+        String ermlLiteNamespace = namespaceService.getNamespace(serviceUrl, ERL_PREFIX);
 
         Set<String> timescaleUris = new HashSet<>();
         Set<String> commodityUris = new HashSet<>();
