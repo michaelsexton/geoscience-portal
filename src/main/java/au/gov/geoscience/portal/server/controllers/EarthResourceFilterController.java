@@ -3,6 +3,7 @@ package au.gov.geoscience.portal.server.controllers;
 import au.gov.geoscience.portal.services.EarthResourceService;
 import org.auscope.portal.core.server.OgcServiceProviderType;
 import org.auscope.portal.core.server.controllers.BasePortalController;
+import org.auscope.portal.core.services.NamespaceService;
 import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
 import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
 import org.auscope.portal.core.util.FileIOUtil;
@@ -19,11 +20,17 @@ import java.io.OutputStream;
 @Controller
 public class EarthResourceFilterController extends BasePortalController {
 
+    private static String ER_PREFIX = "er";
+    private static String ERL_PREFIX = "erl";
+
     private EarthResourceService earthResourceService;
 
+    private NamespaceService namespaceService;
+
     @Autowired
-    public EarthResourceFilterController(EarthResourceService earthResourceService) {
+    public EarthResourceFilterController(EarthResourceService earthResourceService, NamespaceService namespaceService) {
         this.earthResourceService = earthResourceService;
+        this.namespaceService = namespaceService;
     }
 
     /**
@@ -47,7 +54,7 @@ public class EarthResourceFilterController extends BasePortalController {
         filter = this.earthResourceService.getMineFilter(mineName, status, bbox);
 
 
-        String style = FilterStyle.MINE.getStyle(filter, EarthResourceService.MINING_FEATURE_OCCURRENCE_FEATURE_TYPE, "Mine");
+        String style = FilterStyle.MINE.getStyle(filter, EarthResourceService.MINING_FEATURE_OCCURRENCE_FEATURE_TYPE, "Mine", null);
 
         response.setContentType("text/xml");
 
@@ -106,6 +113,7 @@ public class EarthResourceFilterController extends BasePortalController {
      */
     @RequestMapping("/mineralOccurrenceViewFilterStyle.do")
     public void mineralOccurrenceViewFilterStyle(HttpServletResponse response,
+            @RequestParam(required = true, value = "serviceUrl") String serviceUrl,
             @RequestParam(required = false, value = "name") String name,
             @RequestParam(required = false, value = "commodityUri") String commodityUri,
             @RequestParam(required = false, value = "timescaleUri") String timescaleUri,
@@ -118,8 +126,10 @@ public class EarthResourceFilterController extends BasePortalController {
         String filter = this.earthResourceService.getMineralOccurrenceViewFilter(name, commodityUri, timescaleUri,
                 bbox);
 
+        String ermlLiteNamespace = namespaceService.getNamespaceURI(serviceUrl, ERL_PREFIX);
+
         String style = FilterStyle.MINERAL_OCCURRENCE_VIEW.getStyle(filter,
-                EarthResourceService.MINERAL_OCCURRENCE_VIEW_FEATURE_TYPE, "Mineral Occurrence");
+                EarthResourceService.MINERAL_OCCURRENCE_VIEW_FEATURE_TYPE, "Mineral Occurrence", ermlLiteNamespace);
 
         response.setContentType("text/xml");
 
@@ -151,6 +161,7 @@ public class EarthResourceFilterController extends BasePortalController {
 
         OgcServiceProviderType ogcServiceProviderType = OgcServiceProviderType.parseUrl(serviceUrl);
         FilterBoundingBox bbox = FilterBoundingBox.attemptParseFromJSON(bboxJson, ogcServiceProviderType);
+
 
         try {
             WFSCountResponse response = this.earthResourceService.getMineralOccurrenceViewCount(serviceUrl, name,
@@ -184,7 +195,7 @@ public class EarthResourceFilterController extends BasePortalController {
 
         String filter = this.earthResourceService.getMineViewFilter(name, statusUri, bbox);
 
-        String style = FilterStyle.MINE_VIEW.getStyle(filter, EarthResourceService.MINE_VIEW_FEATURE_TYPE, "Mines");
+        String style = FilterStyle.MINE_VIEW.getStyle(filter, EarthResourceService.MINE_VIEW_FEATURE_TYPE, "Mines", null);
 
         response.setContentType("text/xml");
 
@@ -252,7 +263,7 @@ public class EarthResourceFilterController extends BasePortalController {
                 bbox);
 
         String style = FilterStyle.COMMODITY_RESOURCE_VIEW.getStyle(filter,
-                EarthResourceService.COMMODITY_RESOURCE_VIEW_FEATURE_TYPE, "Commodity Resource");
+                EarthResourceService.COMMODITY_RESOURCE_VIEW_FEATURE_TYPE, "Commodity Resource", null);
 
         response.setContentType("text/xml");
 
