@@ -1,6 +1,5 @@
 package au.gov.geoscience.portal.services;
 
-import au.gov.geoscience.portal.server.NamespaceService;
 import au.gov.geoscience.portal.server.controllers.VocabularyController;
 import au.gov.geoscience.portal.services.methodmaker.filter.CommodityResourceViewFilter;
 import au.gov.geoscience.portal.services.methodmaker.filter.MineFilter;
@@ -9,6 +8,7 @@ import au.gov.geoscience.portal.services.methodmaker.filter.MineralOccurrenceVie
 import org.apache.http.client.methods.HttpRequestBase;
 import org.auscope.portal.core.server.http.HttpServiceCaller;
 import org.auscope.portal.core.services.BaseWFSService;
+import org.auscope.portal.core.services.NamespaceService;
 import org.auscope.portal.core.services.PortalServiceException;
 import org.auscope.portal.core.services.VocabularyFilterService;
 import org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker;
@@ -124,7 +124,7 @@ public class EarthResourceService extends BaseWFSService {
                                                           String timescaleUri, FilterBoundingBox bbox, int maxFeatures)
             throws URISyntaxException, PortalServiceException {
 
-        String ermlLiteNamespace = namespaceService.getNamespace(serviceUrl, ERL_PREFIX);
+        String ermlLiteNamespace = namespaceService.getNamespaceURI(serviceUrl, ERL_PREFIX);
 
         Set<String> timescaleUris = new HashSet<>();
         Set<String> commodityUris = new HashSet<>();
