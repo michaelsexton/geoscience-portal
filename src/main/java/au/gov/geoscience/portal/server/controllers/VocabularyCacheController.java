@@ -1,6 +1,6 @@
 package au.gov.geoscience.portal.server.controllers;
 
-import com.hp.hpl.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.Model;
 import org.auscope.portal.core.server.controllers.BasePortalController;
 import org.auscope.portal.core.services.VocabularyCacheService;
 import org.auscope.portal.core.services.responses.csw.CSWRecord;
