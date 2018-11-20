@@ -265,9 +265,7 @@
                                     <javaVmVendor>${java.vm.vendor}</javaVmVendor>
                                 </manifestEntries>
                             </archive>
-                            <goals>
-                                <goal>manifest</goal>
-                            </goals>
+
                         </configuration>
                         <!-- This is needed to create ${basedir}/src/main/webapp/META-INF/MANIFEST.MF file -->
                         <executions>
@@ -327,9 +325,7 @@
                                     <javaVmVendor>${java.vm.vendor}</javaVmVendor>
                                 </manifestEntries>
                             </archive>
-                            <goals>
-                                <goal>manifest</goal>
-                            </goals>
+
                         </configuration>
                         <!-- This is needed to create ${basedir}/src/main/webapp/META-INF/MANIFEST.MF file -->
                         <executions>
@@ -343,6 +339,23 @@
                     </plugin>                          
                 </plugins>
             </build>
+            <repositories>
+                <repository>
+                    <id>nexus.gadevs</id>
+                    <name>Geoscience Australia Nexus Repo</name>
+                    <url>https://nexus.gadevs.ga/repository/maven-public</url>
+                </repository>
+            </repositories>
+            <distributionManagement>
+                <repository>
+                    <id>release</id>
+                    <url>https://nexus.gadevs.ga/repository/maven-releases</url>
+                </repository>
+                <snapshotRepository>
+                    <id>snapshots</id>
+                    <url>https://nexus.gadevs.ga/repository/maven-snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
         </profile>
         <profile>
             <id>phantomjs</id>
@@ -422,6 +435,10 @@
             <id>nexus.gadevs</id>
             <name>Internal nexus</name>
             <url>https://nexus.gadevs.ga/repository/maven-public</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
         </repository>
         <repository>
             <id>osgeo</id>
@@ -446,19 +463,13 @@
             <id>cgsrv8.arrc.csiro.au</id>
             <name>AuScope Nexus - PortalRepo</name>
             <url>http://cgsrv8.arrc.csiro.au/nexus/content/groups/PortalRepository/</url>
-            <snapshots>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-            <releases>
-                <updatePolicy>always</updatePolicy>
-            </releases>
         </repository>
     </repositories>
     <dependencies>
         <dependency>
             <groupId>org.auscope.portal</groupId>
             <artifactId>portal-core</artifactId>
-            <version>2.0.0-SNAPSHOT</version>
+            <version>2.1.0-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>net.sf.opencsv</groupId>
@@ -479,15 +490,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-   <distributionManagement>
-        <repository>
-            <id>nexus.gadevs.releases</id>
-            <name>Internal nexus</name>
-            <url>http://rhe-repo-prod01.prod.lan:8080/nexus/content/repositories/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>nexus.gadevs.snapshots</id>
-	    <url>http://rhe-repo-prod01.prod.lan:8080/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>

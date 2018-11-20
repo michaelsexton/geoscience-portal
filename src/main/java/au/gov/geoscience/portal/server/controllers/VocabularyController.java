@@ -2,14 +2,14 @@ package au.gov.geoscience.portal.server.controllers;
 
 
 import au.gov.geoscience.portal.services.vocabularies.VocabularyLookup;
-import com.hp.hpl.jena.rdf.model.*;
-import com.hp.hpl.jena.vocabulary.DCTerms;
-import com.hp.hpl.jena.vocabulary.RDF;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONSerializer;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.jena.rdf.model.*;
+import org.apache.jena.vocabulary.DCTerms;
+import org.apache.jena.vocabulary.RDF;
 import org.auscope.portal.core.server.controllers.BasePortalController;
 import org.auscope.portal.core.services.VocabularyFilterService;
 import org.auscope.portal.server.web.service.NvclVocabService;
