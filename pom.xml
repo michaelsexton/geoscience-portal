@@ -294,7 +294,7 @@
                 </repository>
                 <snapshotRepository>
                     <id>snapshots</id>
-                    <url>http://rhe-repo-prod01.prod.lan:8080/nexus/content/repositories/releasessnapshots</url>
+                    <url>http://rhe-repo-prod01.prod.lan:8080/nexus/content/repositories/snapshots</url>
                 </snapshotRepository>
             </distributionManagement>
         </profile>
