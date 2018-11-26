@@ -308,14 +308,14 @@
                             <constructor-arg name="value" value="All names"/>
                             <constructor-arg name="parameterName" value="boreholeName"/>
                             <property name="toolTip"
-                                      value="Type all or part of borehole name. Use the * wildcards to broaden your search (eg DD*2). The portal will automatically add a wildcard to each end of your search term."/>
+                                      value="Type all or part of a borehole name. Use wildcards to broaden your search.  # = a single character, * = any number of characters. (eg, *DD#1*). Search terms are case insensitive."/>
                         </bean>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterText">
                             <constructor-arg name="label" value="Drilling Year"/>
                             <constructor-arg name="value" value="All years"/>
                             <constructor-arg name="parameterName" value="dateOfDrilling"/>
                             <property name="toolTip"
-                                      value="Type a year (eg 1998). Use a wildcard to select a decade (eg 199*). Leave blank to select all years."/>
+                                      value="Type a year (eg, 1998). Use a wildcard to select a decade (eg, 199*)"/>
                         </bean>
                         <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
                             <constructor-arg name="label" value="Provider"/>
@@ -370,16 +370,13 @@
                             <constructor-arg name="label" value="Name"/>
                             <constructor-arg name="value" value="All Names"/>
                             <constructor-arg name="parameterName" value="boreholeName"/>
-                            <property name="toolTip" value="Type all or part of borehole name.
-                             Use the * wildcards to broaden your search (eg DD*2).
-                             The portal will automatically add a wildcard to each end of your search term."/>
+                            <property name="toolTip" value="Type all or part of a borehole name. Use wildcards to broaden your search.  # = a single character, * = any number of characters. (eg, *DD#1*). Search terms are case insensitive."/>
                         </bean>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterText">
                             <constructor-arg name="label" value="Drilling Year"/>
                             <constructor-arg name="value" value="All Years"/>
                             <constructor-arg name="parameterName" value="dateOfDrilling"/>
-                            <property name="toolTip" value="Type a year (eg 1998).
-                            Use a wildcard to select a decade (eg 199*). Leave blank to select all years."/>
+                            <property name="toolTip" value="Type a year (eg, 1998). Use a wildcard to select a decade (eg, 199*)"/>
                         </bean>
                         <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
                             <constructor-arg name="label" value="Provider"/>
@@ -423,7 +420,7 @@
                             <constructor-arg name="value" value="All names"/>
                             <constructor-arg name="parameterName" value="name"/>
                             <property name="toolTip" 
-                                      value="All or part of a mineral occurrence name. Use wildcards to broaden your search (eg m*t*isa). The portal prepends and appends wildcards to your search term and is case insensitive" />
+                                      value="Type all or part of a mineral occurrence name. Use wildcards to broaden your search.  # = a single character, * = any number of characters. (eg, M*T#ISA*). Search terms are case insensitive." />
                         </bean>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterVocabulary">
                             <constructor-arg name="label" value="Primary Commodity"/>
@@ -481,7 +478,7 @@
                             <constructor-arg name="label" value="Name"/>
                             <constructor-arg name="value" value="All names"/>
                             <constructor-arg name="parameterName" value="name"/>
-                            <property name="toolTip" value="All or part of a mineral occurrence name. Use wildcards to broaden your search (eg m*t*isa). The portal prepends and appends wildcards to your search term and is case insensitive" />
+                            <property name="toolTip" value="Type all or part of a mineral occurrence name. Use wildcards to broaden your search.  # = a single character, * = any number of characters. (eg, M*T#ISA*). Search terms are case insensitive." />
                         </bean>
                         <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
                             <constructor-arg name="label" value="Provider"></constructor-arg>
@@ -523,7 +520,7 @@
                             <constructor-arg name="label" value="Name"/>
                             <constructor-arg name="value" value="All names"/>
                             <constructor-arg name="parameterName" value="name"/>
-                            <property name="toolTip" value="All or part of a mineral occurrence name. Use wildcards to broaden your search (eg m*t*isa). The portal prepends and appends wildcards to your search term and is case insensitive"/>
+                            <property name="toolTip" value="Type all or part of a mineral occurrence name. Use wildcards to broaden your search.  # = a single character, * = any number of characters. (eg, M*T#ISA*). Search terms are case insensitive."/>
                         </bean>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterVocabulary">
                             <constructor-arg name="label" value="Commodity"></constructor-arg>
@@ -586,7 +583,7 @@
                             <constructor-arg name="value" value="All mine names"/>
                             <constructor-arg name="parameterName" value="name"/>
                             <property name="toolTip"
-                                      value="All or part of a mine name. Use wildcards to broaden your search (eg m*t*isa). The portal prepends and appends wildcards to your search term and is case insensitive" />
+                                      value="Type all or part of a mine name. Use wildcards to broaden your search.  # = a single character, * = any number of characters. (eg, M*T#ISA*). Search terms are case insensitive." />
                         </bean>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterVocabulary">
                             <constructor-arg name="label" value="Operating Status"/>
@@ -640,7 +637,7 @@
                             <constructor-arg name="value" value="All mine names"/>
                             <constructor-arg name="parameterName" value="mineName"/>
                             <property name="toolTip"
-                                      value="All or part of a mine name. Use wildcards to broaden your search (eg m*t*isa). The portal prepends and appends wildcards to your search term and is case insensitive" />
+                                      value="Type all or part of a mine name. Use wildcards to broaden your search.  # = a single character, * = any number of characters. (eg, M*T#ISA*). Search terms are case insensitive." />
 
                         </bean>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterVocabulary">
@@ -695,7 +692,7 @@
                             <constructor-arg name="value" value="All mine names"/>
                             <constructor-arg name="parameterName" value="mineName"/>
                             <property name="toolTip"
-                                      value="All or part of a mine name. Use wildcards to broaden your search (eg m*t*isa). The portal prepends and appends wildcards to your search term and is case insensitive" />
+                                      value="Type all or part of a mine name. Use wildcards to broaden your search.  # = a single character, * = any number of characters. (eg, M*T#ISA*). Search terms are case insensitive." />
                         </bean>
                         <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
                             <constructor-arg name="label" value="Provider"/>
@@ -742,7 +739,7 @@
                             <constructor-arg name="value" value="All tenement names" />
                             <constructor-arg name="parameterName" value="name"/>
                             <property name="toolTip"
-                                      value="All or part of a tenement name. Use wildcards to broaden your search (eg el*123). The portal prepends and appends wildcards to your search term and is case insensitive" />
+                                      value="Type all or part of a mineral tenement name. Use wildcards to broaden your search.  # = a single character, * = any number of characters (eg, EL#234*). Search terms are case insensitive." />
 
                         </bean>
                         <bean class="au.gov.geoscience.portal.uifilter.UIFilterText">
@@ -751,7 +748,7 @@
                             <constructor-arg name="value" value="All tenement owners"/>
                             <constructor-arg name="parameterName" value="owner"/>
                             <property name="toolTip"
-                                      value="All or part of an owner's name. Use wildcards to broaden your search. The portal prepends and appends wildcards to your search term and is case insensitive" />
+                                      value="Type all or part of a mineral tenement owner. Use wildcards to broaden your search.  # = a single character, * = any number of characters (eg, *BIL#ITON*). Search terms are case insensitive." />
                         </bean>
                         <bean class="org.auscope.portal.core.uifilter.optional.UICheckBoxGroupProvider">
                             <constructor-arg name="label" value="Provider"></constructor-arg>
