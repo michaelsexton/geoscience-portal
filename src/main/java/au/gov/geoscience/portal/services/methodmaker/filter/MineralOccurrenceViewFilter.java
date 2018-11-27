@@ -22,7 +22,7 @@ public class MineralOccurrenceViewFilter extends AbstractFilter {
         fragments = new ArrayList<String>();
 
         if (name != null && !name.isEmpty()) {
-            fragments.add(this.generatePropertyIsLikeFragment("erl:name", "*" + name + "*"));
+            fragments.add(this.generatePropertyIsLikeFragment("erl:name", name ));
         }
 
         if (commodityUri != null && !commodityUri.isEmpty()) {
@@ -43,7 +43,7 @@ public class MineralOccurrenceViewFilter extends AbstractFilter {
         fragments = new ArrayList<String>();
 
         if (name != null && !name.isEmpty()) {
-            fragments.add(this.generatePropertyIsLikeFragment("erl:name", "*" + name + "*"));
+            fragments.add(this.generatePropertyIsLikeFragment("erl:name",  name ));
         }
 
         if (commodityUris != null && !commodityUris.isEmpty()) {

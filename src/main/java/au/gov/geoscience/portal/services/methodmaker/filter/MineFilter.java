@@ -14,7 +14,7 @@ public class MineFilter extends AbstractFilter {
 
         if (mineName != null && !mineName.isEmpty()) {
             fragments.add(this.generatePropertyIsLikeFragment(
-                    "er:specification/er:Mine/er:mineName/er:MineName/er:mineName", "*" + mineName + "*"));
+                    "er:specification/er:Mine/er:mineName/er:MineName/er:mineName",  mineName ));
 
         } else {
             String nullProperty = this.generatePropertyIsNull("er:specification/er:Mine/er:mineName/er:MineName/er:mineName");

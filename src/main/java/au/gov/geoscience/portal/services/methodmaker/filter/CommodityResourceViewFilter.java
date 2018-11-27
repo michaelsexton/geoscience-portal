@@ -27,8 +27,7 @@ public class CommodityResourceViewFilter extends AbstractFilter {
         fragments = new ArrayList<String>();
 
         if (mineralOccurrenceName != null && !mineralOccurrenceName.isEmpty()) {
-            fragments.add(this.generatePropertyIsLikeFragment("erl:mineralOccurrenceName",
-                    "*" + mineralOccurrenceName + "*"));
+            fragments.add(this.generatePropertyIsLikeFragment("erl:mineralOccurrenceName", mineralOccurrenceName));
         }
 
         if (commodityUri != null && !commodityUri.isEmpty()) {
@@ -49,7 +48,7 @@ public class CommodityResourceViewFilter extends AbstractFilter {
 
         if (mineralOccurrenceName != null && !mineralOccurrenceName.isEmpty()) {
             fragments.add(this.generatePropertyIsLikeFragment("erl:mineralOccurrenceName",
-                    "*" + mineralOccurrenceName + "*"));
+                     mineralOccurrenceName));
         }
 
         if (commodityUris != null && !commodityUris.isEmpty()) {
