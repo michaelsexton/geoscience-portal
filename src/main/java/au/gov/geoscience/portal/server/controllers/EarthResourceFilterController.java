@@ -185,6 +185,7 @@ public class EarthResourceFilterController extends BasePortalController {
      */
     @RequestMapping("/mineViewFilterStyle.do")
     public void mineViewFilterStyle(HttpServletResponse response,
+                                    @RequestParam(required = true, value = "serviceUrl") String serviceUrl,
             @RequestParam(required = false, value = "name") String name,
             @RequestParam(required = false, value = "statusUri") String statusUri,
             @RequestParam(required = false, value = "bbox") String bboxJson,
@@ -195,7 +196,9 @@ public class EarthResourceFilterController extends BasePortalController {
 
         String filter = this.earthResourceService.getMineViewFilter(name, statusUri, bbox);
 
-        String style = FilterStyle.MINE_VIEW.getStyle(filter, EarthResourceService.MINE_VIEW_FEATURE_TYPE, "Mines", null);
+        String ermlLiteNamespace = namespaceService.getNamespaceURI(serviceUrl, ERL_PREFIX);
+
+        String style = FilterStyle.MINE_VIEW.getStyle(filter, EarthResourceService.MINE_VIEW_FEATURE_TYPE, "Mines", ermlLiteNamespace);
 
         response.setContentType("text/xml");
 
@@ -250,7 +253,8 @@ public class EarthResourceFilterController extends BasePortalController {
      */
     @RequestMapping("/commodityResourceViewFilterStyle.do")
     public void commodityResourceViewFilterStyle(HttpServletResponse response,
-            @RequestParam(required = false, value = "name") String name,
+                                                 @RequestParam(required = true, value = "serviceUrl") String serviceUrl,
+                                                 @RequestParam(required = false, value = "name") String name,
             @RequestParam(required = false, value = "commodityUri") String commodityUri,
             @RequestParam(required = false, value = "jorcCategoryUri") String jorcCategoryUri,
             @RequestParam(required = false, value = "bbox") String bboxJson,
@@ -262,8 +266,10 @@ public class EarthResourceFilterController extends BasePortalController {
         String filter = this.earthResourceService.getCommodityResourceViewFilter(name, commodityUri, jorcCategoryUri,
                 bbox);
 
+        String ermlLiteNamespace = namespaceService.getNamespaceURI(serviceUrl, ERL_PREFIX);
+
         String style = FilterStyle.COMMODITY_RESOURCE_VIEW.getStyle(filter,
-                EarthResourceService.COMMODITY_RESOURCE_VIEW_FEATURE_TYPE, "Commodity Resource", null);
+                EarthResourceService.COMMODITY_RESOURCE_VIEW_FEATURE_TYPE, "Commodity Resource", ermlLiteNamespace);
 
         response.setContentType("text/xml");
 
