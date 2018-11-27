@@ -22,7 +22,7 @@ public class MineViewFilter extends AbstractFilter {
         fragments = new ArrayList<String>();
         
         if (name != null && !name.isEmpty()) {
-            fragments.add(this.generatePropertyIsLikeFragment("erl:name", "*" + name + "*"));
+            fragments.add(this.generatePropertyIsLikeFragment("erl:name", name ));
         }
         
         
@@ -40,7 +40,7 @@ public class MineViewFilter extends AbstractFilter {
         fragments = new ArrayList<String>();
 
         if (name != null && !name.isEmpty()) {
-            fragments.add(this.generatePropertyIsLikeFragment("erl:name", "*" + name + "*"));
+            fragments.add(this.generatePropertyIsLikeFragment("erl:name", name ));
         }
 
         if (statusUris != null && !statusUris.isEmpty()) {

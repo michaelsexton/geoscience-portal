@@ -68,7 +68,7 @@ public class MineralTenementFilter extends AbstractFilter {
 		}
 		fragments = new ArrayList<String>();
 		if (tenementName != null && !tenementName.isEmpty()) {
-			fragments.add(this.generatePropertyIsLikeFragment(mineralTenementServiceProviderType.nameField(), "*" + tenementName + "*"));
+			fragments.add(this.generatePropertyIsLikeFragment(mineralTenementServiceProviderType.nameField(), tenementName ));
 		}
 		if (tenementTypeUri != null && !tenementTypeUri.isEmpty()) {
 			fragments.add(this.generatePropertyIsEqualToFragment("mt:tenementType_uri", tenementTypeUri));
@@ -98,7 +98,7 @@ public class MineralTenementFilter extends AbstractFilter {
     public MineralTenementFilter(String name, String owner, Set<String> statusUris, Set<String> typeUris, MineralTenementServiceProviderType mineralTenementServiceProviderType) {
 		fragments = new ArrayList<String>();
     	if (name != null && !name.isEmpty()) {
-			fragments.add(this.generatePropertyIsLikeFragment(mineralTenementServiceProviderType.nameField(), "*" + name + "*"));
+			fragments.add(this.generatePropertyIsLikeFragment(mineralTenementServiceProviderType.nameField(), name ));
 		}
 
 		if (owner != null && !owner.isEmpty()) {
