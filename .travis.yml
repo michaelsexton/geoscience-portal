@@ -1,5 +1,16 @@
 language: java
-script: "[ ${TRAVIS_PULL_REQUEST} = 'false' ] && mvn clean deploy --settings travis/settings.xml || mvn clean verify --settings travis/settings.xml"
+deploy:
+  provider: codedeploy
+  revision_type: github
+  access_key_id:
+    secure: "i2qmEzbDtZnq+1mqHpRvg8IJP0uMDNSefgwRHbRCZ51PM7M9JfPryT12xRbVNy98EYD6dIwQuwv+jlI4hDpZ22xSxz2gauYB32cuaR+7XbJKIDf4eZYkCPPEtv2dTbOs0zo10jAz5kvHeoROazVb7TlD0BvZvUixpqlnkUFQMIE="
+  secret_access_key:
+    secure: "TBk5J6v8+jna+bzhSMc1GJAwtTTlDIOLuPYSvFMumT3IV2u+e/OUdgcWc7FSJFUhEY638llajKpQWKdUUkQhGQKpL6gc3TGiQsB/EDH9FJopTbXqYm89rgr25DuUI1s2x6b1fTAgmvsSbfc6oPJkRJESF6HyU/YjlUsnfvAXSx8="
+  application: "geoscience-portal-codedeploy"
+  deployment_group: "geoscience-portal-group"
+  region: "ap-southeast-2"
+  on:
+    branch: develop-ga
 cache:
   directories:
     - $HOME/.m2
@@ -8,10 +19,6 @@ branches:
     - develop-ga
 jdk:
   - oraclejdk8
-env:
-  global:
-    - secure: "aztndlDw36TZu2XhszCZjg+URl1wVVLd3BaHD5f5r0oXPExqnc7exlJUYoA6xKv4k2rG5BM0MunewMhzznzDoYj7ilTR0aAIkgSUMVWWxLY/peFwtcPSpbQlPT3mCVFqhnaYtKribHDUz6I2SSMnHNxjV82GI3txxeHeURoOQVg="
-    - secure: "KK+m1Ck/Bo7xsLYY+2Qi5pI4vIw9Up6mqz6tXAbRKLP/jzzOJSHCMlHQo26g7M3x6YRIubYdoiEtYw4dX5dcy8rsAYbrhf89CHpNMS4a11TqbYQz/yBsH+1oWR6nvUo+dVvtcaOQa4oIOJMuqmDP6LsCrk89ecWC0UD0l0BcA+k="
 notifications:
         slack:
                 rooms:

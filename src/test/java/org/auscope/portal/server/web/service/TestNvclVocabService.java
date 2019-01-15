@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.jena.rdf.model.Model;
 import org.auscope.portal.core.server.http.HttpClientInputStream;
 import org.auscope.portal.core.server.http.HttpServiceCaller;
 import org.auscope.portal.core.services.methodmakers.sissvoc.SISSVoc3MethodMaker.Format;
@@ -14,8 +15,6 @@ import org.jmock.Expectations;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.hp.hpl.jena.rdf.model.Model;
 
 public class TestNvclVocabService extends PortalTestClass {
     private HttpRequestBase mockMethod = context.mock(HttpRequestBase.class, "mockMethod");

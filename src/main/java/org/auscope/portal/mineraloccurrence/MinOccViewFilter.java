@@ -26,7 +26,7 @@ public class MinOccViewFilter extends AbstractFilter {
         fragments = new ArrayList<String>();
         
         if (name != null && !name.isEmpty()) {
-            fragments.add(this.generatePropertyIsLikeFragment("mo:name", "*" + name + "*"));
+            fragments.add(this.generatePropertyIsLikeFragment("mo:name",  name));
         }
         
         if (commodity != null && !commodity.isEmpty()) {

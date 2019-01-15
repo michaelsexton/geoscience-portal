@@ -20,7 +20,7 @@
         <constructor-arg name="id" value="cswGARegistry" />
         <constructor-arg name="title" value="Geoscience Australia" />
         <constructor-arg name="serviceUrl" value="https://ecat.ga.gov.au/geonetwork/srv/eng/csw" />
-        <constructor-arg name="recordInformationUrl" value="https://ecat.ga.gov.au/geonetwork/srv/eng/search#!%1$s" />
+        <constructor-arg name="recordInformationUrl" value="https://ecat.ga.gov.au/geonetwork/srv/eng/catalog.search#/metadata/%1$s" />
         <property name="noCache" value="true"/>
     </bean>
     
@@ -30,7 +30,15 @@
         <constructor-arg name="id" value="cswEarthResource"/>
         <constructor-arg name="title" value="Earth resource and related records GeoNetwork"/>
         <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-earth-resource"/>
-        <constructor-arg name="recordInformationUrl" value="http://localhost:8080/geonetwork/srv/eng/main.home?uuid=%1$s"/>
+        <constructor-arg name="recordInformationUrl" value="${portal.build.environment.host}/geonetwork/srv/eng/main.home?uuid=%1$s"/>
+        <property name="hideFromCatalogue" value="true"/>
+    </bean>
+
+    <bean id="cswTenements" class="org.auscope.portal.core.services.csw.CSWServiceItem">
+        <constructor-arg name="id" value="cswTenements"/>
+        <constructor-arg name="title" value="Mineral tenement and offshore petroleum title records GeoNetwork"/>
+        <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-tenements"/>
+        <constructor-arg name="recordInformationUrl" value="${portal.build.environment.host}/geonetwork/srv/eng/main.home?uuid=%1$s"/>
         <property name="hideFromCatalogue" value="true"/>
     </bean>
 
@@ -38,7 +46,7 @@
         <constructor-arg name="id" value="cswBoreholes"/>
         <constructor-arg name="title" value="Boreholes"/>
         <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-boreholes"/>
-        <constructor-arg name="recordInformationUrl" value="/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
+        <constructor-arg name="recordInformationUrl" value="${portal.build.environment.host}/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
         <property name="hideFromCatalogue" value="true"/>
     </bean>
     
@@ -46,7 +54,7 @@
         <constructor-arg name="id" value="cswAustralianSurfaceGeology"/>
         <constructor-arg name="title" value="ASTER"/>
         <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-aster-maps"/>
-        <constructor-arg name="recordInformationUrl" value="/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
+        <constructor-arg name="recordInformationUrl" value="${portal.build.environment.host}/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
         <property name="hideFromCatalogue" value="true"/>
     </bean>
     
@@ -54,7 +62,7 @@
         <constructor-arg name="id" value="cswGeologicalProvinces"/>
         <constructor-arg name="title" value="Geological Provinces"/>
         <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-geological-provinces"/>
-        <constructor-arg name="recordInformationUrl" value="/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
+        <constructor-arg name="recordInformationUrl" value="${portal.build.environment.host}/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
         <property name="hideFromCatalogue" value="true"/>
     </bean>
     
@@ -62,7 +70,7 @@
         <constructor-arg name="id" value="cswGeologicalMaps"/>
         <constructor-arg name="title" value="Geological Maps"/>
         <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-geological-maps"/>
-        <constructor-arg name="recordInformationUrl" value="/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
+        <constructor-arg name="recordInformationUrl" value="${portal.build.environment.host}/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
         <property name="hideFromCatalogue" value="true"/>
     </bean>
     
@@ -70,7 +78,7 @@
         <constructor-arg name="id" value="cswTopography"/>
         <constructor-arg name="title" value="Topography"/>
         <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-topography"/>
-        <constructor-arg name="recordInformationUrl" value="/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
+        <constructor-arg name="recordInformationUrl" value="${portal.build.environment.host}/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
         <property name="hideFromCatalogue" value="true"/>
     </bean>
     
@@ -79,7 +87,7 @@
         <constructor-arg name="id" value="cswRestrictedAreas"/>
         <constructor-arg name="title" value="Restricted Areas"/>
         <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-restricted-areas"/>
-        <constructor-arg name="recordInformationUrl" value="/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
+        <constructor-arg name="recordInformationUrl" value="${portal.build.environment.host}/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
         <property name="hideFromCatalogue" value="true"/>
     </bean>
     
@@ -87,7 +95,7 @@
         <constructor-arg name="id" value="cswNationalGeophysicsDatasets"/>
         <constructor-arg name="title" value="National Geophysics Datasets"/>
         <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-national-geophysical-datasets"/>
-        <constructor-arg name="recordInformationUrl" value="/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
+        <constructor-arg name="recordInformationUrl" value="${portal.build.environment.host}/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
         <property name="hideFromCatalogue" value="true"/>
     </bean>
 
@@ -95,7 +103,7 @@
         <constructor-arg name="id" value="cswRockProperties"/>
         <constructor-arg name="title" value="Rock Properties"/>
         <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-rock-properties"/>
-        <constructor-arg name="recordInformationUrl" value="/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
+        <constructor-arg name="recordInformationUrl" value="${portal.build.environment.host}/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
         <property name="hideFromCatalogue" value="true"/>
     </bean>
 
@@ -103,7 +111,7 @@
         <constructor-arg name="id" value="cswGswaDev"/>
         <constructor-arg name="title" value="Geological Survey of Western Australia"/>
         <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-gswa"/>
-        <constructor-arg name="recordInformationUrl" value="/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
+        <constructor-arg name="recordInformationUrl" value="${portal.build.environment.host}/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
         <property name="noCache" value="true"/>
     </bean>
 
@@ -111,7 +119,7 @@
         <constructor-arg name="id" value="cswGsq"/>
         <constructor-arg name="title" value="Geological Survey of Queensland"/>
         <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-gsq"/>
-        <constructor-arg name="recordInformationUrl" value="/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
+        <constructor-arg name="recordInformationUrl" value="${portal.build.environment.host}/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
         <property name="noCache" value="true"/>
     </bean>
     
@@ -119,7 +127,7 @@
         <constructor-arg name="id" value="cswGsv"/>
         <constructor-arg name="title" value="Geological Survey of Victoria"/>
         <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-gsv"/>
-        <constructor-arg name="recordInformationUrl" value="/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
+        <constructor-arg name="recordInformationUrl" value="${portal.build.environment.host}/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
         <property name="noCache" value="true"/>
     </bean>
 
@@ -127,7 +135,7 @@
         <constructor-arg name="id" value="cswMineralResourcesTasmaniaDev"/>
         <constructor-arg name="title" value="Mineral Resources Tasmania"/>
         <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw-tas"/>
-        <constructor-arg name="recordInformationUrl" value="/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
+        <constructor-arg name="recordInformationUrl" value="${portal.build.environment.host}/geonetwork/srv/eng/catalog.search#/metadata/%1$s"/>
         <property name="noCache" value="true"/>
     </bean>
     

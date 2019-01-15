@@ -34,7 +34,7 @@
 
     <bean id="httpServiceCaller" class="org.auscope.portal.core.server.http.HttpServiceCaller">
         <constructor-arg type="int" name="connectionTimeOut">
-            <value>30000</value>
+            <value>900000</value>
         </constructor-arg>
     </bean>
 
@@ -47,7 +47,7 @@
 
     <bean id="wfsMethodMaker" class="org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker">
         <property name="namespaces">
-            <bean class="org.auscope.portal.core.services.namespaces.ErmlNamespaceContext"/>
+            <bean class="org.auscope.portal.core.services.namespaces.WFSNamespaceContext"/>
         </property>
     </bean>
 
@@ -60,9 +60,22 @@
 	<bean id="arcGISToMineralTenementTransformer" class="org.auscope.portal.xslt.ArcGISToMineralTenement">
     </bean>
 
+    <bean id="commodityService" class="org.auscope.portal.core.services.VocabularyService">
+        <constructor-arg name="serviceUrl" value="http://vocabs.ga.gov.au/cgi/sissvoc/commodity-code" />
+        <constructor-arg name="httpServiceCaller" ref="httpServiceCaller"/>
+        <constructor-arg name="vocabularyMethodMaker">
+            <bean class="org.auscope.portal.core.services.methodmakers.VocabularyMethodMaker">
+            </bean>
+        </constructor-arg>
+    </bean>
+
     <bean id="vocabularyCacheService" class="org.auscope.portal.core.services.VocabularyCacheService">
         <constructor-arg name="executor" ref="taskExecutor" />
         <constructor-arg name="serviceList" ref="vocabularyServiceList" />
+    </bean>
+
+    <bean id="vocabularyFilterService" class="org.auscope.portal.core.services.VocabularyFilterService">
+        <constructor-arg name="vocabularyCacheService" ref="vocabularyCacheService"/>
     </bean>
 
     <bean id="cswCacheService" class="org.auscope.portal.core.services.CSWCacheService">
@@ -140,4 +153,15 @@
     <bean id="fileDownloadService" class="org.auscope.portal.core.server.http.download.FileDownloadService">
         <constructor-arg name="serviceCaller" ref="httpServiceCaller"/>
     </bean>
+
+    <bean id="nagios4CachedService" class="org.auscope.portal.core.services.Nagios4CachedService">
+        <constructor-arg name="serviceUrl" value="${HOST.nagios.url}"/>
+        <constructor-arg name="serviceCaller" ref="httpServiceCaller"/>
+        <constructor-arg name="methodMaker">
+            <bean class="org.auscope.portal.core.services.methodmakers.Nagios4MethodMaker">
+            </bean>
+        </constructor-arg>
+        <property name="userName" value="${env.nagiosUser}" />
+        <property name="password" value="${env.nagiosPassword}" />
+</bean>
 </beans>

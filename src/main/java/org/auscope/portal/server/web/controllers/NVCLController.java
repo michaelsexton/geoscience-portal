@@ -4,11 +4,13 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.io.IOUtils;
 import org.auscope.portal.core.server.OgcServiceProviderType;
@@ -20,6 +22,11 @@ import org.auscope.portal.core.services.responses.wfs.WFSResponse;
 import org.auscope.portal.core.util.FileIOUtil;
 import org.auscope.portal.core.util.HttpUtil;
 import org.auscope.portal.server.domain.nvcldataservice.AbstractStreamResponse;
+import org.auscope.portal.server.domain.nvcldataservice.AlgorithmOutputClassification;
+import org.auscope.portal.server.domain.nvcldataservice.AlgorithmOutputResponse;
+import org.auscope.portal.server.domain.nvcldataservice.AnalyticalJobResults;
+import org.auscope.portal.server.domain.nvcldataservice.AnalyticalJobStatus;
+import org.auscope.portal.server.domain.nvcldataservice.BinnedCSVResponse;
 import org.auscope.portal.server.domain.nvcldataservice.CSVDownloadResponse;
 import org.auscope.portal.server.domain.nvcldataservice.GetDatasetCollectionResponse;
 import org.auscope.portal.server.domain.nvcldataservice.GetLogCollectionResponse;
@@ -35,6 +42,7 @@ import org.auscope.portal.server.web.NVCLDataServiceMethodMaker.PlotScalarGraphT
 import org.auscope.portal.server.web.service.BoreholeService;
 import org.auscope.portal.server.web.service.NVCL2_0_DataService;
 import org.auscope.portal.server.web.service.NVCLDataService;
+import org.auscope.portal.server.web.service.SF0BoreholeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +62,7 @@ public class NVCLController extends BasePortalController {
     private NVCLDataService dataService;
     private NVCL2_0_DataService dataService2_0;
     private CSWCacheService cswService;
+    private SF0BoreholeService sf0BoreholeService;
 
     private int BUFFERSIZE = 1024 * 1024;
 
@@ -61,13 +70,14 @@ public class NVCLController extends BasePortalController {
     public NVCLController(BoreholeService boreholeService,
             CSWCacheService cswService,
             NVCLDataService dataService,
-            NVCL2_0_DataService dataService2_0) {
+            NVCL2_0_DataService dataService2_0,
+            SF0BoreholeService sf0BoreholeService) {
 
         this.boreholeService = boreholeService;
         this.cswService = cswService;
         this.dataService = dataService;
         this.dataService2_0 = dataService2_0;
-
+        this.sf0BoreholeService = sf0BoreholeService;
     }
 
     /**
@@ -699,5 +709,189 @@ public class NVCLController extends BasePortalController {
     private static InputStream get404HTMLError() throws IOException {
         InputStream input = NVCLController.class.getResourceAsStream("/htmlerror/NVCL404Response.htm");
         return input;
+    }
+
+    /**
+     * Proxies a NVCL getAlgorithms request. Returns a JSON response
+     *
+     * @param serviceUrl
+     *            The URL of the NVCLDataService
+     * @return
+     */
+    @RequestMapping("getNVCLAlgorithms.do")
+    public ModelAndView getNVCLWFSDownloadStatus(@RequestParam("serviceUrl") String serviceUrl) throws Exception {
+        try {
+            List<AlgorithmOutputResponse> algorithms = dataService2_0.getAlgorithms(serviceUrl);
+            return generateJSONResponseMAV(true, algorithms, "");
+        } catch (Exception ex) {
+            log.warn("Unable to fetch NVCL algorithms for " + serviceUrl, ex);
+            return generateJSONResponseMAV(false);
+        }
+    }
+
+    /**
+     * Proxies a NVCL getAlgorithms request. Returns a JSON response
+     *
+     * @param serviceUrl
+     *            The URL of the NVCLDataService
+     * @return
+     */
+    @RequestMapping("getNVCLClassifications.do")
+    public ModelAndView getNVCLWFSDownloadStatus(@RequestParam("serviceUrl") String serviceUrl, @RequestParam("algorithmOutputId") int algorithmOutputId) throws Exception {
+        try {
+            List<AlgorithmOutputClassification> classifications = dataService2_0.getClassifications(serviceUrl, algorithmOutputId);
+            return generateJSONResponseMAV(true, classifications, "");
+        } catch (Exception ex) {
+            log.warn("Unable to fetch NVCL classifications for " + serviceUrl + " and algorithmOutputId " + algorithmOutputId, ex);
+            return generateJSONResponseMAV(false);
+        }
+    }
+
+    /**
+     * Submits an NVCL processing job to the remote analytical services
+     *
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("/submitSF0NVCLProcessingJob.do")
+    public ModelAndView submitSF0NVCLProcessingJob(
+            @RequestParam("email") String email,
+            @RequestParam("jobName") String jobName,
+
+            @RequestParam("wfsUrl") String[] wfsUrls,
+
+            @RequestParam(required = false, value = "boreholeName", defaultValue = "") String boreholeName,
+            @RequestParam(required = false, value = "dateOfDrilling", defaultValue = "") String dateOfDrilling,
+            @RequestParam(required = false, value = "bbox") String bboxJson,
+
+            @RequestParam("algorithmOutputId") int algorithmOutputId,
+            @RequestParam("classification") String classification,
+            @RequestParam("startDepth") int startDepth,
+            @RequestParam("endDepth") int endDepth,
+            @RequestParam("operator") String operator,
+            @RequestParam("value") String value,
+            @RequestParam("units") String units,
+            @RequestParam("span") int span)
+            throws Exception {
+
+        String filterString = null;
+        FilterBoundingBox bbox = FilterBoundingBox.attemptParseFromJSON(bboxJson);
+        filterString = sf0BoreholeService.getFilter(boreholeName, "", dateOfDrilling, -1, bbox, null, true);
+
+        try {
+            boolean result = this.dataService2_0.submitProcessingJob(email, jobName, wfsUrls, filterString, algorithmOutputId, classification, startDepth, endDepth, operator, value, units, span);
+            return generateJSONResponseMAV(result);
+        } catch (Exception ex) {
+            log.error("Unable to submit processing job: " + ex.getMessage());
+            log.debug("Exception: ", ex);
+            return generateJSONResponseMAV(false);
+        }
+    }
+
+    /**
+     * Returns an array of JSON AnalyticalJobStatus objects describing job status responses for a given email
+     * @param email
+     * @return
+     */
+    @RequestMapping("/checkNVCLProcessingJob.do")
+    public ModelAndView checkNVCLProcessingJob(@RequestParam("email") String email) {
+        try {
+            List<AnalyticalJobStatus> statuses = this.dataService2_0.checkProcessingJobs(email);
+            return generateJSONResponseMAV(true, statuses, "");
+        } catch (Exception ex) {
+            log.error("Unable to check NVCL processing jobs: " + ex.getMessage());
+            log.debug("Exception: ", ex);
+            return generateJSONResponseMAV(false);
+        }
+    }
+
+    /**
+     * Returns an object containing passing, failing and erroring borehole ID's for a given processing job
+     * @param email
+     * @return
+     */
+    @RequestMapping("/getNVCLProcessingResults.do")
+    public ModelAndView getNVCLProcessingResults(@RequestParam("jobId") String jobId) {
+        try {
+            AnalyticalJobResults results = this.dataService2_0.getProcessingResults(jobId);
+            return generateJSONResponseMAV(true, Arrays.asList(results), "");
+        } catch (Exception ex) {
+            log.error("Unable to check NVCL processing jobs: " + ex.getMessage());
+            log.debug("Exception: ", ex);
+            return generateJSONResponseMAV(false);
+        }
+    }
+
+    /**
+     * Proxies a CSV download request to a WFS from a NVCL 2.0 service. Parses the response into a series of 1m averaged bins.
+     *
+     * @param serviceUrl
+     *            The URL of an observation and measurements URL (obtained from a getDatasetCollection response)
+     * @param datasetId
+     *            The dataset to download
+     * @return
+     */
+    @RequestMapping("getNVCL2_0_JSONDataBinned.do")
+    public ModelAndView getNVCL2_0_JSONDataBinned(@RequestParam("serviceUrl") String serviceUrl,
+                                                  @RequestParam("logIds") String[] logIds) throws Exception {
+
+        //Make our request
+        try {
+            String responseStr = dataService2_0.getNVCL2_0_JSONDownsampledData(serviceUrl, logIds);
+            return generateJSONResponseMAV(true, responseStr, "");
+
+        } catch (Exception ex) {
+            log.warn(String.format("Error requesting json download for logId '%1$s' from %2$s: %3$s", logIds,serviceUrl, ex));
+            log.debug("Exception:", ex);
+            return generateJSONResponseMAV(false);
+        }
+    }
+
+
+    /**
+     * Fetches NVCL TSG Jobs data
+     * @param jobId
+     *          job id of data to be downloaded
+     * @param boreholeId
+     *          borehole id of data to be downloaded
+     */
+    @RequestMapping("getNVCL2_0_JobsScalarBinned.do")
+    public ModelAndView getNVCL2_0_JobsScalarBinned(@RequestParam("jobIds") String[] jobIds, @RequestParam("boreholeId") String boreholeId) {
+
+        //Make our request
+        try {
+            BinnedCSVResponse response = dataService2_0.getNVCL2_0_JobsScalarBinned(jobIds, boreholeId, 1.0);
+
+            return generateJSONResponseMAV(true, Arrays.asList(response), "");
+
+        } catch (Exception ex) {
+            log.warn(String.format("Error requesting scalar csv download from NVCL job for boreholeId '%1$s': %2$s", boreholeId, ex));
+            log.debug("Exception:", ex);
+            return generateJSONResponseMAV(false);
+        }
+    }
+
+    /**
+     * Request for TSG job id and job name for a borehole id
+     *
+     * @param serviceUrl
+     *          The URL of job id request
+     * @param boreholeId
+    boreholeId of the job
+     *
+     * @return
+     */
+    @RequestMapping("getNVCL2_0_TsgJobsByBoreholeId.do")
+    public ModelAndView getNVCL2_0_TsgJobsByBoreholeId(@RequestParam("boreholeId") String boreholeId) throws Exception {
+        //Make our request
+        try {
+            JSONArray jsonResponse = dataService2_0.getNVCL2_0_getTsgJobsByBoreholeId(boreholeId);
+            return generateJSONResponseMAV(true, jsonResponse, "");
+
+        } catch (Exception ex) {
+            log.warn(String.format("Error requesting TSG job id for borehole id '%1$s': %2$s", boreholeId, ex));
+            log.debug("Exception:", ex);
+            return generateJSONResponseMAV(false);
+        }
     }
 }

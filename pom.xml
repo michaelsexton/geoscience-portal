@@ -3,7 +3,7 @@
     <groupId>au.gov.ga</groupId>
     <artifactId>geoscience-portal</artifactId>
     <packaging>war</packaging>
-    <version>2.0.1-SNAPSHOT</version>
+    <version>2.0.6-SNAPSHOT</version>
     <name>Geoscience Portal</name>
     <description />
     <url>http://portal.geoscience.gov.au</url>
@@ -37,7 +37,13 @@
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format> 
         <additionalparam>-Xdoclint:none</additionalparam>
     </properties>
-    <build>    
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <extensions>
             <extension>
                 <groupId>org.springframework.build</groupId>
@@ -99,6 +105,13 @@
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.6</version>
+                <configuration>
+                    <delimiters>
+                        <delimiter>@</delimiter>
+
+                    </delimiters>
+                    <!--<useDefaultDelimiters>false</useDefaultDelimiters>-->
+                </configuration>
                 <executions>
                     <execution>
                         <id>copy-user-guide</id>
@@ -192,7 +205,7 @@
     
         </plugins>
     </build>
-    
+
     <profiles>
         <profile>
             <id>development</id>
@@ -202,7 +215,10 @@
                     <name>environment</name>
                     <value>development</value>
                 </property>         
-            </activation>        
+            </activation>
+            <properties>
+                <environment.host>http://dev.portal.geoscience.gov.au</environment.host>
+            </properties>
             <build>
                 <finalName>geoscience-portal</finalName>                
                 <plugins>                                 
@@ -249,9 +265,7 @@
                                     <javaVmVendor>${java.vm.vendor}</javaVmVendor>
                                 </manifestEntries>
                             </archive>
-                            <goals>
-                                <goal>manifest</goal>
-                            </goals>
+
                         </configuration>
                         <!-- This is needed to create ${basedir}/src/main/webapp/META-INF/MANIFEST.MF file -->
                         <executions>
@@ -265,6 +279,24 @@
                     </plugin>        			        
                 </plugins>
             </build>
+            <repositories>
+                <repository>
+                    <id>nexus.gadevs</id>
+                    <name>Geoscience Australia Nexus Repo</name>
+                    <url>http://rhe-repo-prod01.prod.lan:8080/nexus/content/repositories/public</url>
+                </repository>
+            </repositories>
+            <distributionManagement>
+                <repository>
+                    <id>release</id>
+
+                    <url>http://rhe-repo-prod01.prod.lan:8080/nexus/content/repositories/releases</url>
+                </repository>
+                <snapshotRepository>
+                    <id>snapshots</id>
+                    <url>http://rhe-repo-prod01.prod.lan:8080/nexus/content/repositories/snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
         </profile>
         <profile>
             <id>production</id>
@@ -274,6 +306,9 @@
                     <value>production</value>
                 </property>
             </activation>
+            <properties>
+                <environment.host>http://api.portal.geoscience.gov.au</environment.host>
+            </properties>
             <build>
                 <finalName>geoscience-portal</finalName>               
                 <plugins>
@@ -311,9 +346,7 @@
                                     <javaVmVendor>${java.vm.vendor}</javaVmVendor>
                                 </manifestEntries>
                             </archive>
-                            <goals>
-                                <goal>manifest</goal>
-                            </goals>
+
                         </configuration>
                         <!-- This is needed to create ${basedir}/src/main/webapp/META-INF/MANIFEST.MF file -->
                         <executions>
@@ -327,6 +360,24 @@
                     </plugin>                          
                 </plugins>
             </build>
+            <repositories>
+                <repository>
+                    <id>nexus.gadevs</id>
+                    <name>Geoscience Australia Nexus Repo</name>
+                    <url>https://nexus.gadevs.ga/repository/maven-public</url>
+                </repository>
+            </repositories>
+            <distributionManagement>
+                <repository>
+                    <id>release</id>
+
+                    <url>https://nexus.gadevs.ga/repository/maven-releases</url>
+                </repository>
+                <snapshotRepository>
+                    <id>snapshots</id>
+                    <url>https://nexus.gadevs.ga/repository/maven-snapshots</url>
+                </snapshotRepository>
+            </distributionManagement>
         </profile>
         <profile>
             <id>phantomjs</id>
@@ -406,6 +457,10 @@
             <id>nexus.gadevs</id>
             <name>Internal nexus</name>
             <url>https://nexus.gadevs.ga/repository/maven-public</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
         </repository>
         <repository>
             <id>osgeo</id>
@@ -430,19 +485,18 @@
             <id>cgsrv8.arrc.csiro.au</id>
             <name>AuScope Nexus - PortalRepo</name>
             <url>http://cgsrv8.arrc.csiro.au/nexus/content/groups/PortalRepository/</url>
-            <snapshots>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-            <releases>
-                <updatePolicy>always</updatePolicy>
-            </releases>
         </repository>
     </repositories>
     <dependencies>
         <dependency>
             <groupId>org.auscope.portal</groupId>
             <artifactId>portal-core</artifactId>
-            <version>2.0.0-SNAPSHOT</version>
+            <version>2.1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>2.3</version>
         </dependency>
         <!-- Selenium and testng are needed for automated UI testing -->
         <dependency>
@@ -458,15 +512,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-   <distributionManagement>
-        <repository>
-            <id>nexus.gadevs.releases</id>
-            <name>Internal nexus</name>
-            <url>https://nexus.gadevs.ga/repository/maven-releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>nexus.gadevs.snapshots</id>
-	    <url>https://nexus.gadevs.ga/repository/maven-snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>

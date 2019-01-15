@@ -174,9 +174,12 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
     
                 //VT: this style is just for the legend therefore no filter is required.
                 var styleUrl = layer.get('renderer').parentLayer.get('source').get('proxyStyleUrl');
-                
-                //VT: if a layer has style, the style should take priority as the default GetLegend source else use default
-                if(styleUrl && styleUrl.length > 0){
+
+                var staticLegendURL = layer.get('source').get('staticLegendUrl');
+
+                if (staticLegendURL && staticLegendURL.length > 0) {
+                    legend.getLegendComponent(onlineResources, filterer,"", true, Ext.bind(legendCallback, this, [layer], true), staticLegendURL, true);
+                } else if (styleUrl && styleUrl.length > 0) {
     
                     Ext.Ajax.request({
                         url: styleUrl,
@@ -189,11 +192,9 @@ Ext.define('portal.widgets.panel.BaseActiveRecordPanel', {
                             legend.getLegendComponent(onlineResources, filterer,"", true, Ext.bind(legendCallback, this, [layer], true));
                         }
                     });
-                
-                }else{
-                    legend.getLegendComponent(onlineResources, filterer,"", true, Ext.bind(legendCallback, this, [layer], true), layer.get('source').get('staticLegendUrl'), true);
+                } else {
+                    legend.getLegendComponent(onlineResources, filterer,"", true, Ext.bind(legendCallback, this, [layer], true), null, true);
                 }
-                
             }
         });
         

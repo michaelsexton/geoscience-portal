@@ -2,6 +2,7 @@ package org.auscope.portal.server.web.service;
 
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.xpath.XPathConstants;
@@ -47,6 +48,30 @@ public class BoreholeService extends BaseWFSService {
 	// -------------------------------------------------------------- Constants
 
 	private final Log log = LogFactory.getLog(getClass());
+
+	/**
+	 * Type of SLD Mark
+	 * @author Josh Vote (CSIRO)
+	 *
+	 */
+	public enum Mark {
+		SQUARE("square"),
+		CIRCLE("circle"),
+		TRIANGLE("triangle"),
+		STAR("star"),
+		CROSS("cross"),
+		X("x");
+
+		private final String text;
+		private Mark(final String text) {
+			this.text = text;
+		}
+
+		@Override
+		public String toString() {
+			return this.text;
+		}
+	}
 
 	/**
 	 * different styles that apply for the different layers managed by this
@@ -279,6 +304,92 @@ public class BoreholeService extends BaseWFSService {
 
 		return style;
 	}
+
+    /**
+     * Generates a broad SLD for symbolising a set of filters. Default Mark is Circle
+     *
+     * @param names 1-1 correspondance with filters - the human readable names of each filter
+     * @param filters The filters to be symbolised
+     * @param colors 1-1 correspondance with filters - The CSS color for each filter to be symbolised with
+     * @param gsmlpNameSpace
+     * @return
+     */
+    public String getStyle(List<String> names, List<String> filters, List<String> colors, String gsmlpNameSpace) {
+        return getStyle(names, filters, colors, new ArrayList<Mark>(Collections.nCopies(filters.size(), Mark.CIRCLE)), gsmlpNameSpace);
+    }
+
+    /**
+     * Generates a broad SLD for symbolising a set of filters
+     *
+     * @param names 1-1 correspondance with filters - the human readable names of each filter
+     * @param filters The filters to be symbolised
+     * @param colors 1-1 correspondance with filters - The CSS color for each filter to be symbolised with
+     * @param marks 1-1 correspondance with filters - The SLD symbols to use for each filter
+     * @param gsmlpNameSpace
+     * @return
+     */
+    public String getStyle(List<String> names, List<String> filters, List<String> colors, List<Mark> marks, String gsmlpNameSpace) {
+        if (filters.size() != colors.size() || filters.size() != names.size() || filters.size() != marks.size()) {
+            throw new IllegalArgumentException("names/filters/colors/marks must have the same length");
+        }
+
+        if (gsmlpNameSpace != null && !gsmlpNameSpace.isEmpty()) {
+            setGsmlpNameSpace(gsmlpNameSpace);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+        sb.append("<StyledLayerDescriptor version=\"1.0.0\" xmlns:gsmlp=\"" + getGsmlpNameSpace() + "\" ");
+        sb.append("xsi:schemaLocation=\"http://www.opengis.net/sld StyledLayerDescriptor.xsd\" xmlns:ogc=\"http://www.opengis.net/ogc\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:gml=\"http://www.opengis.net/gml\" xmlns:gsml=\"urn:cgi:xmlns:CGI:GeoSciML:2.0\" xmlns:sld=\"http://www.opengis.net/sld\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">");
+        sb.append("<NamedLayer>" + "<Name>");
+        sb.append(getTypeName());
+        sb.append("</Name>");
+        sb.append("<UserStyle>");
+        sb.append("<Name>portal-style</Name>");
+        sb.append("<Title>portal-style</Title>");
+        sb.append("<Abstract>portal-style</Abstract>");
+        sb.append("<IsDefault>1</IsDefault>");
+        for (int i = 0; i < filters.size(); i++) {
+            sb.append("<FeatureTypeStyle>");
+            sb.append("<Rule>");
+            sb.append("<Name>" + names.get(i) + "</Name>");
+            sb.append("<Abstract>" + names.get(i) + "</Abstract>");
+            sb.append(filters.get(i));
+            sb.append("<PointSymbolizer>");
+            sb.append("<Geometry><ogc:PropertyName>" + getGeometryName() + "</ogc:PropertyName></Geometry>");
+            sb.append("<Graphic>");
+            sb.append("<Mark>");
+            sb.append("<WellKnownName>" + marks.get(i).toString() + "</WellKnownName>");
+            sb.append("<Fill>");
+            sb.append("<CssParameter name=\"fill\">");
+            sb.append(colors.get(i));
+            sb.append("</CssParameter>");
+            sb.append("<CssParameter name=\"fill-opacity\">0.4</CssParameter>");
+            sb.append("</Fill>");
+            sb.append("<Stroke>");
+            sb.append("<CssParameter name=\"stroke\">");
+            sb.append("#000000");
+            sb.append("</CssParameter>");
+            sb.append("<CssParameter name=\"stroke-width\">1</CssParameter>");
+            sb.append("</Stroke>");
+            sb.append("</Mark>");
+            sb.append("<Size>10</Size>");
+            sb.append("</Graphic>");
+            sb.append("</PointSymbolizer>");
+            sb.append("</Rule>");
+            sb.append("</FeatureTypeStyle>");
+        }
+
+        sb.append("</UserStyle>");
+        sb.append("</NamedLayer>");
+        sb.append("</StyledLayerDescriptor>");
+
+        return sb.toString();
+    }
+
+    public boolean namespaceSupportsHyloggerFilter(String namespace) {
+        return namespace.equals("http://xmlns.geosciml.org/geosciml-portrayal/4.0");
+    }
 
 	public String getTypeName() {
 		return "gsml:Borehole";

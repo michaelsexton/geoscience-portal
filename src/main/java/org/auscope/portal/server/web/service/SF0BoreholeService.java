@@ -1,5 +1,6 @@
 package org.auscope.portal.server.web.service;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 import org.apache.http.client.methods.HttpRequestBase;
@@ -8,6 +9,7 @@ import org.auscope.portal.core.services.PortalServiceException;
 import org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker;
 import org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker.ResultType;
 import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
+import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
 import org.auscope.portal.core.services.responses.wfs.WFSResponse;
 import org.auscope.portal.gsml.SF0BoreholeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,8 +64,25 @@ public class SF0BoreholeService extends BoreholeService {
      */
     public WFSResponse getAllBoreholes(String serviceURL, String boreholeName, String custodian,
             String dateOfDrilling, int maxFeatures, FilterBoundingBox bbox, String outputFormat) throws Exception {
+        return getAllBoreholes(serviceURL, boreholeName, custodian, dateOfDrilling, null, maxFeatures, bbox, outputFormat);
+    }
+
+    /**
+     * Get all SF0 Boreholes from a given service url and return the response
+     *
+     * @param serviceURL
+     * @param bbox
+     *            Set to the bounding box in which to fetch results, otherwise set it to null
+     * @param restrictToIDList
+     *            [Optional] A list of gml:id values that the resulting filter should restrict its search space to
+     * @return
+     * @throws Exception
+     */
+    public WFSResponse getAllBoreholes(String serviceURL, String boreholeName, String custodian,
+                                       String dateOfDrilling, Boolean justNVCL, int maxFeatures, FilterBoundingBox bbox, String outputFormat) throws Exception {
         String filterString;
-        SF0BoreholeFilter sf0BoreholeFilter = new SF0BoreholeFilter(boreholeName, custodian, dateOfDrilling, null);
+
+        SF0BoreholeFilter sf0BoreholeFilter = new SF0BoreholeFilter(boreholeName, custodian, dateOfDrilling, null, null, justNVCL);
         if (bbox == null) {
             filterString = sf0BoreholeFilter.getFilterStringAllRecords();
         } else {
@@ -83,10 +102,16 @@ public class SF0BoreholeService extends BoreholeService {
         }
     }
 
-    @Override
+
     public String getFilter(String boreholeName, String custodian, String dateOfDrilling,
-            int maxFeatures, FilterBoundingBox bbox, List<String> ids) throws Exception {
-        SF0BoreholeFilter filter = new SF0BoreholeFilter(boreholeName, custodian, dateOfDrilling, ids);
+            int maxFeatures, FilterBoundingBox bbox, List<String> ids, Boolean justNVCL) throws Exception {
+        SF0BoreholeFilter filter = new SF0BoreholeFilter(boreholeName, custodian, dateOfDrilling, ids, null, justNVCL);
+        return generateFilterString(filter, bbox);
+    }
+
+    public String getFilter(String boreholeName, String custodian, String dateOfDrilling,
+            int maxFeatures, FilterBoundingBox bbox, List<String> ids, List<String> identifiers, Boolean justNVCL) throws Exception {
+        SF0BoreholeFilter filter = new SF0BoreholeFilter(boreholeName, custodian, dateOfDrilling, ids, identifiers, justNVCL);
         return generateFilterString(filter, bbox);
     }
 
@@ -100,4 +125,13 @@ public class SF0BoreholeService extends BoreholeService {
         return "gsmlp:shape";
     }
 
+    public WFSCountResponse getNVCLCount(String serviceUrl, String boreholeName, String dateOfDrilling, Boolean nvclCollection, FilterBoundingBox bbox, int maxFeatures) throws URISyntaxException, PortalServiceException {
+        SF0BoreholeFilter filter = new SF0BoreholeFilter(boreholeName, "", dateOfDrilling, null, null, nvclCollection);
+
+
+        String filterString = generateFilterString(filter, bbox);
+        HttpRequestBase method = generateWFSRequest(serviceUrl, "gsmlp:BoreholeView", null,
+                filterString, maxFeatures, null, ResultType.Hits);
+        return getWfsFeatureCount(method);
+    }
 }
