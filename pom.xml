@@ -82,6 +82,9 @@
             <plugin>
             <artifactId>maven-release-plugin</artifactId>
             <version>2.5.2</version>
+                <configuration>
+                    <releaseProfiles>production</releaseProfiles>
+                </configuration>
             <dependencies>
                 <dependency>
                     <groupId>org.apache.maven.scm</groupId>
