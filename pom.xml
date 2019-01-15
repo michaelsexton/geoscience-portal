@@ -306,6 +306,9 @@
                     <value>production</value>
                 </property>
             </activation>
+            <properties>
+                <environment.host>http://api.portal.geoscience.gov.au</environment.host>
+            </properties>
             <build>
                 <finalName>geoscience-portal</finalName>               
                 <plugins>
