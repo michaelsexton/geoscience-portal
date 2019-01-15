@@ -87,8 +87,8 @@
                    <gitFlowConfig>
                        <productionBranch>master</productionBranch>
                        <developmentBranch>develop-ga</developmentBranch>
-                       <featureBranchPrefix>geoscience-portal</featureBranchPrefix>
-                       <releaseBranchPrefix>GEOPOR-</releaseBranchPrefix>
+                       <featureBranchPrefix>GEOPOR-</featureBranchPrefix>
+                       <releaseBranchPrefix>geoscience-portal-</releaseBranchPrefix>
                    </gitFlowConfig>
                 </configuration>
             </plugin>
