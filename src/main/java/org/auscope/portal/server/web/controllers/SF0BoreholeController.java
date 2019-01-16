@@ -230,6 +230,39 @@ public class SF0BoreholeController extends BasePortalController {
 		}
 	}
 
+    /**
+     * Handles the borehole count.
+     *
+     * @param serviceUrl
+     *            the url of the service to query
+     * @param boreholeName
+     *            the name of the borhole to query for
+     * @param dateOfDrilling
+     *            the date of drilling for the borehole, usually given as a year
+     * @param maxFeatures
+     *            the maximum number of features to return
+     * @param bbox
+     *          the bounding box of the request
+     * @return a count of the number of features filtered by the given parameters
+     */
+    @RequestMapping("/doBoreholeViewCount.do")
+    public ModelAndView doBoreholeViewCount(
+            @RequestParam(required = false, value = "serviceUrl", defaultValue = "") String serviceUrl,
+            @RequestParam(required = false, value = "boreholeName", defaultValue = "") String boreholeName,
+            @RequestParam(required = false, value = "dateOfDrilling", defaultValue = "") String dateOfDrilling,
+            @RequestParam(required = false, value = "maxFeatures", defaultValue = "0") Integer maxFeatures,
+            @RequestParam(required = false, value = "bbox") String bbox) {
+
+        try {
+            FilterBoundingBox box = FilterBoundingBox.attemptParseFromJSON(bbox);
+            WFSCountResponse response = this.boreholeService.getBoreholesCount(serviceUrl, boreholeName, null,
+                    dateOfDrilling, false, maxFeatures, box);
+            return generateJSONResponseMAV(true, new Integer(response.getNumberOfFeatures()), "");
+        } catch (Exception e) {
+            return this.generateExceptionResponse(e, serviceUrl);
+        }
+    }
+
 	/**
      * Handles getting the style of the SF0 borehole filter queries. (If the bbox elements are specified, they will limit the output response to 200 records
      * implicitly)
