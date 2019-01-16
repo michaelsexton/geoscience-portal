@@ -84,6 +84,7 @@
                 <artifactId>gitflow-maven-plugin</artifactId>
                 <version>1.11.0</version>
                 <configuration>
+                    <fetchRemote>false</fetchRemote>
                     <skipFeatureVersion>true</skipFeatureVersion>
                     <allowSnapshots>true</allowSnapshots>
                     <postReleaseGoals>deploy</postReleaseGoals>
