@@ -3,7 +3,7 @@
     <groupId>au.gov.ga</groupId>
     <artifactId>geoscience-portal</artifactId>
     <packaging>war</packaging>
-    <version>2.0.13</version>
+    <version>2.0.14</version>
     <name>Geoscience Portal</name>
     <description />
     <url>http://portal.geoscience.gov.au</url>
@@ -96,21 +96,7 @@
                     </gitFlowConfig>
                 </configuration>
             </plugin>
-            <!--<plugin>
-            <artifactId>maven-release-plugin</artifactId>
-            <version>2.5.2</version>
-                <configuration>
-                    <releaseProfiles>production</releaseProfiles>
-                    <suppressCommitBeforeTag>true</suppressCommitBeforeTag>
-                </configuration>
-            <dependencies>
-                <dependency>
-                    <groupId>org.apache.maven.scm</groupId>
-                    <artifactId>maven-scm-provider-gitexe</artifactId>
-                    <version>1.8.1</version>
-                </dependency>
-            </dependencies>
-            </plugin>-->
+
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.16</version>
@@ -320,6 +306,15 @@
                         <artifactId>maven-war-plugin</artifactId>
                         <version>2.4</version>
                         <configuration>
+                            <webResources>
+                                <resource>
+                                    <directory>src/main/resources</directory>
+                                    <includes>
+                                        <include>version.properties</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </webResources>
                             <packagingExcludes>test/**</packagingExcludes>
                             <overlays>
                                 <overlay>
