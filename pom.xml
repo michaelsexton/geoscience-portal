@@ -86,6 +86,7 @@
                 <configuration>
                     <skipFeatureVersion>true</skipFeatureVersion>
                     <allowSnapshots>true</allowSnapshots>
+                    <postReleaseGoals>deploy</postReleaseGoals>
                     <gitFlowConfig>
                        <productionBranch>master</productionBranch>
                        <developmentBranch>develop-ga</developmentBranch>
