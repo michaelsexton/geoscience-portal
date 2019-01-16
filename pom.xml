@@ -85,12 +85,13 @@
                 <version>1.11.0</version>
                 <configuration>
                     <skipFeatureVersion>true</skipFeatureVersion>
-                   <gitFlowConfig>
+                    <allowSnapshots>true</allowSnapshots>
+                    <gitFlowConfig>
                        <productionBranch>master</productionBranch>
                        <developmentBranch>develop-ga</developmentBranch>
                        <featureBranchPrefix>GEOPOR-</featureBranchPrefix>
                        <releaseBranchPrefix>geoscience-portal-</releaseBranchPrefix>
-                   </gitFlowConfig>
+                    </gitFlowConfig>
                 </configuration>
             </plugin>
             <!--<plugin>
