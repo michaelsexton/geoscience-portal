@@ -87,7 +87,7 @@
                     <fetchRemote>false</fetchRemote>
                     <skipFeatureVersion>true</skipFeatureVersion>
                     <allowSnapshots>true</allowSnapshots>
-                    <postReleaseGoals>deploy</postReleaseGoals>
+                    <postReleaseGoals>-P internal,production deploy</postReleaseGoals>
                     <gitFlowConfig>
                        <productionBranch>master</productionBranch>
                        <developmentBranch>develop-ga</developmentBranch>
