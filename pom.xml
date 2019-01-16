@@ -84,6 +84,7 @@
                 <artifactId>gitflow-maven-plugin</artifactId>
                 <version>1.11.0</version>
                 <configuration>
+                    <skipFeatureVersion>true</skipFeatureVersion>
                    <gitFlowConfig>
                        <productionBranch>master</productionBranch>
                        <developmentBranch>develop-ga</developmentBranch>
