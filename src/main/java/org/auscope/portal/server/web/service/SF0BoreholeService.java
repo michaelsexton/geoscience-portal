@@ -102,6 +102,22 @@ public class SF0BoreholeService extends BoreholeService {
         }
     }
 
+    public WFSCountResponse getBoreholesCount(String serviceUrl, String boreholeName, String custodian, String dateOfDrilling,
+                                              Boolean justNVCL, int maxFeatures, FilterBoundingBox bbox) throws Exception {
+        String filterString;
+
+        SF0BoreholeFilter sf0BoreholeFilter = new SF0BoreholeFilter(boreholeName, custodian, dateOfDrilling, null, null, justNVCL);
+        if (bbox == null) {
+            filterString = sf0BoreholeFilter.getFilterStringAllRecords();
+        } else {
+            filterString = sf0BoreholeFilter.getFilterStringBoundingBox(bbox);
+        }
+
+        HttpRequestBase method = generateWFSRequest(serviceUrl, "gsmlp:BoreholeView", null,
+                filterString, maxFeatures, null, ResultType.Hits);
+        return getWfsFeatureCount(method);
+    }
+
 
     public String getFilter(String boreholeName, String custodian, String dateOfDrilling,
             int maxFeatures, FilterBoundingBox bbox, List<String> ids, Boolean justNVCL) throws Exception {
