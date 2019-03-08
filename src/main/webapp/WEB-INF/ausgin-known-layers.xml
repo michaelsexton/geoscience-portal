@@ -667,11 +667,34 @@
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
         <property name="proxyCountUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
+        <property name="singleTile" value="true"/>
+        <property name="order" value="06_Geological Provinces_00"/>
+        <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
+
+    </bean>
+
+    <bean id="knownTypeCenozoicPaleovalleys" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
+        <constructor-arg name="id"
+                         value="cenozoicPaleovalleys"/>
+        <constructor-arg name="knownLayerSelector">
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+                <constructor-arg name="layerName" value="CenozoicPaleovalleys"/>
+            </bean>
+        </constructor-arg>
+        <property name="name" value="Cenozoic Paleovalleys"/>
+        <property name="description"
+                  value="Descriptions and spatial extents of Cenozoic paleovalleys of the western protion of the Australian continent (Bell, J.G., et al, 2012. WASANT palaeovalley map - distribution of palaeovalleys in arid and semi-arid WA-SA-NT). The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
+        <property name="group" value="Geological Provinces"/>
+        <property name="proxyUrl" value=""/>
+        <property name="proxyCountUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_01"/>
         <property name="nagiosHostGroup" value="GeoscienceAustralia"/>
 
     </bean>
+
     <bean id="knownTypeGeologicalProvinceMetallogenic" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id"
                          value="geologicalProvinceMetallogenic"/>
@@ -686,6 +709,7 @@
                   value="Descriptions and spatial extents of metallogenic provinces of the Australian continent."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_02"/>
@@ -706,6 +730,7 @@
         The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_03"/>
@@ -727,6 +752,7 @@
         The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_04"/>
@@ -747,6 +773,7 @@
         The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_05"/>
@@ -768,6 +795,7 @@
         The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_06"/>
@@ -789,6 +817,7 @@
         The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_07"/>
@@ -809,6 +838,7 @@
         The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_08"/>
@@ -831,6 +861,7 @@
         The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_09"/>
@@ -851,6 +882,7 @@
         The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_10"/>
@@ -872,6 +904,7 @@
         The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_11"/>
@@ -894,6 +927,7 @@
         The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_12"/>
@@ -916,6 +950,7 @@
         The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_13"/>
@@ -937,6 +972,7 @@
         The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_14"/>
@@ -957,6 +993,7 @@
         The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_15"/>
@@ -977,6 +1014,7 @@
         The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_16"/>
@@ -997,6 +1035,7 @@
         The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_17"/>
@@ -1019,6 +1058,7 @@
         The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_18"/>
@@ -1040,6 +1080,7 @@
         The full 2D spatial extent of provinces (ie, including the extent of a province under any overlying cover material) has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_19"/>
@@ -1058,6 +1099,7 @@
         These elements generally relate to older basement, rather than the younger sedimentary basins."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_20"/>
@@ -1076,6 +1118,7 @@
         The full 2D spatial extent (ie, including the extent of a province under any overlying cover material) of provinces has been captured."/>
         <property name="group" value="Geological Provinces"/>
         <property name="proxyUrl" value=""/>
+        <property name="proxyDownloadUrl" value="geologicalProvincesDownload.do" />
         <property name="proxyCountUrl" value=""/>
         <property name="singleTile" value="true"/>
         <property name="order" value="06_Geological Provinces_21"/>

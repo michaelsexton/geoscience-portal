@@ -38,6 +38,7 @@
 
                 <!-- Geological Provinces folder -->
                 <ref bean="knownTypeGeologicalProvinceContact"/>
+                <ref bean="knownTypeCenozoicPaleovalleys" />
                 <ref bean="knownTypeGeologicalProvinceMetallogenic"/>
                 <ref bean="knownTypeSedimentaryBasinsCenozoic"/>
                 <ref bean="knownTypeSedimentaryBasinsMesozoicCenozoic"/>
@@ -141,7 +142,8 @@
             <list>
                 <!-- <ref bean="cswGeoscienceLocal" /> -->
                 <ref bean="cswGARegistry"/>
-                <ref bean="cswEarthResource"/>
+
+                <!--<ref bean="cswEarthResource"/>
                 <ref bean="cswTenements"/>
                 <ref bean="cswBoreholes"/>
                 <ref bean="cswASTER"/>
@@ -150,7 +152,9 @@
                 <ref bean="cswTopography"/>
                 <ref bean="cswRestrictedAreas"/>
                 <ref bean="cswNationalGeophysicsDatasets"/>
-                <ref bean="cswRockProperties"/>
+                <ref bean="cswRockProperties"/>-->
+
+                <ref bean="cswGeoscienceAll"/>
 
                 <ref bean="cswGswa"/>
                 <ref bean="cswGsq"/>
