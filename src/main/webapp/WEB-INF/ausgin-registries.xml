@@ -23,7 +23,15 @@
         <constructor-arg name="recordInformationUrl" value="https://ecat.ga.gov.au/geonetwork/srv/eng/catalog.search#/metadata/%1$s" />
         <property name="noCache" value="true"/>
     </bean>
-    
+
+
+    <bean id="cswGeoscienceAll" class="org.auscope.portal.core.services.csw.CSWServiceItem">
+        <constructor-arg name="id" value="cswGeoscienceAll"/>
+        <constructor-arg name="title" value="Catalog for AusGIN Portal"/>
+        <constructor-arg name="serviceUrl" value="http://localhost:8080/geonetwork/srv/eng/csw"/>
+        <constructor-arg name="recordInformationUrl" value="${portal.build.environment.host}/geonetwork/srv/eng/main.home?uuid=%1$s"/>
+    </bean>
+
     <!-- Virtual CSWs for Known Layers / Featured Data -->
     
     <bean id="cswEarthResource" class="org.auscope.portal.core.services.csw.CSWServiceItem">
