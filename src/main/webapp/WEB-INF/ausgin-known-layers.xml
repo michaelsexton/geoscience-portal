@@ -1466,19 +1466,16 @@
     <bean id="knownTypeRockPropertiesBulkDensity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="bulk-density"/>
         <constructor-arg name="knownLayerSelector">
-            <bean
-                    class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
-                <constructor-arg name="featureTypeName"
-                                 value="ga_rock_properties_wfs:scalar_results"/>
-                <constructor-arg name="layerName" value="bulk_density"/>
-            </bean>
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+<constructor-arg name="layerName" value="rockprops:BulkDensity"/>
+</bean>
         </constructor-arg>
         <property name="name" value="Bulk Density"/>
         <property name="description" value=""/>
         <property name="proxyUrl" value=""/>
-        <property name="proxyCountUrl" value=""/>
+        <property name="proxyCountUrl" value="getRockPropertyCount.do"/>
         <property name="proxyStyleUrl" value=""/>
-        <property name="proxyDownloadUrl" value="getBulkDensityDownload.do"/>
+        <property name="proxyDownloadUrl" value="getRockPropertiesDownload.do"/>
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do"/>
         <property name="mapStyles" value="bulk_density_cluster"/>
 
@@ -1490,21 +1487,18 @@
     <bean id="knownTypeRockPropertiesChargeability" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="chargeability"/>
         <constructor-arg name="knownLayerSelector">
-            <bean
-                    class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
-                <constructor-arg name="featureTypeName"
-                                 value="ga_rock_properties_wfs:scalar_results"/>
-                <constructor-arg name="layerName" value="chargeability"/>
-            </bean>
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+<constructor-arg name="layerName" value="rockprops:Chargeability"/>
+</bean>
         </constructor-arg>
         <property name="name" value="Chargeability"/>
         <property name="description" value=""/>
         <property name="proxyUrl" value=""/>
-        <property name="proxyCountUrl" value=""/>
+        <property name="proxyCountUrl" value="getRockPropertyCount.do"/>
         <property name="proxyStyleUrl" value=""/>
-        <property name="proxyDownloadUrl" value="getChargeabilityDownload.do"/>
+        <property name="proxyDownloadUrl" value="getRockPropertiesDownload.do"/>
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do"/>
-        <property name="mapStyles" value="chargeability_cluster"/>
+<property name="mapStyles" value="chargeability_cluster"/>
         <property name="group" value="Rock Properties"/>
         <property name="staticLegendUrl"
                   value="${portal.build.environment.host}/img/legends/rock_properties/chargeability_cluster_legend.jpg"/>
@@ -1513,19 +1507,16 @@
     <bean id="knownTypeRockPropertiesElectricalConductivity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="electrical-conductivity"/>
         <constructor-arg name="knownLayerSelector">
-            <bean
-                    class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
-                <constructor-arg name="featureTypeName"
-                                 value="ga_rock_properties_wfs:scalar_results"/>
-                <constructor-arg name="layerName"
-                                 value="electrical_conductivity"/>
-            </bean>
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+<constructor-arg name="layerName" value="rockprops:ElectricalConductivity"/>
+</bean>
         </constructor-arg>
         <property name="name" value="Electrical Conductivity"/>
         <property name="description" value=""/>
-        <property name="proxyDownloadUrl" value="getElectricalConductivityDownload.do"/>
+        <property name="proxyDownloadUrl" value="getRockPropertiesDownload.do"/>
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do"/>
-        <property name="mapStyles" value="electrical_conductivity_cluster"/>
+<property name="mapStyles" value="electrical_conductivity_cluster"/>
+        <property name="proxyCountUrl" value="getRockPropertyCount.do"/>
 
         <property name="group" value="Rock Properties"/>
         <property name="staticLegendUrl"
@@ -1535,22 +1526,18 @@
     <bean id="knownTypeRockPropertiesElectricalResistivity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="electrical-resistivity"/>
         <constructor-arg name="knownLayerSelector">
-            <bean
-                    class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
-                <constructor-arg name="featureTypeName"
-                                 value="ga_rock_properties_wfs:scalar_results"/>
-                <constructor-arg name="layerName"
-                                 value="electrical_resistivity"/>
-            </bean>
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+<constructor-arg name="layerName" value="rockprops:ElectricalResistivity"/>
+</bean>
         </constructor-arg>
         <property name="name" value="Electrical Resistivity"/>
         <property name="description" value=""/>
         <property name="proxyUrl" value=""/>
-        <property name="proxyCountUrl" value=""/>
+        <property name="proxyCountUrl" value="getRockPropertyCount.do"/>
         <property name="proxyStyleUrl" value=""/>
-        <property name="proxyDownloadUrl" value="getElectricalResistivityDownload.do"/>
+        <property name="proxyDownloadUrl" value="getRockPropertiesDownload.do"/>
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do"/>
-        <property name="mapStyles" value="electrical_resistivity_cluster"/>
+<property name="mapStyles" value="electrical_resistivity_cluster"/>
         <property name="group" value="Rock Properties"/>
         <property name="staticLegendUrl"
                   value="${portal.build.environment.host}/img/legends/rock_properties/electrical_resistivity_cluster_legend.jpg"/>
@@ -1559,22 +1546,18 @@
     <bean id="knownTypeRockPropertiesGammaBulkDensity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="gamma-bulk-density"/>
         <constructor-arg name="knownLayerSelector">
-            <bean
-                    class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
-                <constructor-arg name="featureTypeName"
-                                 value="ga_rock_properties_wfs:scalar_results"/>
-                <constructor-arg name="layerName"
-                                 value="gamma_bulk_density"/>
-            </bean>
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+<constructor-arg name="layerName" value="rockprops:GammaBulkDensity"/>
+</bean>
         </constructor-arg>
         <property name="name" value="Gamma Bulk Density"/>
         <property name="description" value=""/>
         <property name="proxyUrl" value=""/>
-        <property name="proxyCountUrl" value=""/>
+        <property name="proxyCountUrl" value="getRockPropertyCount.do"/>
         <property name="proxyStyleUrl" value=""/>
-        <property name="proxyDownloadUrl" value="getGammaBulkDensityDownload.do"/>
+        <property name="proxyDownloadUrl" value="getRockPropertiesDownload.do"/>
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do"/>
-        <property name="mapStyles" value="gamma_density_cluster"/>
+<property name="mapStyles" value="gamma_density_cluster"/>
 
         <property name="group" value="Rock Properties"/>
         <property name="staticLegendUrl"
@@ -1584,22 +1567,18 @@
     <bean id="knownTypeRockPropertiesKoenigsbergerRatio" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="koenigsberger-ratio"/>
         <constructor-arg name="knownLayerSelector">
-            <bean
-                    class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
-                <constructor-arg name="featureTypeName"
-                                 value="ga_rock_properties_wfs:scalar_results"/>
-                <constructor-arg name="layerName"
-                                 value="koenigsberger_ratio"/>
-            </bean>
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+<constructor-arg name="layerName" value="rockprops:KoenigsbergerRatio"/>
+</bean>
         </constructor-arg>
         <property name="name" value="Koenigsberger Ratio"/>
         <property name="description" value=""/>
         <property name="proxyUrl" value=""/>
-        <property name="proxyCountUrl" value=""/>
+        <property name="proxyCountUrl" value="getRockPropertyCount.do"/>
         <property name="proxyStyleUrl" value=""/>
-        <property name="proxyDownloadUrl" value="getKoenigsbergerRatioDownload.do"/>
+        <property name="proxyDownloadUrl" value="getRockPropertiesDownload.do"/>
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do"/>
-        <property name="mapStyles" value="koenigsberger_ratio_cluster"/>
+<property name="mapStyles" value="koenigsberger_ratio_cluster"/>
 
         <property name="group" value="Rock Properties"/>
         <property name="staticLegendUrl"
@@ -1609,22 +1588,18 @@
     <bean id="knownTypeRockPropertiesMagneticSusceptibility" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="magnetic-susceptibility"/>
         <constructor-arg name="knownLayerSelector">
-            <bean
-                    class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
-                <constructor-arg name="featureTypeName"
-                                 value="ga_rock_properties_wfs:scalar_results"/>
-                <constructor-arg name="layerName"
-                                 value="magnetic_susceptibility"/>
-            </bean>
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+<constructor-arg name="layerName" value="rockprops:MagneticSusceptibility"/>
+</bean>
         </constructor-arg>
         <property name="name" value="Magnetic Susceptibility"/>
         <property name="description" value=""/>
         <property name="proxyUrl" value=""/>
-        <property name="proxyCountUrl" value=""/>
+        <property name="proxyCountUrl" value="getRockPropertyCount.do"/>
         <property name="proxyStyleUrl" value=""/>
-        <property name="proxyDownloadUrl" value="getMagneticSusceptibilityDownload.do"/>
+        <property name="proxyDownloadUrl" value="getRockPropertiesDownload.do"/>
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do"/>
-        <property name="mapStyles" value="magnetic_susceptibility_cluster"/>
+<property name="mapStyles" value="magnetic_susceptibility_cluster"/>
 
         <property name="group" value="Rock Properties"/>
         <property name="staticLegendUrl"
@@ -1634,22 +1609,18 @@
     <bean id="knownTypeRockPropertiesNaturalGamma" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="natural-gamma"/>
         <constructor-arg name="knownLayerSelector">
-            <bean
-                    class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
-                <constructor-arg name="featureTypeName"
-                                 value="ga_rock_properties_wfs:scalar_results"/>
-                <constructor-arg name="layerName" value="natural_gamma"/>
-            </bean>
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+<constructor-arg name="layerName" value="rockprops:NaturalGamma"/>
+</bean>
         </constructor-arg>
         <property name="name" value="Natural Gamma"/>
         <property name="description" value=""/>
         <property name="proxyUrl" value=""/>
-        <property name="proxyCountUrl" value=""/>
+        <property name="proxyCountUrl" value="getRockPropertyCount.do"/>
         <property name="proxyStyleUrl" value=""/>
-        <property name="proxyDownloadUrl" value="getNaturalGammaDownload.do"/>
+        <property name="proxyDownloadUrl" value="getRockPropertiesDownload.do"/>
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do"/>
-
-        <property name="mapStyles" value="natural_gamma_cluster"/>
+<property name="mapStyles" value="natural_gamma_cluster"/>
 
         <property name="group" value="Rock Properties"/>
         <property name="staticLegendUrl"
@@ -1659,21 +1630,18 @@
     <bean id="knownTypeRockPropertiesPorosity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="porosity"/>
         <constructor-arg name="knownLayerSelector">
-            <bean
-                    class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
-                <constructor-arg name="featureTypeName"
-                                 value="ga_rock_properties_wfs:scalar_results"/>
-                <constructor-arg name="layerName" value="porosity"/>
-            </bean>
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+<constructor-arg name="layerName" value="rockprops:Porosity"/>
+</bean>
         </constructor-arg>
         <property name="name" value="Porosity"/>
         <property name="description" value=""/>
         <property name="proxyUrl" value=""/>
-        <property name="proxyCountUrl" value=""/>
+        <property name="proxyCountUrl" value="getRockPropertyCount.do"/>
         <property name="proxyStyleUrl" value=""/>
-        <property name="proxyDownloadUrl" value="getPorosityDownload.do"/>
+        <property name="proxyDownloadUrl" value="getRockPropertiesDownload.do"/>
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do"/>
-        <property name="mapStyles" value="porosity_cluster"/>
+<property name="mapStyles" value="porosity_cluster"/>
 
 
         <property name="group" value="Rock Properties"/>
@@ -1684,22 +1652,19 @@
     <bean id="knownTypeRockPropertiesRemanentMagnetisation" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="remanent-magnetisation"/>
         <constructor-arg name="knownLayerSelector">
-            <bean
-                    class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
-                <constructor-arg name="featureTypeName"
-                                 value="ga_rock_properties_wfs:remanent_magnetisation"/>
-                <constructor-arg name="layerName"
-                                 value="remanent_magnetisation"/>
-            </bean>
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+<constructor-arg name="layerName" value="rockprops:RemanentMagnetisation"/>
+</bean>
         </constructor-arg>
         <property name="name" value="Remanent Magnetisation"/>
         <property name="description" value=""/>
         <property name="proxyUrl" value=""/>
-        <property name="proxyCountUrl" value=""/>
+        <property name="proxyCountUrl" value="getRockPropertyCount.do"/>
+
         <property name="proxyStyleUrl" value=""/>
-        <property name="proxyDownloadUrl" value="getRemanentMagnetisationDownload.do"/>
+        <property name="proxyDownloadUrl" value="getRockPropertiesDownload.do"/>
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do"/>
-        <property name="mapStyles" value="remanent_magnetisation_cluster"/>
+<property name="mapStyles" value="remanent_magnetisation_cluster"/>
 
         <property name="group" value="Rock Properties"/>
         <property name="staticLegendUrl"
@@ -1709,21 +1674,18 @@
     <bean id="knownTypeRockPropertiesSonicVelocity" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="sonic-velocity"/>
         <constructor-arg name="knownLayerSelector">
-            <bean
-                    class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
-                <constructor-arg name="featureTypeName"
-                                 value="ga_rock_properties_wfs:scalar_results"/>
-                <constructor-arg name="layerName" value="sonic_velocity"/>
-            </bean>
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+<constructor-arg name="layerName" value="rockprops:SonicVelocity"/>
+</bean>
         </constructor-arg>
         <property name="name" value="Sonic Velocity"/>
         <property name="description" value=""/>
         <property name="proxyUrl" value=""/>
-        <property name="proxyCountUrl" value=""/>
+        <property name="proxyCountUrl" value="getRockPropertyCount.do"/>
         <property name="proxyStyleUrl" value=""/>
-        <property name="proxyDownloadUrl" value="getSonicVelocityDownload.do"/>
+        <property name="proxyDownloadUrl" value="getRockPropertiesDownload.do"/>
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do"/>
-        <property name="mapStyles" value="sonic_velocity_cluster"/>
+<property name="mapStyles" value="sonic_velocity_cluster"/>
 
         <property name="group" value="Rock Properties"/>
         <property name="staticLegendUrl"
@@ -1733,18 +1695,17 @@
     <bean id="knownTypeRockPropertiesTemperature" class="org.auscope.portal.core.view.knownlayer.KnownLayer">
         <constructor-arg name="id" value="temperature"/>
         <constructor-arg name="knownLayerSelector">
-            <bean
-                    class="org.auscope.portal.core.view.knownlayer.WMSWFSSelector">
-                <constructor-arg name="featureTypeName"
-                                 value="ga_rock_properties_wfs:scalar_results"/>
-                <constructor-arg name="layerName" value="temperature"/>
-            </bean>
+            <bean class="org.auscope.portal.core.view.knownlayer.WMSSelector">
+<constructor-arg name="layerName" value="rockprops:Temperature"/>
+</bean>
         </constructor-arg>
         <property name="name" value="Temperature"/>
         <property name="description" value=""/>
-        <property name="proxyDownloadUrl" value="getTemperatureDownload.do"/>
+        <property name="proxyDownloadUrl" value="getRockPropertiesDownload.do"/>
+        <property name="proxyCountUrl" value="getRockPropertyCount.do"/>
+
         <property name="proxyGetFeatureInfoUrl" value="rockPropertiesGetFeatureInfo.do"/>
-        <property name="mapStyles" value="temperature_cluster"/>
+<property name="mapStyles" value="temperature_cluster"/>
 
         <property name="group" value="Rock Properties"/>
         <property name="staticLegendUrl"

@@ -8,10 +8,11 @@ import org.auscope.portal.core.services.PortalServiceException;
 import org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker;
 import org.auscope.portal.core.services.methodmakers.WFSGetFeatureMethodMaker.ResultType;
 import org.auscope.portal.core.services.methodmakers.filter.FilterBoundingBox;
+import org.auscope.portal.core.services.methodmakers.filter.SimpleBBoxFilter;
 import org.auscope.portal.core.services.responses.wfs.WFSCountResponse;
 import org.auscope.portal.core.services.responses.wfs.WFSTransformedResponse;
 import org.auscope.portal.core.xslt.WfsToKmlTransformer;
-import org.auscope.portal.mineraloccurrence.RockPropertyFilter;
+import org.auscope.portal.mineraloccurrence.RockPropertyNamespaceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,13 +29,15 @@ public class RockPropertyService extends BaseWFSService {
 	public RockPropertyService(HttpServiceCaller httpServiceCaller, WFSGetFeatureMethodMaker methodMaker,
 			WfsToKmlTransformer wfsToKmlTransformer) {
 		super(httpServiceCaller, methodMaker);
+		this.wfsMethodMaker.setNamespaces(new RockPropertyNamespaceContext());
 		this.wfsToKmlTransformer = wfsToKmlTransformer;
 
 	}
 
 	public WFSTransformedResponse getRockProperties(String serviceUrl, String rockProperty, int maxFeatures,
 			FilterBoundingBox bbox) throws Exception {
-		String filterString = this.getRockPropertyFilter(rockProperty, bbox);
+		SimpleBBoxFilter filter = new SimpleBBoxFilter();
+		String filterString = filter.getFilterStringBoundingBox(bbox);
 		HttpRequestBase method = null;
 
 		try {
@@ -52,21 +55,13 @@ public class RockPropertyService extends BaseWFSService {
 
 	public WFSCountResponse getRockPropertyCount(String serviceUrl, String rockProperty, int maxFeatures,
 			FilterBoundingBox bbox) throws Exception {
-		String filterString = this.getRockPropertyFilter(rockProperty, bbox);
-		HttpRequestBase method = null;
-		method = generateWFSRequest(serviceUrl, "scalar_results", null, filterString, maxFeatures, null,
+		SimpleBBoxFilter filter = new SimpleBBoxFilter();
+		String filterString = filter.getFilterStringBoundingBox(bbox);
+		HttpRequestBase method = generateWFSRequest(serviceUrl, rockProperty, null, filterString, maxFeatures, null,
 				ResultType.Hits);
 		return getWfsFeatureCount(method);
 	}
 
-	public String getRockPropertyFilter(String rockProperty, FilterBoundingBox bbox) {
-		RockPropertyFilter filter = new RockPropertyFilter(rockProperty);
-		if (bbox == null) {
-			return filter.getFilterStringAllRecords();
-		} else {
-			return filter.getFilterStringBoundingBox(bbox);
-		}
-	}
 
 	/**
 	 * @param serviceUrl
@@ -76,11 +71,12 @@ public class RockPropertyService extends BaseWFSService {
 	 * @return
 	 * @throws Exception
 	 */
-	public InputStream downloadRockProperties(String serviceUrl, String type, String filterString, String outputFormat)
+	public InputStream downloadRockProperties(String serviceUrl, String type, FilterBoundingBox bbox, String outputFormat)
 			throws Exception {
 		HttpRequestBase method = null;
 		try {
-
+			SimpleBBoxFilter filter = new SimpleBBoxFilter();
+			String filterString = filter.getFilterStringBoundingBox(bbox);
 			method = generateWFSRequest(serviceUrl, type, null, filterString, null, null, ResultType.Results,
 					outputFormat);
 			return httpServiceCaller.getMethodResponseAsStream(method);
