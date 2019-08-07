@@ -75,7 +75,7 @@ public class EarthResourceFilterController extends BasePortalController {
 
         String filterString = this.earthResourceService.getMinOccViewFilter(name, bbox);
 
-        String style = SLDLoader.loadSLDWithFilter("/au/gov/geoscience/portal/sld/labels/minoccview.sld", filterString);
+        String style = SLDLoader.loadSLDWithFilter("/au/gov/geoscience/portal/sld/minoccview.sld", filterString);
 
         response.setContentType("text/xml");
 
@@ -110,7 +110,7 @@ public class EarthResourceFilterController extends BasePortalController {
         String filterString = this.earthResourceService.getMineFilter(mineName, status, bbox);
 
 
-        String style = SLDLoader.loadSLDWithFilter("/au/gov/geoscience/portal/sld/labels/mine.sld", filterString);
+        String style = SLDLoader.loadSLDWithFilter("/au/gov/geoscience/portal/sld/mine.sld", filterString);
 
         response.setContentType("text/xml");
 
@@ -185,7 +185,7 @@ public class EarthResourceFilterController extends BasePortalController {
 
         String ermlLiteNamespace = namespaceService.getNamespaceURI(serviceUrl, ERL_PREFIX);
 
-        String style = SLDLoader.loadSLDWithFilter("/au/gov/geoscience/portal/sld/labels/mineraloccurrenceview.sld", filterString, ERL_PREFIX, ermlLiteNamespace);
+        String style = SLDLoader.loadSLDWithFilter("/au/gov/geoscience/portal/sld/mineraloccurrenceview.sld", filterString, ERL_PREFIX, ermlLiteNamespace);
 
         response.setContentType("text/xml");
 
@@ -255,7 +255,7 @@ public class EarthResourceFilterController extends BasePortalController {
 
         String ermlLiteNamespace = namespaceService.getNamespaceURI(serviceUrl, ERL_PREFIX);
 
-        String style = SLDLoader.loadSLDWithFilter("/au/gov/geoscience/portal/sld/labels/mineview.sld", filterString, ERL_PREFIX, ermlLiteNamespace);
+        String style = SLDLoader.loadSLDWithFilter("/au/gov/geoscience/portal/sld/mineview.sld", filterString, ERL_PREFIX, ermlLiteNamespace);
 
         response.setContentType("text/xml");
 
@@ -325,7 +325,7 @@ public class EarthResourceFilterController extends BasePortalController {
 
         String ermlLiteNamespace = namespaceService.getNamespaceURI(serviceUrl, ERL_PREFIX);
 
-        String style = SLDLoader.loadSLDWithFilter("/au/gov/geoscience/portal/sld/labels/commodityresourceview.sld", filterString, ERL_PREFIX, ermlLiteNamespace);
+        String style = SLDLoader.loadSLDWithFilter("/au/gov/geoscience/portal/sld/commodityresourceview.sld", filterString, ERL_PREFIX, ermlLiteNamespace);
 
 
         response.setContentType("text/xml");
@@ -384,7 +384,7 @@ public class EarthResourceFilterController extends BasePortalController {
 
         String filterString = this.earthResourceService.getMiningActivityFilter(mineName, bbox);
 
-        String style = SLDLoader.loadSLDWithFilter("/au/gov/geoscience/portal/sld/labels/miningactivity.sld", filterString);
+        String style = SLDLoader.loadSLDWithFilter("/au/gov/geoscience/portal/sld/miningactivity.sld", filterString);
 
         response.setContentType("text/xml");
 

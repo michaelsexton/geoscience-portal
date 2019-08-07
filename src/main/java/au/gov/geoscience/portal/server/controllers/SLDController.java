@@ -37,7 +37,7 @@ public class SLDController extends BasePortalController {
     @RequestMapping("/getOilStyle.do")
     public void getOilStyle(HttpServletResponse response) throws Exception {
 
-        String oilStyle = ResourceUtil.loadResourceAsString("au/gov/geoscience/portal/sld/oilpipelines.sld");
+        String oilStyle = SLDLoader.loadSLD("/au/gov/geoscience/portal/sld/oilpipelines.sld", null, true);
 
         writeStyleStream(oilStyle, response);
 
@@ -46,9 +46,9 @@ public class SLDController extends BasePortalController {
     @RequestMapping("/getGasStyle.do")
     public void getGasStyle(HttpServletResponse response) throws Exception {
 
-        String gasStyle = ResourceUtil.loadResourceAsString("au/gov/geoscience/portal/sld/gaspipelines.sld");
+        String gasStyle = SLDLoader.loadSLD("/au/gov/geoscience/portal/sld/gaspipelines.sld", null, true);
 
-        writeStyleStream(gasStyle, response);
+         writeStyleStream(gasStyle, response);
 
     }
 
